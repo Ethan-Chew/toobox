@@ -1,2 +1,2 @@
-# toolbox
-Toolbox of different tools to help in your Academics
+# toobox
+Toobox of different tools to help in your Academics
