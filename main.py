@@ -167,14 +167,6 @@ if __name__ == "__main__":
     root.geometry("+{}+{}".format(x_cordinate, y_cordinate))
     
     root.state('zoomed')
-    root.attributes('-notify', True)
-
-    notification.notify(
-        title = 'testing',
-        message = 'message',
-        app_icon = None,
-        timeout = 10,
-    )
     
     root.mainloop()
 ### ⓖ ⒢ ℊ Granwyn's Part ℊ ⒢ ⓖ ###
