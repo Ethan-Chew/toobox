@@ -1,4 +1,4 @@
-from typing import final
+# Created by Ethan Chew
 from chemlib import Element
 from chemlib import Compound
 # Example: 2HCl(aq) + 2Na(s) -> 2NaCl(aq) + H2(g)

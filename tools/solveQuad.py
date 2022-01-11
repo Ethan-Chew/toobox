@@ -1,3 +1,4 @@
+# Created by Ethan Chew
 a, b, c = 0, 0, 0
 while True:
     ## Check if user typed x^2 or x and let that = 1
@@ -18,6 +19,7 @@ while True:
         print("ValErr")
 
 def QuadRoots():
+    # Find the roots using discriminant
     discriminant = ((b**2)-(4*a*c))
     if discriminant < 0:
         print("No Real Solution")

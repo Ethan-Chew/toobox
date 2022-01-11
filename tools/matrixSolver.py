@@ -1,3 +1,4 @@
+# Created by Jerick Seng
 class matrix():
 	def __init__(self,matrix=None,size=[]):
 		if matrix!=None:
