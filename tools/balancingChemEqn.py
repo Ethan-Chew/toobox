@@ -42,8 +42,20 @@ def getOccurances():
 
     ## Loop through right side components
     for i in range(len(rightSideCompounds)):
+        oldMul = ""
+        for alpha in range(len(rightSideCompounds[i])):
+            if rightSideCompounds[i][alpha].isdigit():
+                oldMul += rightSideCompounds[i][alpha]
+            else:
+                break
+        if oldMul == 0 or oldMul == "":
+            oldMul = 1
+        else:
+            oldMul = int(oldMul)
         splittedCompound = rightSideCompounds[i].split("(")
-        rightSideOccurances = rightSideOccurances | Compound(splittedCompound[0]).occurences
+        occurences = Compound(splittedCompound[0]).occurences
+        occurences.update((x, y*oldMul) for x, y in occurences.items())
+        rightSideOccurances = rightSideOccurances | occurences
  
     return leftSideOccurances, rightSideOccurances
 
@@ -56,6 +68,9 @@ while rightSideOccurances != leftSideOccurances:
     rightSideKeys = list(rightSideOccurances.keys())
     rightSideVals = list(rightSideOccurances.values())
     numOfElements = len(rightSideOccurances)
+
+    if leftSideOccurances == rightSideOccurances:
+        break
 
     for i in range(numOfElements):
         for j in range(numOfElements):
@@ -111,8 +126,6 @@ while rightSideOccurances != leftSideOccurances:
                                 leftSideOccurances, rightSideOccurances = getOccurances()
                                 if leftSideOccurances == rightSideOccurances:
                                     break
-        if leftSideOccurances == rightSideOccurances:
-            break
     if leftSideOccurances == rightSideOccurances:
         break
 
