@@ -3,6 +3,7 @@ import tkinter as tk
 from tkinter import ttk
 import os
 import time
+import config
 
 class App(ttk.Frame):
     def __init__(self, parent):
@@ -136,8 +137,11 @@ class App(ttk.Frame):
         self.sizegrip.pack(side="right")
 
     def on_tree_select(self, event):
-        for item in self.treeview.selection():
-            print(str("Selected Item:"+self.treeview.item(self.treeview.selection()))+"\n"+self.treeview.item(item, "text"))
+        # Send currently selected item to be stored in config.py as a global var
+        currentlySelected = self.treeview.item(self.treeview.focus())['text']
+        config.currentlySelected = currentlySelected
+        # for item in self.treeview.selection():
+        #     print(str("Selected Item:"+self.treeview.item(self.treeview.selection()))+"\n"+self.treeview.item(item, "text"))
             
     def _quit(self):
         root.quit()

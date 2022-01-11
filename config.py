@@ -1,0 +1,2 @@
+username = ["User"]
+currentlySelected = "Home"

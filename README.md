@@ -11,4 +11,8 @@ Toobox of different tools to help in your Academics
 2. Quadratic Equation Solver
 3. Matrix Solver
 
+## Credits
+1. Chemlib
+2. sun-valley Theme for tkinker
+
 ###### Developed by [Granwyn Tan](granwyntan.github.io), [Ethan Chew](www.ethanchew.com), [Jerick Seng](jer123se12.github.io)
