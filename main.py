@@ -1,3 +1,4 @@
+### ⓖ ⒢ ℊ Granwyn's Part ℊ ⒢ ⓖ ###
 import tkinter as tk
 from tkinter import ttk
 import os
@@ -176,3 +177,4 @@ if __name__ == "__main__":
     )
     
     root.mainloop()
+### ⓖ ⒢ ℊ Granwyn's Part ℊ ⒢ ⓖ ###
