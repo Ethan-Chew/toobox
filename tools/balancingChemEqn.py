@@ -8,87 +8,91 @@ from chemlib import Compound
 equation = "HCl(aq) + Na(s) -> NaCl(aq) + H2(g)"
 
 # Variables
-leftSideCompounds = []
-rightSideCompounds = []
-leftSideOccurances = {}
-rightSideOccurances = {}
+reactantsCompounds = []
+productsCompounds = []
+reactantsOccurances = {}
+productsOccurances = {}
 
 # Main
-leftSideCompounds, rightSideCompounds = equation.split(" -> ")
-leftSideCompounds = leftSideCompounds.split(" + ")
-rightSideCompounds = rightSideCompounds.split(" + ")
+reactantsCompounds, productsCompounds = equation.split(" -> ")
+reactantsCompounds = reactantsCompounds.split(" + ")
+productsCompounds = productsCompounds.split(" + ")
 
 # Function to get occurances
 def getOccurances():
-    leftSideOccurances = {}
-    rightSideOccurances = {}
+    reactantsOccurances = {}
+    productsOccurances = {}
 
     ## Loop through left side components
-    for i in range(len(leftSideCompounds)):
+    for i in range(len(reactantsCompounds)):
         oldMul = ""
-        for alpha in range(len(leftSideCompounds[i])):
-            if leftSideCompounds[i][alpha].isdigit():
-                oldMul += leftSideCompounds[i][alpha]
+        for alpha in range(len(reactantsCompounds[i])):
+            if reactantsCompounds[i][alpha].isdigit():
+                oldMul += reactantsCompounds[i][alpha]
             else:
                 break
         if oldMul == 0 or oldMul == "":
             oldMul = 1
         else:
             oldMul = int(oldMul)
-        splittedCompound = leftSideCompounds[i].split("(")
+        splittedCompound = reactantsCompounds[i].split("(")
         occurences = Compound(splittedCompound[0]).occurences
         occurences.update((x, y*oldMul) for x, y in occurences.items())
-        leftSideOccurances = leftSideOccurances | occurences
+        reactantsOccurances = reactantsOccurances | occurences
 
     ## Loop through right side components
-    for i in range(len(rightSideCompounds)):
+    for i in range(len(productsCompounds)):
         oldMul = ""
-        for alpha in range(len(rightSideCompounds[i])):
-            if rightSideCompounds[i][alpha].isdigit():
-                oldMul += rightSideCompounds[i][alpha]
+        for alpha in range(len(productsCompounds[i])):
+            if productsCompounds[i][alpha].isdigit():
+                oldMul += productsCompounds[i][alpha]
             else:
                 break
         if oldMul == 0 or oldMul == "":
             oldMul = 1
         else:
             oldMul = int(oldMul)
-        splittedCompound = rightSideCompounds[i].split("(")
+        splittedCompound = productsCompounds[i].split("(")
         occurences = Compound(splittedCompound[0]).occurences
         occurences.update((x, y*oldMul) for x, y in occurences.items())
-        rightSideOccurances = rightSideOccurances | occurences
+        productsOccurances = productsOccurances | occurences
  
-    return leftSideOccurances, rightSideOccurances
+    return reactantsOccurances, productsOccurances
 
-leftSideOccurances, rightSideOccurances = getOccurances()
+reactantsOccurances, productsOccurances = getOccurances()
 
 ## Loop indefinately until both sides are balanced
-while rightSideOccurances != leftSideOccurances:
-    leftSideKeys = list(leftSideOccurances.keys())
-    leftSideVals = list(leftSideOccurances.values())
-    rightSideKeys = list(rightSideOccurances.keys())
-    rightSideVals = list(rightSideOccurances.values())
-    numOfElements = len(rightSideOccurances)
+while productsOccurances != reactantsOccurances:
+    reactantsKeys = list(reactantsOccurances.keys())
+    reactantsVals = list(reactantsOccurances.values())
+    productsKeys = list(productsOccurances.keys())
+    productsVals = list(productsOccurances.values())
+    numOfElements = len(productsOccurances)
 
-    if leftSideOccurances == rightSideOccurances:
+    if reactantsOccurances == productsOccurances:
         break
 
     for i in range(numOfElements):
         for j in range(numOfElements):
-            if leftSideKeys[i] == rightSideKeys[j]:
-                if leftSideVals[i] != rightSideVals[j]:
+            print(reactantsKeys[i], i)
+            print(productsKeys[j], j)
+            if reactantsKeys[i] == productsKeys[j]:
+                if reactantsVals[i] != productsVals[j]:
+                    print(reactantsKeys[i], productsKeys[j])
+                    print(reactantsVals[i], productsVals[j])
                     # Same element, number of occurances is not the same
                     ## Find the compound relating to the lower number of occurances
-                    if leftSideVals[i] > rightSideVals[j]:
+                    if reactantsVals[i] > productsVals[j]:
                         # Right side lesser
-                        for e in range(len(rightSideCompounds)):
-                            if rightSideKeys[j] in rightSideCompounds[e]:
+                        for e in range(len(productsCompounds)):
+                            if productsKeys[j] in productsCompounds[e]:
                                 # Element in Compound
-                                multiplier = leftSideVals[i] - rightSideVals[j]
-                                compound = list(rightSideCompounds[e])
+                                multiplier = reactantsVals[i] - productsVals[j]
+                                compound = list(productsCompounds[e])
                                 # Element in Compound
-                                addedMultiplier = rightSideVals[j] - leftSideVals[i]
+                                addedMultiplier = productsVals[j] - reactantsVals[i]
                                 oldMul = ""
-                                compound = list(leftSideCompounds[e])
+                                compound = list(reactantsCompounds[e])
                                 if compound[0].isdigit(): # Multiplier is present
                                     for alpha in compound:
                                         if alpha.isdigit():
@@ -101,16 +105,20 @@ while rightSideOccurances != leftSideOccurances:
                                     compound[0] = str(oldMul)
                                 else:
                                     compound.insert(0, str(multiplier))
-                                rightSideCompounds[e] = "".join(compound)
-                                leftSideOccurances, rightSideOccurances = getOccurances()
+                                productsCompounds[e] = "".join(compound)
+                                reactantsOccurances, productsOccurances = getOccurances()
+                                reactantsKeys = list(reactantsOccurances.keys())
+                                reactantsVals = list(reactantsOccurances.values())
+                                productsKeys = list(productsOccurances.keys())
+                                productsVals = list(productsOccurances.values())
                     else:
                         # Left side lesser
-                        for e in range(len(leftSideCompounds)):
-                            if leftSideKeys[i] in leftSideCompounds[e]:
+                        for e in range(len(reactantsCompounds)):
+                            if reactantsKeys[i] in reactantsCompounds[e]:
                                 # Element in Compound
-                                addedMultiplier = rightSideVals[j] - leftSideVals[i]
+                                addedMultiplier = productsVals[j] - reactantsVals[i]
                                 oldMul = ""
-                                compound = list(leftSideCompounds[e])
+                                compound = list(reactantsCompounds[e])
                                 if compound[0].isdigit(): # Multiplier is present
                                     for alpha in compound:
                                         if alpha.isdigit():
@@ -122,12 +130,16 @@ while rightSideOccurances != leftSideOccurances:
                                     compound.insert(0, str(oldMul + addedMultiplier))
                                 else: # Currently no multiplier
                                     compound.insert(0, str(addedMultiplier + 1))
-                                leftSideCompounds[e] = "".join(compound)
-                                leftSideOccurances, rightSideOccurances = getOccurances()
-                                if leftSideOccurances == rightSideOccurances:
+                                reactantsCompounds[e] = "".join(compound)
+                                reactantsOccurances, productsOccurances = getOccurances()
+                                reactantsKeys = list(reactantsOccurances.keys())
+                                reactantsVals = list(reactantsOccurances.values())
+                                productsKeys = list(productsOccurances.keys())
+                                productsVals = list(productsOccurances.values())
+                                if reactantsOccurances == productsOccurances:
                                     break
-    if leftSideOccurances == rightSideOccurances:
+    if reactantsOccurances == productsOccurances:
         break
 
-print(leftSideCompounds)
-print(rightSideCompounds)
+print(reactantsCompounds)
+print(productsCompounds)

@@ -33,7 +33,7 @@ def findCharge(element):
         newElement = "{}{}".format(element,elementCharge)
     return newElement
 
-## Split if Aqueous
+## Split if aqueous
 
 for item in leftSideEqn:
     if item != "" and item != "+":
@@ -46,7 +46,7 @@ for item in leftSideEqn:
                 for element in compoundOccurances:
                     newElement = findCharge(element)
                     counter += 1
-                    leftSideElements["Aq ({})".format(counter)] = newElement
+                    leftSideElements["aq ({})".format(counter)] = newElement
                     
         else:
             itemKey = "{} ({})".format(splittedItem[1].replace(")", ""),len(leftSideElements) + 1)
@@ -63,7 +63,7 @@ for item in rightSideEqn:
                 for element in compoundOccurances:
                     newElement = findCharge(element)
                     counter += 1
-                    rightSideElements["Aq ({})".format(counter)] = newElement
+                    rightSideElements["aq ({})".format(counter)] = newElement
         else:
             itemKey = "{} ({})".format(splittedItem[1].replace(")", ""),len(leftSideElements) + 1)
             rightSideElements[itemKey] = splittedItem[0]
@@ -77,7 +77,7 @@ rightElements = list(rightSideElements.values())
 for l in range(len(leftSideElements)):
     for r in range(len(rightSideElements)):
          if leftElements[l] == rightElements[r]:
-            if "Aq" in leftData[l] and "Aq" in rightData[r]:
+            if "aq" in leftData[l] and "aq" in rightData[r]:
                 leftSideElements.pop(leftData[l])
                 rightSideElements.pop(rightData[r])
 
