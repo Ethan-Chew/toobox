@@ -85,7 +85,7 @@ class App(ttk.Frame):
         self.scrollbar.config(command=self.treeview.yview)
         
         ## Treeview columns
-        self.treeview.column("#0", anchor="w", minwidth=120)
+        self.treeview.column("#0", anchor="w", minwidth=100)
         ## Define treeview data
         treeview_data = [
             ("", 1, "Chemistry"),
@@ -139,12 +139,12 @@ class App(ttk.Frame):
                 parent=item[0], index="end", iid=item[1], text=item[2]
             )
             if item[0] == "" or item[1] in {8, 15, 16, 23, 24, 29, 34, 38, 41}:
-                self.treeview.item(item[1], open=False)  # Open parents
+                self.treeview.item(item[1], open=True)  # Open parents
 ##        children = self.treeview.get_children() 
 ##        self.treeview.selection_set(children)
         # Select and scroll
         # self.treeview.selection_set(10)
-        self.treeview.see(21)
+        self.treeview.see(1)
 
         # Home Screen UI
         ## Main Home Screen Frame
