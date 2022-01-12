@@ -166,11 +166,10 @@ class App(ttk.Frame):
         self.appDescText = ttk.Label(text="Test")
 
     def on_tree_select(self, event):
-        # Send currently selected item to be stored in config.py as a global var
-        currentlySelected = self.treeview.item(self.treeview.focus())['text']
-        config.currentlySelected = currentlySelected
-        # for item in self.treeview.selection():
-        #     print(str("Selected Item:"+self.treeview.item(self.treeview.selection()))+"\n"+self.treeview.item(item, "text"))
+##        currentlySelected = self.treeview.item(self.treeview.focus())['text']
+##        config.currentlySelected = currentlySelected
+        for item in self.treeview.selection():
+            print(str("Selected Item: "+self.treeview.item(item, "text")))
             
     def _quit(self):
         root.quit()
@@ -187,7 +186,7 @@ if __name__ == "__main__":
 
     # Simply set the theme
     root.tk.call("source", "sun-valley.tcl")
-    root.tk.call("set_theme", "light")
+    root.tk.call("set_theme", "dark")
     
     app = App(root)
     app.pack(fill="both", expand=True)
