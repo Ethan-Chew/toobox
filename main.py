@@ -160,19 +160,20 @@ class App(ttk.Frame):
         ## Top Labels
         self.welcomeFrame = ttk.Frame(self.notebook)
         self.welcomeFrame.pack(side="top", padx=25, pady=18, anchor="w")
-        self.helloUserLab = ttk.Label(self.welcomeFrame ,text="Hello, {}".format(config.username), font=("",50, 'bold'))
+        self.helloUserLab = ttk.Label(self.welcomeFrame ,text="Hello, {}".format(config.username), font=("",50,'bold'))
         self.helloUserLab.pack(pady=2)
         self.welcomeLab = ttk.Label(self.welcomeFrame, text="Welcome to Toobox!",font=("", 15))
         self.welcomeLab.pack(side="left")
 
         ## Toobox Information
-        self.tooboxInfoFrame = ttk.Frame(self.notebook)
+        self.tooboxInfoFrame = ttk.Frame(self.notebook, width=200)
         self.tooboxInfoFrame.pack(side="bottom", padx=25, pady=18, anchor="w")
-        self.imgCanvas = Canvas(self.tooboxInfoFrame, width = 300, height = 300)
-        self.imgCanvas.pack()
-        img = ImageTk.PhotoImage(Image.open(r'./src/images/AppIcon.png'))
-        self.imgCanvas.create_image(20, 20, anchor="w", image=img)
-        self.appDescText = ttk.Label(text="Test")
+        self.imgCanvas = Canvas(self.tooboxInfoFrame, width=300, height=300)
+        self.imgCanvas.pack(fill="both", expand="yes")
+        img = tk.PhotoImage(file='./src/images/AppIcon.png')
+        self.imgCanvas.create_image(100,100,anchor="w", image=img)
+        self.appDescText = ttk.Label(self.tooboxInfoFrame, font=("",15), wraplength=200, justify="left" ,text="Toobox is an app is a Toolbox of different tools to help in your Academics. Toobox provides various tools for a wide range of topics and subjects that will definately help you while revising and studying.")
+        self.appDescText.pack(side="left")
 
     def on_tree_select(self, event):
 ##        config.currentlySelected = self.treeview.item(self.treeview.focus())['text']
@@ -199,7 +200,9 @@ if __name__ == "__main__":
     root.tk.call("source", "sun-valley.tcl")
     root.tk.call("set_theme", "light")
     
-    root.iconbitmap(r'src/images/AppIcon.icns')
+    # Set App Icon
+    appIconImg = './src/images/AppIcon.icns'
+    root.iconbitmap(appIconImg)
 
     app = App(root)
     app.pack(fill="both", expand=True)
