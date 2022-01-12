@@ -8,6 +8,8 @@ import time
 import config
 from PIL import ImageTk, Image
 
+from tools.IonicEqn import ionicEqn
+
 # Important UI Details
 ## 1. Default Font Size is *20*
 
@@ -58,8 +60,8 @@ class App(ttk.Frame):
 
 
         ## Treeview Label
-        self.treeViewTopLab = ttk.Label(self.pane_1, text="Tools:", font=("", 20, 'bold'))
-        self.treeViewTopLab.pack(side="top", pady=20, anchor="w", fill="x")
+        self.treeViewTopLab = ttk.Label(self.pane_1, text="Tools", font=("", 20, 'bold'))
+        self.treeViewTopLab.pack(side="top", pady=10, anchor="w", fill="x")
 
         self.treeview.bind("<<TreeviewSelect>>", self.on_tree_select)
         self.treeview.pack(expand=True, fill="both")
@@ -120,8 +122,11 @@ class App(ttk.Frame):
                 parent=item[0], index="end", iid=item[1], text=item[2]
             )
             if item[0] == "" or item[1] in {8, 15, 16, 23, 24, 29, 34, 38, 41}:
-                self.treeview.item(item[1], open=False)  # Open parents
-
+                self.treeview.item(item[1], open=True)  # Open parents
+##        children = self.treeview.get_children() 
+##        self.treeview.selection_set(children)
+        # Select and scroll
+        # self.treeview.selection_set(10)
         self.treeview.see(21)
 
         # Home Screen UI
@@ -174,18 +179,16 @@ if __name__ == "__main__":
     # Simply set the theme
     root.tk.call("source", "sun-valley.tcl")
     root.tk.call("set_theme", "dark")
+    root.iconbitmap('AppIcon.ico')
 
     app = App(root)
     app.pack(fill="both", expand=True)
     root.update()
     root.minsize(root.winfo_width(), root.winfo_height())
     x_cordinate = root.winfo_screenwidth()
-    # int((root.winfo_screenwidth() / 2) - (root.winfo_width() / 2))
     y_cordinate = root.winfo_screenheight()
-    # int((root.winfo_screenheight() / 2) - (root.winfo_height() / 2))
     root.geometry("+{}+{}".format(x_cordinate, y_cordinate))
 
     root.state('zoomed')
 
     root.mainloop()
-### ⓖ ⒢ ℊ Granwyn's Part ℊ ⒢ ⓖ ###
