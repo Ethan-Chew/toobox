@@ -85,7 +85,7 @@ class App(ttk.Frame):
         self.scrollbar.config(command=self.treeview.yview)
         
         ## Treeview columns
-        self.treeview.column("#0", anchor="w", minwidth=80, stretch="no")
+        self.treeview.column("#0", anchor="w", minwidth=120)
         ## Define treeview data
         treeview_data = [
             ("", 1, "Chemistry"),
@@ -175,7 +175,12 @@ class App(ttk.Frame):
         self.appDescText = ttk.Label(text="Test")
 
     def on_tree_select(self, event):
-        config.currentlySelected = self.treeview.item(self.treeview.focus())['text']
+##        config.currentlySelected = self.treeview.item(self.treeview.focus())['text']
+##        print(self.treeview.item(self.treeview.focus())['text'])
+##        if config.currentlySelected == "Ionic Equation":
+##            lambda: controller.show_frame("ionicEqn")
+        for item in self.treeview.selection():
+            print(str("Selected Item: "+self.treeview.item(item, "text")))
         
     def _quit(self):
         root.quit()
