@@ -28,9 +28,7 @@ class ionicEqn(ttk.Frame):
         self.welcomeLab = ttk.Label(self.welcomeFrame, text="Welcome to Toobox!",font=("", 15))
         self.welcomeLab.pack(side="left")
         
-    def mainCode():
-        chemEqn = input("Input: ")
-
+    def mainCode(chemEqn):
         # Variables
         leftSideElements = {}
         rightSideElements = {}
@@ -47,7 +45,7 @@ class ionicEqn(ttk.Frame):
                 if elementValenceElec == 1:
                     elementCharge = "+"
                 else:
-                    elementCharge = "{}-".format(elementValenceElec)
+                    elementCharge = "{}+".format(elementValenceElec)
             elif elementValenceElec == 4:
                 elementCharge = "4+"
             else:
@@ -70,9 +68,14 @@ class ionicEqn(ttk.Frame):
                     if len(compoundOccurances) != 1:
                         counter = len(leftSideElements)
                         for element in compoundOccurances:
+                            numOfAtoms = compoundOccurances[element]
+                            if numOfAtoms == 1:
+                                numOfAtoms = ""
+                            else :
+                                numOfAtoms = str(numOfAtoms)
                             newElement = findCharge(element)
                             counter += 1
-                            leftSideElements["aq ({})".format(counter)] = newElement
+                            leftSideElements["aq ({})".format(counter)] = '{}{}'.format(numOfAtoms, newElement)
                             
                 else:
                     itemKey = "{} ({})".format(splittedItem[1].replace(")", ""),len(leftSideElements) + 1)
@@ -87,9 +90,14 @@ class ionicEqn(ttk.Frame):
                     if len(compoundOccurances) != 1:
                         counter = len(rightSideElements)
                         for element in compoundOccurances:
+                            numOfAtoms = compoundOccurances[element]
+                            if numOfAtoms == 1:
+                                numOfAtoms = ""
+                            else :
+                                numOfAtoms = str(numOfAtoms)
                             newElement = findCharge(element)
                             counter += 1
-                            rightSideElements["aq ({})".format(counter)] = newElement
+                            rightSideElements["aq ({})".format(counter)] = '{}{}'.format(numOfAtoms, newElement)
                 else:
                     itemKey = "{} ({})".format(splittedItem[1].replace(")", ""),len(leftSideElements) + 1)
                     rightSideElements[itemKey] = splittedItem[0]
@@ -127,4 +135,7 @@ class ionicEqn(ttk.Frame):
             finalIonic += "({})".format(rightData[i].split()[0])
             finalIonic += " +"
         finalIonic = finalIonic[:-2]
-        print("Output: {}".format(finalIonic))
+        if (finalIonic == chemEqn):
+            print("Data is already an Ionic Equation/Data is not working")
+        else:
+            print("Output: {}".format(finalIonic))

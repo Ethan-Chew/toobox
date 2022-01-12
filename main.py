@@ -1,14 +1,13 @@
 ### ⓖ ⒢ ℊ Granwyn's Part ℊ ⒢ ⓖ ###
 # and Ethan's Part :D #
 import tkinter as tk
-from tkinter import Canvas, PhotoImage, ttk
+from tkinter import ttk
 import os
 import time
+from tkinter import font
 
 import config
 from PIL import ImageTk, Image
-
-from tools.IonicEqn import ionicEqn
 
 # Important UI Details
 ## 1. Default Font Size is *20*
@@ -22,13 +21,22 @@ class App(ttk.Frame):
         # Set fullscreen
         self.fullScreenBindings()
         self.notify("Toobox", "Testing Notification", "Boop")
+        
+    def change_theme(self):
+        if root.tk.call("ttk::style", "theme", "use") == "sun-valley-dark":
+            # Set light theme
+            root.tk.call("set_theme", "light")
+        else:
+            # Set dark theme
+            root.tk.call("set_theme", "dark")
 
-    # Full Screen Toggles
+    # Full Screen Toggle
     def fullScreenBindings(self):
         root.attributes("-fullscreen", self.fullScreen)
         root.bind("f", self.toggleFullScreen)
         root.bind("<F11>", self.toggleFullScreen)
         root.bind("<Escape>", self.quitFullScreen)
+    
     def toggleFullScreen(self, event):
         self.fullScreen = not self.fullScreen
         root.attributes("-fullscreen", self.fullScreen)
@@ -39,6 +47,10 @@ class App(ttk.Frame):
 
     # Setup Widgets
     def setup_widgets(self):
+        # Styles
+        style = ttk.Style()
+        style.configure("tbstyles.Treeview", font=("Segoe UI",14))
+
         # Panedwindow
         self.paned = ttk.PanedWindow(self, orient="horizontal")
         self.paned.pack(fill="both", expand=True, anchor="center")
@@ -46,7 +58,21 @@ class App(ttk.Frame):
         # Selection Pane
         self.pane_1 = ttk.Frame(self.paned, padding=5)
         self.paned.add(self.pane_1, weight=1)
+        
+        self.newpane = ttk.PanedWindow(self.pane_1, orient="horizontal")
+        
+        ## Treeview Label
+        self.treeViewTopLab = ttk.Label(self.newpane, text="Tools", font=(20))
+        self.treeViewTopLab.pack(side="left",padx=5, anchor="w", fill="y")
 
+        # Treeview Switch
+        self.switch = ttk.Checkbutton(
+            self.newpane, text="Change Theme", style="Switch.TCheckbutton", command=self.change_theme
+        )
+        self.switch.pack(side="right", padx=5, anchor="e", fill="y")
+        
+        self.newpane.pack(fill="x", anchor="n", pady=10)
+        
         # Scrollbar
         self.scrollbar = ttk.Scrollbar(self.pane_1)
         self.scrollbar.pack(side="right", fill="y")
@@ -55,20 +81,16 @@ class App(ttk.Frame):
         self.treeview = ttk.Treeview(
             self.pane_1,
             selectmode="browse",
-            yscrollcommand=self.scrollbar.set
+            yscrollcommand=self.scrollbar.set,
+            style="tbstyles.Treeview"
         )
-
-
-        ## Treeview Label
-        self.treeViewTopLab = ttk.Label(self.pane_1, text="Tools", font=("", 20, 'bold'))
-        self.treeViewTopLab.pack(side="top", pady=10, anchor="w", fill="x")
 
         self.treeview.bind("<<TreeviewSelect>>", self.on_tree_select)
         self.treeview.pack(expand=True, fill="both")
         self.scrollbar.config(command=self.treeview.yview)
-
+        
         ## Treeview columns
-        self.treeview.column("#0", anchor="w", width=80)
+        self.treeview.column("#0", anchor="w", minwidth=100)
         ## Define treeview data
         treeview_data = [
             ("", 1, "Chemistry"),
@@ -127,7 +149,7 @@ class App(ttk.Frame):
 ##        self.treeview.selection_set(children)
         # Select and scroll
         # self.treeview.selection_set(10)
-        self.treeview.see(21)
+        self.treeview.see(1)
 
         # Home Screen UI
         ## Main Home Screen Frame
@@ -143,26 +165,47 @@ class App(ttk.Frame):
         ## Top Labels
         self.welcomeFrame = ttk.Frame(self.notebook)
         self.welcomeFrame.pack(side="top", padx=25, pady=18, anchor="w")
-        self.helloUserLab = ttk.Label(self.welcomeFrame ,text="Hello, {}".format(config.username), font=("",50, 'bold'))
+        self.helloUserLab = ttk.Label(self.welcomeFrame ,text="Hello, {}".format(config.username), font=("Segoe UI",50,'bold'))
         self.helloUserLab.pack(pady=2)
-        self.welcomeLab = ttk.Label(self.welcomeFrame, text="Welcome to Toobox!",font=("", 15))
+        self.welcomeLab = ttk.Label(self.welcomeFrame, text="Welcome to Toobox!",font=("Segoe UI", 15))
         self.welcomeLab.pack(side="left")
 
         ## Toobox Information
-        self.tooboxInfoFrame = ttk.Frame(self.notebook)
-        self.tooboxInfoFrame.pack(side="bottom", padx=25, pady=18, anchor="w")
-        self.imgCanvas = Canvas(self.tooboxInfoFrame, width = 300, height = 300)
-        self.imgCanvas.pack()
-        img = ImageTk.PhotoImage(Image.open("./src/images/AppIcon.png"))
-        self.imgCanvas.create_image(20, 20, anchor="w", image=img)
-        self.appDescText = ttk.Label(text="Test")
+        widthOfTooboxInfo = 300
+        self.tooboxInfoFrame = ttk.Frame(self.notebook, width=widthOfTooboxInfo)
+        self.tooboxInfoFrame.pack(side="left", padx=25, pady=18, anchor="w")
+        appIconImg = ImageTk.PhotoImage(Image.open('src/images/AppIcon.png').resize((widthOfTooboxInfo-40,widthOfTooboxInfo-40), Image.ANTIALIAS))
+        self.imgPanel = ttk.Label(self.tooboxInfoFrame, image=appIconImg)
+        self.imgPanel.image = appIconImg
+        self.appDescText = ttk.Label(self.tooboxInfoFrame, font=("Segoe UI",17), wraplength=widthOfTooboxInfo, justify="left" ,text="Toobox is an app is a Toolbox of different tools to help in your Academics. Toobox provides various tools for a wide range of topics and subjects that will definately help you while revising and studying.")
+        self.appDescText.pack(side="bottom")
+        self.imgPanel.pack(side="bottom", fill="both", expand="yes", pady=32)
+        
+        ## Favourited
+
+        ## Recently Opened
+        self.recentlyOpenedFrame = ttk.Frame(self.notebook, width=widthOfTooboxInfo)
+        self.recentlyOpenedFrame.pack(side="left", padx=20, pady=18, anchor="w")
+        self.recentlyOpenedText = ttk.Label(self.recentlyOpenedFrame, text="Recently Opened ({})".format(str(len(config.recentlyOpened))),font=("Segoe UI",18, "bold"))
+        self.recentlyOpenedText.pack(side="top")
+        for ropenedItem in config.recentlyOpened:
+            self.ropenedItemBtn = ttk.Button(self.recentlyOpenedFrame, text=ropenedItem, font=("Segoe UI",16,'bold'))
+            self.ropenedItemBtn.pack(side="top")
 
     def on_tree_select(self, event):
-##        currentlySelected = self.treeview.item(self.treeview.focus())['text']
-##        config.currentlySelected = currentlySelected
-        for item in self.treeview.selection():
-            print(str("Selected Item: "+self.treeview.item(item, "text")))
+        config.currentlySelected = self.treeview.item(self.treeview.focus())['text']
 
+        if (len(config.recentlyOpened) < 3):
+           config.recentlyOpened.append(config.currentlySelected)
+        else:
+            config.recentlyOpened.append(config.currentlySelected)
+            config.recentlyOpened.pop(0)
+
+#        if config.currentlySelected == "Ionic Equation":
+#            lambda: controller.show_frame("ionicEqn")
+        # for item in self.treeview.selection():
+        #     print(str("Selected Item: "+self.treeview.item(item, "text")))
+        
     def _quit(self):
         root.quit()
         root.destroy()
@@ -178,8 +221,11 @@ if __name__ == "__main__":
 
     # Simply set the theme
     root.tk.call("source", "sun-valley.tcl")
-    root.tk.call("set_theme", "dark")
-    root.iconbitmap('AppIcon.ico')
+    root.tk.call("set_theme", "light")
+    
+    # Set App Icon
+    appIconIcns = './src/images/AppIcon.icns'
+    root.iconbitmap(appIconIcns)
 
     app = App(root)
     app.pack(fill="both", expand=True)
