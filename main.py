@@ -120,34 +120,20 @@ class App(ttk.Frame):
             )
             if item[0] == "" or item[1] in {8, 15, 16, 23, 24, 29, 34, 38, 41}:
                 self.treeview.item(item[1], open=False)  # Open parents
-##        children = self.treeview.get_children() 
-##        self.treeview.selection_set(children)
-        # Select and scroll
-        # self.treeview.selection_set(10)
+
         self.treeview.see(21)
 
-        self.pane_2 = ttk.Frame(self.paned, padding=5)
-        self.paned.add(self.pane_2, weight=10)
-        self.notebook = ttk.Notebook(self.pane_2, padding=3)
+        # Home Screen UI
+        ## Main Home Screen Frame
+        self.homeScreen = ttk.Frame(self.paned, padding=5)
+        self.paned.add(self.homeScreen, weight=10)
+        self.notebook = ttk.Notebook(self.homeScreen, padding=3)
         self.notebook.pack(fill="both", expand=True)
 
-        # # Tab #1
-        # self.tab_1 = ttk.Frame(self.notebook)
-        # self.notebook.add(self.tab_1, text="Tab 1")
-
-        # # Tab #2
-        # self.tab_2 = ttk.Frame(self.notebook)
-        # self.notebook.add(self.tab_2, text="Tab 2")
-
-        # # Tab #3
-        # self.tab_3 = ttk.Frame(self.notebook)
-        # self.notebook.add(self.tab_3, text="Tab 3")
-
-        # Sizegrip
+        ## Sizegrip
         self.sizegrip = ttk.Sizegrip(self)
         self.sizegrip.pack(side="right")
 
-        # Home Screen UI
         ## Top Labels
         self.welcomeFrame = ttk.Frame(self.notebook)
         self.welcomeFrame.pack(side="top", padx=25, pady=18, anchor="w")

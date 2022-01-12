@@ -1,6 +1,8 @@
 # Created by Ethan Chew
+from os import POSIX_SPAWN_CLOSE
 from chemlib import Element
 from chemlib import Compound
+import tkinter as tk
 # Example: 2HCl(aq) + 2Na(s) -> 2NaCl(aq) + H2(g)
 
 chemEqn = input("Input: ")
@@ -102,3 +104,6 @@ for i in range(len(rightElements)):
     finalIonic += " +"
 finalIonic = finalIonic[:-2]
 print("Output: {}".format(finalIonic))
+
+class ionicEqn():
+    pass
