@@ -3,6 +3,7 @@ import tkinter as tk
 from tkinter import ttk
 import os
 import time
+import antigravity
 ##import config
 
 class App(ttk.Frame):
