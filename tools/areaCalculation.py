@@ -5,7 +5,8 @@ def triangle(base, height):
 
 def sine_rule_side(a,A,b):
     return math.sin(b)*(A/math.sin(a))
-
+def sine_rule_angle(a,A,B):
+    return math.asin(B*(math.sin(a)/A))
 def solve_triangle(A,B,C,a,b,c):
     if ((A!="?")+(B!="?")+(C!="?")+(a!="?")+(b!="?")+(c!="?"))<3:
         return "not possible"
@@ -13,7 +14,7 @@ def solve_triangle(A,B,C,a,b,c):
     # if the value is "?" then is unknown
     if ((A!="?")+(B!="?")+(C!="?")) == 3:
         s=(A+B+C)/2
-        Area=math.sqrt(s*(s-a)*(s-b)*(s-c))
+        Area=math.sqrt(s*(s-A)*(s-B)*(s-C))
         return Area
     elif ((A!="?")+(B!="?")+(C!="?")) == 2:
         if A=="?":
@@ -35,7 +36,9 @@ def solve_triangle(A,B,C,a,b,c):
             #need figure out the rest of them(A,B,c) is known
         else:
             if b=="?":
-                c=(math.pi-a)-(math.asin(B*(math.sin(a)/A)))
+                
+                b=sine_rule_angle(a,A,B)
+                c=(math.pi-a)-(b)
                 return solve_triangle(A,B,C,a,b,c)
             else:
                 c=(math.pi-b)-(math.asin(A*(math.sin(b)/B)))
@@ -44,7 +47,7 @@ def solve_triangle(A,B,C,a,b,c):
         # there are at least 2 angles
         #lets make find all the angles
         if a=="?":
-            print(a,b,c)
+
             a=(180-b)-c
         elif b=="?":
             b=(180-a)-c
@@ -83,3 +86,22 @@ def sector(radius, angle):
     return math.pi * radius ** 2 *(angle/(2*math.pi))
 if __name__=="__main__":
     print(solve_triangle(4,3,"?","?","?",(math.pi/2)))
+    therightans=[4,3,5,0.9272,0.6434,1.5707]
+    for i in range(6):
+        for j in range(6):
+            for k in range(6):
+                temp=list(therightans)
+                for l in range(len(temp)):
+                    if l==i or l==j or l==k:
+                        pass
+                    else:
+                        temp[l]="?"
+                ans=solve_triangle(*temp)
+                if type(ans)==float:
+                    if math.round(ans)==6:
+                        print(ans)
+                    else:
+                        print("ALhjSJHFALDHKJHDJHKJSHDFLKJHKLSJHDFKLJHSDFLKJHSDKLJFH")
+                else:
+                    print(temp)
+                    
