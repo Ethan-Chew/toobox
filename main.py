@@ -4,6 +4,7 @@ import tkinter as tk
 from tkinter import Canvas, PhotoImage, ttk
 import os
 import time
+import antigravity
 import config
 from PIL import ImageTk, Image
 
@@ -21,10 +22,10 @@ class App(ttk.Frame):
         # Set fullscreen
         self.fullScreenBindings()
         self.notify("Toobox", "Testing Notification", "Boop")
-    
+
     # Full Screen Toggles
     def fullScreenBindings(self):
-        root.attributes("-fullscreen", self.fullScreen)  
+        root.attributes("-fullscreen", self.fullScreen)
         root.bind("f", self.toggleFullScreen)
         root.bind("<F11>", self.toggleFullScreen)
         root.bind("<Escape>", self.quitFullScreen)
@@ -143,22 +144,30 @@ class App(ttk.Frame):
         self.helloUserLab.pack(pady=2)
         self.welcomeLab = ttk.Label(self.welcomeFrame, text="Welcome to Toobox!",font=("", 15))
         self.welcomeLab.pack(side="left")
-        
+
         ## Toobox Information
         self.tooboxInfoFrame = ttk.Frame(self.notebook)
         self.tooboxInfoFrame.pack(side="bottom", padx=25, pady=18, anchor="w")
-        self.imgCanvas = Canvas(self.tooboxInfoFrame, width = 300, height = 300)  
-        self.imgCanvas.pack()  
-        img = ImageTk.PhotoImage(Image.open("./src/images/AppIcon.png"))  
-        self.imgCanvas.create_image(20, 20, anchor="w", image=img)       
+        self.imgCanvas = Canvas(self.tooboxInfoFrame, width = 300, height = 300)
+        self.imgCanvas.pack()
+        img = ImageTk.PhotoImage(Image.open("./src/images/AppIcon.png"))
+        self.imgCanvas.create_image(20, 20, anchor="w", image=img)
         self.appDescText = ttk.Label(text="Test")
 
     def on_tree_select(self, event):
+<<<<<<< HEAD
         config.currentlySelected = self.treeview.item(self.treeview.focus())['text']
         print(self.treeview.item(self.treeview.focus())['text'])
         if config.currentlySelected == "Ionic Equation":
             lambda: event.show_frame(ionicEqn)
         
+=======
+##        currentlySelected = self.treeview.item(self.treeview.focus())['text']
+##        config.currentlySelected = currentlySelected
+        for item in self.treeview.selection():
+            print(str("Selected Item: "+self.treeview.item(item, "text")))
+
+>>>>>>> 7233f28c347d5d947eebe7e830a7b1d0368863a3
     def _quit(self):
         root.quit()
         root.destroy()
@@ -167,7 +176,7 @@ class App(ttk.Frame):
         os.system("""
                   osascript -e 'display notification "{}" with title "{}" sound name "{}"'
                   """.format(text, title, sound))
-        
+
 if __name__ == "__main__":
     root = tk.Tk()
     root.title("Toobox")
@@ -175,7 +184,7 @@ if __name__ == "__main__":
     # Simply set the theme
     root.tk.call("source", "sun-valley.tcl")
     root.tk.call("set_theme", "dark")
-    
+
     app = App(root)
     app.pack(fill="both", expand=True)
     root.update()
@@ -183,7 +192,7 @@ if __name__ == "__main__":
     x_cordinate = root.winfo_screenwidth()
     y_cordinate = root.winfo_screenheight()
     root.geometry("+{}+{}".format(x_cordinate, y_cordinate))
-    
+
     root.state('zoomed')
-    
+
     root.mainloop()
