@@ -1,2 +1,2 @@
-username = ["User"]
+username = "User"
 currentlySelected = "Home"
