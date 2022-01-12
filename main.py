@@ -22,8 +22,15 @@ class App(ttk.Frame):
         # Set fullscreen
         self.fullScreenBindings()
         self.notify("Toobox", "Testing Notification", "Boop")
-
-    # Full Screen Toggles
+        
+    def change_theme(self):
+        if root.tk.call("ttk::style", "theme", "use") == "sun-valley-dark":
+            # Set light theme
+            root.tk.call("set_theme", "light")
+        else:
+            # Set dark theme
+            root.tk.call("set_theme", "dark")
+    # Full Screen Toggle
     def fullScreenBindings(self):
         root.attributes("-fullscreen", self.fullScreen)
         root.bind("f", self.toggleFullScreen)
@@ -46,7 +53,21 @@ class App(ttk.Frame):
         # Selection Pane
         self.pane_1 = ttk.Frame(self.paned, padding=5)
         self.paned.add(self.pane_1, weight=1)
+        
+        self.newpane = ttk.PanedWindow(self.pane_1, orient="horizontal")
+        
+        ## Treeview Label
+        self.treeViewTopLab = ttk.Label(self.newpane, text="Tools", font=("", 20, 'bold'))
+        self.treeViewTopLab.pack(side="left",padx=5, anchor="w", fill="y")
 
+        # Treeview Switch
+        self.switch = ttk.Checkbutton(
+            self.newpane, text="Theme", style="Switch.TCheckbutton", command=self.change_theme
+        )
+        self.switch.pack(side="right", padx=5, anchor="e", fill="y")
+        
+        self.newpane.pack(fill="x", anchor="n", pady=10)
+        
         # Scrollbar
         self.scrollbar = ttk.Scrollbar(self.pane_1)
         self.scrollbar.pack(side="right", fill="y")
@@ -59,14 +80,10 @@ class App(ttk.Frame):
         )
 
 
-        ## Treeview Label
-        self.treeViewTopLab = ttk.Label(self.pane_1, text="Tools", font=("", 20, 'bold'))
-        self.treeViewTopLab.pack(side="top", pady=10, anchor="w", fill="x")
-
         self.treeview.bind("<<TreeviewSelect>>", self.on_tree_select)
         self.treeview.pack(expand=True, fill="both")
         self.scrollbar.config(command=self.treeview.yview)
-
+        
         ## Treeview columns
         self.treeview.column("#0", anchor="w", width=80)
         ## Define treeview data
@@ -175,7 +192,8 @@ if __name__ == "__main__":
 
     # Simply set the theme
     root.tk.call("source", "sun-valley.tcl")
-    root.tk.call("set_theme", "dark")
+    root.tk.call("set_theme", "light")
+    
     root.iconbitmap('AppIcon.ico')
 
     app = App(root)
