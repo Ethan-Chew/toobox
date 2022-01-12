@@ -62,7 +62,7 @@ class App(ttk.Frame):
 
         # Treeview Switch
         self.switch = ttk.Checkbutton(
-            self.newpane, text="Theme", style="Switch.TCheckbutton", command=self.change_theme
+            self.newpane, text="Change Theme", style="Switch.TCheckbutton", command=self.change_theme
         )
         self.switch.pack(side="right", padx=5, anchor="e", fill="y")
         
@@ -85,7 +85,7 @@ class App(ttk.Frame):
         self.scrollbar.config(command=self.treeview.yview)
         
         ## Treeview columns
-        self.treeview.column("#0", anchor="w", width=80)
+        self.treeview.column("#0", anchor="w", minwidth=80, stretch="no")
         ## Define treeview data
         treeview_data = [
             ("", 1, "Chemistry"),
@@ -170,7 +170,7 @@ class App(ttk.Frame):
         self.tooboxInfoFrame.pack(side="bottom", padx=25, pady=18, anchor="w")
         self.imgCanvas = Canvas(self.tooboxInfoFrame, width = 300, height = 300)
         self.imgCanvas.pack()
-        img = ImageTk.PhotoImage(Image.open("./src/images/AppIcon.png"))
+        img = ImageTk.PhotoImage(Image.open(r'./src/images/AppIcon.png'))
         self.imgCanvas.create_image(20, 20, anchor="w", image=img)
         self.appDescText = ttk.Label(text="Test")
 
@@ -199,7 +199,7 @@ if __name__ == "__main__":
     root.tk.call("source", "sun-valley.tcl")
     root.tk.call("set_theme", "light")
     
-    root.iconbitmap('AppIcon.ico')
+    root.iconbitmap(r'src/images/AppIcon.icns')
 
     app = App(root)
     app.pack(fill="both", expand=True)
