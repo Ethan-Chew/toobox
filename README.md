@@ -5,6 +5,9 @@ Toobox of different tools to help in your Academics
 ### Chemlib
 1. Open the terminal and move to the project directory
 2. Run ```pip3 install chemlib```
+### Pillow
+1. Open the terminal and move to the project directory
+2. Run ```pip3 install pillow```
 
 ## Current Tools
 1. Ionic Equation Solver

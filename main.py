@@ -1,9 +1,14 @@
 ### ⓖ ⒢ ℊ Granwyn's Part ℊ ⒢ ⓖ ###
+# and Ethan's Part :D #
 import tkinter as tk
-from tkinter import ttk
+from tkinter import Canvas, PhotoImage, ttk
 import os
 import time
 import config
+from PIL import ImageTk, Image
+
+# Important UI Details
+## 1. Default Font Size is *20*
 
 class App(ttk.Frame):
     def __init__(self, parent):
@@ -49,13 +54,19 @@ class App(ttk.Frame):
             selectmode="browse",
             yscrollcommand=self.scrollbar.set
         )
+
+
+        ## Treeview Label
+        self.treeViewTopLab = ttk.Label(self.pane_1, text="Tools:", font=("", 20, 'bold'))
+        self.treeViewTopLab.pack(side="top", pady=20, anchor="w", fill="x")
+
         self.treeview.bind("<<TreeviewSelect>>", self.on_tree_select)
         self.treeview.pack(expand=True, fill="both")
         self.scrollbar.config(command=self.treeview.yview)
 
-        # Treeview columns
+        ## Treeview columns
         self.treeview.column("#0", anchor="w", width=80)
-        # Define treeview data
+        ## Define treeview data
         treeview_data = [
             ("", 1, "Chemistry"),
             (1, 2, "Periodic Table"),
@@ -108,7 +119,7 @@ class App(ttk.Frame):
                 parent=item[0], index="end", iid=item[1], text=item[2]
             )
             if item[0] == "" or item[1] in {8, 15, 16, 23, 24, 29, 34, 38, 41}:
-                self.treeview.item(item[1], open=True)  # Open parents
+                self.treeview.item(item[1], open=False)  # Open parents
 ##        children = self.treeview.get_children() 
 ##        self.treeview.selection_set(children)
         # Select and scroll
@@ -117,24 +128,42 @@ class App(ttk.Frame):
 
         self.pane_2 = ttk.Frame(self.paned, padding=5)
         self.paned.add(self.pane_2, weight=10)
-        self.notebook = ttk.Notebook(self.pane_2)
+        self.notebook = ttk.Notebook(self.pane_2, padding=3)
         self.notebook.pack(fill="both", expand=True)
 
-        # Tab #1
-        self.tab_1 = ttk.Frame(self.notebook)
-        self.notebook.add(self.tab_1, text="Tab 1")
+        # # Tab #1
+        # self.tab_1 = ttk.Frame(self.notebook)
+        # self.notebook.add(self.tab_1, text="Tab 1")
 
-        # Tab #2
-        self.tab_2 = ttk.Frame(self.notebook)
-        self.notebook.add(self.tab_2, text="Tab 2")
+        # # Tab #2
+        # self.tab_2 = ttk.Frame(self.notebook)
+        # self.notebook.add(self.tab_2, text="Tab 2")
 
-        # Tab #3
-        self.tab_3 = ttk.Frame(self.notebook)
-        self.notebook.add(self.tab_3, text="Tab 3")
+        # # Tab #3
+        # self.tab_3 = ttk.Frame(self.notebook)
+        # self.notebook.add(self.tab_3, text="Tab 3")
 
         # Sizegrip
         self.sizegrip = ttk.Sizegrip(self)
         self.sizegrip.pack(side="right")
+
+        # Home Screen UI
+        ## Top Labels
+        self.welcomeFrame = ttk.Frame(self.notebook)
+        self.welcomeFrame.pack(side="top", padx=25, pady=18, anchor="w")
+        self.helloUserLab = ttk.Label(self.welcomeFrame ,text="Hello, {}".format(config.username), font=("",50, 'bold'))
+        self.helloUserLab.pack(pady=2)
+        self.welcomeLab = ttk.Label(self.welcomeFrame, text="Welcome to Toobox!",font=("", 15))
+        self.welcomeLab.pack(side="left")
+        
+        ## Toobox Information
+        self.tooboxInfoFrame = ttk.Frame(self.notebook)
+        self.tooboxInfoFrame.pack(side="bottom", padx=25, pady=18, anchor="w")
+        self.imgCanvas = Canvas(self.tooboxInfoFrame, width = 300, height = 300)  
+        self.imgCanvas.pack()  
+        img = ImageTk.PhotoImage(Image.open("./src/images/AppIcon.png"))  
+        self.imgCanvas.create_image(20, 20, anchor="w", image=img)       
+        self.appDescText = ttk.Label(text="Test")
 
     def on_tree_select(self, event):
         # Send currently selected item to be stored in config.py as a global var
