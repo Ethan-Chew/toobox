@@ -49,8 +49,8 @@ class App(ttk.Frame):
     def setup_widgets(self):
         # Styles
         style = ttk.Style()
-        style.configure("tbstyles.Treeview", font=("", 15))
-        style.configure("tbsyles.Treeview.Heading", font=("", 10, 'bold'))
+##        style.configure("tbstyles.Treeview", font=("", 15))
+##        style.configure("tbsyles.Treeview.Heading", font=("", 10, 'bold'))
 
         # Panedwindow
         self.paned = ttk.PanedWindow(self, orient="horizontal")
@@ -222,7 +222,7 @@ if __name__ == "__main__":
 
     # Simply set the theme
     root.tk.call("source", "sun-valley.tcl")
-    root.tk.call("set_theme", "dark")
+    root.tk.call("set_theme", "light")
     
     # Set App Icon
     appIconIcns = './src/images/AppIcon.icns'
