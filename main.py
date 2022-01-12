@@ -7,6 +7,8 @@ import time
 import config
 from PIL import ImageTk, Image
 
+from tools.IonicEqn import ionicEqn
+
 # Important UI Details
 ## 1. Default Font Size is *20*
 
@@ -152,11 +154,11 @@ class App(ttk.Frame):
         self.appDescText = ttk.Label(text="Test")
 
     def on_tree_select(self, event):
-##        currentlySelected = self.treeview.item(self.treeview.focus())['text']
-##        config.currentlySelected = currentlySelected
-        for item in self.treeview.selection():
-            print(str("Selected Item: "+self.treeview.item(item, "text")))
-            
+        config.currentlySelected = self.treeview.item(self.treeview.focus())['text']
+        print(self.treeview.item(self.treeview.focus())['text'])
+        if config.currentlySelected == "Ionic Equation":
+            lambda: event.show_frame(ionicEqn)
+        
     def _quit(self):
         root.quit()
         root.destroy()
@@ -179,12 +181,9 @@ if __name__ == "__main__":
     root.update()
     root.minsize(root.winfo_width(), root.winfo_height())
     x_cordinate = root.winfo_screenwidth()
-    # int((root.winfo_screenwidth() / 2) - (root.winfo_width() / 2))
     y_cordinate = root.winfo_screenheight()
-    # int((root.winfo_screenheight() / 2) - (root.winfo_height() / 2))
     root.geometry("+{}+{}".format(x_cordinate, y_cordinate))
     
     root.state('zoomed')
     
     root.mainloop()
-### ⓖ ⒢ ℊ Granwyn's Part ℊ ⒢ ⓖ ###
