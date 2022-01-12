@@ -175,12 +175,7 @@ class App(ttk.Frame):
         self.appDescText = ttk.Label(text="Test")
 
     def on_tree_select(self, event):
-##        config.currentlySelected = self.treeview.item(self.treeview.focus())['text']
-##        print(self.treeview.item(self.treeview.focus())['text'])
-##        if config.currentlySelected == "Ionic Equation":
-##            lambda: controller.show_frame("ionicEqn")
-        for item in self.treeview.selection():
-            print(str("Selected Item: "+self.treeview.item(item, "text")))
+        config.currentlySelected = self.treeview.item(self.treeview.focus())['text']
         
     def _quit(self):
         root.quit()
