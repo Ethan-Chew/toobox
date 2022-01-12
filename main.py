@@ -4,7 +4,7 @@ import tkinter as tk
 from tkinter import Canvas, PhotoImage, ttk
 import os
 import time
-import antigravity
+
 import config
 from PIL import ImageTk, Image
 
