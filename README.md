@@ -18,4 +18,4 @@ Toobox of different tools to help in your Academics
 1. Chemlib
 2. sun-valley Theme for tkinker
 
-###### Developed by [Granwyn Tan](granwyntan.github.io), [Ethan Chew](www.ethanchew.com), [Jerick Seng](jer123se12.github.io)
+###### Developed by [Granwyn Tan](https://granwyntan.github.io), [Ethan Chew](https://www.ethanchew.com), [Jerick Seng](https://jer123se12.github.io)
