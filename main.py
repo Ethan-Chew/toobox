@@ -185,6 +185,8 @@ class App(ttk.Frame):
         ## Favourited
 
         ## Recently Opened
+        self.recentlyOpenedFrame = ttk.Frame(self.notebook, width=widthOfTooboxInfo)
+        self.recentlyOpenedFrame.pack(side="left", padx=20, pady=18, anchor="w")
         self.recentlyOpenedText = ttk.Label(self.recentlyOpenedFrame, text="Recently Opened ({})".format(str(len(config.recentlyOpened))),font=("",18, "bold"))
         self.recentlyOpenedText.pack(side="top")
         for ropenedItem in config.recentlyOpened:
