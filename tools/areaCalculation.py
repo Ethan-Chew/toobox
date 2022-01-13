@@ -76,10 +76,10 @@ def solve_triangle(A,B,C,a,b,c):
             return Area
             
 
-def parallelogram(base, height):
+def parallelogram(base, slantHeight):
     return base * slantHeight
 
-def trapezium(base, height):
+def trapezium(topBase, bottomBase, height):
     return ((topBase + bottomBase)/2) * height
 
 def circle(radius):
