@@ -8,11 +8,16 @@ Toobox of different tools to help in your Academics
 ### Pillow
 1. Open the terminal and move to the project directory
 2. Run ```pip3 install pillow```
+### Matplotlib
+1. Open the terminal and move to the project directory
+2. Run ```pip3 install matplotlib```
 
 ## Current Tools
 1. Ionic Equation Solver
-2. Quadratic Equation Solver
-3. Matrix Solver
+2. Balancing Chemical Equations
+3. Quadratic Equation Solver
+4. Matrix Solver
+5. Triangle Area Calculation
 
 ## Credits
 1. Chemlib
