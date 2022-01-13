@@ -48,11 +48,11 @@ def solve_triangle(A,B,C,a,b,c):
         #lets make find all the angles
         if a=="?":
 
-            a=(180-b)-c
+            a=(math.pi-b)-c
         elif b=="?":
-            b=(180-a)-c
+            b=(math.pi-a)-c
         else:
-            c=(180-b)-a
+            c=(math.pi-b)-a
         #now all angles are known
         if A=="?" and B=="?" and C=="?":
             return "not possible, there are multiple triangles"
@@ -60,14 +60,17 @@ def solve_triangle(A,B,C,a,b,c):
             #solve using SAS
             #i mean solve all sides
             if A!="?":
+                
                 B=sine_rule_side(a,A,b)
                 C=sine_rule_side(a,A,c)
             elif B!="?":
                 A=sine_rule_side(b,B,a)
                 C=sine_rule_side(b,B,c)
+
             else:
                 A=sine_rule_side(c,C,a)
                 B=sine_rule_side(c,C,b)
+
             #now we know all
             Area=1/2*A*B*math.sin(c)
             return Area
@@ -86,7 +89,7 @@ def sector(radius, angle):
     return math.pi * radius ** 2 *(angle/(2*math.pi))
 if __name__=="__main__":
     print(solve_triangle(4,3,"?","?","?",(math.pi/2)))
-    therightans=[4,3,5,0.9272,0.6434,1.5707]
+    therightans=[3,3,3,math.pi/3,math.pi/3,math.pi/3]
     for i in range(6):
         for j in range(6):
             for k in range(6):
@@ -98,10 +101,10 @@ if __name__=="__main__":
                         temp[l]="?"
                 ans=solve_triangle(*temp)
                 if type(ans)==float:
-                    if math.round(ans)==6:
-                        print(ans)
-                    else:
-                        print("ALhjSJHFALDHKJHDJHKJSHDFLKJHKLSJHDFKLJHSDFLKJHSDKLJFH")
+                    if ans>=4.1:
+                        print(temp)
+                        exit()
+                    print(ans)
                 else:
-                    print(temp)
+                    pass
                     
