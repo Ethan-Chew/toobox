@@ -5,6 +5,10 @@ from tkinter import ttk
 import os
 import time
 from tkinter import font
+import json
+import webbrowser
+
+from pandas import wide_to_long
 
 import config
 from PIL import ImageTk, Image
@@ -21,6 +25,7 @@ class App(ttk.Frame):
         # Set fullscreen
         self.fullScreenBindings()
         self.notify("Toobox", "Testing Notification", "Boop")
+        self.aSecret()
         
     def change_theme(self):
         if root.tk.call("ttk::style", "theme", "use") == "sun-valley-dark":
@@ -180,32 +185,46 @@ class App(ttk.Frame):
         self.appDescText = ttk.Label(self.tooboxInfoFrame, font=("Segoe UI",17), wraplength=widthOfTooboxInfo, justify="left" ,text="Toobox is an app is a Toolbox of different tools to help in your Academics. Toobox provides various tools for a wide range of topics and subjects that will definately help you while revising and studying.")
         self.appDescText.pack(side="bottom")
         self.imgPanel.pack(side="bottom", fill="both", expand="yes", pady=32)
-        
-        ## Favourited
+
+        ## Favourites
+        self.favouritesFrame = ttk.Frame(self.notebook, width=widthOfTooboxInfo)
+        self.favouritesFrame.pack(side="left", pady=18, anchor="w")
 
         ## Recently Opened
+        file = open('.recentlyOpened.json')
+        data = json.load(file)
+        file.close()
+        data = list(data['recentlyOpened'])
         self.recentlyOpenedFrame = ttk.Frame(self.notebook, width=widthOfTooboxInfo)
         self.recentlyOpenedFrame.pack(side="left", padx=20, pady=18, anchor="w")
-        self.recentlyOpenedText = ttk.Label(self.recentlyOpenedFrame, text="Recently Opened ({})".format(str(len(config.recentlyOpened))),font=("Segoe UI",18, "bold"))
-        self.recentlyOpenedText.pack(side="top")
-        for ropenedItem in config.recentlyOpened:
-            self.ropenedItemBtn = ttk.Button(self.recentlyOpenedFrame, text=ropenedItem, font=("Segoe UI",16,'bold'))
-            self.ropenedItemBtn.pack(side="top")
+        self.recentlyOpenedText = ttk.Label(self.recentlyOpenedFrame, text="Recently Opened ({})".format(str(len(data))),font=("Segoe UI",18, "bold"))
+        self.recentlyOpenedText.pack(side="top", pady=3)
+        for ropenedItem in data:
+            self.ropenedItemBtn = ttk.Button(self.recentlyOpenedFrame, text=ropenedItem, width=30)
+            self.ropenedItemBtn.pack(side="top", pady=2)
 
     def on_tree_select(self, event):
+        file = open('.recentlyOpened.json')
+        data = json.load(file)
+        file.close()
+        data = list(data['recentlyOpened'])
+        bruh = {"recentlyOpened": []}
         config.currentlySelected = self.treeview.item(self.treeview.focus())['text']
 
-        if (len(config.recentlyOpened) < 3):
-           config.recentlyOpened.append(config.currentlySelected)
+        if (len(data) < 3):
+           data.append(config.currentlySelected)
         else:
-            config.recentlyOpened.append(config.currentlySelected)
-            config.recentlyOpened.pop(0)
-
-#        if config.currentlySelected == "Ionic Equation":
-#            lambda: controller.show_frame("ionicEqn")
-        # for item in self.treeview.selection():
-        #     print(str("Selected Item: "+self.treeview.item(item, "text")))
+            data.append(config.currentlySelected)
+            data.pop(0)
+        bruh['recentlyOpened'] = data
+        with open('.recentlyOpened.json', 'w') as f:
+            json.dump(bruh,f)
+        root.refresh()
         
+    def aSecret(self):
+        if config.aSecret:
+            webbrowser.open("https://www.youtube.com/watch?v=dQw4w9WgXcQ")
+
     def _quit(self):
         root.quit()
         root.destroy()

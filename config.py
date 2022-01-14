@@ -2,4 +2,4 @@
 username = "User"
 currentlySelected = "Home"
 favourited = []
-recentlyOpened = [] # A Queue
+aSecret = False # Change aSecret to True for a suprise :)
