@@ -1,5 +1,6 @@
 ### ⓖ ⒢ ℊ Granwyn's Part ℊ ⒢ ⓖ ###
 # and Ethan's Part :D #
+from re import S
 import tkinter as tk
 from tkinter import ttk
 import os
@@ -67,7 +68,7 @@ class App(ttk.Frame):
         self.newpane = ttk.PanedWindow(self.pane_1, orient="horizontal")
         
         ## Treeview Label
-        self.treeViewTopLab = ttk.Label(self.newpane, text="Tools", font=(20))
+        self.treeViewTopLab = ttk.Label(self.newpane, text="Tools", font=('Segoe UI',20, 'bold'))
         self.treeViewTopLab.pack(side="left",padx=5, anchor="w", fill="y")
 
         # Treeview Switch
@@ -189,6 +190,8 @@ class App(ttk.Frame):
         ## Favourites
         self.favouritesFrame = ttk.Frame(self.notebook, width=widthOfTooboxInfo)
         self.favouritesFrame.pack(side="left", pady=18, anchor="w")
+        self.favouritesText = ttk.Label(self.favouritesFrame, text="", font=("Segoe UI", 18, 'bold'))
+        self.favouritesText.pack(side="top", pady=3)
 
         ## Recently Opened
         file = open('.recentlyOpened.json')
