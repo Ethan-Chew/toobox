@@ -55,7 +55,7 @@ class App(ttk.Frame):
     def setup_widgets(self):
         # Styles
         style = ttk.Style()
-        style.configure("tbstyles.Treeview", font=("Segoe UI",14))
+##        style.configure("tbstyles.Treeview", font=("Segoe UI",14))
 
         # Panedwindow
         self.paned = ttk.PanedWindow(self, orient="horizontal")
@@ -202,8 +202,10 @@ class App(ttk.Frame):
         self.recentlyOpenedFrame.pack(side="left", padx=20, pady=18, anchor="w")
         self.recentlyOpenedText = ttk.Label(self.recentlyOpenedFrame, text="Recently Opened ({})".format(str(len(data))),font=("Segoe UI",18, "bold"))
         self.recentlyOpenedText.pack(side="top", pady=3)
+        self.holdROItemFrame = ttk.Frame(self.recentlyOpenedFrame)
+        self.holdROItemFrame.pack(side="top")
         for ropenedItem in data:
-            self.ropenedItemBtn = ttk.Button(self.recentlyOpenedFrame, text=ropenedItem, width=30)
+            self.ropenedItemBtn = ttk.Button(self.holdROItemFrame, text=ropenedItem, width=30)
             self.ropenedItemBtn.pack(side="top", pady=2)
 
     def on_tree_select(self, event):
@@ -219,11 +221,21 @@ class App(ttk.Frame):
         else:
             data.append(config.currentlySelected)
             data.pop(0)
-            
         bruh['recentlyOpened'] = data
         with open('.recentlyOpened.json', 'w') as f:
             json.dump(bruh,f)
-                    
+        
+        self.holdROItemFrame.pack_forget()
+        self.notebook.update()
+        for ropenedItem in data:
+            self.ropenedItemBtn = ttk.Button(self.holdROItemFrame, text=ropenedItem, width=30)
+            self.ropenedItemBtn.pack(side="top", pady=2)
+        self.notebook.update()
+
+        self.recentlyOpenedText.pack_forget()
+        self.recentlyOpenedFrame.pack_forget()
+        self.tooboxInfoFrame.pack_forget()
+        self.welcomeFrame.pack_forget()
         root.update()
         
     def aSecret(self):
