@@ -55,6 +55,7 @@ class App(ttk.Frame):
     def setup_widgets(self):
         # Styles
         style = ttk.Style()
+##        style.configure("tbstyles.Treeview", font=("TkDefaultFont",14))
 
         # Panedwindow
         self.paned = ttk.PanedWindow(self, orient="horizontal")
@@ -67,7 +68,7 @@ class App(ttk.Frame):
         self.newpane = ttk.PanedWindow(self.pane_1, orient="horizontal")
         
         ## Treeview Label
-        self.treeViewTopLab = ttk.Label(self.newpane, text="Tools")
+        self.treeViewTopLab = ttk.Label(self.newpane, text="Tools", font=('TkDefaultFont',20, 'bold'))
         self.treeViewTopLab.pack(side="left",padx=5, anchor="w", fill="y")
 
         # Treeview Switch
@@ -196,9 +197,11 @@ class App(ttk.Frame):
         file = open('.recentlyOpened.json')
         data = json.load(file)
         file.close()
+        data = list(data['recentlyOpened'])
         self.recentlyOpenedFrame = ttk.Frame(self.notebook, width=widthOfTooboxInfo)
         self.recentlyOpenedFrame.pack(side="left", padx=20, pady=18, anchor="w")
         self.recentlyOpenedText = ttk.Label(self.recentlyOpenedFrame, text="Recently Opened ({})".format(str(len(config.recentlyOpened))),font=("TkDefaultFont",18, "bold"))
+        self.recentlyOpenedText.pack(side="top", pady=3)
         self.holdROItemFrame = ttk.Frame(self.recentlyOpenedFrame)
         self.holdROItemFrame.pack(side="top")
         for ropenedItem in data:
