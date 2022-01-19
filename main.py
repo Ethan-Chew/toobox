@@ -49,7 +49,7 @@ class App(ttk.Frame):
     def setup_widgets(self):
         # Styles
         style = ttk.Style()
-        style.configure("tbstyles.Treeview", font=("Segoe UI",14))
+##        style.configure("tbstyles.Treeview", font=("Segoe UI",14))
 
         # Panedwindow
         self.paned = ttk.PanedWindow(self, orient="horizontal")
@@ -62,7 +62,7 @@ class App(ttk.Frame):
         self.newpane = ttk.PanedWindow(self.pane_1, orient="horizontal")
         
         ## Treeview Label
-        self.treeViewTopLab = ttk.Label(self.newpane, text="Tools", font=(20))
+        self.treeViewTopLab = ttk.Label(self.newpane, text="Tools")
         self.treeViewTopLab.pack(side="left",padx=5, anchor="w", fill="y")
 
         # Treeview Switch
@@ -200,6 +200,13 @@ class App(ttk.Frame):
         else:
             config.recentlyOpened.append(config.currentlySelected)
             config.recentlyOpened.pop(0)
+
+        
+        self.recentlyOpenedText.pack_forget()
+        self.recentlyOpenedFrame.pack_forget()
+        self.tooboxInfoFrame.pack_forget()
+        self.welcomeFrame.pack_forget()
+        
 
 #        if config.currentlySelected == "Ionic Equation":
 #            lambda: controller.show_frame("ionicEqn")
