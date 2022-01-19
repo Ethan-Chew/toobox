@@ -82,12 +82,8 @@ class balanceChemEqn(ttk.Frame):
 
             for i in range(numOfElements):
                 for j in range(numOfElements):
-                    print(reactantsKeys[i], i)
-                    print(productsKeys[j], j)
                     if reactantsKeys[i] == productsKeys[j]:
                         if reactantsVals[i] != productsVals[j]:
-                            print(reactantsKeys[i], productsKeys[j])
-                            print(reactantsVals[i], productsVals[j])
                             # Same element, number of occurances is not the same
                             ## Find the compound relating to the lower number of occurances
                             if reactantsVals[i] > productsVals[j]:
@@ -149,3 +145,4 @@ class balanceChemEqn(ttk.Frame):
         finalJointReactants += ' -> '
         finalJointReactants += ' + '.join(productsCompounds)
         return finalJointReactants
+    print(mainCode("HCl(aq) + Na(s) -> NaCl(aq) + H2(g)"))

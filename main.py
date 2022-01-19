@@ -1,10 +1,15 @@
 ### ⓖ ⒢ ℊ Granwyn's Part ℊ ⒢ ⓖ ###
 # and Ethan's Part :D #
+from re import S
 import tkinter as tk
 from tkinter import ttk
 import os
 import time
 from tkinter import font
+import json
+import webbrowser
+
+from pandas import wide_to_long
 
 import config
 from PIL import ImageTk, Image
@@ -21,6 +26,7 @@ class App(ttk.Frame):
         # Set fullscreen
         self.fullScreenBindings()
         self.notify("Toobox", "Testing Notification", "Boop")
+        self.aSecret()
         
     def change_theme(self):
         if root.tk.call("ttk::style", "theme", "use") == "sun-valley-dark":
@@ -49,7 +55,6 @@ class App(ttk.Frame):
     def setup_widgets(self):
         # Styles
         style = ttk.Style()
-##        style.configure("tbstyles.Treeview", font=("Segoe UI",14))
 
         # Panedwindow
         self.paned = ttk.PanedWindow(self, orient="horizontal")
@@ -180,26 +185,56 @@ class App(ttk.Frame):
         self.appDescText = ttk.Label(self.tooboxInfoFrame, font=(17), wraplength=widthOfTooboxInfo, justify="left" ,text="Toobox is an app is a Toolbox of different tools to help in your Academics. Toobox provides various tools for a wide range of topics and subjects that will definately help you while revising and studying.")
         self.appDescText.pack(side="bottom")
         self.imgPanel.pack(side="bottom", fill="both", expand="yes", pady=32)
-        
-        ## Favourited
+
+        ## Favourites
+        self.favouritesFrame = ttk.Frame(self.notebook, width=widthOfTooboxInfo)
+        self.favouritesFrame.pack(side="left", pady=18, anchor="w")
+        self.favouritesText = ttk.Label(self.favouritesFrame, text="", font=("TkDefaultFont", 18, 'bold'))
+        self.favouritesText.pack(side="top", pady=3)
 
         ## Recently Opened
+        file = open('.recentlyOpened.json')
+        data = json.load(file)
+        file.close()
         self.recentlyOpenedFrame = ttk.Frame(self.notebook, width=widthOfTooboxInfo)
         self.recentlyOpenedFrame.pack(side="left", padx=20, pady=18, anchor="w")
         self.recentlyOpenedText = ttk.Label(self.recentlyOpenedFrame, text="Recently Opened ({})".format(str(len(config.recentlyOpened))),font=("TkDefaultFont",18, "bold"))
-        self.recentlyOpenedText.pack(side="top")
-##        for ropenedItem in config.recentlyOpened:
-##            self.ropenedItemBtn = ttk.Button(self.recentlyOpenedFrame, text=ropenedItem, font=("Segoe UI",16,'bold'))
-##            self.ropenedItemBtn.pack(side="top")
+        self.holdROItemFrame = ttk.Frame(self.recentlyOpenedFrame)
+        self.holdROItemFrame.pack(side="top")
+        for ropenedItem in data:
+            self.ropenedItemBtn = ttk.Button(self.holdROItemFrame, text=ropenedItem, width=30)
+            self.ropenedItemBtn.pack(side="top", pady=2)
 
     def on_tree_select(self, event):
+        file = open('.recentlyOpened.json')
+        data = json.load(file)
+        file.close()
+        data = list(data['recentlyOpened'])
+        bruh = {"recentlyOpened": []}
         config.currentlySelected = self.treeview.item(self.treeview.focus())['text']
 
+        if (len(data) < 3):
+            data.append(config.currentlySelected)
+        else:
+            data.append(config.currentlySelected)
+            data.pop(0)
+        bruh['recentlyOpened'] = data
+        with open('.recentlyOpened.json', 'w') as f:
+            json.dump(bruh,f)
         
+        self.holdROItemFrame.pack_forget()
+        self.notebook.update()
+        for ropenedItem in data:
+            self.ropenedItemBtn = ttk.Button(self.holdROItemFrame, text=ropenedItem, width=30)
+            self.ropenedItemBtn.pack(side="top", pady=2)
+        self.notebook.update()
+
         self.recentlyOpenedText.pack_forget()
         self.recentlyOpenedFrame.pack_forget()
         self.tooboxInfoFrame.pack_forget()
         self.welcomeFrame.pack_forget()
+        root.update()
+        
         if len(config.recentlyOpened) > 0:
             if config.currentlySelected == config.recentlyOpened[-1]:
                 if len(self.treeview.selection()) > 0:
