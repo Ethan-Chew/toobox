@@ -160,7 +160,7 @@ class App(ttk.Frame):
 
         ## Sizegrip
         self.sizegrip = ttk.Sizegrip(self)
-        self.sizegrip.pack(side="right")
+##        self.sizegrip.pack(side="bottom")
 
         ## Top Labels
         self.welcomeFrame = ttk.Frame(self.notebook)
@@ -195,24 +195,46 @@ class App(ttk.Frame):
     def on_tree_select(self, event):
         config.currentlySelected = self.treeview.item(self.treeview.focus())['text']
 
-        if (len(config.recentlyOpened) < 3):
-           config.recentlyOpened.append(config.currentlySelected)
-        else:
-            config.recentlyOpened.append(config.currentlySelected)
-            config.recentlyOpened.pop(0)
-
         
         self.recentlyOpenedText.pack_forget()
         self.recentlyOpenedFrame.pack_forget()
         self.tooboxInfoFrame.pack_forget()
         self.welcomeFrame.pack_forget()
-        
-
+        if len(config.recentlyOpened) > 0:
+            if config.currentlySelected == config.recentlyOpened[-1]:
+                if len(self.treeview.selection()) > 0:
+                    self.treeview.selection_remove(self.treeview.selection()[0])
+                self.showHomeScreen()
+            else:
+                if (len(config.recentlyOpened) < 3):
+                    config.recentlyOpened.append(config.currentlySelected)
+                else:
+                    config.recentlyOpened.append(config.currentlySelected)
+                    config.recentlyOpened.pop(0)
+        else:
+            if (len(config.recentlyOpened) < 3):
+                config.recentlyOpened.append(config.currentlySelected)
+            else:
+                config.recentlyOpened.append(config.currentlySelected)
+                config.recentlyOpened.pop(0)
+            
 #        if config.currentlySelected == "Ionic Equation":
 #            lambda: controller.show_frame("ionicEqn")
         # for item in self.treeview.selection():
         #     print(str("Selected Item: "+self.treeview.item(item, "text")))
         
+    def showHomeScreen(self):
+        self.welcomeFrame.pack(side="top", padx=25, pady=18, anchor="w")
+        self.helloUserLab.pack(pady=2)
+        self.welcomeLab.pack(side="left")
+        self.tooboxInfoFrame.pack(side="left", padx=25, pady=18, anchor="w")
+        self.appDescText.pack(side="bottom")
+        self.imgPanel.pack(side="bottom", fill="both", expand="yes", pady=32)
+        self.recentlyOpenedFrame.pack(side="left", padx=20, pady=18, anchor="w")
+        self.recentlyOpenedText.pack(side="top")
+        for ropenedItem in config.recentlyOpened:
+            self.ropenedItemBtn.pack(side="top")
+            
     def _quit(self):
         root.quit()
         root.destroy()
@@ -241,7 +263,7 @@ if __name__ == "__main__":
     x_cordinate = root.winfo_screenwidth()
     y_cordinate = root.winfo_screenheight()
     root.geometry("+{}+{}".format(x_cordinate, y_cordinate))
-
+##    root.resizable(True, True)
     root.state('zoomed')
 
     root.mainloop()
