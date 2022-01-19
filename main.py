@@ -165,9 +165,9 @@ class App(ttk.Frame):
         ## Top Labels
         self.welcomeFrame = ttk.Frame(self.notebook)
         self.welcomeFrame.pack(side="top", padx=25, pady=18, anchor="w")
-        self.helloUserLab = ttk.Label(self.welcomeFrame ,text="Hello, {}".format(config.username), font=("Segoe UI",50,'bold'))
+        self.helloUserLab = ttk.Label(self.welcomeFrame ,text="Hello, {}".format(config.username), font=("TkDefaultFont",50,'bold'))
         self.helloUserLab.pack(pady=2)
-        self.welcomeLab = ttk.Label(self.welcomeFrame, text="Welcome to Toobox!",font=("Segoe UI", 15))
+        self.welcomeLab = ttk.Label(self.welcomeFrame, text="Welcome to Toobox!",font=("TkDefaultFont", 15))
         self.welcomeLab.pack(side="left")
 
         ## Toobox Information
@@ -177,7 +177,7 @@ class App(ttk.Frame):
         appIconImg = ImageTk.PhotoImage(Image.open('src/images/AppIcon.png').resize((widthOfTooboxInfo-40,widthOfTooboxInfo-40), Image.ANTIALIAS))
         self.imgPanel = ttk.Label(self.tooboxInfoFrame, image=appIconImg)
         self.imgPanel.image = appIconImg
-        self.appDescText = ttk.Label(self.tooboxInfoFrame, font=("Segoe UI",17), wraplength=widthOfTooboxInfo, justify="left" ,text="Toobox is an app is a Toolbox of different tools to help in your Academics. Toobox provides various tools for a wide range of topics and subjects that will definately help you while revising and studying.")
+        self.appDescText = ttk.Label(self.tooboxInfoFrame, font=(17), wraplength=widthOfTooboxInfo, justify="left" ,text="Toobox is an app is a Toolbox of different tools to help in your Academics. Toobox provides various tools for a wide range of topics and subjects that will definately help you while revising and studying.")
         self.appDescText.pack(side="bottom")
         self.imgPanel.pack(side="bottom", fill="both", expand="yes", pady=32)
         
@@ -186,11 +186,11 @@ class App(ttk.Frame):
         ## Recently Opened
         self.recentlyOpenedFrame = ttk.Frame(self.notebook, width=widthOfTooboxInfo)
         self.recentlyOpenedFrame.pack(side="left", padx=20, pady=18, anchor="w")
-        self.recentlyOpenedText = ttk.Label(self.recentlyOpenedFrame, text="Recently Opened ({})".format(str(len(config.recentlyOpened))),font=("Segoe UI",18, "bold"))
+        self.recentlyOpenedText = ttk.Label(self.recentlyOpenedFrame, text="Recently Opened ({})".format(str(len(config.recentlyOpened))),font=("TkDefaultFont",18, "bold"))
         self.recentlyOpenedText.pack(side="top")
-        for ropenedItem in config.recentlyOpened:
-            self.ropenedItemBtn = ttk.Button(self.recentlyOpenedFrame, text=ropenedItem, font=("Segoe UI",16,'bold'))
-            self.ropenedItemBtn.pack(side="top")
+##        for ropenedItem in config.recentlyOpened:
+##            self.ropenedItemBtn = ttk.Button(self.recentlyOpenedFrame, text=ropenedItem, font=("Segoe UI",16,'bold'))
+##            self.ropenedItemBtn.pack(side="top")
 
     def on_tree_select(self, event):
         config.currentlySelected = self.treeview.item(self.treeview.focus())['text']
@@ -232,8 +232,6 @@ class App(ttk.Frame):
         self.imgPanel.pack(side="bottom", fill="both", expand="yes", pady=32)
         self.recentlyOpenedFrame.pack(side="left", padx=20, pady=18, anchor="w")
         self.recentlyOpenedText.pack(side="top")
-        for ropenedItem in config.recentlyOpened:
-            self.ropenedItemBtn.pack(side="top")
             
     def _quit(self):
         root.quit()
