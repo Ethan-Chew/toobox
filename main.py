@@ -215,14 +215,16 @@ class App(ttk.Frame):
         config.currentlySelected = self.treeview.item(self.treeview.focus())['text']
 
         if (len(data) < 3):
-           data.append(config.currentlySelected)
+            data.append(config.currentlySelected)
         else:
             data.append(config.currentlySelected)
             data.pop(0)
+            
         bruh['recentlyOpened'] = data
         with open('.recentlyOpened.json', 'w') as f:
             json.dump(bruh,f)
-        root.refresh()
+                    
+        root.update()
         
     def aSecret(self):
         if config.aSecret:
