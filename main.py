@@ -133,16 +133,9 @@ class App(ttk.Frame):
             (29, 31, "Cylinder"),
             (29, 32, "Cuboid/Cube"),
             (6, 33, "Percentage"),
-            (6, 34, "Coordinate Geometry"),
-            (34, 35, "Gradient"),
-            (34, 36, "Distance/Length"),
-            (34, 37, "Perpendicular Lines"),
             (6, 38, "Circles"),
             (38, 39, "Circle Properties"),
             (38, 40, "Equation of Circle"),
-            ("", 41, "Revision"),
-            (41, 42, "Grade Planner"),
-            (41, 43, "Grade Calculator"),
         ]
 
         # Insert treeview data
@@ -264,11 +257,6 @@ class App(ttk.Frame):
         #         data.pop(0)
         
         root.update()
-            
-#        if config.currentlySelected == "Ionic Equation":
-#            lambda: controller.show_frame("ionicEqn")
-        # for item in self.treeview.selection():
-        #     print(str("Selected Item: "+self.treeview.item(item, "text")))
         
     def showHomeScreen(self):
         self.welcomeFrame.pack(side="top", padx=25, pady=18, anchor="w")
