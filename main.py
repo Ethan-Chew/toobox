@@ -179,14 +179,12 @@ class App(ttk.Frame):
         self.widthOfTooboxInfo = 200
         self.tooboxInfoFrame = ttk.Frame(self.notebook, width=self.widthOfTooboxInfo)
         self.tooboxInfoFrame.pack(side="left", padx=25, pady=18, anchor="w")
-        self.tooboxLbl = ttk.Label(self.tooboxInfoFrame, text="Toobox", justify="left", font=("Segoe UI", 22, 'bold'))
-        appIconImg = ImageTk.PhotoImage(Image.open('src/images/AppIcon.png').resize((widthOfTooboxInfo-40,widthOfTooboxInfo-40), Image.ANTIALIAS))
+        appIconImg = ImageTk.PhotoImage(Image.open('src/images/AppIcon.png').resize((self.widthOfTooboxInfo-40,self.widthOfTooboxInfo-40), Image.ANTIALIAS))
         self.imgPanel = ttk.Label(self.tooboxInfoFrame, image=appIconImg)
         self.imgPanel.image = appIconImg
         self.appDescText = ttk.Label(self.tooboxInfoFrame, font=(17), wraplength=self.widthOfTooboxInfo, justify="left" ,text="Toobox is an app is a Toolbox of different tools to help in your Academics. Toobox provides various tools for a wide range of topics and subjects that will definately help you while revising and studying.")
         self.appDescText.pack(side="bottom")
-        self.imgPanel.pack(side="bottom", fill="both", expand="yes", pady=32)        
-        self.tooboxLbl.pack(side="bottom")
+        self.imgPanel.pack(side="bottom", fill="both", expand="yes", pady=32)
 
         ## Favourites
         self.favouritesFrame = ttk.Frame(self.notebook, width=self.widthOfTooboxInfo)
@@ -237,13 +235,9 @@ class App(ttk.Frame):
         self.recentlyOpenedFrame.pack_forget()
         self.tooboxInfoFrame.pack_forget()
         self.welcomeFrame.pack_forget()
-        root.update()
-        if len(config.recentlyOpened) > 0:
-            if config.currentlySelected == config.recentlyOpened[-1]:
+        
         if len(data) > 0:
             if config.currentlySelected == data[-1]:
-                if len(self.treeview.selection()) > 0:
-                    self.treeview.selection_remove(self.treeview.selection()[0])
                 self.showHomeScreen()
             else:
                 if (len(data) < 3):
