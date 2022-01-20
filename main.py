@@ -176,18 +176,18 @@ class App(ttk.Frame):
         self.welcomeLab.pack(side="left")
 
         ## Toobox Information
-        widthOfTooboxInfo = 300
-        self.tooboxInfoFrame = ttk.Frame(self.notebook, width=widthOfTooboxInfo)
+        self.widthOfTooboxInfo = 200
+        self.tooboxInfoFrame = ttk.Frame(self.notebook, width=self.widthOfTooboxInfo)
         self.tooboxInfoFrame.pack(side="left", padx=25, pady=18, anchor="w")
-        appIconImg = ImageTk.PhotoImage(Image.open('src/images/AppIcon.png').resize((widthOfTooboxInfo-40,widthOfTooboxInfo-40), Image.ANTIALIAS))
+        appIconImg = ImageTk.PhotoImage(Image.open('src/images/AppIcon.png').resize((self.widthOfTooboxInfo-40,self.widthOfTooboxInfo-40), Image.ANTIALIAS))
         self.imgPanel = ttk.Label(self.tooboxInfoFrame, image=appIconImg)
         self.imgPanel.image = appIconImg
-        self.appDescText = ttk.Label(self.tooboxInfoFrame, font=(17), wraplength=widthOfTooboxInfo, justify="left" ,text="Toobox is an app is a Toolbox of different tools to help in your Academics. Toobox provides various tools for a wide range of topics and subjects that will definately help you while revising and studying.")
+        self.appDescText = ttk.Label(self.tooboxInfoFrame, font=(17), wraplength=self.widthOfTooboxInfo, justify="left" ,text="Toobox is an app is a Toolbox of different tools to help in your Academics. Toobox provides various tools for a wide range of topics and subjects that will definately help you while revising and studying.")
         self.appDescText.pack(side="bottom")
         self.imgPanel.pack(side="bottom", fill="both", expand="yes", pady=32)
 
         ## Favourites
-        self.favouritesFrame = ttk.Frame(self.notebook, width=widthOfTooboxInfo)
+        self.favouritesFrame = ttk.Frame(self.notebook, width=self.widthOfTooboxInfo)
         self.favouritesFrame.pack(side="left", pady=18, anchor="w")
         self.favouritesText = ttk.Label(self.favouritesFrame, text="", font=("TkDefaultFont", 18, 'bold'))
         self.favouritesText.pack(side="top", pady=3)
@@ -197,7 +197,7 @@ class App(ttk.Frame):
         data = json.load(file)
         file.close()
         data = list(data['recentlyOpened'])
-        self.recentlyOpenedFrame = ttk.Frame(self.notebook, width=widthOfTooboxInfo)
+        self.recentlyOpenedFrame = ttk.Frame(self.notebook, width=self.widthOfTooboxInfo)
         self.recentlyOpenedFrame.pack(side="left", padx=20, pady=18, anchor="w")
         self.recentlyOpenedText = ttk.Label(self.recentlyOpenedFrame, text="Recently Opened ({})".format(str(len(data))),font=("TkDefaultFont",18, "bold"))
         self.recentlyOpenedText.pack(side="top", pady=3)
@@ -239,8 +239,6 @@ class App(ttk.Frame):
         
         if len(data) > 0:
             if config.currentlySelected == data[-1]:
-                if len(self.treeview.selection()) > 0:
-                    self.treeview.selection_remove(self.treeview.selection()[0])
                 self.showHomeScreen()
             else:
                 if (len(data) < 3):
@@ -271,7 +269,7 @@ class App(ttk.Frame):
         data = json.load(file)
         file.close()
         data = list(data['recentlyOpened'])
-        self.recentlyOpenedFrame = ttk.Frame(self.notebook, width=widthOfTooboxInfo)
+        self.recentlyOpenedFrame = ttk.Frame(self.notebook, width=self.widthOfTooboxInfo)
         self.recentlyOpenedFrame.pack(side="left", padx=20, pady=18, anchor="w")
         self.recentlyOpenedText = ttk.Label(self.recentlyOpenedFrame, text="Recently Opened ({})".format(str(len(data))),font=("TkDefaultFont",18, "bold"))
         self.recentlyOpenedText.pack(side="top", pady=3)
