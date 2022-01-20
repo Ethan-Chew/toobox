@@ -14,6 +14,8 @@ from pandas import wide_to_long
 import config
 from PIL import ImageTk, Image
 
+from toolsUI import ChemicalEquation, notUsable
+
 # Important UI Details
 ## 1. Default Font Size is *20*
 
@@ -231,26 +233,35 @@ class App(ttk.Frame):
             self.ropenedItemBtn.pack(side="top", pady=2)
         self.notebook.update()
 
-        self.recentlyOpenedText.pack_forget()
-        self.recentlyOpenedFrame.pack_forget()
-        self.tooboxInfoFrame.pack_forget()
-        self.welcomeFrame.pack_forget()
-        
-        if len(data) > 0:
-            if config.currentlySelected == data[-1]:
-                self.showHomeScreen()
-            else:
-                if (len(data) < 3):
-                    data.append(config.currentlySelected)
-                else:
-                    data.append(config.currentlySelected)
-                    data.pop(0)
+        def clearScreen():
+            self.recentlyOpenedText.pack_forget()
+            self.recentlyOpenedFrame.pack_forget()
+            self.tooboxInfoFrame.pack_forget()
+            self.welcomeFrame.pack_forget()
+        clearScreen()
+
+        if config.currentlySelected == "Chemical Equation":
+            clearScreen()
+            ChemicalEquation(self)
         else:
-            if (len(data) < 3):
-                data.append(config.currentlySelected)
-            else:
-                data.append(config.currentlySelected)
-                data.pop(0)
+            clearScreen()
+            notUsable(self)
+        
+        # if len(data) > 0:
+        #     if config.currentlySelected == data[-1]:
+        #         self.showHomeScreen()
+        #     else:
+        #         if (len(data) < 3):
+        #             data.append(config.currentlySelected)
+        #         else:
+        #             data.append(config.currentlySelected)
+        #             data.pop(0)
+        # else:
+        #     if (len(data) < 3):
+        #         data.append(config.currentlySelected)
+        #     else:
+        #         data.append(config.currentlySelected)
+        #         data.pop(0)
         
         root.update()
             
