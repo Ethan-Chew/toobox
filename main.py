@@ -54,7 +54,7 @@ class App(ttk.Frame):
     def setup_widgets(self):
         # Styles
         style = ttk.Style()
-##        style.configure("tbstyles.Treeview", font=("Segoe UI",14))
+##        style.configure("tbstyles.Treeview", font=("TkDefaultFont",14))
 
         # Panedwindow
         self.paned = ttk.PanedWindow(self, orient="horizontal")
@@ -67,7 +67,7 @@ class App(ttk.Frame):
         self.newpane = ttk.PanedWindow(self.pane_1, orient="horizontal")
         
         ## Treeview Label
-        self.treeViewTopLab = ttk.Label(self.newpane, text="Tools", font=('Segoe UI',20, 'bold'))
+        self.treeViewTopLab = ttk.Label(self.newpane, text="Tools", font=('TkDefaultFont',20, 'bold'))
         self.treeViewTopLab.pack(side="left",padx=5, anchor="w", fill="y")
 
         # Treeview Switch
@@ -170,9 +170,9 @@ class App(ttk.Frame):
         ## Top Labels
         self.welcomeFrame = ttk.Frame(self.notebook)
         self.welcomeFrame.pack(side="top", padx=25, pady=18, anchor="w")
-        self.helloUserLab = ttk.Label(self.welcomeFrame ,text="Hello, {}".format(config.username), font=("Segoe UI",50,'bold'))
+        self.helloUserLab = ttk.Label(self.welcomeFrame ,text="Hello, {}".format(config.username), font=("TkDefaultFont",50,'bold'))
         self.helloUserLab.pack(pady=2)
-        self.welcomeLab = ttk.Label(self.welcomeFrame, text="Welcome to Toobox!",font=("Segoe UI", 15))
+        self.welcomeLab = ttk.Label(self.welcomeFrame, text="Welcome to Toobox!",font=("TkDefaultFont", 15))
         self.welcomeLab.pack(side="left")
 
         ## Toobox Information
@@ -183,7 +183,7 @@ class App(ttk.Frame):
         appIconImg = ImageTk.PhotoImage(Image.open('src/images/AppIcon.png').resize((widthOfTooboxInfo-40,widthOfTooboxInfo-40), Image.ANTIALIAS))
         self.imgPanel = ttk.Label(self.tooboxInfoFrame, image=appIconImg)
         self.imgPanel.image = appIconImg
-        self.appDescText = ttk.Label(self.tooboxInfoFrame, font=("Segoe UI",17), wraplength=widthOfTooboxInfo, justify="left" ,text="Toobox is an app is a Toolbox of different tools to help in your Academics. Toobox provides various tools for a wide range of topics and subjects that will definately help you while revising and studying.")
+        self.appDescText = ttk.Label(self.tooboxInfoFrame, font=(17), wraplength=widthOfTooboxInfo, justify="left" ,text="Toobox is an app is a Toolbox of different tools to help in your Academics. Toobox provides various tools for a wide range of topics and subjects that will definately help you while revising and studying.")
         self.appDescText.pack(side="bottom")
         self.imgPanel.pack(side="bottom", fill="both", expand="yes", pady=32)        
         self.tooboxLbl.pack(side="bottom")
@@ -191,7 +191,7 @@ class App(ttk.Frame):
         ## Favourites
         self.favouritesFrame = ttk.Frame(self.notebook, width=widthOfTooboxInfo)
         self.favouritesFrame.pack(side="left", pady=18, anchor="w")
-        self.favouritesText = ttk.Label(self.favouritesFrame, text="", font=("Segoe UI", 18, 'bold'))
+        self.favouritesText = ttk.Label(self.favouritesFrame, text="", font=("TkDefaultFont", 18, 'bold'))
         self.favouritesText.pack(side="top", pady=3)
 
         ## Recently Opened
@@ -201,7 +201,7 @@ class App(ttk.Frame):
         data = list(data['recentlyOpened'])
         self.recentlyOpenedFrame = ttk.Frame(self.notebook, width=widthOfTooboxInfo)
         self.recentlyOpenedFrame.pack(side="left", padx=20, pady=18, anchor="w")
-        self.recentlyOpenedText = ttk.Label(self.recentlyOpenedFrame, text="Recently Opened ({})".format(str(len(data))),font=("Segoe UI",18, "bold"))
+        self.recentlyOpenedText = ttk.Label(self.recentlyOpenedFrame, text="Recently Opened ({})".format(str(len(data))),font=("TkDefaultFont",18, "bold"))
         self.recentlyOpenedText.pack(side="top", pady=3)
         self.holdROItemFrame = ttk.Frame(self.recentlyOpenedFrame)
         self.holdROItemFrame.pack(side="top")
@@ -238,24 +238,30 @@ class App(ttk.Frame):
         self.tooboxInfoFrame.pack_forget()
         self.welcomeFrame.pack_forget()
         root.update()
+<<<<<<< HEAD
 
         if len(config.recentlyOpened) > 0:
             if config.currentlySelected == config.recentlyOpened[-1]:
+=======
+        
+        if len(data) > 0:
+            if config.currentlySelected == data[-1]:
+>>>>>>> d0d48de821d6850f72ef57d8f38ae9383178bd9e
                 if len(self.treeview.selection()) > 0:
                     self.treeview.selection_remove(self.treeview.selection()[0])
                 self.showHomeScreen()
             else:
-                if (len(config.recentlyOpened) < 3):
-                    config.recentlyOpened.append(config.currentlySelected)
+                if (len(data) < 3):
+                    data.append(config.currentlySelected)
                 else:
-                    config.recentlyOpened.append(config.currentlySelected)
-                    config.recentlyOpened.pop(0)
+                    data.append(config.currentlySelected)
+                    data.pop(0)
         else:
-            if (len(config.recentlyOpened) < 3):
-                config.recentlyOpened.append(config.currentlySelected)
+            if (len(data) < 3):
+                data.append(config.currentlySelected)
             else:
-                config.recentlyOpened.append(config.currentlySelected)
-                config.recentlyOpened.pop(0)
+                data.append(config.currentlySelected)
+                data.pop(0)
             
 #        if config.currentlySelected == "Ionic Equation":
 #            lambda: controller.show_frame("ionicEqn")
@@ -269,10 +275,19 @@ class App(ttk.Frame):
         self.tooboxInfoFrame.pack(side="left", padx=25, pady=18, anchor="w")
         self.appDescText.pack(side="bottom")
         self.imgPanel.pack(side="bottom", fill="both", expand="yes", pady=32)
+        file = open('.recentlyOpened.json')
+        data = json.load(file)
+        file.close()
+        data = list(data['recentlyOpened'])
+        self.recentlyOpenedFrame = ttk.Frame(self.notebook, width=widthOfTooboxInfo)
         self.recentlyOpenedFrame.pack(side="left", padx=20, pady=18, anchor="w")
-        self.recentlyOpenedText.pack(side="top")
-        for ropenedItem in config.recentlyOpened:
-            self.ropenedItemBtn.pack(side="top")
+        self.recentlyOpenedText = ttk.Label(self.recentlyOpenedFrame, text="Recently Opened ({})".format(str(len(data))),font=("TkDefaultFont",18, "bold"))
+        self.recentlyOpenedText.pack(side="top", pady=3)
+        self.holdROItemFrame = ttk.Frame(self.recentlyOpenedFrame)
+        self.holdROItemFrame.pack(side="top")
+        for ropenedItem in data:
+            self.ropenedItemBtn = ttk.Button(self.holdROItemFrame, text=ropenedItem, width=30)
+            self.ropenedItemBtn.pack(side="top", pady=2)
             
     def _quit(self):
         root.quit()
