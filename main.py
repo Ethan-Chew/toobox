@@ -14,6 +14,8 @@ from pandas import wide_to_long
 import config
 from PIL import ImageTk, Image
 
+from toolsUI import ChemicalEquation, notUsable
+
 # Important UI Details
 ## 1. Default Font Size is *20*
 
@@ -131,16 +133,9 @@ class App(ttk.Frame):
             (29, 31, "Cylinder"),
             (29, 32, "Cuboid/Cube"),
             (6, 33, "Percentage"),
-            (6, 34, "Coordinate Geometry"),
-            (34, 35, "Gradient"),
-            (34, 36, "Distance/Length"),
-            (34, 37, "Perpendicular Lines"),
             (6, 38, "Circles"),
             (38, 39, "Circle Properties"),
             (38, 40, "Equation of Circle"),
-            ("", 41, "Revision"),
-            (41, 42, "Grade Planner"),
-            (41, 43, "Grade Calculator"),
         ]
 
         # Insert treeview data
@@ -179,14 +174,12 @@ class App(ttk.Frame):
         self.widthOfTooboxInfo = 200
         self.tooboxInfoFrame = ttk.Frame(self.notebook, width=self.widthOfTooboxInfo)
         self.tooboxInfoFrame.pack(side="left", padx=25, pady=18, anchor="w")
-        self.tooboxLbl = ttk.Label(self.tooboxInfoFrame, text="Toobox", justify="left", font=("Segoe UI", 22, 'bold'))
-        appIconImg = ImageTk.PhotoImage(Image.open('src/images/AppIcon.png').resize((widthOfTooboxInfo-40,widthOfTooboxInfo-40), Image.ANTIALIAS))
+        appIconImg = ImageTk.PhotoImage(Image.open('src/images/AppIcon.png').resize((self.widthOfTooboxInfo-40,self.widthOfTooboxInfo-40), Image.ANTIALIAS))
         self.imgPanel = ttk.Label(self.tooboxInfoFrame, image=appIconImg)
         self.imgPanel.image = appIconImg
         self.appDescText = ttk.Label(self.tooboxInfoFrame, font=(17), wraplength=self.widthOfTooboxInfo, justify="left" ,text="Toobox is an app is a Toolbox of different tools to help in your Academics. Toobox provides various tools for a wide range of topics and subjects that will definately help you while revising and studying.")
         self.appDescText.pack(side="bottom")
-        self.imgPanel.pack(side="bottom", fill="both", expand="yes", pady=32)        
-        self.tooboxLbl.pack(side="bottom")
+        self.imgPanel.pack(side="bottom", fill="both", expand="yes", pady=32)
 
         ## Favourites
         self.favouritesFrame = ttk.Frame(self.notebook, width=self.widthOfTooboxInfo)
@@ -233,37 +226,37 @@ class App(ttk.Frame):
             self.ropenedItemBtn.pack(side="top", pady=2)
         self.notebook.update()
 
-        self.recentlyOpenedText.pack_forget()
-        self.recentlyOpenedFrame.pack_forget()
-        self.tooboxInfoFrame.pack_forget()
-        self.welcomeFrame.pack_forget()
-        root.update()
-        if len(config.recentlyOpened) > 0:
-            if config.currentlySelected == config.recentlyOpened[-1]:
-        if len(data) > 0:
-            if config.currentlySelected == data[-1]:
-                if len(self.treeview.selection()) > 0:
-                    self.treeview.selection_remove(self.treeview.selection()[0])
-                self.showHomeScreen()
-            else:
-                if (len(data) < 3):
-                    data.append(config.currentlySelected)
-                else:
-                    data.append(config.currentlySelected)
-                    data.pop(0)
+        def clearScreen():
+            self.recentlyOpenedText.pack_forget()
+            self.recentlyOpenedFrame.pack_forget()
+            self.tooboxInfoFrame.pack_forget()
+            self.welcomeFrame.pack_forget()
+        clearScreen()
+
+        if config.currentlySelected == "Chemical Equation":
+            clearScreen()
+            ChemicalEquation(self)
         else:
-            if (len(data) < 3):
-                data.append(config.currentlySelected)
-            else:
-                data.append(config.currentlySelected)
-                data.pop(0)
+            clearScreen()
+            notUsable(self)
+        
+        # if len(data) > 0:
+        #     if config.currentlySelected == data[-1]:
+        #         self.showHomeScreen()
+        #     else:
+        #         if (len(data) < 3):
+        #             data.append(config.currentlySelected)
+        #         else:
+        #             data.append(config.currentlySelected)
+        #             data.pop(0)
+        # else:
+        #     if (len(data) < 3):
+        #         data.append(config.currentlySelected)
+        #     else:
+        #         data.append(config.currentlySelected)
+        #         data.pop(0)
         
         root.update()
-            
-#        if config.currentlySelected == "Ionic Equation":
-#            lambda: controller.show_frame("ionicEqn")
-        # for item in self.treeview.selection():
-        #     print(str("Selected Item: "+self.treeview.item(item, "text")))
         
     def showHomeScreen(self):
         self.welcomeFrame.pack(side="top", padx=25, pady=18, anchor="w")
