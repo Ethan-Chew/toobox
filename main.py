@@ -257,6 +257,8 @@ class App(ttk.Frame):
             else:
                 data.append(config.currentlySelected)
                 data.pop(0)
+        
+        root.update()
             
 #        if config.currentlySelected == "Ionic Equation":
 #            lambda: controller.show_frame("ionicEqn")
