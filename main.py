@@ -26,7 +26,6 @@ class App(ttk.Frame):
         # Set fullscreen
         self.fullScreenBindings()
         self.notify("Toobox", "Testing Notification", "Boop")
-        self.aSecret()
         
     def change_theme(self):
         if root.tk.call("ttk::style", "theme", "use") == "sun-valley-dark":
@@ -200,7 +199,7 @@ class App(ttk.Frame):
         data = list(data['recentlyOpened'])
         self.recentlyOpenedFrame = ttk.Frame(self.notebook, width=widthOfTooboxInfo)
         self.recentlyOpenedFrame.pack(side="left", padx=20, pady=18, anchor="w")
-        self.recentlyOpenedText = ttk.Label(self.recentlyOpenedFrame, text="Recently Opened ({})".format(str(len(config.recentlyOpened))),font=("TkDefaultFont",18, "bold"))
+        self.recentlyOpenedText = ttk.Label(self.recentlyOpenedFrame, text="Recently Opened ({})".format(str(len(data))),font=("TkDefaultFont",18, "bold"))
         self.recentlyOpenedText.pack(side="top", pady=3)
         self.holdROItemFrame = ttk.Frame(self.recentlyOpenedFrame)
         self.holdROItemFrame.pack(side="top")
@@ -238,23 +237,23 @@ class App(ttk.Frame):
         self.welcomeFrame.pack_forget()
         root.update()
         
-        if len(config.recentlyOpened) > 0:
-            if config.currentlySelected == config.recentlyOpened[-1]:
+        if len(data) > 0:
+            if config.currentlySelected == data[-1]:
                 if len(self.treeview.selection()) > 0:
                     self.treeview.selection_remove(self.treeview.selection()[0])
                 self.showHomeScreen()
             else:
-                if (len(config.recentlyOpened) < 3):
-                    config.recentlyOpened.append(config.currentlySelected)
+                if (len(data) < 3):
+                    data.append(config.currentlySelected)
                 else:
-                    config.recentlyOpened.append(config.currentlySelected)
-                    config.recentlyOpened.pop(0)
+                    data.append(config.currentlySelected)
+                    data.pop(0)
         else:
-            if (len(config.recentlyOpened) < 3):
-                config.recentlyOpened.append(config.currentlySelected)
+            if (len(data) < 3):
+                data.append(config.currentlySelected)
             else:
-                config.recentlyOpened.append(config.currentlySelected)
-                config.recentlyOpened.pop(0)
+                data.append(config.currentlySelected)
+                data.pop(0)
             
 #        if config.currentlySelected == "Ionic Equation":
 #            lambda: controller.show_frame("ionicEqn")
@@ -268,8 +267,19 @@ class App(ttk.Frame):
         self.tooboxInfoFrame.pack(side="left", padx=25, pady=18, anchor="w")
         self.appDescText.pack(side="bottom")
         self.imgPanel.pack(side="bottom", fill="both", expand="yes", pady=32)
+        file = open('.recentlyOpened.json')
+        data = json.load(file)
+        file.close()
+        data = list(data['recentlyOpened'])
+        self.recentlyOpenedFrame = ttk.Frame(self.notebook, width=widthOfTooboxInfo)
         self.recentlyOpenedFrame.pack(side="left", padx=20, pady=18, anchor="w")
-        self.recentlyOpenedText.pack(side="top")
+        self.recentlyOpenedText = ttk.Label(self.recentlyOpenedFrame, text="Recently Opened ({})".format(str(len(data))),font=("TkDefaultFont",18, "bold"))
+        self.recentlyOpenedText.pack(side="top", pady=3)
+        self.holdROItemFrame = ttk.Frame(self.recentlyOpenedFrame)
+        self.holdROItemFrame.pack(side="top")
+        for ropenedItem in data:
+            self.ropenedItemBtn = ttk.Button(self.holdROItemFrame, text=ropenedItem, width=30)
+            self.ropenedItemBtn.pack(side="top", pady=2)
             
     def _quit(self):
         root.quit()
