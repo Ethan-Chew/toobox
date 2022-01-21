@@ -198,9 +198,13 @@ class App(ttk.Frame):
         self.recentlyOpenedText.pack(side="top", pady=3)
         self.holdROItemFrame = ttk.Frame(self.recentlyOpenedFrame)
         self.holdROItemFrame.pack(side="top")
-        for ropenedItem in data:
-            self.ropenedItemBtn = ttk.Button(self.holdROItemFrame, text=ropenedItem, width=30)
-            self.ropenedItemBtn.pack(side="top", pady=2)
+        if len(data) == 0:
+            self.errLabl = ttk.Label(self.holdROItemFrame, text="You have not opened anything!",font=("TkDefaultFont",16) )
+            self.errLabl.pack(side="top", pady=2)
+        else:
+            for ropenedItem in data:
+                self.ropenedItemBtn = ttk.Button(self.holdROItemFrame, text=ropenedItem, width=30)
+                self.ropenedItemBtn.pack(side="top", pady=2)
 
     def on_tree_select(self, event):
         file = open('.recentlyOpened.json')
@@ -211,7 +215,8 @@ class App(ttk.Frame):
         config.currentlySelected = self.treeview.item(self.treeview.focus())['text']
 
         if (len(data) < 3):
-            data.append(config.currentlySelected)
+            if config.currentlySelected not in data:
+                data.append(config.currentlySelected)
         else:
             data.append(config.currentlySelected)
             data.pop(0)
@@ -310,7 +315,6 @@ if __name__ == "__main__":
     x_cordinate = root.winfo_screenwidth()
     y_cordinate = root.winfo_screenheight()
     root.geometry("+{}+{}".format(x_cordinate, y_cordinate))
-##    root.resizable(True, True)
     root.state('zoomed')
 
     root.mainloop()
