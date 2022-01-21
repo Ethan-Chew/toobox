@@ -55,15 +55,14 @@ class calculator:
 		return algebric(number,algebras)
 
 	def findend(self,s,j):
-		#find other brackey
 	    count=1
 		for i in range(j+1,len(s)):
-	        if s[i]=="(":
-	            count+=1
-	        elif s[i]==")":
-	            count-=1
-	        if count==0:
-	            return i+1
+			if s[i]=="(":
+				count+=1
+				elif s[i]==")":
+					count-=1
+				if count==0:
+	            	return i+1
 
 	def sol(self,stri):
 		parsed=self.parse(stri)

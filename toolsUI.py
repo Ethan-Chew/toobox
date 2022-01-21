@@ -5,8 +5,8 @@ def ChemicalEquation(self):
     # Top Labels
     self.welcomeFrame = ttk.Frame(self.notebook)
     self.welcomeFrame.pack(side="top", padx=25, pady=18, anchor="w")
-    self.helloUserLab = ttk.Label(self.welcomeFrame, text="Chemical Equation Balancer", font=("TkDefaultFont",50,'bold'))
-    self.helloUserLab.pack(pady=2)
+    self.mainLabel = ttk.Label(self.welcomeFrame, text="Chemical Equation Balancer", font=("TkDefaultFont",50,'bold'))
+    self.mainLabel.pack(pady=2)
 
 def notUsable(self):
     # Top Labels
