@@ -10,9 +10,9 @@ def ChemicalEquation(self):
 
 def notUsable(self):
     # Top Labels
-    self.notUsable = ttk.Frame(self.notebook)
-    self.notUsable.pack(anchor="w")
-    self.wipText = ttk.Label(self.notUsable, text="This is a Work in Progress", font=("TkDefaultFont", 30, 'bold'), justify="center")
+    self.welcomeFrame = ttk.Frame(self.notebook)
+    self.welcomeFrame.pack(side="top", anchor="w")
+    self.wipText = ttk.Label(self.welcomeFrame, text="This is a Work in Progress", font=("TkDefaultFont", 30, 'bold'), justify="center")
     self.wipText.pack(side="top", pady=2)
-    self.wipTextA = ttk.Label(self.notUsable, text="Check back soon!", font=("TkDefaultFont", 20), justify="center")
+    self.wipTextA = ttk.Label(self.welcomeFrame, text="Check back soon!", font=("TkDefaultFont", 20), justify="center")
     self.wipTextA.pack(side="top", pady=2)

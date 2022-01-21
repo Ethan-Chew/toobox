@@ -234,9 +234,12 @@ class App(ttk.Frame):
         clearScreen()
 
         if config.currentlySelected == "Chemical Equation":
+            self.welcomeFrame.pack_forget()
             clearScreen()
             ChemicalEquation(self)
         else:
+            print(config.currentlySelected)
+            self.welcomeFrame.pack_forget()
             clearScreen()
             notUsable(self)
         
