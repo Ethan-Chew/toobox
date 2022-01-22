@@ -17,7 +17,7 @@ def ChemicalEquation(self):
     self.welcomeFrame.pack(side="top", padx=25, pady=18, anchor="w")
     self.mainLabel = WrappingLabel(self.welcomeFrame, text="Chemical Equation Balancer", font=("TkDefaultFont",50,'bold'))
     self.mainLabel.pack(pady=2)
-    self.infoLabel = WrappingLabel(self.welcomeFrame, text="Please enter the Chemical Equation like in the following example: 'Compound(State) + Compound2(State) -> Compound3(State) + Compound4(State)'", font=("TkDefaultFont", 15))
+    self.infoLabel = WrappingLabel(self.welcomeFrame, text="Please enter the Chemical Equation like in the following example: 'Compound(State) + Compound2(State) + ... -> Compound3(State) + Compound4(State) + ...'", font=("TkDefaultFont", 15))
     self.infoLabel.pack(side="left", pady=2)
     
     self.mainFrame = ttk.Frame(self.notebook)

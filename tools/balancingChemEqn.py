@@ -16,9 +16,25 @@ def balanceChemEqn(equation):
     
     # Data Validation
     def validateInput():
-        pass
-
+        reactantsCompounds = []
+        productsCompounds = []
+        try:
+            reactantsCompounds, productsCompounds = equation.split(" -> ")
+            reactantsCompounds = reactantsCompounds.split(" + ")
+            productsCompounds = productsCompounds.split(" + ")
+        except:
+            return "Format Err"
+        
+        occurancesVal = getOccurances()
+        if occurancesVal == "Unknown Cmpt":
+            return "Unknown Cmpt"
+        
     # Main
+    validationOutcome = validateInput()
+    if validationOutcome == "Format Err":
+        return "Formatting Error, Please follow stated Format."
+    elif validationOutcome == "Unknown Cmpt":
+        return "Unknown Compound found in Equation."
     reactantsCompounds, productsCompounds = equation.split(" -> ")
     reactantsCompounds = reactantsCompounds.split(" + ")
     productsCompounds = productsCompounds.split(" + ")
@@ -41,7 +57,10 @@ def balanceChemEqn(equation):
             else:
                 oldMul = int(oldMul)
             splittedCompound = reactantsCompounds[i].split("(")
-            occurences = Compound(splittedCompound[0]).occurences
+            try:
+                occurences = Compound(splittedCompound[0]).occurences
+            except:
+                return "Unknown Cmpt"
             occurences.update((x, y*oldMul) for x, y in occurences.items())
             reactantsOccurances = reactantsOccurances | occurences
 
@@ -58,7 +77,10 @@ def balanceChemEqn(equation):
             else:
                 oldMul = int(oldMul)
             splittedCompound = productsCompounds[i].split("(")
-            occurences = Compound(splittedCompound[0]).occurences
+            try:
+                occurences = Compound(splittedCompound[0]).occurences
+            except:
+                return "Unknown Cmpt"
             occurences.update((x, y*oldMul) for x, y in occurences.items())
             productsOccurances = productsOccurances | occurences
     
