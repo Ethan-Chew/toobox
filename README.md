@@ -1,16 +1,10 @@
 # Toobox
 Toobox of different tools to help in your Academics
 
-## Required Libraries 
-### Chemlib
-1. Open the terminal and move to the project directory
-2. Run ```pip3 install chemlib```
-### Pillow
-1. Open the terminal and move to the project directory
-2. Run ```pip3 install pillow```
-### Matplotlib
-1. Open the terminal and move to the project directory
-2. Run ```pip3 install matplotlib```
+## Set-Up Process
+1. Go to the Directory where 'Toobox' is held (Using ```cd``` in the Terminal)
+2. Run the Command ```sh installdependencies.sh``` to automatically install all the dependencies needed for this project
+3. Once it has completed, you may open **main.py** and run the file with the IDE of your choice
 
 ## Current Tools
 1. Ionic Equation Solver
@@ -19,8 +13,10 @@ Toobox of different tools to help in your Academics
 4. Matrix Solver
 5. Triangle Area Calculation
 
-## Credits
+## Dependencies and Themes
 1. Chemlib
-2. sun-valley Theme for tkinker
+2. Pillow
+3. matplotlib
+4. sun-valley Theme for tkinker
 
-###### Developed by [Granwyn Tan](https://granwyntan.github.io), [Ethan Chew](https://www.ethanchew.com), [Jerick Seng](https://jer123se12.github.io)
+###### Developed with ❤️ by [Granwyn Tan](https://granwyntan.github.io), [Ethan Chew](https://www.ethanchew.com), [Jerick Seng](https://jer123se12.github.io) our Computing+ Coursework
