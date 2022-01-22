@@ -4,17 +4,13 @@ from re import S
 import tkinter as tk
 from tkinter import ttk
 import os
-import time
 from tkinter import font
 import json
-import webbrowser
-
-from pandas import wide_to_long
-
-import config
 from PIL import ImageTk, Image
 
+import config
 from toolsUI import ChemicalEquation, notUsable
+from components.wrappedLabel import WrappingLabel
 
 # Important UI Details
 ## 1. Default Font Size is *20*
@@ -27,7 +23,7 @@ class App(ttk.Frame):
         self.fullScreen = False
         # Set fullscreen
         self.fullScreenBindings()
-        self.notify("Toobox", "Testing Notification", "Boop")
+        # self.notify("Toobox", "Testing Notification", "Boop")
         
     def change_theme(self):
         if root.tk.call("ttk::style", "theme", "use") == "sun-valley-dark":
@@ -69,7 +65,7 @@ class App(ttk.Frame):
         self.newpane = ttk.PanedWindow(self.pane_1, orient="horizontal")
         
         ## Treeview Label
-        self.treeViewTopLab = ttk.Label(self.newpane, text="Tools", font=('TkDefaultFont',20, 'bold'))
+        self.treeViewTopLab = WrappingLabel(self.newpane, text="Tools", font=('TkDefaultFont',20, 'bold'))
         self.treeViewTopLab.pack(side="left",padx=5, anchor="w", fill="y")
 
         # Treeview Switch
@@ -165,9 +161,9 @@ class App(ttk.Frame):
         ## Top Labels
         self.welcomeFrame = ttk.Frame(self.notebook)
         self.welcomeFrame.pack(side="top", padx=25, pady=18, anchor="w")
-        self.helloUserLab = ttk.Label(self.welcomeFrame ,text="Hello, {}".format(config.username), font=("TkDefaultFont",50,'bold'))
+        self.helloUserLab = WrappingLabel(self.welcomeFrame ,text="Hello, {}".format(config.username), font=("TkDefaultFont",50,'bold'))
         self.helloUserLab.pack(pady=2)
-        self.welcomeLab = ttk.Label(self.welcomeFrame, text="Welcome to Toobox!",font=("TkDefaultFont", 15))
+        self.welcomeLab = WrappingLabel(self.welcomeFrame, text="Welcome to Toobox!",font=("TkDefaultFont", 15))
         self.welcomeLab.pack(side="left")
 
         ## Toobox Information
@@ -175,16 +171,16 @@ class App(ttk.Frame):
         self.tooboxInfoFrame = ttk.Frame(self.notebook, width=self.widthOfTooboxInfo)
         self.tooboxInfoFrame.pack(side="left", padx=25, pady=18, anchor="w")
         appIconImg = ImageTk.PhotoImage(Image.open('src/images/AppIcon.png').resize((self.widthOfTooboxInfo-40,self.widthOfTooboxInfo-40), Image.ANTIALIAS))
-        self.imgPanel = ttk.Label(self.tooboxInfoFrame, image=appIconImg)
+        self.imgPanel = WrappingLabel(self.tooboxInfoFrame, image=appIconImg)
         self.imgPanel.image = appIconImg
-        self.appDescText = ttk.Label(self.tooboxInfoFrame, font=(17), wraplength=self.widthOfTooboxInfo, justify="left" ,text="Toobox is an app is a Toolbox of different tools to help in your Academics. Toobox provides various tools for a wide range of topics and subjects that will definately help you while revising and studying.")
+        self.appDescText = WrappingLabel(self.tooboxInfoFrame, font=(17), wraplength=self.widthOfTooboxInfo, justify="left" ,text="Toobox is an app is a Toolbox of different tools to help in your Academics. Toobox provides various tools for a wide range of topics and subjects that will definately help you while revising and studying.")
         self.appDescText.pack(side="bottom")
         self.imgPanel.pack(side="bottom", fill="both", expand="yes", pady=32)
 
         ## Favourites
         self.favouritesFrame = ttk.Frame(self.notebook, width=self.widthOfTooboxInfo)
         self.favouritesFrame.pack(side="left", pady=18, anchor="w")
-        self.favouritesText = ttk.Label(self.favouritesFrame, text="", font=("TkDefaultFont", 18, 'bold'))
+        self.favouritesText = WrappingLabel(self.favouritesFrame, text="", font=("TkDefaultFont", 18, 'bold'))
         self.favouritesText.pack(side="top", pady=3)
 
         ## Recently Opened
@@ -194,12 +190,12 @@ class App(ttk.Frame):
         data = list(data['recentlyOpened'])
         self.recentlyOpenedFrame = ttk.Frame(self.notebook, width=self.widthOfTooboxInfo)
         self.recentlyOpenedFrame.pack(side="left", padx=20, pady=18, anchor="w")
-        self.recentlyOpenedText = ttk.Label(self.recentlyOpenedFrame, text="Recently Opened ({})".format(str(len(data))),font=("TkDefaultFont",18, "bold"))
+        self.recentlyOpenedText = WrappingLabel(self.recentlyOpenedFrame, text="Recently Opened ({})".format(str(len(data))),font=("TkDefaultFont",18, "bold"))
         self.recentlyOpenedText.pack(side="top", pady=3)
         self.holdROItemFrame = ttk.Frame(self.recentlyOpenedFrame)
         self.holdROItemFrame.pack(side="top")
         if len(data) == 0:
-            self.errLabl = ttk.Label(self.holdROItemFrame, text="You have not opened anything!",font=("TkDefaultFont",16) )
+            self.errLabl = WrappingLabel(self.holdROItemFrame, text="You have not opened anything!",font=("TkDefaultFont",16) )
             self.errLabl.pack(side="top", pady=2)
         else:
             for ropenedItem in data:
@@ -279,7 +275,7 @@ class App(ttk.Frame):
         data = list(data['recentlyOpened'])
         self.recentlyOpenedFrame = ttk.Frame(self.notebook, width=self.widthOfTooboxInfo)
         self.recentlyOpenedFrame.pack(side="left", padx=20, pady=18, anchor="w")
-        self.recentlyOpenedText = ttk.Label(self.recentlyOpenedFrame, text="Recently Opened ({})".format(str(len(data))),font=("TkDefaultFont",18, "bold"))
+        self.recentlyOpenedText = WrappingLabel(self.recentlyOpenedFrame, text="Recently Opened ({})".format(str(len(data))),font=("TkDefaultFont",18, "bold"))
         self.recentlyOpenedText.pack(side="top", pady=3)
         self.holdROItemFrame = ttk.Frame(self.recentlyOpenedFrame)
         self.holdROItemFrame.pack(side="top")

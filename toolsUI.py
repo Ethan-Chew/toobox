@@ -1,22 +1,44 @@
 import tkinter as tk
 from tkinter import ttk
 
+from tools.balancingChemEqn import balanceChemEqn
+from components.wrappedLabel import WrappingLabel
+
 def ChemicalEquation(self):
-    # Top Labels
+    # Input Data
+    def getInputs(self):
+        chemEqn = self.inputField.get()
+        codeReturned = balanceChemEqn(chemEqn) # Could return error/final value
+        setFinalResult(self, codeReturned)
+    
+    # User Interface
+    maxLen = len("HCl(aq) + Na(s) -> NaCl(aq) + H2(g)")
     self.welcomeFrame = ttk.Frame(self.notebook)
     self.welcomeFrame.pack(side="top", padx=25, pady=18, anchor="w")
-    self.mainLabel = ttk.Label(self.welcomeFrame, text="Chemical Equation Balancer", font=("TkDefaultFont",50,'bold'))
+    self.mainLabel = WrappingLabel(self.welcomeFrame, text="Chemical Equation Balancer", font=("TkDefaultFont",50,'bold'))
     self.mainLabel.pack(pady=2)
-    self.infoLabel = ttk.Label(self.welcomeFrame, text="Please enter the Chemical Equation like in the following example: 'HCl(aq) + Na(s) -> NaCl(aq) + H2(g)'", font=("TkDefaultFont", 15))
+    self.infoLabel = WrappingLabel(self.welcomeFrame, text="Please enter the Chemical Equation like in the following example: 'Compound(State) + Compound2(State) -> Compound3(State) + Compound4(State)'", font=("TkDefaultFont", 15))
     self.infoLabel.pack(side="left", pady=2)
+    
     self.mainFrame = ttk.Frame(self.notebook)
-    self.mainFrame.pack(side="bottom", padx=25, pady=18, anchor="w")
+    self.mainFrame.pack(padx=25, pady=18, anchor="w")
+    self.inputTxt = WrappingLabel(self.mainFrame, text="Input:  ", font=("TkDefaultFont", 20))
+    self.inputTxt.grid(row=0, column=0, padx=2)
+    self.inputField = ttk.Entry(self.mainFrame, width=50, font=("TkDefaultFont", 12))
+    self.inputField.insert(0, "HCl(aq) + Na(s) -> NaCl(aq) + H2(g)")
+    self.inputField.grid(row=0, column=1)
+    self.sendData = ttk.Button(self.mainFrame, text="Balance", style='Accent.TButton', command=lambda: getInputs(self))
+    self.sendData.grid(row=1, column=0,pady=10, padx=2)
+    
+    def setFinalResult(self, result):
+        self.resultTxt = ttk.Label(self.mainFrame, text="Result:  {}".format(result), font=("TkDefaultFont", 20))
+        self.resultTxt.grid(row=3, columnspan = 2, sticky = tk.W+tk.E, padx=2)
 
 def notUsable(self):
     # Top Labels
     self.welcomeFrame = ttk.Frame(self.notebook)
     self.welcomeFrame.pack(side="top", anchor="w")
-    self.wipText = ttk.Label(self.welcomeFrame, text="This is a Work in Progress", font=("TkDefaultFont", 30, 'bold'), justify="center")
+    self.wipText = WrappingLabel(self.welcomeFrame, text="This is a Work in Progress", font=("TkDefaultFont", 30, 'bold'), justify="center")
     self.wipText.pack(side="top", pady=2)
-    self.wipTextA = ttk.Label(self.welcomeFrame, text="Check back soon!", font=("TkDefaultFont", 20), justify="center")
+    self.wipTextA = WrappingLabel(self.welcomeFrame, text="Check back soon!", font=("TkDefaultFont", 20), justify="center")
     self.wipTextA.pack(side="top", pady=2)
