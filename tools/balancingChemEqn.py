@@ -25,9 +25,12 @@ def balanceChemEqn(equation):
         except:
             return "Format Err"
         
-        occurancesVal = getOccurances()
-        if occurancesVal == "Unknown Cmpt":
-            return "Unknown Cmpt"
+        try:
+            occurancesVal = getOccurances()
+            if occurancesVal == "Unknown Cmpt":
+                return "Unknown Cmpt"
+        except:
+            return "Validated"
         
     # Main
     validationOutcome = validateInput()
@@ -35,6 +38,7 @@ def balanceChemEqn(equation):
         return "Formatting Error, Please follow stated Format."
     elif validationOutcome == "Unknown Cmpt":
         return "Unknown Compound found in Equation."
+    
     reactantsCompounds, productsCompounds = equation.split(" -> ")
     reactantsCompounds = reactantsCompounds.split(" + ")
     productsCompounds = productsCompounds.split(" + ")
