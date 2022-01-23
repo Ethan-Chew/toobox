@@ -239,13 +239,16 @@ class App(ttk.Frame):
             self.welcomeFrame.pack_forget()
             self.clearScreen()
             ChemicalEquation(self)
+        elif config.currentlySelected == "Rectangle/Square":
+            self.welcomeFrame.pack_forget()
+            self.clearScreen()
+            ChemicalEquation(self)
         else:
             try: self.mainFrame.pack_forget()
-            except: print("error bad bad")
-            finally:
-                self.welcomeFrame.pack_forget()
-                self.clearScreen()
-                notUsable(self)
+            except: print("error")
+            self.welcomeFrame.pack_forget()
+            self.clearScreen()
+            notUsable(self)
         
         # if len(data) > 0:
         #     if config.currentlySelected == data[-1]:
