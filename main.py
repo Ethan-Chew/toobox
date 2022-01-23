@@ -201,7 +201,12 @@ class App(ttk.Frame):
             for ropenedItem in data:
                 self.ropenedItemBtn = ttk.Button(self.holdROItemFrame, text=ropenedItem, width=30)
                 self.ropenedItemBtn.pack(side="top", pady=2)
-
+    def clearScreen(self):
+            self.recentlyOpenedText.pack_forget()
+            self.recentlyOpenedFrame.pack_forget()
+            self.tooboxInfoFrame.pack_forget()
+            self.welcomeFrame.pack_forget()
+            
     def on_tree_select(self, event):
         file = open('.recentlyOpened.json')
         data = json.load(file)
@@ -227,22 +232,20 @@ class App(ttk.Frame):
             self.ropenedItemBtn.pack(side="top", pady=2)
         self.notebook.update()
 
-        def clearScreen():
-            self.recentlyOpenedText.pack_forget()
-            self.recentlyOpenedFrame.pack_forget()
-            self.tooboxInfoFrame.pack_forget()
-            self.welcomeFrame.pack_forget()
-        clearScreen()
+        
+        self.clearScreen()
 
         if config.currentlySelected == "Chemical Equation":
             self.welcomeFrame.pack_forget()
-            clearScreen()
+            self.clearScreen()
             ChemicalEquation(self)
         else:
-            self.mainFrame.pack_forget()
-            self.welcomeFrame.pack_forget()
-            clearScreen()
-            notUsable(self)
+            try: self.mainFrame.pack_forget()
+            except: print("error bad bad")
+            finally:
+                self.welcomeFrame.pack_forget()
+                self.clearScreen()
+                notUsable(self)
         
         # if len(data) > 0:
         #     if config.currentlySelected == data[-1]:
