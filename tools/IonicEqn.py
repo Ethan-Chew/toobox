@@ -5,60 +5,54 @@ import tkinter as tk
 from tkinter import Canvas, PhotoImage, ttk
 # Example: 2HCl(aq) + 2Na(s) -> 2NaCl(aq) + H2(g)
 
-class ionicEqn(ttk.Frame):
-    def __init__(self, parent):
-        ttk.Frame.__init__(self)
-        self.setup_widgets()
-    
-    def setup_widgets(self):
-        ## Ionic Eqn Screen Frame
-        self.ionicEqnScreen = ttk.Frame(self.paned, padding=5)
-        self.notebook = ttk.Notebook(self.ionicEqnScreen, padding=3)
-        self.notebook.pack(fill="both", expand=True)
+def ionicEqn(equation):
+    # Variables
+    leftSideElements, rightSideElements = {}, {}
+    rightSideEqn, leftSideEqn = [], []
 
-        ## Sizegrip
-        self.sizegrip = ttk.Sizegrip(self)
-        self.sizegrip.pack(side="right")
+    # Main
+    ## Data Validation
+    def validate():
+        try:
+            splittedEqn = equation.split("->")
+            testLef = splittedEqn[0].split(" ")
+            textRig = splittedEqn[1].split(" ")
+        except:
+            return "Format Err"
+        if "aq" not in equation:
+            return "No aq"
 
-        ## Top Labels
-        self.welcomeFrame = ttk.Frame(self.notebook)
-        self.welcomeFrame.pack(side="top", padx=25, pady=18, anchor="w")
-        self.helloUserLab = ttk.Label(self.welcomeFrame ,text="Hello, TEST", font=("",50, 'bold'))
-        self.helloUserLab.pack(pady=2)
-        self.welcomeLab = ttk.Label(self.welcomeFrame, text="Welcome to Toobox!",font=("", 15))
-        self.welcomeLab.pack(side="left")
-        
-    def mainCode(chemEqn):
-        # Variables
-        leftSideElements = {}
-        rightSideElements = {}
+    validationOutcome = validate()
+    if validationOutcome == "Format Err":
+        return "Invalid Equation Format, please follow the format stated."
+    elif validationOutcome == "No aq":
+        return "The Equation does not have an Aqueous Substance. Please check the Equation entered again."
 
-        # Main
-        splittedEqn = chemEqn.split("->")
-        leftSideEqn = splittedEqn[0].split(" ")
-        rightSideEqn = splittedEqn[1].split(" ")
+    splittedEqn = equation.split("->")
+    leftSideEqn = splittedEqn[0].split(" ")
+    rightSideEqn = splittedEqn[1].split(" ")
 
-        def findCharge(element):
-            elementValenceElec = int(Element(str(element)).properties["Valence"])
-            elementCharge = ""
-            if elementValenceElec < 4:
-                if elementValenceElec == 1:
-                    elementCharge = "+"
-                else:
-                    elementCharge = "{}+".format(elementValenceElec)
-            elif elementValenceElec == 4:
-                elementCharge = "4+"
+    def findCharge(element):
+        elementValenceElec = int(Element(str(element)).properties["Valence"])
+        elementCharge = ""
+        if elementValenceElec < 4:
+            if elementValenceElec == 1:
+                elementCharge = "+"
             else:
-                elementCharge = "{}-".format(elementValenceElec - 4)
-            newElement = ""
-            if multiplier.isnumeric():
-                newElement = "{}{}{}".format(multiplier,element,elementCharge)
-            else:
-                newElement = "{}{}".format(element,elementCharge)
-            return newElement
+                elementCharge = "{}+".format(elementValenceElec)
+        elif elementValenceElec == 4:
+            elementCharge = "4+"
+        else:
+            elementCharge = "{}-".format(elementValenceElec - 4)
+        newElement = ""
+        if multiplier.isnumeric():
+            newElement = "{}{}{}".format(multiplier,element,elementCharge)
+        else:
+            newElement = "{}{}".format(element,elementCharge)
+        return newElement
 
+    try:
         ## Split if aqueous
-
         for item in leftSideEqn:
             if item != "" and item != "+":
                 splittedItem = item.split("(")
@@ -135,7 +129,9 @@ class ionicEqn(ttk.Frame):
             finalIonic += "({})".format(rightData[i].split()[0])
             finalIonic += " +"
         finalIonic = finalIonic[:-2]
-        if (finalIonic == chemEqn):
-            print("Data is already an Ionic Equation/Data is not working")
+        if (finalIonic == equation):
+            return "Data is already an Ionic Equation/Data is not working"
         else:
-            print("Output: {}".format(finalIonic))
+            return finalIonic
+    except:
+        return "Unknown Error. Please try again."
