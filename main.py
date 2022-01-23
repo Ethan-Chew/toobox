@@ -9,7 +9,7 @@ import json
 from PIL import ImageTk, Image
 
 import config
-from toolsUI import ChemicalEquation, notUsable
+from toolsUI import ChemicalEquation, notUsable, Rectangle, Circle
 from components.wrappedLabel import WrappingLabel
 
 # Important UI Details
