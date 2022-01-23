@@ -42,3 +42,6 @@ def notUsable(self):
     self.wipText.pack(side="top", pady=2)
     self.wipTextA = WrappingLabel(self.welcomeFrame, text="Check back soon!", font=("TkDefaultFont", 20), justify="center")
     self.wipTextA.pack(side="top", pady=2)
+
+def Rectangle(self):
+    pass
