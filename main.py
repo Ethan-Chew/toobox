@@ -9,7 +9,7 @@ import json
 from PIL import ImageTk, Image
 
 import config
-from toolsUI import ChemicalEquation, notUsable, Rectangle, Circle
+from toolsUI import ChemicalEquation, IonicEqn, notUsable, Rectangle, Circle
 from components.wrappedLabel import WrappingLabel
 
 # Important UI Details
@@ -202,10 +202,15 @@ class App(ttk.Frame):
                 self.ropenedItemBtn = ttk.Button(self.holdROItemFrame, text=ropenedItem, width=30)
                 self.ropenedItemBtn.pack(side="top", pady=2)
     def clearScreen(self):
-            self.recentlyOpenedText.pack_forget()
-            self.recentlyOpenedFrame.pack_forget()
-            self.tooboxInfoFrame.pack_forget()
-            self.welcomeFrame.pack_forget()
+        self.recentlyOpenedText.pack_forget()
+        self.recentlyOpenedFrame.pack_forget()
+        self.tooboxInfoFrame.pack_forget()
+        self.welcomeFrame.pack_forget()
+
+        try:
+            self.mainFrame.pack_forget()
+        except:
+            pass
             
     def on_tree_select(self, event):
         file = open('.recentlyOpened.json')
@@ -232,7 +237,6 @@ class App(ttk.Frame):
             self.ropenedItemBtn.pack(side="top", pady=2)
         self.notebook.update()
 
-        
         self.clearScreen()
 
         if config.currentlySelected == "Chemical Equation":
@@ -243,9 +247,13 @@ class App(ttk.Frame):
             self.welcomeFrame.pack_forget()
             self.clearScreen()
             ChemicalEquation(self)
+        elif config.currentlySelected == "Ionic Equation":
+            self.welcomeFrame.pack_forget()
+            self.clearScreen()
+            IonicEqn(self)
         else:
             try: self.mainFrame.pack_forget()
-            except: print("error")
+            except: pass
             self.welcomeFrame.pack_forget()
             self.clearScreen()
             notUsable(self)
