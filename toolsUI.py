@@ -12,7 +12,6 @@ def ChemicalEquation(self):
         setFinalResult(self, codeReturned)
     
     # User Interface
-    maxLen = len("HCl(aq) + Na(s) -> NaCl(aq) + H2(g)")
     self.welcomeFrame = ttk.Frame(self.notebook)
     self.welcomeFrame.pack(side="top", padx=25, pady=18, anchor="w")
     self.mainLabel = WrappingLabel(self.welcomeFrame, text="Chemical Equation Balancer", font=("TkDefaultFont",50,'bold'))
