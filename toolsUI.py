@@ -70,6 +70,7 @@ def Rectangle(self):
     self.lengthEntry.grid(row=1, column=1)
     self.sendData = ttk.Button(self.mainFrame, text="Calculate", style='Accent.TButton', command=lambda:getInputs(self))
     self.sendData.grid(row=2, column=0,pady=10, padx=2, sticky="e")
+    
     def setFinalResult(self, result):
         self.resultTxt = ttk.Label(self.mainFrame, text="Result:  {}".format(result), font=("TkDefaultFont", 20))
         self.resultTxt.grid(row=3,padx=2)

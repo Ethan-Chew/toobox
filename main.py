@@ -251,7 +251,6 @@ class App(ttk.Frame):
             self.welcomeFrame.pack_forget()
             self.clearScreen()
             Rectangle(self)
-            ChemicalEquation(self)
         elif config.currentlySelected == "Ionic Equation":
             self.welcomeFrame.pack_forget()
             self.clearScreen()
