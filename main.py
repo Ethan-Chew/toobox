@@ -236,13 +236,17 @@ class App(ttk.Frame):
         self.clearScreen()
 
         if config.currentlySelected == "Chemical Equation":
+            try: self.mainFrame.pack_forget()
+            except: print("error")
             self.welcomeFrame.pack_forget()
             self.clearScreen()
             ChemicalEquation(self)
         elif config.currentlySelected == "Rectangle/Square":
+            try: self.mainFrame.pack_forget()
+            except: print("error")
             self.welcomeFrame.pack_forget()
             self.clearScreen()
-            ChemicalEquation(self)
+            Rectangle(self)
         else:
             try: self.mainFrame.pack_forget()
             except: print("error")
