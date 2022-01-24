@@ -129,7 +129,7 @@ def IonicEqn(self):
     self.inputField = ttk.Entry(self.mainFrame, width=50, font=("TkDefaultFont", 12))
     self.inputField.insert(0, "HCl(aq) + Na(s) -> NaCl(aq) + H2(g)")
     self.inputField.grid(row=0, column=1)
-    self.sendData = ttk.Button(self.mainFrame, text="Balance", style='Accent.TButton', command=lambda: getInputs(self))
+    self.sendData = ttk.Button(self.mainFrame, text="Generate", style='Accent.TButton', command=lambda: getInputs(self))
     self.sendData.grid(row=1, column=0,pady=10, padx=2)
 
     def setFinalResult(self, result):
@@ -161,7 +161,7 @@ def SaltSolubility(self):
     self.inputField = ttk.Entry(self.mainFrame, width=50, font=("TkDefaultFont", 12))
     self.inputField.insert(0, "NaCl")
     self.inputField.grid(row=0, column=1)
-    self.sendData = ttk.Button(self.mainFrame, text="Balance", style='Accent.TButton', command=lambda: getInputs(self))
+    self.sendData = ttk.Button(self.mainFrame, text="Check", style='Accent.TButton', command=lambda: getInputs(self))
     self.sendData.grid(row=1, column=0,pady=10, padx=2)
 
     def setFinalResult(self, result):
@@ -196,7 +196,7 @@ def calculate(self):
     self.inputField = ttk.Entry(self.mainFrame, width=50, font=("TkDefaultFont", 12))
     self.inputField.insert(0, "9 + 10")
     self.inputField.grid(row=0, column=1)
-    self.sendData = ttk.Button(self.mainFrame, text="Balance", style='Accent.TButton', command=lambda: getInputs(self))
+    self.sendData = ttk.Button(self.mainFrame, text="Solve", style='Accent.TButton', command=lambda: getInputs(self))
     self.sendData.grid(row=1, column=0,pady=10, padx=2)
 
     def setFinalResult(self, result):
