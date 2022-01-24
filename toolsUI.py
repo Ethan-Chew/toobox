@@ -171,18 +171,16 @@ def SaltSolubility(self):
 def calculate(self):
     # Input Data
     def getInputs(self):
-        compound = self.inputField.get()
+        inputVal = self.inputField.get()
         final=""
-        for i in compound:
+        for i in inputVal:
             if i!=" ":
                 final+=i
         try:
-            codeReturned = str(calculator().sol(compound)) # Could return error/final value
+            codeReturned = str(calculator().sol(inputVal)) # Could return error/final value
         except:
             codeReturned="error"
         setFinalResult(self, codeReturned)
-    self.welcomeFrame = ttk.Frame(self.notebook)
-    self.welcomeFrame.pack(side="top", padx=25, pady=18, anchor="w")
 
     self.welcomeFrame = ttk.Frame(self.notebook)
     self.welcomeFrame.pack(side="top", padx=25, pady=18, anchor="w")
@@ -190,15 +188,15 @@ def calculate(self):
     self.mainLabel.pack(side="top", pady=2, fill="x", expand="yes")
     self.infoLabel = WrappingLabel(self.welcomeFrame, text="Enter a mathematical expression. currently, only +,-,*,/,(),^ are supported", font=("TkDefaultFont", 15))
     self.infoLabel.pack(side="top", pady=2, fill="x", expand="yes")
-
+    
     self.mainFrame = ttk.Frame(self.notebook)
     self.mainFrame.pack(padx=25, pady=18, anchor="w")
     self.inputTxt = WrappingLabel(self.mainFrame, text="Input:  ", font=("TkDefaultFont", 20))
     self.inputTxt.grid(row=0, column=0, padx=2)
     self.inputField = ttk.Entry(self.mainFrame, width=50, font=("TkDefaultFont", 12))
-    self.inputField.insert(0, "9+10")
+    self.inputField.insert(0, "9 + 10")
     self.inputField.grid(row=0, column=1)
-    self.sendData = ttk.Button(self.mainFrame, text="Calculate", style='Accent.TButton', command=lambda: getInputs(self))
+    self.sendData = ttk.Button(self.mainFrame, text="Balance", style='Accent.TButton', command=lambda: getInputs(self))
     self.sendData.grid(row=1, column=0,pady=10, padx=2)
 
     def setFinalResult(self, result):
