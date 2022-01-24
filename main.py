@@ -243,7 +243,7 @@ class App(ttk.Frame):
         self.notebook.update()
 
         self.clearScreen()
-        functionalities={
+        functionalities = {
             "Chemical Equation" :   ChemicalEquation,
             "Rectangle/Square"  :   Rectangle,
             "Ionic Equation"    :   IonicEqn,
@@ -256,29 +256,12 @@ class App(ttk.Frame):
             self.welcomeFrame.pack_forget()
             self.clearScreen()
             functionalities[config.currentlySelected](self)
-        
         else:
             try: self.mainFrame.pack_forget()
             except: pass
             self.welcomeFrame.pack_forget()
             self.clearScreen()
             notUsable(self)
-        
-        # if len(data) > 0:
-        #     if config.currentlySelected == data[-1]:
-        #         self.showHomeScreen()
-        #     else:
-        #         if (len(data) < 3):
-        #             data.append(config.currentlySelected)
-        #         else:
-        #             data.append(config.currentlySelected)
-        #             data.pop(0)
-        # else:
-        #     if (len(data) < 3):
-        #         data.append(config.currentlySelected)
-        #     else:
-        #         data.append(config.currentlySelected)
-        #         data.pop(0)
         
         root.update()
         
