@@ -9,7 +9,7 @@ import json
 from PIL import ImageTk, Image
 
 import config
-from toolsUI import ChemicalEquation, IonicEqn, notUsable, Rectangle, Circle
+from toolsUI import ChemicalEquation, IonicEqn, SaltSolubility, notUsable, Rectangle, Circle
 from components.wrappedLabel import WrappingLabel
 
 # Important UI Details
@@ -23,6 +23,7 @@ class App(ttk.Frame):
         self.fullScreen = False
         # Set fullscreen
         self.fullScreenBindings()
+        self.goHome()
         # self.notify("Toobox", "Testing Notification", "Boop")
         
     def change_theme(self):
@@ -33,12 +34,24 @@ class App(ttk.Frame):
             # Set dark theme
             root.tk.call("set_theme", "dark")
 
-    # Full Screen Toggle
+    # Keybines :D
+    ## Full Screen Toggle
     def fullScreenBindings(self):
         root.attributes("-fullscreen", self.fullScreen)
         root.bind("f", self.toggleFullScreen)
         root.bind("<F11>", self.toggleFullScreen)
         root.bind("<Escape>", self.quitFullScreen)
+    
+    ## Back to Home
+    def goHome(self):
+        root.bind("h", self.handleBackToHS)
+
+    def handleBackToHS(self, event):
+        try:
+            self.clearScreen()
+            self.welcomeFrame.pack_forget()
+            self.showHomeScreen(self)
+        except: pass
     
     def toggleFullScreen(self, event):
         self.fullScreen = not self.fullScreen
@@ -50,10 +63,6 @@ class App(ttk.Frame):
 
     # Setup Widgets
     def setup_widgets(self):
-        # Styles
-        style = ttk.Style()
-##        style.configure("tbstyles.Treeview", font=("TkDefaultFont",14))
-
         # Panedwindow
         self.paned = ttk.PanedWindow(self, orient="horizontal")
         self.paned.pack(fill="both", expand=True, anchor="center")
@@ -65,7 +74,7 @@ class App(ttk.Frame):
         self.newpane = ttk.PanedWindow(self.pane_1, orient="horizontal")
         
         ## Treeview Label
-        self.treeViewTopLab = WrappingLabel(self.newpane, text="Tools", font=('TkDefaultFont',20, 'bold'))
+        self.treeViewTopLab = WrappingLabel(self.newpane, text="Tools", font=('TkDefaultFont',23, 'bold'))
         self.treeViewTopLab.pack(side="left",padx=5, anchor="w", fill="y")
 
         # Treeview Switch
@@ -141,10 +150,7 @@ class App(ttk.Frame):
             )
             if item[0] == "" or item[1] in {8, 15, 16, 23, 24, 29, 34, 38, 41}:
                 self.treeview.item(item[1], open=True)  # Open parents
-##        children = self.treeview.get_children() 
-##        self.treeview.selection_set(children)
         # Select and scroll
-        # self.treeview.selection_set(10)
         self.treeview.see(1)
 
         # Home Screen UI
@@ -156,7 +162,6 @@ class App(ttk.Frame):
 
         ## Sizegrip
         self.sizegrip = ttk.Sizegrip(self)
-##        self.sizegrip.pack(side="bottom")
 
         ## Top Labels
         self.welcomeFrame = ttk.Frame(self.notebook)
@@ -255,6 +260,10 @@ class App(ttk.Frame):
             self.welcomeFrame.pack_forget()
             self.clearScreen()
             IonicEqn(self)
+        elif config.currentlySelected == "Salt Solubilities":
+            self.welcomeFrame.pack_forget()
+            self.clearScreen()
+            SaltSolubility(self)
         else:
             try: self.mainFrame.pack_forget()
             except: pass
@@ -280,9 +289,11 @@ class App(ttk.Frame):
         
         root.update()
         
-    def showHomeScreen(self):
+    def showHomeScreen(self, event):
         self.welcomeFrame.pack(side="top", padx=25, pady=18, anchor="w")
+        self.helloUserLab = WrappingLabel(self.welcomeFrame ,text="Hello, {}".format(config.username), font=("TkDefaultFont",50,'bold'))
         self.helloUserLab.pack(pady=2)
+        self.welcomeLab = WrappingLabel(self.welcomeFrame, text="Welcome to Toobox!",font=("TkDefaultFont", 15))
         self.welcomeLab.pack(side="left")
         self.tooboxInfoFrame.pack(side="left", padx=25, pady=18, anchor="w")
         self.appDescText.pack(side="bottom")
