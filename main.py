@@ -9,7 +9,7 @@ import json
 from PIL import ImageTk, Image
 
 import config
-from toolsUI import ChemicalEquation, IonicEqn, notUsable, Rectangle, Circle
+from toolsUI import ChemicalEquation, IonicEqn, SaltSolubility, notUsable, Rectangle, Circle
 from components.wrappedLabel import WrappingLabel
 
 # Important UI Details
@@ -141,10 +141,7 @@ class App(ttk.Frame):
             )
             if item[0] == "" or item[1] in {8, 15, 16, 23, 24, 29, 34, 38, 41}:
                 self.treeview.item(item[1], open=True)  # Open parents
-##        children = self.treeview.get_children() 
-##        self.treeview.selection_set(children)
         # Select and scroll
-        # self.treeview.selection_set(10)
         self.treeview.see(1)
 
         # Home Screen UI
@@ -255,6 +252,10 @@ class App(ttk.Frame):
             self.welcomeFrame.pack_forget()
             self.clearScreen()
             IonicEqn(self)
+        elif config.currentlySelected == "Salt Solubilities":
+            self.welcomeFrame.pack_forget()
+            self.clearScreen()
+            SaltSolubility(self)
         else:
             try: self.mainFrame.pack_forget()
             except: pass
