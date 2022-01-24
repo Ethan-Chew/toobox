@@ -145,8 +145,7 @@ class calculator:
 		parsed=reparsed
 		if len(parsed)==1:
 			parsed=parsed[0]
-		if parsed[-1] in self.tokens:
-			return "error"
+		
 		return parsed
 
 	def solve(self,parsed):
@@ -223,7 +222,7 @@ if __name__=="__main__":
 
 	a=calculator()
 
-	print(a.sol("1^3(4+5)%4"))
+	print(a.sol("1^3(4+5)"))
 
 
 
