@@ -74,7 +74,11 @@ class calculator:
 				return i+1
 
 	def sol(self,stri):
+		if len(stri)==0:
+			return "ERROR"
 		parsed=self.parse(stri)
+		if parsed=="error":
+			return "ERROR"
 		return self.solve(parsed)
 
 	def parse(self,stri):
@@ -139,10 +143,14 @@ class calculator:
 			else:
 				reparsed.append(parsed[i])
 		parsed=reparsed
+		if len(parsed)==1:
+			parsed=parsed[0]
+		if parsed[-1] in self.tokens:
+			return "error"
 		return parsed
 
 	def solve(self,parsed):
-
+		
 		# reduce all the parenthesis
 		if list in parsed:
 			reparsed=[]
@@ -188,8 +196,7 @@ class calculator:
 				i+=1
 			parsed=list(reparsed)
 
-		if len(parsed)==1:
-			parsed=parsed[0]
+		
 		return parsed
 	def mul(self,prev,nex):
 		

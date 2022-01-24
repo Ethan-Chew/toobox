@@ -9,7 +9,7 @@ import json
 from PIL import ImageTk, Image
 
 import config
-from toolsUI import ChemicalEquation, IonicEqn, SaltSolubility, notUsable, Rectangle, Circle
+from toolsUI import *
 from components.wrappedLabel import WrappingLabel
 
 # Important UI Details
@@ -247,7 +247,8 @@ class App(ttk.Frame):
             "Chemical Equation" :   ChemicalEquation,
             "Rectangle/Square"  :   Rectangle,
             "Ionic Equation"    :   IonicEqn,
-            "Salt Solubilities" :   SaltSolubility
+            "Salt Solubilities" :   SaltSolubility,
+            "Calculator"        :   calculate,
         }
         if config.currentlySelected in functionalities:
             try: self.mainFrame.pack_forget()
