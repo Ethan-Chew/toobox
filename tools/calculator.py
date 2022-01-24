@@ -32,7 +32,13 @@ class calculator:
 		else:
 			return number
 	def __init__(self):
-		self.tokens={"*":(lambda x,y: self.mul(x,y)) , "/":(lambda x,y: self.div(x,y)) , "+":(lambda x,y: self.add(x,y)) , "-":(lambda x,y: self.minus(x,y))  }
+		self.tokens={
+			"^" :(lambda x,y: self.pow(x,y)),
+			"*":(lambda x,y: self.mul(x,y)) , 
+			"/":(lambda x,y: self.div(x,y)),
+			#"%":(lambda x,y: self.mod(x,y)) , modulo breaks it for some reason?? no idea
+			"+":(lambda x,y: self.add(x,y)) , 
+			"-":(lambda x,y: self.minus(x,y)) }
 	def turn(self, strin):
 		# turns something like 1abc to a algebric type
 		
@@ -87,16 +93,20 @@ class calculator:
 				
 				i=end-1
 			elif stri[i] in self.tokens:
+				
 				if len(parsed)>0 and type(parsed[-1])==list:
+
 					parsed.append("*")
 				if len(buf)>0:
 					parsed.append(self.turn(buf))
 				parsed.append(stri[i])
 				buf=""
 			else:
+				
 				buf+=stri[i]
 			
 			i+=1
+
 		if len(buf)>0:
 			if len(parsed)>0 and type(parsed[-1])==list:
 				parsed.append("*")
@@ -132,6 +142,7 @@ class calculator:
 		return parsed
 
 	def solve(self,parsed):
+
 		# reduce all the parenthesis
 		if list in parsed:
 			reparsed=[]
@@ -157,7 +168,6 @@ class calculator:
 			else:
 				l.append(parsed[i])
 		parsed=list(l)
-		print(type(parsed[0]))
 		for j in self.tokens:
 			i=0
 			reparsed=[]
@@ -166,7 +176,7 @@ class calculator:
 				if cur==j:
 					if len(reparsed)>0:
 						reparsed=reparsed[:-1]
-					print(reparsed)
+
 					reparsed+=(
 						self.tokens[j](
 							parsed[i-1],
@@ -189,6 +199,10 @@ class calculator:
 		return [algebric(prev.num/nex.num)]
 	def add(self,prev,nex):
 		return [algebric(prev.num+nex.num)]
+	def pow(self,prev,nex):
+		return [algebric(prev.num**nex.num)]
+	def mod(self,prev,nex):
+		return [algebric(prev.num%nex.num)]
 	
 
 
@@ -198,11 +212,11 @@ class calculator:
 
 
 
-if __name__="__main__":
+if __name__=="__main__":
 
 	a=calculator()
 
-	print(a.sol("1+3(4+5)"))
+	print(a.sol("1^3(4+5)%4"))
 
 
 
