@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import ttk
 import re
 from tools.IonicEqn import ionicEqn
+from tools.calculator import calculator
 
 from tools.balancingChemEqn import balanceChemEqn
 from components.wrappedLabel import WrappingLabel

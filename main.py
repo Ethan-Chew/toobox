@@ -243,27 +243,19 @@ class App(ttk.Frame):
         self.notebook.update()
 
         self.clearScreen()
-
-        if config.currentlySelected == "Chemical Equation":
+        functionalities={
+            "Chemical Equation" :   ChemicalEquation,
+            "Rectangle/Square"  :   Rectangle,
+            "Ionic Equation"    :   IonicEqn,
+            "Salt Solubilities" :   SaltSolubility
+        }
+        if config.currentlySelected in functionalities:
             try: self.mainFrame.pack_forget()
             except: print("error")
             self.welcomeFrame.pack_forget()
             self.clearScreen()
-            ChemicalEquation(self)
-        elif config.currentlySelected == "Rectangle/Square":
-            try: self.mainFrame.pack_forget()
-            except: print("error")
-            self.welcomeFrame.pack_forget()
-            self.clearScreen()
-            Rectangle(self)
-        elif config.currentlySelected == "Ionic Equation":
-            self.welcomeFrame.pack_forget()
-            self.clearScreen()
-            IonicEqn(self)
-        elif config.currentlySelected == "Salt Solubilities":
-            self.welcomeFrame.pack_forget()
-            self.clearScreen()
-            SaltSolubility(self)
+            functionalities[config.currentlySelected](self)
+        
         else:
             try: self.mainFrame.pack_forget()
             except: pass
