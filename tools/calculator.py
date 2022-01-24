@@ -198,11 +198,11 @@ class calculator:
 
 
 
+if __name__="__main__":
 
+	a=calculator()
 
-a=calculator()
-
-print(a.sol("1+3(4+5)"))
+	print(a.sol("1+3(4+5)"))
 
 
 
