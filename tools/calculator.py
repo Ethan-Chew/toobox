@@ -1,4 +1,4 @@
-import re
+
 
 
 class algebric:
@@ -77,6 +77,7 @@ class calculator:
 		if len(stri)==0:
 			return "ERROR"
 		parsed=self.parse(stri)
+		print(parsed)
 		if parsed=="error":
 			return "ERROR"
 		return self.solve(parsed)
@@ -117,8 +118,33 @@ class calculator:
 			parsed.append(self.turn(buf))
 			
 		reparsed=[]
+		skip=0
+		for i in range(len(parsed)):
+			if skip!=0:
+				skip-=1
+			elif (i+1<len(parsed)) and type(parsed[i])==str and type(parsed[i+1])==str:
+				reparsed.append([algebric(0,{}),parsed[i+1],parsed[i+2]])
+				skip=2
+			else:
+				reparsed.append(parsed[i])
+
+		parsed=reparsed
+
+		reparsed=[]
 		#deal with double paranthesis
+		for i in range(len(parsed)):
+			if i>0 and type(parsed[i])==list and type(parsed[i-1])==list:
+				print(reparsed)
+				reparsed.append("*")
+				reparsed.append(parsed[i])
+			else:
+				reparsed.append(parsed[i])
+		parsed=reparsed
+		reparsed=[]
+
+			
 		if list in parsed:
+
 			reparsed=[]
 			for i in range(len(parsed)):
 				if i>0 and type(parsed[i]) is list and (not (parsed[i-1] in self.tokens)):
@@ -130,19 +156,9 @@ class calculator:
 		reparsed=[]
 		# turn negative numbers into 0-1
 		
-		if parsed[0] in self.tokens:
+		if type(parsed[0])!=list and parsed[0] in self.tokens:
 			parsed=[algebric(0,{})]+parsed
 		
-		skip=0
-		for i in range(len(parsed)):
-			if skip!=0:
-				skip-=1
-			elif (i+1<len(parsed)) and type(parsed[i])==str and type(parsed[i+1])==str:
-				reparsed.append([algebric(0,{}),parsed[i+1],parsed[i+2]])
-				skip=1
-			else:
-				reparsed.append(parsed[i])
-		parsed=reparsed
 		if len(parsed)==1:
 			parsed=parsed[0]
 		
@@ -151,15 +167,17 @@ class calculator:
 	def solve(self,parsed):
 		
 		# reduce all the parenthesis
-		if list in parsed:
-			reparsed=[]
-			for i in parsed:
-				if type(i) is list:
-					reparsed.append(self.solve(i))
-				else:
-					reparsed.append(i)
-			parsed=reparsed
-		
+
+		reparsed=[]
+		for i in parsed:
+
+			if type(i) is list:
+
+				reparsed+=self.solve(i)
+			else:
+				reparsed.append(i)
+		parsed=reparsed
+
 		#reduce the paranthesis to the simplest form
 		for i in range(len(parsed)):
 			if type(parsed[i]) == list:
@@ -168,6 +186,7 @@ class calculator:
 		#follow order of operation
 		final=[]
 		l=[]
+
 		for i in range(len(parsed)):
 			if i>0 and parsed[i-1]=="-":
 				l[-1]="+"
@@ -222,7 +241,7 @@ if __name__=="__main__":
 
 	a=calculator()
 
-	print(a.sol("1^3(4+5)"))
+	print(a.sol("(5*298493)+1"))
 
 
 

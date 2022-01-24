@@ -177,7 +177,7 @@ def calculate(self):
             if i!=" ":
                 final+=i
         try:
-            codeReturned = str(calculator().sol(inputVal)) # Could return error/final value
+            codeReturned = str(calculator().sol(inputVal))[0] # Could return error/final value
         except:
             codeReturned="error"
         setFinalResult(self, codeReturned)
