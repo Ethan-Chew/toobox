@@ -202,3 +202,31 @@ def calculate(self):
     def setFinalResult(self, result):
         self.resultTxt = ttk.Label(self.mainFrame, text="Result:  {}".format(result), font=("TkDefaultFont", 20))
         self.resultTxt.grid(row=3, columnspan = 2, sticky = tk.W+tk.E, padx=2)
+
+def SolveQuad(self):
+    # Input Data
+    def getInputs(self):
+        eqn = self.inputField.get()
+        codeReturned = (eqn) # Could return error/final value
+        setFinalResult(self, codeReturned)
+
+    self.welcomeFrame = ttk.Frame(self.notebook)
+    self.welcomeFrame.pack(side="top", padx=25, pady=18, anchor="w")
+    self.mainLabel = WrappingLabel(self.welcomeFrame, text="Salt Solubilities", font=("TkDefaultFont",50,'bold'))
+    self.mainLabel.pack(side="top", pady=2, fill="x", expand="yes")
+    self.infoLabel = WrappingLabel(self.welcomeFrame, text="Please enter a Compound and the program will return an output if it is Soluble or Insoluble in water.", font=("TkDefaultFont", 15))
+    self.infoLabel.pack(side="top", pady=2, fill="x", expand="yes")
+    
+    self.mainFrame = ttk.Frame(self.notebook)
+    self.mainFrame.pack(padx=25, pady=18, anchor="w")
+    self.inputTxt = WrappingLabel(self.mainFrame, text="Input:  ", font=("TkDefaultFont", 20))
+    self.inputTxt.grid(row=0, column=0, padx=2)
+    self.inputField = ttk.Entry(self.mainFrame, width=50, font=("TkDefaultFont", 12))
+    self.inputField.insert(0, "NaCl")
+    self.inputField.grid(row=0, column=1)
+    self.sendData = ttk.Button(self.mainFrame, text="Check", style='Accent.TButton', command=lambda: getInputs(self))
+    self.sendData.grid(row=1, column=0,pady=10, padx=2)
+
+    def setFinalResult(self, result):
+        self.resultTxt = ttk.Label(self.mainFrame, text="Result:  {}".format(result), font=("TkDefaultFont", 20))
+        self.resultTxt.grid(row=3, columnspan = 2, sticky = tk.W+tk.E, padx=2)
