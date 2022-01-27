@@ -249,6 +249,7 @@ class App(ttk.Frame):
             "Ionic Equation"    :   IonicEqn,
             "Salt Solubilities" :   SaltSolubility,
             "Calculator"        :   calculate,
+            "Quadratic"         :   SolveQuad,
         }
         if config.currentlySelected in functionalities:
             try: self.mainFrame.pack_forget()

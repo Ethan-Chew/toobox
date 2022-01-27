@@ -17,45 +17,55 @@ def solveQuad(eqn):
                 a = +1
         except:
             return "Format Err"
-        print(a,b,c)
+
         try:
-            a,b,c = int(a),int(b),int(c)
+            a = str(a).replace("+", "")
+            b = str(b).replace("+", "")
+            c = str(c).replace("+", "")
         except:
             return "Val Err"
-    
+
+        return "{} {} {}".format(a, b, c)
+
     validationOutcome = validation()
     if validationOutcome == "Format Err":
         return "Format Error, please follow stated format."
     elif validationOutcome == "Val Err":
         return "a/b/c is not a number, please ensure that it is one."
+    else:
+        a, b, c = validationOutcome.split(" ")
+        a,b,c = int(a),int(b),int(c)
 
     # Find x and y intercepts
-    try:
-        discriminant = ((b**2)-(4*a*c))
-        if discriminant < 0:
-            roots.append("No Real Solution")
-            return
-
+    discriminant = ((b**2)-(4*a*c))
+    if discriminant < 0:
+        roots.append("No Real Solution")
+    else:
         discriminant = discriminant**0.5
         if discriminant < 0:
             roots.append("No Real Solution")
-            return
         elif discriminant == 0:
             x1=(-b+discriminant)/(2*a)
             roots.append(x1)
-            return
         elif discriminant > 0:
             x1=(-b+discriminant)/(2*a)
             x2=(-b-discriminant)/(2*a)
             roots.append(x1, x2)
-        yIntercept = c
-    except:
-        return "An Unknown Error has occured while finding the Quadratic Roots of the Equation"
+    yIntercept = c
     
     # Use Completing the Square method
-    interVal = (b/2)**2
-    newX = (-b+((b**2)-(4*a*interVal)))/(2*a)
-    completedEqn = "(x{})^2{}".format(newX, c+newX)
-    print(completedEqn)
+    tempVal = (b/2)**2
+    newX = (-b+(b**2-(4*a*tempVal)))/(2*a)
+    if (newX > 0):
+        splittedX = list(str(newX))
+        splittedX.insert(0, "+")
+        newX = "".join(splittedX)
+    newC = c-tempVal
+    if (newC > 0):
+        splittedC = list(str(newC))
+        splittedC.insert(0, "+")
+        newC = "".join(splittedC)
+    completedSq = "(x{})^2{}".format(-newX, str(newC))
+    turningPoint = "{}, {}".format(str(newX), str(newC))
 
-print(solveQuad("x^2+2x+8"))
+    return roots, completedSq, turningPoint, yIntercept
