@@ -51,7 +51,9 @@ def notUsable(self):
 
 def Rectangle(self):
     def getInputs(self):
-        try: self.resultTxt.forget_grid()
+        try:
+            self.resultTxt.forget_grid()
+            self.resultTxt.grid.forget()
         except: pass
         answer = "Ensure that both values, i.e. Breadth/Width and Length, or Length, are/is numerical"
         length = str(self.lengthEntry.get())
@@ -105,7 +107,9 @@ def Rectangle(self):
 
 def Circle(self):
     def getInputs(self):
-        try: self.resultTxt.forget_grid()
+        try:
+            self.resultTxt.forget_grid()
+            self.resultTxt.grid.forget()
         except: pass
         answer = "Ensure that values, i.e. Either Circumference Or Radius, are valid"
         r = str(self.ce.get())
