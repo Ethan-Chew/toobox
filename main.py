@@ -214,6 +214,7 @@ class App(ttk.Frame):
 
         try:
             self.mainFrame.pack_forget()
+            self.welcomeFrame.place_forget()
         except:
             pass
             
@@ -249,7 +250,8 @@ class App(ttk.Frame):
             "Ionic Equation"    :   IonicEqn,
             "Salt Solubilities" :   SaltSolubility,
             "Calculator"        :   calculate,
-            "Circle/Semicircle" :   Circle
+            "Circle/Semicircle" :   Circle,
+            "Quadratic"         :   SolveQuad
         }
         if config.currentlySelected in functionalities:
             try: self.mainFrame.pack_forget()

@@ -1,53 +1,80 @@
 # Created by Ethan Chew
-a, b, c = 0, 0, 0
-while True:
-    ## Check if user typed x^2 or x and let that = 1
-    eqn = input("Enter Variables for Quadratic Equation (ax^2+bx+c): ")
-    a = eqn[0:eqn.find("x^2")]
-    if "x+" in eqn:
-        b = eqn[eqn.find("x^2") + 3:eqn.find("x+")]
-    elif "x-" in eqn:
-        b = eqn[eqn.find("x^2") + 3:eqn.find("x-")]
-    c = eqn[eqn.find(b) + 1 + len(b):len(eqn)]
-    
-    try:
-        a,b,c = int(a),int(b),int(c)
-        break
-    except TypeError:
-        print("TypeErr")
-    except ValueError:
-        print("ValErr")
+def solveQuad(eqn):
+    a, b, c = 0,0,0
+    # Return Values
+    roots, completedSq, turningPoint, yIntercept = [], "", "", 0
 
-def QuadRoots():
-    # Find the roots using discriminant
+    def validation():
+        global a,b,c
+        try:
+            a = eqn[0:eqn.find("x^2")]
+            if "x+" in eqn:
+                b = eqn[eqn.find("x^2") + 3:eqn.find("x+")]
+            elif "x-" in eqn:
+                b = eqn[eqn.find("x^2") + 3:eqn.find("x-")]
+            c = eqn[eqn.find(b) + 1 + len(b):len(eqn)]
+            if a == "":
+                a = +1
+        except:
+            return "Format Err"
+
+        try:
+            a = str(a).replace("+", "")
+            b = str(b).replace("+", "")
+            c = str(c).replace("+", "")
+        except:
+            return "Val Err"
+
+        return "{} {} {}".format(a, b, c)
+
+    validationOutcome = validation()
+    if validationOutcome == "Format Err":
+        return "Format Error, please follow stated format."
+    elif validationOutcome == "Val Err":
+        return "a/b/c is not a number, please ensure that it is one."
+    else:
+        a, b, c = validationOutcome.split(" ")
+        a,b,c = int(a),int(b),int(c)
+
+    # Find x and y intercepts
     discriminant = ((b**2)-(4*a*c))
     if discriminant < 0:
-        print("No Real Solution")
-        return
-
-    discriminant = discriminant**0.5
-    if discriminant < 0:
-        print("No Real Solution")
-        return
-    elif discriminant == 0:
-        x1=(-b+discriminant)/(2*a)
-        print("x = {}".format(x1))
-    elif discriminant > 0:
-        x1=(-b+discriminant)/(2*a)
-        x2=(-b-discriminant)/(2*a)
-        print("x1 = {}".format(x1))
-        print("x2 = {}".format(x2))
+        roots.append("No Real Solution")
     else:
-        print("Err")
-    print("y = {}".format(c))
-
-def getCompleteSquare():
-    if a > 1:
-        b, c = b/a, c/a
-        a = 1
-        getTurningPoints()
+        discriminant = discriminant**0.5
+        if discriminant < 0:
+            roots.append("No Real Solution")
+        elif discriminant == 0:
+            x1=(-b+discriminant)/(2*a)
+            roots.append(x1)
+        elif discriminant > 0:
+            x1=(-b+discriminant)/(2*a)
+            x2=(-b-discriminant)/(2*a)
+            roots.append(x1, x2)
+    yIntercept = c
+    
+    # Use Completing the Square method
+    tempVal = (b/2)**2
+    newX = (-b+(b**2-(4*a*tempVal)))/(2*a)
+    holdX = newX
+    if (newX > 0):
+        splittedX = list(str(newX))
+        splittedX.insert(0, "-")
+        newX = "".join(splittedX)
     else:
-        getTurningPoints()
+        newX = abs(newX)
+        if (newX > 0):
+            splittedX = list(str(newX))
+            splittedX.insert(0, "+")
+            newX = "".join(splittedX)
+    newC = c-tempVal
+    if (newC > 0):
+        splittedC = list(str(newC))
+        splittedC.insert(0, "+")
+        newC = "".join(splittedC)
+    completedSq = "(x{})^2{}".format(newX, str(newC))
+    turningPoint = "{}, {}".format(str(holdX), str(newC))
 
-def getTurningPoints():
-    pass
+    return roots, completedSq, turningPoint, yIntercept
+
+print(solveQuad("x^2+2x+8"))
