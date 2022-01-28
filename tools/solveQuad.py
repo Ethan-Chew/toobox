@@ -56,16 +56,25 @@ def solveQuad(eqn):
     # Use Completing the Square method
     tempVal = (b/2)**2
     newX = (-b+(b**2-(4*a*tempVal)))/(2*a)
+    holdX = newX
     if (newX > 0):
         splittedX = list(str(newX))
-        splittedX.insert(0, "+")
+        splittedX.insert(0, "-")
         newX = "".join(splittedX)
+    else:
+        newX = abs(newX)
+        if (newX > 0):
+            splittedX = list(str(newX))
+            splittedX.insert(0, "+")
+            newX = "".join(splittedX)
     newC = c-tempVal
     if (newC > 0):
         splittedC = list(str(newC))
         splittedC.insert(0, "+")
         newC = "".join(splittedC)
-    completedSq = "(x{})^2{}".format(-newX, str(newC))
-    turningPoint = "{}, {}".format(str(newX), str(newC))
+    completedSq = "(x{})^2{}".format(newX, str(newC))
+    turningPoint = "{}, {}".format(str(holdX), str(newC))
 
     return roots, completedSq, turningPoint, yIntercept
+
+print(solveQuad("x^2+2x+8"))
