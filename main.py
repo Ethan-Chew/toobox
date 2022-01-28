@@ -214,6 +214,7 @@ class App(ttk.Frame):
 
         try:
             self.mainFrame.pack_forget()
+            self.welcomeFrame.place_forget()
         except:
             pass
             

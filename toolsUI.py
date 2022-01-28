@@ -1,9 +1,9 @@
 import tkinter as tk
 from tkinter import ttk
 import re
+
 from tools.IonicEqn import ionicEqn
 from tools.calculator import calculator
-
 from tools.balancingChemEqn import balanceChemEqn
 from components.wrappedLabel import WrappingLabel
 from tools.saltSolubilities import saltSolubilities
@@ -41,7 +41,7 @@ def ChemicalEquation(self):
 def notUsable(self):
     # Top Labels
     self.welcomeFrame = ttk.Frame(self.notebook)
-    self.welcomeFrame.pack(side="top", anchor="w")
+    self.welcomeFrame.place(anchor="center", relx=0.5, rely=0.5)
     self.wipText = WrappingLabel(self.welcomeFrame, text="This is a Work in Progress", font=("TkDefaultFont", 30, 'bold'), justify="center")
     self.wipText.pack(side="top", pady=2)
     self.wipTextA = WrappingLabel(self.welcomeFrame, text="Check back soon!", font=("TkDefaultFont", 20), justify="center")
