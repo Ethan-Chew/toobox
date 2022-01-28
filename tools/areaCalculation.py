@@ -83,7 +83,7 @@ def trapezium(topBase, bottomBase, height):
     return ((topBase + bottomBase)/2) * height
 
 def circle(radius):
-    return math.pi * radius**2
+    return math.pi * float(radius)**2
 
 def sector(radius, angle):
     return math.pi * radius ** 2 *(angle/(2*math.pi))

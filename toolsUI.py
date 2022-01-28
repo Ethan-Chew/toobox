@@ -8,6 +8,8 @@ from tools.balancingChemEqn import balanceChemEqn
 from components.wrappedLabel import WrappingLabel
 from tools.saltSolubilities import saltSolubilities
 from tools.solveQuad import solveQuad
+from tools.areaCalculation import *
+import math
 
 def ChemicalEquation(self):
     # Input Data
@@ -49,11 +51,18 @@ def notUsable(self):
 
 def Rectangle(self):
     def getInputs(self):
-        answer = "Ensure that both values, i.e. Breadth/Width and Length, are numbers"
+        try: self.resultTxt.forget_grid()
+        except: pass
+        answer = "Ensure that both values, i.e. Breadth/Width and Length, or Length, are/is numerical"
         length = str(self.lengthEntry.get())
         breadth = str(self.breadthEntry.get())
-        if re.match("^\d+?\.{0,1}\d+?$", length) and re.match("^\d+?\.{0,1}\d+?$", breadth):
-            answer = float(length)*float(breadth)
+        print(re.search("^\d+\.{0,1}\d{0,1}$", length))
+        if re.search("^\d+\.{0,1}\d{0,1}$", length) and re.search("^\d+\.{0,1}\d{0,1}$", breadth):
+            if self.typebox.get() == "Rectangle":
+                answer = float(length)*float(breadth)
+        elif re.search("^\d+\.{0,1}\d{0,1}$", length):
+            if self.typebox.get() == "Square":
+                answer = float(length)**2
         setFinalResult(self, answer)
     self.welcomeFrame = ttk.Frame(self.notebook)
     self.welcomeFrame.pack(side="top", padx=25, pady=18, anchor="w")
@@ -62,28 +71,60 @@ def Rectangle(self):
     
     self.mainFrame = ttk.Frame(self.notebook)
     self.mainFrame.pack(padx=25, pady=18, anchor="w")
+    
     self.breadthTxt = WrappingLabel(self.mainFrame, text="Breadth/Width:  ", font=("TkDefaultFont", 20))
-    self.breadthTxt.grid(row=0, column=0, padx=2, sticky="e")
+    self.breadthTxt.grid(row=2, column=0, padx=2, sticky="e")
     self.breadthEntry = ttk.Entry(self.mainFrame, width=20, font=("TkDefaultFont", 12))
-    self.breadthEntry.grid(row=0, column=1)
+    self.breadthEntry.grid(row=2, column=1, sticky="w")
     self.lengthTxt = WrappingLabel(self.mainFrame, text="Length:  ", font=("TkDefaultFont", 20))
     self.lengthTxt.grid(row=1, column=0, padx=2, sticky="e")
     self.lengthEntry = ttk.Entry(self.mainFrame, width=20, font=("TkDefaultFont", 12))
-    self.lengthEntry.grid(row=1, column=1)
+    self.lengthEntry.grid(row=1, column=1, sticky="w")
     self.sendData = ttk.Button(self.mainFrame, text="Calculate", style='Accent.TButton', command=lambda:getInputs(self))
     self.sendData.grid(row=3, column=1, pady=10, padx=2, sticky="w")
 
+    def changeTypebox(self):
+        print("heheh")
+        print(self.typebox.get())
+        if self.typebox.get() == "Square":
+            self.breadthTxt.forget()
+            self.breadthEntry.forget()
+        else:
+            self.breadthTxt.grid(row=2, column=0, padx=2, sticky="e")
+            self.breadthEntry.grid(row=2, column=1, sticky="w")
+    
+    self.typetext = WrappingLabel(self.mainFrame, text="Type:  ", font=("TkDefaultFont", 20))
+    self.typetext.grid(row=0, column=0, padx=2, sticky="e")
+    self.types = ["Rectangle", "Square"]
+    self.typebox = ttk.Combobox(self.mainFrame, state="readonly", values=self.types, postcommand=lambda:changeTypebox(self))
+    self.typebox.current(0)
+    self.typebox.grid(row=0, column=1, padx=2, sticky="w")
     def setFinalResult(self, result):
         self.resultTxt = ttk.Label(self.mainFrame, text="Result:  {}".format(result), font=("TkDefaultFont", 20))
-        self.resultTxt.grid(row=4,column=1,padx=2,columnspan=4)
+        self.resultTxt.grid(row=4,column=1,padx=2,columnspan=4, sticky="w")
 
 def Circle(self):
     def getInputs(self):
-        answer = "Ensure that values, i.e. Circumference or Radius, are numbers"
+        try: self.resultTxt.forget_grid()
+        except: pass
+        answer = "Ensure that values, i.e. Either Circumference Or Radius, are valid"
         r = str(self.ce.get())
         c = str(self.re.get())
-        if re.match("^\d+?\.{0,1}\d+?$", r) or re.match("^\d+?\.{0,1}\d+?$", c):
-            answer = float(r)*float(r)
+        a = str(self.angle.get())
+        if ((True if str(type(re.search("^\d+\.{0,1}\d{0,1}$", r))) != "<class 'NoneType'>" else False) ^ (True if str(type(re.search("^\d+\.{0,1}\d{0,1}$", c))) != "<class 'NoneType'>" else False)) or (type(re.search("^\d+\.{0,1}\d{0,1}$", r)) and type(re.search("^\d+\.{0,1}\d{0,1}$", a))):
+            print("yes")
+            if re.search("^\d+\.{0,1}\d{0,1}$", r):
+                print("uwu")
+                answer = circle(r)
+            elif re.search("^\d+\.{0,1}\d{0,1}$", c):
+                print("hmm")
+                answer = circle(float(c)/math.pi/float(2))
+                if self.typebox.get() == "Semicircle":
+                    answer = float(answer)/float(2)
+            elif self.typebox.get() == "Sector":
+                if re.search("^\d+\.{0,1}\d{0,1}$", a) and re.search("^\d+\.{0,1}\d{0,1}$", r):
+                    if float(a) >= 0.0 and float(a) <= 360.0:
+                        answer = sector(r, a)
         setFinalResult(self, answer)
     self.welcomeFrame = ttk.Frame(self.notebook)
     self.welcomeFrame.pack(side="top", padx=25, pady=18, anchor="w")
@@ -93,26 +134,31 @@ def Circle(self):
     self.mainFrame = ttk.Frame(self.notebook)
     self.mainFrame.pack(padx=25, pady=18, anchor="w")
     self.ct = WrappingLabel(self.mainFrame, text="Circumference:  ", font=("TkDefaultFont", 20))
-    self.ct.grid(row=0, column=0, padx=2, sticky="e")
+    self.ct.grid(row=1, column=0, padx=2, sticky="e")
     self.ce = ttk.Entry(self.mainFrame, width=20, font=("TkDefaultFont", 12))
-    self.ce.grid(row=0, column=1, padx=2, sticky="w")
+    self.ce.grid(row=1, column=1, padx=2, sticky="w")
     self.rt = WrappingLabel(self.mainFrame, text="Radius:  ", font=("TkDefaultFont", 20))
-    self.rt.grid(row=1, column=0, padx=2, sticky="e")
+    self.rt.grid(row=2, column=0, padx=2, sticky="e")
     self.re = ttk.Entry(self.mainFrame, width=20, font=("TkDefaultFont", 12))
-    self.re.grid(row=1, column=1, padx=2, sticky="w")
+    self.re.grid(row=2, column=1, padx=2, sticky="w")
+    self.at = WrappingLabel(self.mainFrame, text="Angle:  ", font=("TkDefaultFont", 20))
+    self.at.grid(row=3, column=0, padx=2, sticky="e")
+    self.angle = ttk.Entry(self.mainFrame, width=20, font=("TkDefaultFont", 12))
+    self.angle.grid(row=3, column=1, padx=2, sticky="w")
     self.typetext = WrappingLabel(self.mainFrame, text="Type:  ", font=("TkDefaultFont", 20))
-    self.typetext.grid(row=2, column=0, padx=2, sticky="e")
-    self.types = ["Circle", "Semicircle"]
+    self.typetext.grid(row=0, column=0, padx=2, sticky="e")
+    self.types = ["Circle", "Semicircle", "Sector"]
     self.typebox = ttk.Combobox(self.mainFrame, state="readonly", values=self.types)
     self.typebox.current(0)
-    self.typebox.grid(row=2, column=1, padx=2, sticky="w")
+    self.typebox.grid(row=0, column=1, padx=2, sticky="w")
     self.sendData = ttk.Button(self.mainFrame, text="Calculate", style='Accent.TButton', command=lambda:getInputs(self))
-    self.sendData.grid(row=3, column=1, pady=10, padx=2, sticky="w")
+    self.sendData.grid(row=4, column=1, pady=10, padx=2, sticky="w")
     
     def setFinalResult(self, result):
         self.resultTxt = ttk.Label(self.mainFrame, text="Result:  {}".format(result), font=("TkDefaultFont", 20))
-        self.resultTxt.grid(row=4,column=1,padx=2,columnspan=4)
-        
+        self.resultTxt.grid(row=5,column=1,padx=2,columnspan=4, sticky="w")
+
+
 def IonicEqn(self):
     # Input Data
     def getInputs(self):
