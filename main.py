@@ -249,6 +249,7 @@ class App(ttk.Frame):
             "Ionic Equation"    :   IonicEqn,
             "Salt Solubilities" :   SaltSolubility,
             "Calculator"        :   calculate,
+            "Circle/Semicircle" :   Circle
         }
         if config.currentlySelected in functionalities:
             try: self.mainFrame.pack_forget()
@@ -258,7 +259,7 @@ class App(ttk.Frame):
             functionalities[config.currentlySelected](self)
         else:
             try: self.mainFrame.pack_forget()
-            except: pass
+            except: print("error")
             self.welcomeFrame.pack_forget()
             self.clearScreen()
             notUsable(self)
