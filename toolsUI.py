@@ -63,7 +63,7 @@ def Parallelogram(self):
         setFinalResult(self, answer)
     self.welcomeFrame = ttk.Frame(self.notebook)
     self.welcomeFrame.pack(side="top", padx=25, pady=18, anchor="w")
-    self.mainLabel = WrappingLabel(self.welcomeFrame, text="Rectangle/Square Area Calculator", font=("TkDefaultFont",50,'bold'))
+    self.mainLabel = WrappingLabel(self.welcomeFrame, text="Parallelogram Area Calculator", font=("TkDefaultFont",50,'bold'))
     self.mainLabel.pack(side="top", pady=2, fill="x", expand="yes")
     
     self.mainFrame = ttk.Frame(self.notebook)
@@ -99,7 +99,7 @@ def Trapezium(self):
         setFinalResult(self, answer)
     self.welcomeFrame = ttk.Frame(self.notebook)
     self.welcomeFrame.pack(side="top", padx=25, pady=18, anchor="w")
-    self.mainLabel = WrappingLabel(self.welcomeFrame, text="Rectangle/Square Area Calculator", font=("TkDefaultFont",50,'bold'))
+    self.mainLabel = WrappingLabel(self.welcomeFrame, text="Trapezium Area Calculator", font=("TkDefaultFont",50,'bold'))
     self.mainLabel.pack(side="top", pady=2, fill="x", expand="yes")
     
     self.mainFrame = ttk.Frame(self.notebook)

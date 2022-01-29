@@ -77,10 +77,10 @@ def solve_triangle(A,B,C,a,b,c):
             
 
 def parallelogram(base, slantHeight):
-    return base * slantHeight
+    return float(base) * float(slantHeight)
 
 def trapezium(topBase, bottomBase, height):
-    return ((topBase + bottomBase)/2) * height
+    return ((float(topBase) + float(bottomBase))/2.0) * float(height)
 
 def circle(radius):
     return math.pi * float(radius)**2
