@@ -49,6 +49,80 @@ def notUsable(self):
     self.wipTextA = WrappingLabel(self.welcomeFrame, text="Check back soon!", font=("TkDefaultFont", 20), justify="center")
     self.wipTextA.pack(side="top", pady=2)
 
+def Parallelogram(self):
+    def getInputs(self):
+        try:
+            self.resultTxt.forget_grid()
+            self.resultTxt.grid.forget()
+        except: pass
+        answer = "Ensure that both values, i.e. Breadth/Width and Length, or Length, are/is numerical"
+        base = str(self.bEntry.get())
+        height = str(self.hEntry.get())
+        if re.search("^\d+\.{0,1}\d{0,1}$", base) and re.search("^\d+\.{0,1}\d{0,1}$", height):
+            answer = parallelogram(base, height)
+        setFinalResult(self, answer)
+    self.welcomeFrame = ttk.Frame(self.notebook)
+    self.welcomeFrame.pack(side="top", padx=25, pady=18, anchor="w")
+    self.mainLabel = WrappingLabel(self.welcomeFrame, text="Rectangle/Square Area Calculator", font=("TkDefaultFont",50,'bold'))
+    self.mainLabel.pack(side="top", pady=2, fill="x", expand="yes")
+    
+    self.mainFrame = ttk.Frame(self.notebook)
+    self.mainFrame.pack(padx=25, pady=18, anchor="w")
+    
+    self.bTxt = WrappingLabel(self.mainFrame, text="Base:  ", font=("TkDefaultFont", 20))
+    self.bTxt.grid(row=0, column=0, padx=2, sticky="e")
+    self.bEntry = ttk.Entry(self.mainFrame, width=20, font=("TkDefaultFont", 12))
+    self.bEntry.grid(row=0, column=1, sticky="w")
+    self.hTxt = WrappingLabel(self.mainFrame, text="Height:  ", font=("TkDefaultFont", 20))
+    self.hTxt.grid(row=1, column=0, padx=2, sticky="e")
+    self.hEntry = ttk.Entry(self.mainFrame, width=20, font=("TkDefaultFont", 12))
+    self.hEntry.grid(row=1, column=1, sticky="w")
+    self.sendData = ttk.Button(self.mainFrame, text="Calculate", style='Accent.TButton', command=lambda:getInputs(self))
+    self.sendData.grid(row=2, column=1, pady=10, padx=2, sticky="w")
+
+    def setFinalResult(self, result):
+        self.resultTxt = ttk.Label(self.mainFrame, text="Result:  {}".format(result), font=("TkDefaultFont", 20))
+        self.resultTxt.grid(row=3,column=1,padx=2,columnspan=4, sticky="w")
+        
+def Trapezium(self):
+    def getInputs(self):
+        try:
+            self.resultTxt.forget_grid()
+            self.resultTxt.grid.forget()
+        except: pass
+        answer = "Ensure that both values, i.e. Breadth/Width and Length, or Length, are/is numerical"
+        t = str(self.tEntry.get())
+        b = str(self.bEntry.get())
+        h = str(self.hEntry.get())
+        if re.search("^\d+\.{0,1}\d{0,1}$", t) and re.search("^\d+\.{0,1}\d{0,1}$", b) and re.search("^\d+\.{0,1}\d{0,1}$", h):
+            answer = trapezium(t, b, h)
+        setFinalResult(self, answer)
+    self.welcomeFrame = ttk.Frame(self.notebook)
+    self.welcomeFrame.pack(side="top", padx=25, pady=18, anchor="w")
+    self.mainLabel = WrappingLabel(self.welcomeFrame, text="Rectangle/Square Area Calculator", font=("TkDefaultFont",50,'bold'))
+    self.mainLabel.pack(side="top", pady=2, fill="x", expand="yes")
+    
+    self.mainFrame = ttk.Frame(self.notebook)
+    self.mainFrame.pack(padx=25, pady=18, anchor="w")
+    self.tTxt = WrappingLabel(self.mainFrame, text="Top:  ", font=("TkDefaultFont", 20))
+    self.tTxt.grid(row=0, column=0, padx=2, sticky="e")
+    self.tEntry = ttk.Entry(self.mainFrame, width=20, font=("TkDefaultFont", 12))
+    self.tEntry.grid(row=0, column=1, sticky="w")
+    self.bTxt = WrappingLabel(self.mainFrame, text="Bottom:  ", font=("TkDefaultFont", 20))
+    self.bTxt.grid(row=1, column=0, padx=2, sticky="e")
+    self.bEntry = ttk.Entry(self.mainFrame, width=20, font=("TkDefaultFont", 12))
+    self.bEntry.grid(row=1, column=1, sticky="w")
+    self.hTxt = WrappingLabel(self.mainFrame, text="Height:  ", font=("TkDefaultFont", 20))
+    self.hTxt.grid(row=2, column=0, padx=2, sticky="e")
+    self.hEntry = ttk.Entry(self.mainFrame, width=20, font=("TkDefaultFont", 12))
+    self.hEntry.grid(row=2, column=1, sticky="w")
+    self.sendData = ttk.Button(self.mainFrame, text="Calculate", style='Accent.TButton', command=lambda:getInputs(self))
+    self.sendData.grid(row=3, column=1, pady=10, padx=2, sticky="w")
+    
+    def setFinalResult(self, result):
+        self.resultTxt = ttk.Label(self.mainFrame, text="Result:  {}".format(result), font=("TkDefaultFont", 20))
+        self.resultTxt.grid(row=4,column=1,padx=2,columnspan=4, sticky="w")
+        
 def Rectangle(self):
     def getInputs(self):
         try:

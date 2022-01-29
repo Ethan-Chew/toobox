@@ -251,7 +251,9 @@ class App(ttk.Frame):
             "Salt Solubilities" :   SaltSolubility,
             "Calculator"        :   calculate,
             "Circle/Semicircle" :   Circle,
-            "Quadratic"         :   SolveQuad
+            "Quadratic"         :   SolveQuad,
+            "Parallelogram"     :   Parallelogram,
+            "Trapezium"         :   Trapezium
         }
         if config.currentlySelected in functionalities:
             try: self.mainFrame.pack_forget()
