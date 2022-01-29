@@ -5,9 +5,7 @@ echo Dependencies installing: chemlib, pillow, matplotlib
 echo Else, Ctrl+C to quit
 sleep 3
 
-pip3 install chemlib
-pip3 install pillow
-pip3 install matplotlib
+python3 -m pip install chemlib pillow matplotlib numpy
 
 echo Installation Complete!
 echo Toobox will launch automatically in 2 Seconds

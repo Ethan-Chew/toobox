@@ -255,6 +255,10 @@ def calculate(self):
     self.sendData.grid(row=1, column=0,pady=10, padx=2)
 
     def setFinalResult(self, result):
+        try:
+            self.resultTxt.packforget()
+        except:
+            pass
         self.resultTxt = ttk.Label(self.mainFrame, text="Result:  {}".format(result), font=("TkDefaultFont", 20))
         self.resultTxt.grid(row=3, columnspan = 2, sticky = tk.W+tk.E, padx=2)
 
@@ -283,6 +287,7 @@ def SolveQuad(self):
     self.sendData.grid(row=1, column=0,pady=10, padx=2)
 
     def setFinalResult(self, result):
+
         if len(result[0]) == 1:
             self.resultTxt1 = ttk.Label(self.mainFrame, text="Roots:  {}".format(result[0][0]), font=("TkDefaultFont", 20))
             self.resultTxt1.grid(row=3, columnspan = 2, sticky = tk.W+tk.E, padx=2)
