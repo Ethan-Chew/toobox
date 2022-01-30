@@ -263,12 +263,12 @@ class calculator:
 
 
 
+if __name__=="__main__":
 
 
+	a=calculator()
 
-a=calculator()
-
-print(a.parse("1+b(a+b)"))
+	print(a.parse("1+b(a+b)"))
 
 
 

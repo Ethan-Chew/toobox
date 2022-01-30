@@ -90,7 +90,9 @@ def reduce(pe):
         i+=1
     reduced=culculate(reduced)
     return reduced
-print(type(algebric(10,"a"))==algebric)
+if __name__ == "__main__":
+    print(reduce(parse("(x+2)*(x+1)")))
+    print(type(algebric(10,"a"))==algebric)
 #print(reduce(parse("10x+2-(3+4-(3-2))")))
         
             

@@ -76,5 +76,5 @@ def solveQuad(eqn):
     turningPoint = "{}, {}".format(str(holdX), str(newC))
 
     return roots, completedSq, turningPoint, yIntercept
-
-print(solveQuad("x^2+2x+8"))
+if __name__ == "__main__":
+    print(solveQuad("x^2+2x+8"))
