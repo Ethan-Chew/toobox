@@ -14,7 +14,55 @@ from components.wrappedLabel import WrappingLabel
 
 # Important UI Details
 ## 1. Default Font Size is *20*
-
+functionalities = {
+            "Chemical Equation" :   ChemicalEquation,
+            "Rectangle/Square"  :   Rectangle,
+            "Ionic Equation"    :   IonicEqn,
+            "Salt Solubilities" :   SaltSolubility,
+            "Calculator"        :   calculate,
+            "Circle/Semicircle" :   Circle,
+            "Quadratic"         :   SolveQuad,
+            "Parallelogram"     :   Parallelogram,
+            "Trapezium"         :   Trapezium
+        }
+treeview_data = [
+            ("", 1, "Chemistry"),
+            (1, 2, "Periodic Table"),
+            (1, 3, "Salt Solubilities"),
+            (1, 4, "Chemical Equation"),
+            (1, 5, "Ionic Equation"),
+            ("", 6, "Mathematics"),
+            (6, 7, "Calculator"),
+            (6, 8, "Equations"),
+            (8, 9, "Simultaneous"),
+            (8, 10, "Quadratic"),
+            (8, 11, "Cubic"),
+            (8, 12, "Quartic"),
+            (6, 13, "Matrices"),
+            (6, 14, "Inequalities"),
+            (6, 15, "Mensuration"),
+            (15, 16, "Area"),
+            (16, 17, "Rectangle/Square"),
+            (16, 18, "Triangle"),
+            (16, 19, "Parallelogram"),
+            (16, 20, "Rhombus"),
+            (16, 21, "Trapezium"),
+            (16, 22, "Circle/Semicircle"),
+            (15, 23, "Volume"),
+            (23, 24, "Pyramid"),
+            (24, 25, "Triangle-Based"),
+            (24, 26, "Square-Based"),
+            (24, 27, "Cone"),
+            (23, 28, "Sphere/Hemisphere"),
+            (23, 29, "Prism"),
+            (29, 30, "Triangular Prism"),
+            (29, 31, "Cylinder"),
+            (29, 32, "Cuboid/Cube"),
+            (6, 33, "Percentage"),
+            (6, 38, "Circles"),
+            (38, 39, "Circle Properties"),
+            (38, 40, "Equation of Circle"),
+        ]
 class App(ttk.Frame):
     def __init__(self, parent):
         ttk.Frame.__init__(self)
@@ -104,44 +152,7 @@ class App(ttk.Frame):
         ## Treeview columns
         self.treeview.column("#0", anchor="w", minwidth=100)
         ## Define treeview data
-        treeview_data = [
-            ("", 1, "Chemistry"),
-            (1, 2, "Periodic Table"),
-            (1, 3, "Salt Solubilities"),
-            (1, 4, "Chemical Equation"),
-            (1, 5, "Ionic Equation"),
-            ("", 6, "Mathematics"),
-            (6, 7, "Calculator"),
-            (6, 8, "Equations"),
-            (8, 9, "Simultaneous"),
-            (8, 10, "Quadratic"),
-            (8, 11, "Cubic"),
-            (8, 12, "Quartic"),
-            (6, 13, "Matrices"),
-            (6, 14, "Inequalities"),
-            (6, 15, "Mensuration"),
-            (15, 16, "Area"),
-            (16, 17, "Rectangle/Square"),
-            (16, 18, "Triangle"),
-            (16, 19, "Parallelogram"),
-            (16, 20, "Rhombus"),
-            (16, 21, "Trapezium"),
-            (16, 22, "Circle/Semicircle"),
-            (15, 23, "Volume"),
-            (23, 24, "Pyramid"),
-            (24, 25, "Triangle-Based"),
-            (24, 26, "Square-Based"),
-            (24, 27, "Cone"),
-            (23, 28, "Sphere/Hemisphere"),
-            (23, 29, "Prism"),
-            (29, 30, "Triangular Prism"),
-            (29, 31, "Cylinder"),
-            (29, 32, "Cuboid/Cube"),
-            (6, 33, "Percentage"),
-            (6, 38, "Circles"),
-            (38, 39, "Circle Properties"),
-            (38, 40, "Equation of Circle"),
-        ]
+        
 
         # Insert treeview data
         for item in treeview_data:
@@ -244,17 +255,7 @@ class App(ttk.Frame):
         self.notebook.update()
 
         self.clearScreen()
-        functionalities = {
-            "Chemical Equation" :   ChemicalEquation,
-            "Rectangle/Square"  :   Rectangle,
-            "Ionic Equation"    :   IonicEqn,
-            "Salt Solubilities" :   SaltSolubility,
-            "Calculator"        :   calculate,
-            "Circle/Semicircle" :   Circle,
-            "Quadratic"         :   SolveQuad,
-            "Parallelogram"     :   Parallelogram,
-            "Trapezium"         :   Trapezium
-        }
+        
         if config.currentlySelected in functionalities:
             try: self.mainFrame.pack_forget()
             except: print("error")
@@ -308,7 +309,7 @@ if __name__ == "__main__":
 
     # Simply set the theme
     root.tk.call("source", "sun-valley.tcl")
-    root.tk.call("set_theme", "light")
+    root.tk.call("set_theme", "dark")
     
     # Set App Icon
     appIconIcns = './src/images/AppIcon.icns'

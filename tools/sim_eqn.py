@@ -16,3 +16,12 @@ def solve_sim(*args):
 
 if __name__ == "__main__":
     print(solve_sim([1,2,4],[3,-5,1]))
+    # what is life?
+    # what is love?
+    # what is happiness?
+    # what is love?
+    # what is happiness?
+    # what is life?
+    # what is love?
+    # what is happiness?
+
