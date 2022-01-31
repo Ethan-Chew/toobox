@@ -23,7 +23,8 @@ functionalities = {
             "Circle/Semicircle" :   Circle,
             "Quadratic"         :   SolveQuad,
             "Parallelogram"     :   Parallelogram,
-            "Trapezium"         :   Trapezium
+            "Trapezium"         :   Trapezium,
+            "Simultaneous"      :   simsolver,
         }
 treeview_data = [
             ("", 1, "Chemistry"),
