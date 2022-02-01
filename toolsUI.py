@@ -53,6 +53,8 @@ def ChemicalEquation(self):
 def notUsable(self):
     # Top Labels
     self.welcomeFrame = ttk.Frame(self.notebook)
+    # self.mainLabel = WrappingLabel(self.welcomeFrame, text="Simultaneous Equations Solver", font=(font,50,'bold'))
+    # self.welcomeFrame.pack(side="top", padx=25, pady=18, anchor="w")
     self.welcomeFrame.place(anchor="center", relx=0.5, rely=0.5)
     self.wipText = WrappingLabel(self.welcomeFrame, text="This is a Work in Progress", font=(font, 30, 'bold'), justify="center")
     self.wipText.pack(side="top", pady=2)
@@ -386,13 +388,14 @@ def SolveQuad(self):
         self.resultTxt4.grid(row=6, columnspan = 2, sticky = tk.W+tk.E, padx=2)
 table=[]
 def simsolver(self,column=4):
-    self.mainLabel = WrappingLabel(self.welcomeFrame, text="Simultaneous Equations Solver", font=(font,50,'bold'))
+    
     print(column)
     row=column-1
 
     self.welcomeFrame = ttk.Frame(self.notebook)
+    self.mainLabel = WrappingLabel(self.welcomeFrame, text="Simultaneous Equations Solver", font=(font,50,'bold'))
     self.welcomeFrame.pack(side="top", padx=25, pady=18, anchor="w")
-    
+    self.mainLabel.pack(side="top", pady=2, fill="x", expand="yes")
     self.mainFrame = ttk.Frame(self.notebook)
     self.mainFrame.pack(padx=25, pady=18, anchor="w")
     self.mainFrame.pack(side="top", padx=25, pady=18, anchor="w")

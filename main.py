@@ -1,5 +1,6 @@
 ### ⓖ ⒢ ℊ Granwyn's Part ℊ ⒢ ⓖ ###
 # and Ethan's Part :D #
+from pydoc_data.topics import topics
 from re import S
 import tkinter as tk
 from tkinter import ttk
@@ -28,42 +29,44 @@ functionalities = {
         }
 treeview_data = [
             ("", 1, "Chemistry"),
-            (1, 2, "Periodic Table"),
-            (1, 3, "Salt Solubilities"),
-            (1, 4, "Chemical Equation"),
-            (1, 5, "Ionic Equation"),
+                (1, 2, "Periodic Table"),
+                (1, 3, "Salt Solubilities"),
+                (1, 4, "Chemical Equation"),
+                (1, 5, "Ionic Equation"),
             ("", 6, "Mathematics"),
-            (6, 7, "Calculator"),
-            (6, 8, "Equations"),
-            (8, 9, "Simultaneous"),
-            (8, 10, "Quadratic"),
-            (8, 11, "Cubic"),
-            (8, 12, "Quartic"),
-            (6, 13, "Matrices"),
-            (6, 14, "Inequalities"),
-            (6, 15, "Mensuration"),
-            (15, 16, "Area"),
-            (16, 17, "Rectangle/Square"),
-            (16, 18, "Triangle"),
-            (16, 19, "Parallelogram"),
-            (16, 20, "Rhombus"),
-            (16, 21, "Trapezium"),
-            (16, 22, "Circle/Semicircle"),
-            (15, 23, "Volume"),
-            (23, 24, "Pyramid"),
-            (24, 25, "Triangle-Based"),
-            (24, 26, "Square-Based"),
-            (24, 27, "Cone"),
-            (23, 28, "Sphere/Hemisphere"),
-            (23, 29, "Prism"),
-            (29, 30, "Triangular Prism"),
-            (29, 31, "Cylinder"),
-            (29, 32, "Cuboid/Cube"),
-            (6, 33, "Percentage"),
-            (6, 38, "Circles"),
-            (38, 39, "Circle Properties"),
-            (38, 40, "Equation of Circle"),
+                (6, 7, "Calculator"),
+                (6, 8, "Equations"),
+                    (8, 9, "Simultaneous"),
+                    (8, 10, "Quadratic"),
+                    (8, 11, "Cubic"),
+                    (8, 12, "Quartic"),
+                (6, 13, "Matrices"),
+                (6, 14, "Inequalities"),
+                (6, 15, "Mensuration"),
+                (15, 16, "Area"),
+                    (16, 17, "Rectangle/Square"),
+                    (16, 18, "Triangle"),
+                    (16, 19, "Parallelogram"),
+                    (16, 20, "Rhombus"),
+                    (16, 21, "Trapezium"),
+                    (16, 22, "Circle/Semicircle"),
+                (15, 23, "Volume"),
+                    (23, 24, "Pyramid"),
+                        (24, 25, "Triangle-Based"),
+                        (24, 26, "Square-Based"),
+                        (24, 27, "Cone"),
+                    (23, 28, "Sphere/Hemisphere"),
+                    (23, 29, "Prism"),
+                        (29, 30, "Triangular Prism"),
+                        (29, 31, "Cylinder"),
+                        (29, 32, "Cuboid/Cube"),
+                (6, 33, "Percentage"),
+                (6, 38, "Circles"),
+                    (38, 39, "Circle Properties"),
+                    (38, 40, "Equation of Circle"),
         ]
+topics=[treeview_data[i-1][2] for i in [1,6,8,16,15,23,34,24,29]]
+
 class App(ttk.Frame):
     def __init__(self, parent):
         ttk.Frame.__init__(self)
@@ -271,7 +274,7 @@ class App(ttk.Frame):
             self.welcomeFrame.pack_forget()
             self.clearScreen()
             functionalities[config.currentlySelected](self)
-        else:
+        elif not config.currentlySelected in topics:
             try: self.mainFrame.pack_forget()
             except: print("error")
             self.welcomeFrame.pack_forget()
