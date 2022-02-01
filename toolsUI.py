@@ -386,6 +386,7 @@ def SolveQuad(self):
         self.resultTxt4.grid(row=6, columnspan = 2, sticky = tk.W+tk.E, padx=2)
 table=[]
 def simsolver(self,column=4):
+    self.mainLabel = WrappingLabel(self.welcomeFrame, text="Simultaneous Equations Solver", font=(font,50,'bold'))
     print(column)
     row=column-1
 

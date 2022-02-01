@@ -7,7 +7,7 @@ import os
 from tkinter import font
 import json
 from PIL import ImageTk, Image
-
+from tkinter import Menu
 import config
 from toolsUI import *
 from components.wrappedLabel import WrappingLabel
@@ -85,8 +85,12 @@ class App(ttk.Frame):
             root.tk.call("set_theme", "dark")
 
     def setup_menu(self):
-        pass
-    
+        menubar = Menu(root)
+        tools=Menu(menubar, tearoff=0)
+        for i in functionalities:
+            tools.add_command(label=i, command=lambda i=i: self.run_func(i))
+        root.config(menu=menubar)
+
     # Keybines :D
     ## Full Screen Toggle
     def fullScreenBindings(self):
@@ -181,11 +185,11 @@ class App(ttk.Frame):
 
         ## Top Labels
         self.welcomeFrame = ttk.Frame(self.notebook)
-        self.welcomeFrame.pack(side="top", padx=25, pady=18, anchor="w")
-        self.helloUserLab = WrappingLabel(self.welcomeFrame ,text="Hello, {}".format(config.username), font=("TkDefaultFont",50,'bold'))
-        self.helloUserLab.pack(pady=2)
-        self.welcomeLab = WrappingLabel(self.welcomeFrame, text="Welcome to Toobox!",font=("TkDefaultFont", 15))
-        self.welcomeLab.pack(side="left")
+        # self.welcomeFrame.pack(side="top", padx=25, pady=18, anchor="w")
+        # self.helloUserLab = WrappingLabel(self.welcomeFrame ,text="Hello, {}".format(config.username), font=("TkDefaultFont",50,'bold'))
+        # self.helloUserLab.pack(pady=2)
+        # self.welcomeLab = WrappingLabel(self.welcomeFrame, text="Welcome to Toobox!",font=("TkDefaultFont", 15))
+        # self.welcomeLab.pack(side="left")
 
         ## Toobox Information
         self.widthOfTooboxInfo = 200
@@ -203,25 +207,25 @@ class App(ttk.Frame):
         self.favouritesFrame.pack(side="left", pady=18, anchor="w")
         self.favouritesText = WrappingLabel(self.favouritesFrame, text="", font=("TkDefaultFont", 18, 'bold'))
         self.favouritesText.pack(side="top", pady=3)
-
-        ## Recently Opened
-        file = open('.recentlyOpened.json')
-        data = json.load(file)
-        file.close()
-        data = list(data['recentlyOpened'])
-        self.recentlyOpenedFrame = ttk.Frame(self.notebook, width=self.widthOfTooboxInfo)
-        self.recentlyOpenedFrame.pack(side="left", padx=20, pady=18, anchor="w")
-        self.recentlyOpenedText = WrappingLabel(self.recentlyOpenedFrame, text="Recently Opened ({})".format(str(len(data))),font=("TkDefaultFont",18, "bold"))
-        self.recentlyOpenedText.pack(side="top", pady=3)
-        self.holdROItemFrame = ttk.Frame(self.recentlyOpenedFrame)
-        self.holdROItemFrame.pack(side="top")
-        if len(data) == 0:
-            self.errLabl = WrappingLabel(self.holdROItemFrame, text="You have not opened anything!",font=("TkDefaultFont",16) )
-            self.errLabl.pack(side="top", pady=2)
-        else:
-            for ropenedItem in data:
-                self.ropenedItemBtn = ttk.Button(self.holdROItemFrame, text=ropenedItem, width=30)
-                self.ropenedItemBtn.pack(side="top", pady=2)
+        self.showHomeScreen(0)
+        # ## Recently Opened
+        # file = open('.recentlyOpened.json')
+        # data = json.load(file)
+        # file.close()
+        # data = list(data['recentlyOpened'])
+        # self.recentlyOpenedFrame = ttk.Frame(self.notebook, width=self.widthOfTooboxInfo)
+        # self.recentlyOpenedFrame.pack(side="left", padx=20, pady=18, anchor="w")
+        # self.recentlyOpenedText = WrappingLabel(self.recentlyOpenedFrame, text="Recently Opened ({})".format(str(len(data))),font=("TkDefaultFont",18, "bold"))
+        # self.recentlyOpenedText.pack(side="top", pady=3)
+        # self.holdROItemFrame = ttk.Frame(self.recentlyOpenedFrame)
+        # self.holdROItemFrame.pack(side="top")
+        # if len(data) == 0:
+        #     self.errLabl = WrappingLabel(self.holdROItemFrame, text="You have not opened anything!",font=("TkDefaultFont",16) )
+        #     self.errLabl.pack(side="top", pady=2)
+        # else:
+        #     for ropenedItem in data:
+        #         self.ropenedItemBtn = ttk.Button(self.holdROItemFrame, text=ropenedItem, width=30,command=(lambda : self.run_func(ropenedItem)))
+        #         self.ropenedItemBtn.pack(side="top", pady=2)
     def clearScreen(self):
         self.recentlyOpenedText.pack_forget()
         self.recentlyOpenedFrame.pack_forget()
@@ -233,14 +237,14 @@ class App(ttk.Frame):
             self.welcomeFrame.place_forget()
         except:
             pass
-            
-    def on_tree_select(self, event):
+    def run_func(self, current):
+        print(current)
         file = open('.recentlyOpened.json')
         data = json.load(file)
         file.close()
-        data = list(data['recentlyOpened'])
+        data = list(set(data['recentlyOpened']))
         bruh = {"recentlyOpened": []}
-        config.currentlySelected = self.treeview.item(self.treeview.focus())['text']
+        config.currentlySelected = current
 
         if (len(data) < 3):
             if config.currentlySelected not in data:
@@ -275,6 +279,9 @@ class App(ttk.Frame):
             notUsable(self)
         
         root.update()
+    def on_tree_select(self, event):
+        self.run_func(self.treeview.item(self.treeview.focus())['text'] )
+        
         
     def showHomeScreen(self, event):
         self.welcomeFrame.pack(side="top", padx=25, pady=18, anchor="w")
@@ -282,6 +289,7 @@ class App(ttk.Frame):
         self.helloUserLab.pack(pady=2)
         self.welcomeLab = WrappingLabel(self.welcomeFrame, text="Welcome to Toobox!",font=("TkDefaultFont", 15))
         self.welcomeLab.pack(side="left")
+        self.welcomeLab2 = WrappingLabel(self.welcomeFrame, text="Select a tool to get started!",font=("TkDefaultFont", 15))
         self.tooboxInfoFrame.pack(side="left", padx=25, pady=18, anchor="w")
         self.appDescText.pack(side="bottom")
         self.imgPanel.pack(side="bottom", fill="both", expand="yes", pady=32)
@@ -296,7 +304,7 @@ class App(ttk.Frame):
         self.holdROItemFrame = ttk.Frame(self.recentlyOpenedFrame)
         self.holdROItemFrame.pack(side="top")
         for ropenedItem in data:
-            self.ropenedItemBtn = ttk.Button(self.holdROItemFrame, text=ropenedItem, width=30)
+            self.ropenedItemBtn = ttk.Button(self.holdROItemFrame, text=ropenedItem, width=30,command=(lambda : self.run_func(ropenedItem)))
             self.ropenedItemBtn.pack(side="top", pady=2)
             
     def _quit(self):
