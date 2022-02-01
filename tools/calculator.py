@@ -1,6 +1,9 @@
 
 
 
+from operator import ne
+
+
 class algebric:
 	def __init__(self,number,algebric={}):
 		if number==0 and (algebric):
@@ -84,6 +87,8 @@ class calculator:
 
 	def parse(self,stri):
 		#parseing the eqation
+		if stri[0] in self.tokens:
+			strin="0"+stri
 		parsed=[]
 		buf=''
 		i=0
@@ -171,7 +176,7 @@ class calculator:
 		return parsed
 
 	def solve(self,parsed):
-		
+
 		# reduce all the parenthesis
 
 		reparsed=[]
@@ -183,12 +188,12 @@ class calculator:
 			else:
 				reparsed.append(i)
 		parsed=reparsed
-
+		# print(parsed)
 		#reduce the paranthesis to the simplest form
 		for i in range(len(parsed)):
 			if type(parsed[i]) == list:
 				parsed[i]=self.solve(parsed[i])
-		
+		# print(parsed)
 		#follow order of operation
 		final=[]
 		l=[]
@@ -196,10 +201,11 @@ class calculator:
 		for i in range(len(parsed)):
 			if i>0 and parsed[i-1]=="-":
 				l[-1]="+"
-				l.append(self.mul(parsed[i],algebric(-1)))
+				l.append(self.mul(parsed[i],algebric(-1))[0])
 			else:
 				l.append(parsed[i])
 		parsed=list(l)
+		# print(parsed)
 		for j in self.tokens:
 			i=0
 			reparsed=[]
@@ -229,6 +235,7 @@ class calculator:
 	def div(self,prev,nex):
 		return [algebric(prev.num/nex.num)]
 	def add(self,prev,nex):
+		# print(prev,nex)
 		return [algebric(prev.num+nex.num)]
 	def pow(self,prev,nex):
 		return [algebric(prev.num**nex.num)]
@@ -252,6 +259,8 @@ if __name__=="__main__":
 	print(a.sol("(0.5*(1+2))"))
 	print(a.sol("(1)*(3+4)"))
 	print(a.sol("(1)(3+4)(5+6)"))
+	# print(a.sol("-1"))
+	print(a.sol("1-1"))
 
 
 

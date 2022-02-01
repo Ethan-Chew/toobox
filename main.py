@@ -67,6 +67,7 @@ treeview_data = [
 class App(ttk.Frame):
     def __init__(self, parent):
         ttk.Frame.__init__(self)
+        self.setup_menu()
         self.setup_widgets()
         # Variable to track if fullscreen
         self.fullScreen = False
@@ -83,6 +84,9 @@ class App(ttk.Frame):
             # Set dark theme
             root.tk.call("set_theme", "dark")
 
+    def setup_menu(self):
+        pass
+    
     # Keybines :D
     ## Full Screen Toggle
     def fullScreenBindings(self):
@@ -284,7 +288,7 @@ class App(ttk.Frame):
         file = open('.recentlyOpened.json')
         data = json.load(file)
         file.close()
-        data = list(data['recentlyOpened'])
+        data = list(set(data['recentlyOpened']))
         self.recentlyOpenedFrame = ttk.Frame(self.notebook, width=self.widthOfTooboxInfo)
         self.recentlyOpenedFrame.pack(side="left", padx=20, pady=18, anchor="w")
         self.recentlyOpenedText = WrappingLabel(self.recentlyOpenedFrame, text="Recently Opened ({})".format(str(len(data))),font=("TkDefaultFont",18, "bold"))

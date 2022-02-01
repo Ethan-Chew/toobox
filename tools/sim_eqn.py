@@ -5,8 +5,9 @@ def solve_sim(*args):
     e.g [10,4,9],[9,3,4] to represent 10x+4y=0, 9x+3y=4
 
     '''
-    answermatrix=np.array([[i[-1]] for i in args])
-    therestinvered=np.linalg.inv(np.array([i[:-1] for i in args]))
+    answermatrix=np.matrix([[i[-1]] for i in args],dtype=float)
+    print([i[:-1] for i in args])
+    therestinvered=np.linalg.inv(np.matrix([i[:-1] for i in args],dtype=float))
     print(answermatrix)
     print(therestinvered)
     try:

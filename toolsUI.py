@@ -15,6 +15,12 @@ from tools.areaCalculation import *
 from tools.sim_eqn import *
 import math
 font="TkDefaultFont"
+def is_float(value):
+    try:
+        float(value)
+        return True
+    except:
+        return False
 def ChemicalEquation(self):
     # Input Data
     def getInputs(self):
@@ -379,14 +385,19 @@ def SolveQuad(self):
         self.resultTxt4 = ttk.Label(self.mainFrame, text="Y Intercept:  {}".format(result[3]), font=(font, 20))
         self.resultTxt4.grid(row=6, columnspan = 2, sticky = tk.W+tk.E, padx=2)
 table=[]
-def simsolver(self,row=4,column=4):
-    print(row,column)
+def simsolver(self,column=4):
+    print(column)
+    row=column-1
+
     self.welcomeFrame = ttk.Frame(self.notebook)
     self.welcomeFrame.pack(side="top", padx=25, pady=18, anchor="w")
+    
     self.mainFrame = ttk.Frame(self.notebook)
     self.mainFrame.pack(padx=25, pady=18, anchor="w")
-    self.welcomeFrame.pack(side="top", padx=25, pady=18, anchor="w")
+    self.mainFrame.pack(side="top", padx=25, pady=18, anchor="w")
+    
     def gen_table(row,column):
+        print(row,column)
         table=[]
         for i in range(row):
             table.append([])
@@ -400,25 +411,72 @@ def simsolver(self,row=4,column=4):
                     tempt=""
                 self.alpha = ttk.Label(self.mainFrame, text=tempt, font=(font, 20))
                 self.alpha.grid(row=i, column=max(0,((j+1)*2)-1), sticky = tk.W+tk.E, padx=2)
-                temp.grid(row=i,column=j*2,padx=2,pady=2)
+                temp.grid(row=i,column=j*2,padx=2,pady=2, sticky = tk.W+tk.E)
                 table[i].append(temp)
         return table
+    # self.tree = ttk.Treeview(self.mainFrame, selectmode="extended")
     table=gen_table(row,column)
+    
+    # vsb = tk.Scrollbar(self.mainFrame, orient=tk.HORIZONTAL, command=self.tree.xview)
+    # vsb.grid(row=0, column=0, sticky='ew')
+    # self.mainFrame.configure(yscrollcommand=vsb.set)
+
     def onPress():
+        try:
+            self.resultTxt1.packforget()
+        except:
+            pass
         #solve_sim
         ret=[]
-        for row in table:
+        can=True
+        for r in table:
             ret.append([])
-            for col in row:
-                ret[-1].append(col.get())
+            for col in r:
+                try:
+                    print(calculator().sol(col.get())[0].num)
+                    print(calculator().sol(col.get())[0])
+                    ret[-1].append(calculator().sol(col.get())[0].num)
+                except Exception as e:
+                    print(e)
+                    print(calculator().sol(col.get()))
+                    can=False
         print(ret)
-    def rese(self,row,col):
+        if can:
+            try:
+                answer=np.array(solve_sim(*ret))
+                print(answer)
+                ans=""
+                j=0
+                for i in answer:
+                    ans+=string.ascii_lowercase[j]+" = "+str(i[0][0])+"\n"
+                    j+=1
+                print(ans)
+                self.resultTxt1 = ttk.Label(self.mainFrame, text="Roots:  \n{}".format(ans), font=(font, 20))
+                self.resultTxt1.grid(row=row+4, 
+                columnspan = 2, 
+                sticky = tk.W+tk.E, 
+                padx=2)
+            except:
+                self.resultTxt1 = ttk.Label(self.mainFrame, text="Please enter a valid input.", font=(font, 20))
+                self.resultTxt1.grid(row=row+4,
+                columnspan = 2, 
+                sticky = tk.W+tk.E, 
+                padx=2)
+        else:
+            self.resultTxt1 = ttk.Label(self.mainFrame, text="Please enter a valid input.", font=(font, 20))
+            self.resultTxt1.grid(row=row+4,
+             columnspan = 2, 
+             sticky = tk.W+tk.E, 
+             padx=2)
+
+    def rese(self,col):
+        print(col)
         self.welcomeFrame.pack_forget()
         self.clearScreen()
-        simsolver(self,row,col)
+        simsolver(self,col)
     ttk.Button(self.mainFrame, text="Solve", style='Accent.TButton', command=onPress,width=10).grid(row=row+3, column=0,pady=2, padx=2)
-    ttk.Button(self.mainFrame, text="Add Variable", style='Accent.TButton', command=(lambda: rese(self,min(row+1,25),min(row+1,25))),width=10).grid(row=row+2, column=0,pady=2, padx=2)
-    ttk.Button(self.mainFrame, text="Remove Variable", style='Accent.TButton', command=(lambda: rese(self,max(row-1,3),max(row-1,3))),width=10).grid(row=row+2, column=2,pady=2, padx=2)
+    ttk.Button(self.mainFrame, text="Add Variable", style='Accent.TButton', command=(lambda: rese(self,min(column+1,25))),width=10).grid(row=row+2, column=0,pady=2, padx=2)
+    ttk.Button(self.mainFrame, text="Remove Variable", style='Accent.TButton', command=(lambda: rese(self,max(column-1,3))),width=10).grid(row=row+2, column=2,pady=2, padx=2)
 
 
 
