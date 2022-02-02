@@ -13,6 +13,9 @@ import config
 from toolsUI import *
 from components.wrappedLabel import WrappingLabel
 import os
+from sys import platform
+
+
 ROOTDIR=os.path.abspath(os.curdir)
 recentlyused=os.path.join(ROOTDIR,".recentlyOpened.json")
 appIconIcon = os.path.join(ROOTDIR,'src','images','AppIcon.ico')
@@ -338,7 +341,7 @@ if __name__ == "__main__":
     root.tk.call("set_theme", "dark")
     
     # Set App Icon
-    root.iconbitmap(appIconIcns)
+    # root.iconbitmap(appIconIcns)
     img = tk.Image("photo", file=appIconPng)
     # root.iconphoto(True, img) # you may also want to try this.
     root.tk.call('wm','iconphoto', root._w, img)
