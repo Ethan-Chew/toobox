@@ -8,6 +8,7 @@ def sine_rule_side(a,A,b):
 def sine_rule_angle(a,A,B):
     return math.asin(B*(math.sin(a)/A))
 def solve_triangle(A,B,C,a,b,c):
+    print(A,B,C,a,b,c)
     if ((A!="?")+(B!="?")+(C!="?")+(a!="?")+(b!="?")+(c!="?"))<3:
         return "not possible"
     #everything in radians btw, cuz math uses radians

@@ -12,7 +12,12 @@ from tkinter import Menu
 import config
 from toolsUI import *
 from components.wrappedLabel import WrappingLabel
-
+import os
+ROOTDIR=os.path.abspath(os.curdir)
+recentlyused=os.path.join(ROOTDIR,".recentlyOpened.json")
+appIconIcon = os.path.join(ROOTDIR,'src','images','AppIcon.ico')
+appIconIcns = os.path.join(ROOTDIR,'src','images','AppIcon.icns')
+appIconPng = os.path.join(ROOTDIR,'src','images','AppIcon.png')
 # Important UI Details
 ## 1. Default Font Size is *20*
 functionalities = {
@@ -79,6 +84,7 @@ class App(ttk.Frame):
         self.fullScreenBindings()
         self.goHome()
         # self.notify("Toobox", "Testing Notification", "Boop")
+
         
     def change_theme(self):
         if root.tk.call("ttk::style", "theme", "use") == "sun-valley-dark":
@@ -90,12 +96,25 @@ class App(ttk.Frame):
 
     def setup_menu(self):
         menubar = Menu(root)
+        # tools
         tools=Menu(menubar, tearoff=0)
         for i in sorted(list(functionalities.keys())):
             
             tools.add_command(label=i, command=lambda i=i: self.run_func(i))
         menubar.add_cascade(label="Tools", menu=tools)
         root.config(menu=menubar)
+
+        #recently opened
+        romenu=Menu(menubar, tearoff=0)
+        file = open(recentlyused)
+        data = json.load(file)
+        file.close()
+        data = list(set(data['recentlyOpened']))
+        for i in data:
+            romenu.add_command(label=i, command=lambda i=i: self.run_func(i))
+        
+        menubar.add_cascade(label="Recently Opened", menu=romenu)
+
         root.mainloop
 
     # Keybines :D
@@ -172,10 +191,14 @@ class App(ttk.Frame):
 
         # Insert treeview data
         for item in treeview_data:
-            self.treeview.insert(
-                parent=item[0], index="end", iid=item[1], text=item[2]
-            )
+            if item[2] in functionalities:
+                self.treeview.insert(
+                    parent=item[0], index="end", iid=item[1], text=item[2]
+                )
             if item[0] == "" or item[1] in {8, 15, 16, 23, 24, 29, 34, 38, 41}:
+                self.treeview.insert(
+                    parent=item[0], index="end", iid=item[1], text=item[2]
+                )
                 self.treeview.item(item[1], open=True)  # Open parents
         # Select and scroll
         self.treeview.see(1)
@@ -202,7 +225,7 @@ class App(ttk.Frame):
         self.widthOfTooboxInfo = 200
         self.tooboxInfoFrame = ttk.Frame(self.notebook, width=self.widthOfTooboxInfo)
         self.tooboxInfoFrame.pack(side="left", padx=25, pady=18, anchor="w")
-        appIconImg = ImageTk.PhotoImage(Image.open('src/images/AppIcon.png').resize((self.widthOfTooboxInfo-40,self.widthOfTooboxInfo-40), Image.ANTIALIAS))
+        appIconImg = ImageTk.PhotoImage(Image.open(appIconPng).resize((self.widthOfTooboxInfo-40,self.widthOfTooboxInfo-40), Image.ANTIALIAS))
         self.imgPanel = WrappingLabel(self.tooboxInfoFrame, image=appIconImg)
         self.imgPanel.image = appIconImg
         self.appDescText = WrappingLabel(self.tooboxInfoFrame, font=(17), wraplength=self.widthOfTooboxInfo, justify="left" ,text="Toobox is an app is a Toolbox of different tools to help in your Academics. Toobox provides various tools for a wide range of topics and subjects that will definately help you while revising and studying.")
@@ -210,29 +233,12 @@ class App(ttk.Frame):
         self.imgPanel.pack(side="bottom", fill="both", expand="yes", pady=32)
 
         ## Favourites
-        self.favouritesFrame = ttk.Frame(self.notebook, width=self.widthOfTooboxInfo)
-        self.favouritesFrame.pack(side="left", pady=18, anchor="w")
-        self.favouritesText = WrappingLabel(self.favouritesFrame, text="", font=("TkDefaultFont", 18, 'bold'))
-        self.favouritesText.pack(side="top", pady=3)
+        # self.favouritesFrame = ttk.Frame(self.notebook, width=self.widthOfTooboxInfo)
+        # self.favouritesFrame.pack(side="left", pady=18, anchor="w")
+        # self.favouritesText = WrappingLabel(self.favouritesFrame, text="", font=("TkDefaultFont", 18, 'bold'))
+        # self.favouritesText.pack(side="top", pady=3)
         self.showHomeScreen(0)
-        # ## Recently Opened
-        # file = open('.recentlyOpened.json')
-        # data = json.load(file)
-        # file.close()
-        # data = list(data['recentlyOpened'])
-        # self.recentlyOpenedFrame = ttk.Frame(self.notebook, width=self.widthOfTooboxInfo)
-        # self.recentlyOpenedFrame.pack(side="left", padx=20, pady=18, anchor="w")
-        # self.recentlyOpenedText = WrappingLabel(self.recentlyOpenedFrame, text="Recently Opened ({})".format(str(len(data))),font=("TkDefaultFont",18, "bold"))
-        # self.recentlyOpenedText.pack(side="top", pady=3)
-        # self.holdROItemFrame = ttk.Frame(self.recentlyOpenedFrame)
-        # self.holdROItemFrame.pack(side="top")
-        # if len(data) == 0:
-        #     self.errLabl = WrappingLabel(self.holdROItemFrame, text="You have not opened anything!",font=("TkDefaultFont",16) )
-        #     self.errLabl.pack(side="top", pady=2)
-        # else:
-        #     for ropenedItem in data:
-        #         self.ropenedItemBtn = ttk.Button(self.holdROItemFrame, text=ropenedItem, width=30,command=(lambda : self.run_func(ropenedItem)))
-        #         self.ropenedItemBtn.pack(side="top", pady=2)
+        
     def clearScreen(self):
         self.recentlyOpenedText.pack_forget()
         self.recentlyOpenedFrame.pack_forget()
@@ -246,21 +252,21 @@ class App(ttk.Frame):
             pass
     def run_func(self, current):
         print(current)
-        file = open('.recentlyOpened.json')
+        file = open(recentlyused)
         data = json.load(file)
         file.close()
         data = list(set(data['recentlyOpened']))
         bruh = {"recentlyOpened": []}
         config.currentlySelected = current
 
-        if (len(data) < 3):
+        if (len(data) < 10):
             if config.currentlySelected not in data:
-                data.append(config.currentlySelected)
+                data=[config.currentlySelected] + data
         else:
-            data.append(config.currentlySelected)
-            data.pop(0)
+            data = [config.currentlySelected] + data[:-1]
+
         bruh['recentlyOpened'] = data
-        with open('.recentlyOpened.json', 'w') as f:
+        with open(recentlyused, 'w') as f:
             json.dump(bruh,f)
         
         self.holdROItemFrame.pack_forget()
@@ -284,7 +290,7 @@ class App(ttk.Frame):
             self.welcomeFrame.pack_forget()
             self.clearScreen()
             notUsable(self)
-        
+        self.setup_menu()
         root.update()
     def on_tree_select(self, event):
         self.run_func(self.treeview.item(self.treeview.focus())['text'] )
@@ -300,7 +306,7 @@ class App(ttk.Frame):
         self.tooboxInfoFrame.pack(side="left", padx=25, pady=18, anchor="w")
         self.appDescText.pack(side="bottom")
         self.imgPanel.pack(side="bottom", fill="both", expand="yes", pady=32)
-        file = open('.recentlyOpened.json')
+        file = open(recentlyused)
         data = json.load(file)
         file.close()
         data = list(set(data['recentlyOpened']))
@@ -310,7 +316,7 @@ class App(ttk.Frame):
         self.recentlyOpenedText.pack(side="top", pady=3)
         self.holdROItemFrame = ttk.Frame(self.recentlyOpenedFrame)
         self.holdROItemFrame.pack(side="top")
-        for ropenedItem in data:
+        for ropenedItem in data[:3]:
             self.ropenedItemBtn = ttk.Button(self.holdROItemFrame, text=ropenedItem, width=30,command=(lambda : self.run_func(ropenedItem)))
             self.ropenedItemBtn.pack(side="top", pady=2)
             
@@ -332,8 +338,10 @@ if __name__ == "__main__":
     root.tk.call("set_theme", "dark")
     
     # Set App Icon
-    appIconIcns = './src/images/AppIcon.icns'
     root.iconbitmap(appIconIcns)
+    img = tk.Image("photo", file=appIconPng)
+    # root.iconphoto(True, img) # you may also want to try this.
+    root.tk.call('wm','iconphoto', root._w, img)
 
     app = App(root)
     app.pack(fill="both", expand=True)
@@ -343,5 +351,5 @@ if __name__ == "__main__":
     y_cordinate = root.winfo_screenheight()
     root.geometry("+{}+{}".format(x_cordinate, y_cordinate))
     root.state('zoomed')
-
+    
     root.mainloop()

@@ -528,8 +528,9 @@ def triangle(self):
                 ang.append("?")
             else:
                 try:
-                    ang.append(calculator.sol( i.get())[0].num)
-                except:
+                    ang.append(math.radians( calculator().sol( i.get())[0].num))
+                except Exception as e:
+                    print(e)
                     ang.append("?")
         sid=[]
         for i in sides:
@@ -537,10 +538,11 @@ def triangle(self):
                 sid.append("?")
             else:
                 try:
-                    sid.append(calculator.sol( i.get())[0].num)
-                except:
+                    sid.append(calculator().sol( i.get())[0].num)
+                except Exception as e:
+                    print(e)
                     sid.append("?")
-        self.resultTxt1 = ttk.Label(self.mainFrame, text="Area: {}".format(areaCalculation.solve_triangle(*sid,*ang)), font=(font, 20))
-        self.resultTxt1.grid(row=i[0],column=i[1],padx=2,pady=2, sticky = tk.W+tk.E)
+        self.resultTxt1 = ttk.Label(self.mainFrame, text="Area: {}u^2".format(areaCalculation.solve_triangle(*sid,*ang)), font=(font, 20))
+        self.resultTxt1.grid(row=6,column=0,padx=2,pady=2, sticky = tk.W+tk.E,columnspan=3)
 
     ttk.Button(self.mainFrame, text="Solve", style='Accent.TButton', command=onPress,width=10).grid(row=5, column=0,pady=2, padx=2)
