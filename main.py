@@ -26,6 +26,7 @@ functionalities = {
             "Parallelogram"     :   Parallelogram,
             "Trapezium"         :   Trapezium,
             "Simultaneous"      :   simsolver,
+            "Triangle"          :   triangle
         }
 treeview_data = [
             ("", 1, "Chemistry"),
@@ -90,9 +91,12 @@ class App(ttk.Frame):
     def setup_menu(self):
         menubar = Menu(root)
         tools=Menu(menubar, tearoff=0)
-        for i in functionalities:
+        for i in sorted(list(functionalities.keys())):
+            
             tools.add_command(label=i, command=lambda i=i: self.run_func(i))
+        menubar.add_cascade(label="Tools", menu=tools)
         root.config(menu=menubar)
+        root.mainloop
 
     # Keybines :D
     ## Full Screen Toggle

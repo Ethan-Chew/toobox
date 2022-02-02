@@ -1,10 +1,12 @@
 from glob import glob
 import string
+from tempfile import TemporaryFile
 import tkinter as tk
 from tkinter import ttk
 import re
 
 from pyparsing import col
+from tools import areaCalculation
 from tools.IonicEqn import ionicEqn
 from tools.calculator import calculator
 from tools.balancingChemEqn import balanceChemEqn
@@ -480,7 +482,65 @@ def simsolver(self,column=4):
         simsolver(self,col)
     ttk.Button(self.mainFrame, text="Solve", style='Accent.TButton', command=onPress,width=10).grid(row=row+3, column=0,pady=2, padx=2)
     ttk.Button(self.mainFrame, text="Add Variable", style='Accent.TButton', command=(lambda: rese(self,min(column+1,25))),width=10).grid(row=row+2, column=0,pady=2, padx=2)
-    ttk.Button(self.mainFrame, text="Remove Variable", style='Accent.TButton', command=(lambda: rese(self,max(column-1,3))),width=10).grid(row=row+2, column=2,pady=2, padx=2)
+    ttk.Button(self.mainFrame, text="Remove Variable", style='Accent.TButton', command=(lambda: rese(self,max(column-1,3))),width=10).grid(row=row+2, column=2,pady=2, padx=2,columnspan=2)
 
+def triangle(self):
+    self.welcomeFrame = ttk.Frame(self.notebook)
+    self.mainLabel = WrappingLabel(self.welcomeFrame, text="Triangle Area Solver", font=(font,50,'bold'))
+    self.welcomeFrame.pack(side="top", padx=25, pady=18, anchor="w")
+    self.mainLabel.pack(side="top", pady=2, fill="x", expand="yes")
+    self.mainFrame = ttk.Frame(self.notebook)
+    self.mainFrame.pack(padx=25, pady=18, anchor="w")
+    self.mainFrame.pack(side="top", padx=25, pady=18, anchor="w")
+    anpos=[[4,0],[0,4],[4,4]]
+    angles=[]
+    for i in anpos:
+        temp=ttk.Entry(self.mainFrame, width=10, font=(font, 12))
+        temp.grid(row=i[0],column=i[1],padx=2,pady=2, sticky = tk.W+tk.E)
+        angles.append(temp)
+    sidpos=[[2,4],[4,2],[2,2]]
+    sides=[]
+    for i in sidpos:
+        temp=ttk.Entry(self.mainFrame, width=10, font=(font, 12))
+        temp.grid(row=i[0],column=i[1],padx=2,pady=2, sticky = tk.W+tk.E)
+        sides.append(temp)
+    diagpos=[[3,1],[1,3]]
+    for i in diagpos:
+        self.resultTxt1 = ttk.Label(self.mainFrame, text="/", font=(font, 20))
+        self.resultTxt1.grid(row=i[0],column=i[1],padx=2,pady=2, sticky = tk.W+tk.E)
+    lines=[[4,1],[4,3]]  
+    for i in lines:
+        self.resultTxt1 = ttk.Label(self.mainFrame, text="-", font=(font, 20))
+        self.resultTxt1.grid(row=i[0],column=i[1],padx=2,pady=2, sticky = tk.W+tk.E)    
+    
+    lines=[[1,4],[3,4]]    
+    for i in lines:
+        self.resultTxt1 = ttk.Label(self.mainFrame, text="|", font=(font, 20))
+        self.resultTxt1.grid(row=i[0],column=i[1],padx=2,pady=2, sticky = tk.W+tk.E)  
+    def onPress():
+        try:
+            self.resultTxt1.packforget()
+        except:
+            pass
+        ang=[]
+        for i in angles:
+            if i.get()=="":
+                ang.append("?")
+            else:
+                try:
+                    ang.append(calculator.sol( i.get())[0].num)
+                except:
+                    ang.append("?")
+        sid=[]
+        for i in sides:
+            if i.get()=="":
+                sid.append("?")
+            else:
+                try:
+                    sid.append(calculator.sol( i.get())[0].num)
+                except:
+                    sid.append("?")
+        self.resultTxt1 = ttk.Label(self.mainFrame, text="Area: {}".format(areaCalculation.solve_triangle(*sid,*ang)), font=(font, 20))
+        self.resultTxt1.grid(row=i[0],column=i[1],padx=2,pady=2, sticky = tk.W+tk.E)
 
-
+    ttk.Button(self.mainFrame, text="Solve", style='Accent.TButton', command=onPress,width=10).grid(row=5, column=0,pady=2, padx=2)
