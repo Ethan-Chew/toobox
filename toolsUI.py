@@ -320,7 +320,8 @@ def calculate(self):
             if i!=" ":
                 final+=i
         try:
-            codeReturned = str(calculator().sol(inputVal))[0] # Could return error/final value
+            print(final)
+            codeReturned = str(calculator().sol(final)[0].num) # Could return error/final value
         except:
             codeReturned="error"
         setFinalResult(self, codeReturned)
@@ -389,7 +390,7 @@ def SolveQuad(self):
         self.resultTxt4 = ttk.Label(self.mainFrame, text="Y Intercept:  {}".format(result[3]), font=(font, 20))
         self.resultTxt4.grid(row=6, columnspan = 2, sticky = tk.W+tk.E, padx=2)
 table=[]
-def simsolver(self,column=4):
+def simsolver(self,column=3):
     
     print(column)
     row=column-1
