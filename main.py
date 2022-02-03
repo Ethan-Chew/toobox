@@ -133,6 +133,8 @@ class App(ttk.Frame):
 
     def handleBackToHS(self, event):
         try:
+            self.mainFrame.pack_forget()
+            self.welcomeFrame.pack_forget()
             self.clearScreen()
             self.showHomeScreen(self)
         except: pass
@@ -187,8 +189,6 @@ class App(ttk.Frame):
         
         ## Treeview columns
         self.treeview.column("#0", anchor="w", minwidth=100)
-        ## Define treeview data
-        
 
         # Insert treeview data
         for item in treeview_data:
@@ -216,11 +216,7 @@ class App(ttk.Frame):
 
         ## Top Labels
         self.welcomeFrame = ttk.Frame(self.notebook)
-        # self.welcomeFrame.pack(side="top", padx=25, pady=18, anchor="w")
-        # self.helloUserLab = WrappingLabel(self.welcomeFrame ,text="Hello, {}".format(config.username), font=("TkDefaultFont",50,'bold'))
-        # self.helloUserLab.pack(pady=2)
-        # self.welcomeLab = WrappingLabel(self.welcomeFrame, text="Welcome to Toobox!",font=("TkDefaultFont", 15))
-        # self.welcomeLab.pack(side="left")
+        self.welcomeFrame.pack(side="top", padx=25, pady=18, anchor="w")
 
         ## Toobox Information
         self.widthOfTooboxInfo = 200
@@ -251,8 +247,8 @@ class App(ttk.Frame):
             self.welcomeFrame.place_forget()
         except:
             pass
+
     def run_func(self, current):
-        print(current)
         file = open(recentlyused)
         data = json.load(file)
         file.close()
@@ -293,9 +289,9 @@ class App(ttk.Frame):
             notUsable(self)
         self.setup_menu()
         root.update()
+
     def on_tree_select(self, event):
         self.run_func(self.treeview.item(self.treeview.focus())['text'] )
-        
         
     def showHomeScreen(self, event):
         self.welcomeFrame.pack(side="top", padx=25, pady=18, anchor="w")
