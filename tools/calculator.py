@@ -261,6 +261,7 @@ if __name__=="__main__":
 	print(a.sol("(1)(3+4)(5+6)"))
 	# print(a.sol("-1"))
 	print(a.sol("1-1"))
+	print(a.sol("9+10"))
 
 
 
