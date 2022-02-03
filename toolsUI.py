@@ -31,11 +31,11 @@ def ChemicalEquation(self):
         setFinalResult(self, codeReturned)
     
     # User Interface
-    self.welcomeFrame = ttk.Frame(self.notebook)
-    self.welcomeFrame.pack(side="top", padx=25, pady=18, anchor="w")
-    self.mainLabel = WrappingLabel(self.welcomeFrame, text="Chemical Equation Balancer", font=(font,50,'bold'))
+    self.thingFrame = ttk.Frame(self.notebook)
+    self.thingFrame.pack(side="top", padx=25, pady=18, anchor="w")
+    self.mainLabel = WrappingLabel(self.thingFrame, text="Chemical Equation Balancer", font=(font,50,'bold'))
     self.mainLabel.pack(side="top", pady=2, fill="x", expand="yes")
-    self.infoLabel = WrappingLabel(self.welcomeFrame, text="Please enter the Chemical Equation like in the following example: 'Compound(State) + Compound2(State) + ... -> Compound3(State) + Compound4(State) + ...'", font=(font, 15))
+    self.infoLabel = WrappingLabel(self.thingFrame, text="Please enter the Chemical Equation like in the following example: 'Compound(State) + Compound2(State) + ... -> Compound3(State) + Compound4(State) + ...'", font=(font, 15))
     self.infoLabel.pack(side="top", pady=2, fill="x", expand="yes")
     
     self.mainFrame = ttk.Frame(self.notebook)
@@ -54,13 +54,13 @@ def ChemicalEquation(self):
 
 def notUsable(self):
     # Top Labels
-    self.welcomeFrame = ttk.Frame(self.notebook)
-    # self.mainLabel = WrappingLabel(self.welcomeFrame, text="Simultaneous Equations Solver", font=(font,50,'bold'))
-    # self.welcomeFrame.pack(side="top", padx=25, pady=18, anchor="w")
-    self.welcomeFrame.place(anchor="center", relx=0.5, rely=0.5)
-    self.wipText = WrappingLabel(self.welcomeFrame, text="This is a Work in Progress", font=(font, 30, 'bold'), justify="center")
+    self.thingFrame = ttk.Frame(self.notebook)
+    # self.mainLabel = WrappingLabel(self.thingFrame, text="Simultaneous Equations Solver", font=(font,50,'bold'))
+    # self.thingFrame.pack(side="top", padx=25, pady=18, anchor="w")
+    self.thingFrame.place(anchor="center", relx=0.5, rely=0.5)
+    self.wipText = WrappingLabel(self.thingFrame, text="This is a Work in Progress", font=(font, 30, 'bold'), justify="center")
     self.wipText.pack(side="top", pady=2)
-    self.wipTextA = WrappingLabel(self.welcomeFrame, text="Check back soon!", font=(font, 20), justify="center")
+    self.wipTextA = WrappingLabel(self.thingFrame, text="Check back soon!", font=(font, 20), justify="center")
     self.wipTextA.pack(side="top", pady=2)
 
 def Parallelogram(self):
@@ -75,9 +75,9 @@ def Parallelogram(self):
         if re.search("^\d+\.{0,1}\d{0,1}$", base) and re.search("^\d+\.{0,1}\d{0,1}$", height):
             answer = parallelogram(base, height)
         setFinalResult(self, answer)
-    self.welcomeFrame = ttk.Frame(self.notebook)
-    self.welcomeFrame.pack(side="top", padx=25, pady=18, anchor="w")
-    self.mainLabel = WrappingLabel(self.welcomeFrame, text="Parallelogram Area Calculator", font=(font,50,'bold'))
+    self.thingFrame = ttk.Frame(self.notebook)
+    self.thingFrame.pack(side="top", padx=25, pady=18, anchor="w")
+    self.mainLabel = WrappingLabel(self.thingFrame, text="Parallelogram Area Calculator", font=(font,50,'bold'))
     self.mainLabel.pack(side="top", pady=2, fill="x", expand="yes")
     
     self.mainFrame = ttk.Frame(self.notebook)
@@ -111,9 +111,9 @@ def Trapezium(self):
         if re.search("^\d+\.{0,1}\d{0,1}$", t) and re.search("^\d+\.{0,1}\d{0,1}$", b) and re.search("^\d+\.{0,1}\d{0,1}$", h):
             answer = trapezium(t, b, h)
         setFinalResult(self, answer)
-    self.welcomeFrame = ttk.Frame(self.notebook)
-    self.welcomeFrame.pack(side="top", padx=25, pady=18, anchor="w")
-    self.mainLabel = WrappingLabel(self.welcomeFrame, text="Trapezium Area Calculator", font=(font,50,'bold'))
+    self.thingFrame = ttk.Frame(self.notebook)
+    self.thingFrame.pack(side="top", padx=25, pady=18, anchor="w")
+    self.mainLabel = WrappingLabel(self.thingFrame, text="Trapezium Area Calculator", font=(font,50,'bold'))
     self.mainLabel.pack(side="top", pady=2, fill="x", expand="yes")
     
     self.mainFrame = ttk.Frame(self.notebook)
@@ -154,9 +154,9 @@ def Rectangle(self):
             if self.typebox.get() == "Square":
                 answer = float(length)**2
         setFinalResult(self, answer)
-    self.welcomeFrame = ttk.Frame(self.notebook)
-    self.welcomeFrame.pack(side="top", padx=25, pady=18, anchor="w")
-    self.mainLabel = WrappingLabel(self.welcomeFrame, text="Rectangle/Square Area Calculator", font=(font,50,'bold'))
+    self.thingFrame = ttk.Frame(self.notebook)
+    self.thingFrame.pack(side="top", padx=25, pady=18, anchor="w")
+    self.mainLabel = WrappingLabel(self.thingFrame, text="Rectangle/Square Area Calculator", font=(font,50,'bold'))
     self.mainLabel.pack(side="top", pady=2, fill="x", expand="yes")
     
     self.mainFrame = ttk.Frame(self.notebook)
@@ -218,9 +218,9 @@ def Circle(self):
                     if float(a) >= 0.0 and float(a) <= 360.0:
                         answer = sector(r, a)
         setFinalResult(self, answer)
-    self.welcomeFrame = ttk.Frame(self.notebook)
-    self.welcomeFrame.pack(side="top", padx=25, pady=18, anchor="w")
-    self.mainLabel = WrappingLabel(self.welcomeFrame, text="Circle/Semicircle Area Calculator", font=(font,50,'bold'))
+    self.thingFrame = ttk.Frame(self.notebook)
+    self.thingFrame.pack(side="top", padx=25, pady=18, anchor="w")
+    self.mainLabel = WrappingLabel(self.thingFrame, text="Circle/Semicircle Area Calculator", font=(font,50,'bold'))
     self.mainLabel.pack(side="top", pady=2, fill="x", expand="yes")
     
     self.mainFrame = ttk.Frame(self.notebook)
@@ -258,11 +258,11 @@ def IonicEqn(self):
         codeReturned = ionicEqn(chemEqn) # Could return error/final value
         setFinalResult(self, codeReturned)
 
-    self.welcomeFrame = ttk.Frame(self.notebook)
-    self.welcomeFrame.pack(side="top", padx=25, pady=18, anchor="w")
-    self.mainLabel = WrappingLabel(self.welcomeFrame, text="Ionic Equation Solver", font=(font,50,'bold'))
+    self.thingFrame = ttk.Frame(self.notebook)
+    self.thingFrame.pack(side="top", padx=25, pady=18, anchor="w")
+    self.mainLabel = WrappingLabel(self.thingFrame, text="Ionic Equation Solver", font=(font,50,'bold'))
     self.mainLabel.pack(side="top", pady=2, fill="x", expand="yes")
-    self.infoLabel = WrappingLabel(self.welcomeFrame, text="Please enter the Chemical Equation like in the following example: 'Compound(State) + Compound2(State) + ... -> Compound3(State) + Compound4(State) + ...'", font=(font, 15))
+    self.infoLabel = WrappingLabel(self.thingFrame, text="Please enter the Chemical Equation like in the following example: 'Compound(State) + Compound2(State) + ... -> Compound3(State) + Compound4(State) + ...'", font=(font, 15))
     self.infoLabel.pack(side="top", pady=2, fill="x", expand="yes")
     
     self.mainFrame = ttk.Frame(self.notebook)
@@ -290,11 +290,11 @@ def SaltSolubility(self):
             codeReturned = "Insoluble in Water"
         setFinalResult(self, codeReturned)
 
-    self.welcomeFrame = ttk.Frame(self.notebook)
-    self.welcomeFrame.pack(side="top", padx=25, pady=18, anchor="w")
-    self.mainLabel = WrappingLabel(self.welcomeFrame, text="Salt Solubilities", font=(font,50,'bold'))
+    self.thingFrame = ttk.Frame(self.notebook)
+    self.thingFrame.pack(side="top", padx=25, pady=18, anchor="w")
+    self.mainLabel = WrappingLabel(self.thingFrame, text="Salt Solubilities", font=(font,50,'bold'))
     self.mainLabel.pack(side="top", pady=2, fill="x", expand="yes")
-    self.infoLabel = WrappingLabel(self.welcomeFrame, text="Please enter a Compound and the program will return an output if it is Soluble or Insoluble in water.", font=(font, 15))
+    self.infoLabel = WrappingLabel(self.thingFrame, text="Please enter a Compound and the program will return an output if it is Soluble or Insoluble in water.", font=(font, 15))
     self.infoLabel.pack(side="top", pady=2, fill="x", expand="yes")
     
     self.mainFrame = ttk.Frame(self.notebook)
@@ -326,11 +326,11 @@ def calculate(self):
             codeReturned="error"
         setFinalResult(self, codeReturned)
 
-    self.welcomeFrame = ttk.Frame(self.notebook)
-    self.welcomeFrame.pack(side="top", padx=25, pady=18, anchor="w")
-    self.mainLabel = WrappingLabel(self.welcomeFrame, text="Calculator", font=(font,50,'bold'))
+    self.thingFrame = ttk.Frame(self.notebook)
+    self.thingFrame.pack(side="top", padx=25, pady=18, anchor="w")
+    self.mainLabel = WrappingLabel(self.thingFrame, text="Calculator", font=(font,50,'bold'))
     self.mainLabel.pack(side="top", pady=2, fill="x", expand="yes")
-    self.infoLabel = WrappingLabel(self.welcomeFrame, text="Enter a mathematical expression. currently, only +,-,*,/,(),^ are supported", font=(font, 15))
+    self.infoLabel = WrappingLabel(self.thingFrame, text="Enter a mathematical expression. currently, only +,-,*,/,(),^ are supported", font=(font, 15))
     self.infoLabel.pack(side="top", pady=2, fill="x", expand="yes")
     
     self.mainFrame = ttk.Frame(self.notebook)
@@ -358,11 +358,11 @@ def SolveQuad(self):
         codeReturned = solveQuad(eqn) # Could return error/final value
         setFinalResult(self, codeReturned)
 
-    self.welcomeFrame = ttk.Frame(self.notebook)
-    self.welcomeFrame.pack(side="top", padx=25, pady=18, anchor="w")
-    self.mainLabel = WrappingLabel(self.welcomeFrame, text="Solving Quadratic Equation", font=(font,50,'bold'))
+    self.thingFrame = ttk.Frame(self.notebook)
+    self.thingFrame.pack(side="top", padx=25, pady=18, anchor="w")
+    self.mainLabel = WrappingLabel(self.thingFrame, text="Solving Quadratic Equation", font=(font,50,'bold'))
     self.mainLabel.pack(side="top", pady=2, fill="x", expand="yes")
-    self.infoLabel = WrappingLabel(self.welcomeFrame, text="Please enter an Equation in the format ax^2+bx+c.", font=(font, 15))
+    self.infoLabel = WrappingLabel(self.thingFrame, text="Please enter an Equation in the format ax^2+bx+c.", font=(font, 15))
     self.infoLabel.pack(side="top", pady=2, fill="x", expand="yes")
     
     self.mainFrame = ttk.Frame(self.notebook)
@@ -395,9 +395,9 @@ def simsolver(self,column=3):
     print(column)
     row=column-1
 
-    self.welcomeFrame = ttk.Frame(self.notebook)
-    self.mainLabel = WrappingLabel(self.welcomeFrame, text="Simultaneous Equations Solver", font=(font,50,'bold'))
-    self.welcomeFrame.pack(side="top", padx=25, pady=18, anchor="w")
+    self.thingFrame = ttk.Frame(self.notebook)
+    self.mainLabel = WrappingLabel(self.thingFrame, text="Simultaneous Equations Solver", font=(font,50,'bold'))
+    self.thingFrame.pack(side="top", padx=25, pady=18, anchor="w")
     self.mainLabel.pack(side="top", pady=2, fill="x", expand="yes")
     self.mainFrame = ttk.Frame(self.notebook)
     self.mainFrame.pack(padx=25, pady=18, anchor="w")
@@ -478,7 +478,7 @@ def simsolver(self,column=3):
 
     def rese(self,col):
         print(col)
-        self.welcomeFrame.pack_forget()
+        self.thingFrame.pack_forget()
         self.clearScreen()
         simsolver(self,col)
     ttk.Button(self.mainFrame, text="Solve", style='Accent.TButton', command=onPress,width=10).grid(row=row+3, column=0,pady=2, padx=2)
@@ -486,10 +486,13 @@ def simsolver(self,column=3):
     ttk.Button(self.mainFrame, text="Remove Variable", style='Accent.TButton', command=(lambda: rese(self,max(column-1,3))),width=10).grid(row=row+2, column=2, columnspan=2, pady=2, padx=2, sticky="nsew")
 
 def triangle(self):
-    self.welcomeFrame = ttk.Frame(self.notebook)
-    self.mainLabel = WrappingLabel(self.welcomeFrame, text="Triangle Area Solver", font=(font,50,'bold'))
-    self.welcomeFrame.pack(side="top", padx=25, pady=18, anchor="w")
+    self.thingFrame = ttk.Frame(self.notebook)
+    self.mainLabel = WrappingLabel(self.thingFrame, text="Triangle Area Solver", font=(font,50,'bold'))
+    self.thingFrame.pack(side="top", padx=25, pady=18, anchor="w")
+    
     self.mainLabel.pack(side="top", pady=2, fill="x", expand="yes")
+    self.infoLabel = WrappingLabel(self.thingFrame, text="Please enter enough angles, or sides to solve for area", font=(font, 15))
+    self.infoLabel.pack(side="top", pady=2, fill="x", expand="yes")
     self.mainFrame = ttk.Frame(self.notebook)
     self.mainFrame.pack(padx=25, pady=18, anchor="w")
     self.mainFrame.pack(side="top", padx=25, pady=18, anchor="w")

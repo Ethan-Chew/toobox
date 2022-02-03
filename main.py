@@ -13,6 +13,8 @@ import config
 from toolsUI import *
 from components.wrappedLabel import WrappingLabel
 import os
+from sys import platform
+
 
 ROOTDIR=os.path.abspath(os.curdir)
 recentlyused=os.path.join(ROOTDIR,".recentlyOpened.json")
@@ -133,9 +135,10 @@ class App(ttk.Frame):
     def handleBackToHS(self, event):
         try:
             self.clearScreen()
-            self.welcomeFrame.pack_forget()
-            self.showHomeScreen(self)
         except: pass
+        finally:
+            config.currentlySelected = "Home"
+            self.showHomeScreen(self)
     
     def toggleFullScreen(self, event):
         self.fullScreen = not self.fullScreen
@@ -161,7 +164,7 @@ class App(ttk.Frame):
         self.treeViewTopLab = WrappingLabel(self.newpane, text="Tools", font=('TkDefaultFont',23, 'bold'))
         self.treeViewTopLab.pack(side="left",padx=5, anchor="w", fill="y")
 
-        # Treeview Switch
+        # Treeview Swi
         self.switch = ttk.Checkbutton(
             self.newpane, text="Change Theme", style="Switch.TCheckbutton", command=self.change_theme
         )
@@ -244,13 +247,18 @@ class App(ttk.Frame):
         self.recentlyOpenedText.pack_forget()
         self.recentlyOpenedFrame.pack_forget()
         self.tooboxInfoFrame.pack_forget()
-        self.welcomeFrame.pack_forget()
-
+        print(config.currentlySelected)
+        
         try:
-            self.mainFrame.pack_forget()
-            self.welcomeFrame.place_forget()
-        except:
-            pass
+            if config.currentlySelected == "Home":
+                self.welcomeFrame.pack_forget()
+            else:
+                self.mainFrame.pack_forget()
+                self.thingFrame.pack_forget()
+                self.mainLabel.pack_forget()
+                self.infoLabel.pack_forget()
+                self.welcomeFrame.place_forget()
+        except: pass
     def run_func(self, current):
         print(current)
         file = open(recentlyused)
