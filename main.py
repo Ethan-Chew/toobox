@@ -101,7 +101,7 @@ class App(ttk.Frame):
         # tools
         tools=Menu(menubar, tearoff=0)
         for i in sorted(list(functionalities.keys())):
-            
+
             tools.add_command(label=i, command=lambda i=i: self.run_func(i))
         menubar.add_cascade(label="Tools", menu=tools)
         root.config(menu=menubar)
@@ -114,7 +114,7 @@ class App(ttk.Frame):
         data = list(set(data['recentlyOpened']))
         for i in data:
             romenu.add_command(label=i, command=lambda i=i: self.run_func(i))
-        
+
         menubar.add_cascade(label="Recently Opened", menu=romenu)
 
         root.mainloop
@@ -126,20 +126,18 @@ class App(ttk.Frame):
         root.bind("f", self.toggleFullScreen)
         root.bind("<F11>", self.toggleFullScreen)
         root.bind("<Escape>", self.quitFullScreen)
-    
+
     ## Back to Home
     def goHome(self):
         root.bind("h", self.handleBackToHS)
 
     def handleBackToHS(self, event):
         try:
-            self.mainFrame.pack_forget()
-            self.welcomeFrame.pack_forget()
             self.clearScreen()
             self.welcomeFrame.pack_forget()
             self.showHomeScreen(self)
         except: pass
-    
+
     def toggleFullScreen(self, event):
         self.fullScreen = not self.fullScreen
         root.attributes("-fullscreen", self.fullScreen)
@@ -157,9 +155,9 @@ class App(ttk.Frame):
         # Selection Pane
         self.pane_1 = ttk.Frame(self.paned, padding=5)
         self.paned.add(self.pane_1, weight=1)
-        
+
         self.newpane = ttk.PanedWindow(self.pane_1, orient="horizontal")
-        
+
         ## Treeview Label
         self.treeViewTopLab = WrappingLabel(self.newpane, text="Tools", font=('TkDefaultFont',23, 'bold'))
         self.treeViewTopLab.pack(side="left",padx=5, anchor="w", fill="y")
@@ -169,9 +167,9 @@ class App(ttk.Frame):
             self.newpane, text="Change Theme", style="Switch.TCheckbutton", command=self.change_theme
         )
         self.switch.pack(side="right", padx=5, anchor="e", fill="y")
-        
+
         self.newpane.pack(fill="x", anchor="n", pady=10)
-        
+
         # Scrollbar
         self.scrollbar = ttk.Scrollbar(self.pane_1)
         self.scrollbar.pack(side="right", fill="y")
@@ -187,9 +185,11 @@ class App(ttk.Frame):
         self.treeview.bind("<<TreeviewSelect>>", self.on_tree_select)
         self.treeview.pack(expand=True, fill="both")
         self.scrollbar.config(command=self.treeview.yview)
-        
+
         ## Treeview columns
         self.treeview.column("#0", anchor="w", minwidth=100)
+        ## Define treeview data
+
 
         # Insert treeview data
         for item in treeview_data:
@@ -217,7 +217,11 @@ class App(ttk.Frame):
 
         ## Top Labels
         self.welcomeFrame = ttk.Frame(self.notebook)
-        self.welcomeFrame.pack(side="top", padx=25, pady=18, anchor="w")
+        # self.welcomeFrame.pack(side="top", padx=25, pady=18, anchor="w")
+        # self.helloUserLab = WrappingLabel(self.welcomeFrame ,text="Hello, {}".format(config.username), font=("TkDefaultFont",50,'bold'))
+        # self.helloUserLab.pack(pady=2)
+        # self.welcomeLab = WrappingLabel(self.welcomeFrame, text="Welcome to Toobox!",font=("TkDefaultFont", 15))
+        # self.welcomeLab.pack(side="left")
 
         ## Toobox Information
         self.widthOfTooboxInfo = 200
@@ -248,8 +252,8 @@ class App(ttk.Frame):
             self.welcomeFrame.place_forget()
         except:
             pass
-
     def run_func(self, current):
+        print(current)
         file = open(recentlyused)
         data = json.load(file)
         file.close()
@@ -266,7 +270,7 @@ class App(ttk.Frame):
         bruh['recentlyOpened'] = data
         with open(recentlyused, 'w') as f:
             json.dump(bruh,f)
-        
+
         self.holdROItemFrame.pack_forget()
         self.notebook.update()
         for ropenedItem in data:
@@ -275,7 +279,7 @@ class App(ttk.Frame):
         self.notebook.update()
 
         self.clearScreen()
-        
+
         if config.currentlySelected in functionalities:
             try: self.mainFrame.pack_forget()
             except: print("error")
@@ -290,10 +294,10 @@ class App(ttk.Frame):
             notUsable(self)
         self.setup_menu()
         root.update()
-
     def on_tree_select(self, event):
         self.run_func(self.treeview.item(self.treeview.focus())['text'] )
-        
+
+
     def showHomeScreen(self, event):
         self.welcomeFrame.pack(side="top", padx=25, pady=18, anchor="w")
         self.helloUserLab = WrappingLabel(self.welcomeFrame,text="Hello, {}".format(config.username), font=("TkDefaultFont",50,'bold'))
@@ -310,18 +314,14 @@ class App(ttk.Frame):
         data = list(set(data['recentlyOpened']))
         self.recentlyOpenedFrame = ttk.Frame(self.notebook, width=self.widthOfTooboxInfo)
         self.recentlyOpenedFrame.pack(side="left", padx=20, pady=18, anchor="w")
-        self.recentlyOpenedText = WrappingLabel(self.recentlyOpenedFrame, text="Recently Opened ({})".format(str(len(data[:4]))),font=("TkDefaultFont",18, "bold"))
+        self.recentlyOpenedText = WrappingLabel(self.recentlyOpenedFrame, text="Recently Opened ({})".format(str(len(data[:3]))),font=("TkDefaultFont",18, "bold"))
         self.recentlyOpenedText.pack(side="top", pady=3)
         self.holdROItemFrame = ttk.Frame(self.recentlyOpenedFrame)
         self.holdROItemFrame.pack(side="top")
-        if len(data) == 0:
-            self.noROText = WrappingLabel(self.holdROItemFrame, text="You did not open any Calculators")
-            self.noROText.pack(side="top", pady=2)
-        else:
-            for ropenedItem in data[:4]:
-                self.ropenedItemBtn = ttk.Button(self.holdROItemFrame, text=ropenedItem, width=30,command=(lambda : self.run_func(ropenedItem)))
-                self.ropenedItemBtn.pack(side="top", pady=2)
-            
+        for ropenedItem in data[:3]:
+            self.ropenedItemBtn = ttk.Button(self.holdROItemFrame, text=ropenedItem, width=30,command=(lambda : self.run_func(ropenedItem)))
+            self.ropenedItemBtn.pack(side="top", pady=2)
+
     def _quit(self):
         root.quit()
         root.destroy()
@@ -338,7 +338,7 @@ if __name__ == "__main__":
     # Simply set the theme
     root.tk.call("source", "sun-valley.tcl")
     root.tk.call("set_theme", "dark")
-    
+
     # Set App Icon
     # root.iconbitmap(appIconIcns)
     img = tk.Image("photo", file=appIconPng)
@@ -353,5 +353,14 @@ if __name__ == "__main__":
     y_cordinate = root.winfo_screenheight()
     root.geometry("+{}+{}".format(x_cordinate, y_cordinate))
     root.state('zoomed')
-    
+
+    # if platform == 'darwin':
+    #     from pyobjc import Foundation, objc, CoreFoundation
+    #     from Foundation import NSBundle
+    #     bundle = NSBundle.mainBundle()
+    #     if bundle:
+    #         info = bundle.localizedInfoDictionary() or bundle.infoDictionary()
+    #         if info and info['CFBundleName'] == 'Python':
+    #             info['CFBundleName'] = 'Toobox'
+
     root.mainloop()

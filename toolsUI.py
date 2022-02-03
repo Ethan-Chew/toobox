@@ -1,11 +1,10 @@
-from glob import glob
+
 import string
-from tempfile import TemporaryFile
+
 import tkinter as tk
 from tkinter import ttk
 import re
 
-from pyparsing import col
 from tools import areaCalculation
 from tools.IonicEqn import ionicEqn
 from tools.calculator import calculator
@@ -29,7 +28,7 @@ def ChemicalEquation(self):
         chemEqn = self.inputField.get()
         codeReturned = balanceChemEqn(chemEqn) # Could return error/final value
         setFinalResult(self, codeReturned)
-    
+
     # User Interface
     self.welcomeFrame = ttk.Frame(self.notebook)
     self.welcomeFrame.pack(side="top", padx=25, pady=18, anchor="w")
@@ -37,7 +36,7 @@ def ChemicalEquation(self):
     self.mainLabel.pack(side="top", pady=2, fill="x", expand="yes")
     self.infoLabel = WrappingLabel(self.welcomeFrame, text="Please enter the Chemical Equation like in the following example: 'Compound(State) + Compound2(State) + ... -> Compound3(State) + Compound4(State) + ...'", font=(font, 15))
     self.infoLabel.pack(side="top", pady=2, fill="x", expand="yes")
-    
+
     self.mainFrame = ttk.Frame(self.notebook)
     self.mainFrame.pack(padx=25, pady=18, anchor="w")
     self.inputTxt = WrappingLabel(self.mainFrame, text="Input:  ", font=(font, 20))
@@ -47,7 +46,7 @@ def ChemicalEquation(self):
     self.inputField.grid(row=0, column=1)
     self.sendData = ttk.Button(self.mainFrame, text="Balance", style='Accent.TButton', command=lambda: getInputs(self))
     self.sendData.grid(row=1, column=0,pady=10, padx=2)
-    
+
     def setFinalResult(self, result):
         self.resultTxt = ttk.Label(self.mainFrame, text="Result:  {}".format(result), font=(font, 20))
         self.resultTxt.grid(row=3, columnspan = 2, sticky = tk.W+tk.E, padx=2)
@@ -79,10 +78,10 @@ def Parallelogram(self):
     self.welcomeFrame.pack(side="top", padx=25, pady=18, anchor="w")
     self.mainLabel = WrappingLabel(self.welcomeFrame, text="Parallelogram Area Calculator", font=(font,50,'bold'))
     self.mainLabel.pack(side="top", pady=2, fill="x", expand="yes")
-    
+
     self.mainFrame = ttk.Frame(self.notebook)
     self.mainFrame.pack(padx=25, pady=18, anchor="w")
-    
+
     self.bTxt = WrappingLabel(self.mainFrame, text="Base:  ", font=(font, 20))
     self.bTxt.grid(row=0, column=0, padx=2, sticky="e")
     self.bEntry = ttk.Entry(self.mainFrame, width=20, font=(font, 12))
@@ -97,7 +96,7 @@ def Parallelogram(self):
     def setFinalResult(self, result):
         self.resultTxt = ttk.Label(self.mainFrame, text="Result:  {}".format(result), font=(font, 20))
         self.resultTxt.grid(row=3,column=1,padx=2,columnspan=4, sticky="w")
-        
+
 def Trapezium(self):
     def getInputs(self):
         try:
@@ -115,7 +114,7 @@ def Trapezium(self):
     self.welcomeFrame.pack(side="top", padx=25, pady=18, anchor="w")
     self.mainLabel = WrappingLabel(self.welcomeFrame, text="Trapezium Area Calculator", font=(font,50,'bold'))
     self.mainLabel.pack(side="top", pady=2, fill="x", expand="yes")
-    
+
     self.mainFrame = ttk.Frame(self.notebook)
     self.mainFrame.pack(padx=25, pady=18, anchor="w")
     self.tTxt = WrappingLabel(self.mainFrame, text="Top:  ", font=(font, 20))
@@ -132,11 +131,11 @@ def Trapezium(self):
     self.hEntry.grid(row=2, column=1, sticky="w")
     self.sendData = ttk.Button(self.mainFrame, text="Calculate", style='Accent.TButton', command=lambda:getInputs(self))
     self.sendData.grid(row=3, column=1, pady=10, padx=2, sticky="w")
-    
+
     def setFinalResult(self, result):
         self.resultTxt = ttk.Label(self.mainFrame, text="Result:  {}".format(result), font=(font, 20))
         self.resultTxt.grid(row=4,column=1,padx=2,columnspan=4, sticky="w")
-        
+
 def Rectangle(self):
     def getInputs(self):
         try:
@@ -146,6 +145,7 @@ def Rectangle(self):
         answer = "Ensure that both values, i.e. Breadth/Width and Length, or Length, are/is numerical"
         length = str(self.lengthEntry.get())
         breadth = str(self.breadthEntry.get())
+        print(re.search("^\d+\.{0,1}\d{0,1}$", length))
         if re.search("^\d+\.{0,1}\d{0,1}$", length) and re.search("^\d+\.{0,1}\d{0,1}$", breadth):
             if self.typebox.get() == "Rectangle":
                 answer = float(length)*float(breadth)
@@ -157,10 +157,10 @@ def Rectangle(self):
     self.welcomeFrame.pack(side="top", padx=25, pady=18, anchor="w")
     self.mainLabel = WrappingLabel(self.welcomeFrame, text="Rectangle/Square Area Calculator", font=(font,50,'bold'))
     self.mainLabel.pack(side="top", pady=2, fill="x", expand="yes")
-    
+
     self.mainFrame = ttk.Frame(self.notebook)
     self.mainFrame.pack(padx=25, pady=18, anchor="w")
-    
+
     self.breadthTxt = WrappingLabel(self.mainFrame, text="Breadth/Width:  ", font=(font, 20))
     self.breadthTxt.grid(row=2, column=0, padx=2, sticky="e")
     self.breadthEntry = ttk.Entry(self.mainFrame, width=20, font=(font, 12))
@@ -173,13 +173,15 @@ def Rectangle(self):
     self.sendData.grid(row=3, column=1, pady=10, padx=2, sticky="w")
 
     def changeTypebox(self):
+        print("heheh")
+        print(self.typebox.get())
         if self.typebox.get() == "Square":
             self.breadthTxt.forget()
             self.breadthEntry.forget()
         else:
             self.breadthTxt.grid(row=2, column=0, padx=2, sticky="e")
             self.breadthEntry.grid(row=2, column=1, sticky="w")
-    
+
     self.typetext = WrappingLabel(self.mainFrame, text="Type:  ", font=(font, 20))
     self.typetext.grid(row=0, column=0, padx=2, sticky="e")
     self.types = ["Rectangle", "Square"]
@@ -201,9 +203,12 @@ def Circle(self):
         c = str(self.re.get())
         a = str(self.angle.get())
         if ((True if str(type(re.search("^\d+\.{0,1}\d{0,1}$", r))) != "<class 'NoneType'>" else False) ^ (True if str(type(re.search("^\d+\.{0,1}\d{0,1}$", c))) != "<class 'NoneType'>" else False)) or (type(re.search("^\d+\.{0,1}\d{0,1}$", r)) and type(re.search("^\d+\.{0,1}\d{0,1}$", a))):
+            print("yes")
             if re.search("^\d+\.{0,1}\d{0,1}$", r):
+                print("uwu")
                 answer = circle(r)
             elif re.search("^\d+\.{0,1}\d{0,1}$", c):
+                print("hmm")
                 answer = circle(float(c)/math.pi/float(2))
                 if self.typebox.get() == "Semicircle":
                     answer = float(answer)/float(2)
@@ -216,7 +221,7 @@ def Circle(self):
     self.welcomeFrame.pack(side="top", padx=25, pady=18, anchor="w")
     self.mainLabel = WrappingLabel(self.welcomeFrame, text="Circle/Semicircle Area Calculator", font=(font,50,'bold'))
     self.mainLabel.pack(side="top", pady=2, fill="x", expand="yes")
-    
+
     self.mainFrame = ttk.Frame(self.notebook)
     self.mainFrame.pack(padx=25, pady=18, anchor="w")
     self.ct = WrappingLabel(self.mainFrame, text="Circumference:  ", font=(font, 20))
@@ -239,7 +244,7 @@ def Circle(self):
     self.typebox.grid(row=0, column=1, padx=2, sticky="w")
     self.sendData = ttk.Button(self.mainFrame, text="Calculate", style='Accent.TButton', command=lambda:getInputs(self))
     self.sendData.grid(row=4, column=1, pady=10, padx=2, sticky="w")
-    
+
     def setFinalResult(self, result):
         self.resultTxt = ttk.Label(self.mainFrame, text="Result:  {}".format(result), font=(font, 20))
         self.resultTxt.grid(row=5,column=1,padx=2,columnspan=4, sticky="w")
@@ -258,7 +263,7 @@ def IonicEqn(self):
     self.mainLabel.pack(side="top", pady=2, fill="x", expand="yes")
     self.infoLabel = WrappingLabel(self.welcomeFrame, text="Please enter the Chemical Equation like in the following example: 'Compound(State) + Compound2(State) + ... -> Compound3(State) + Compound4(State) + ...'", font=(font, 15))
     self.infoLabel.pack(side="top", pady=2, fill="x", expand="yes")
-    
+
     self.mainFrame = ttk.Frame(self.notebook)
     self.mainFrame.pack(padx=25, pady=18, anchor="w")
     self.inputTxt = WrappingLabel(self.mainFrame, text="Input:  ", font=(font, 20))
@@ -290,7 +295,7 @@ def SaltSolubility(self):
     self.mainLabel.pack(side="top", pady=2, fill="x", expand="yes")
     self.infoLabel = WrappingLabel(self.welcomeFrame, text="Please enter a Compound and the program will return an output if it is Soluble or Insoluble in water.", font=(font, 15))
     self.infoLabel.pack(side="top", pady=2, fill="x", expand="yes")
-    
+
     self.mainFrame = ttk.Frame(self.notebook)
     self.mainFrame.pack(padx=25, pady=18, anchor="w")
     self.inputTxt = WrappingLabel(self.mainFrame, text="Input:  ", font=(font, 20))
@@ -314,6 +319,7 @@ def calculate(self):
             if i!=" ":
                 final+=i
         try:
+            print(final)
             codeReturned = str(calculator().sol(final)[0].num) # Could return error/final value
         except:
             codeReturned="error"
@@ -325,7 +331,7 @@ def calculate(self):
     self.mainLabel.pack(side="top", pady=2, fill="x", expand="yes")
     self.infoLabel = WrappingLabel(self.welcomeFrame, text="Enter a mathematical expression. currently, only +,-,*,/,(),^ are supported", font=(font, 15))
     self.infoLabel.pack(side="top", pady=2, fill="x", expand="yes")
-    
+
     self.mainFrame = ttk.Frame(self.notebook)
     self.mainFrame.pack(padx=25, pady=18, anchor="w")
     self.inputTxt = WrappingLabel(self.mainFrame, text="Input:  ", font=(font, 20))
@@ -357,7 +363,7 @@ def SolveQuad(self):
     self.mainLabel.pack(side="top", pady=2, fill="x", expand="yes")
     self.infoLabel = WrappingLabel(self.welcomeFrame, text="Please enter an Equation in the format ax^2+bx+c.", font=(font, 15))
     self.infoLabel.pack(side="top", pady=2, fill="x", expand="yes")
-    
+
     self.mainFrame = ttk.Frame(self.notebook)
     self.mainFrame.pack(padx=25, pady=18, anchor="w")
     self.inputTxt = WrappingLabel(self.mainFrame, text="Input:  ", font=(font, 20))
@@ -384,7 +390,8 @@ def SolveQuad(self):
         self.resultTxt4.grid(row=6, columnspan = 2, sticky = tk.W+tk.E, padx=2)
 table=[]
 def simsolver(self,column=3):
-    
+
+    print(column)
     row=column-1
 
     self.welcomeFrame = ttk.Frame(self.notebook)
@@ -394,8 +401,9 @@ def simsolver(self,column=3):
     self.mainFrame = ttk.Frame(self.notebook)
     self.mainFrame.pack(padx=25, pady=18, anchor="w")
     self.mainFrame.pack(side="top", padx=25, pady=18, anchor="w")
-    
+
     def gen_table(row,column):
+        print(row,column)
         table=[]
         for i in range(row):
             table.append([])
@@ -414,7 +422,7 @@ def simsolver(self,column=3):
         return table
     # self.tree = ttk.Treeview(self.mainFrame, selectmode="extended")
     table=gen_table(row,column)
-    
+
     # vsb = tk.Scrollbar(self.mainFrame, orient=tk.HORIZONTAL, command=self.tree.xview)
     # vsb.grid(row=0, column=0, sticky='ew')
     # self.mainFrame.configure(yscrollcommand=vsb.set)
@@ -431,42 +439,51 @@ def simsolver(self,column=3):
             ret.append([])
             for col in r:
                 try:
+                    print(calculator().sol(col.get())[0].num)
+                    print(calculator().sol(col.get())[0])
                     ret[-1].append(calculator().sol(col.get())[0].num)
                 except Exception as e:
+                    print(e)
+                    print(calculator().sol(col.get()))
                     can=False
+        print(ret)
         if can:
             try:
                 answer=np.array(solve_sim(*ret))
+                print(answer)
                 ans=""
                 j=0
                 for i in answer:
                     ans+=string.ascii_lowercase[j]+" = "+str(i[0][0])+"\n"
                     j+=1
+                print(ans)
                 self.resultTxt1 = ttk.Label(self.mainFrame, text="Roots:  \n{}".format(ans), font=(font, 20))
-                self.resultTxt1.grid(row=row+4, 
-                columnspan = 2, 
-                sticky = tk.W+tk.E, 
+                self.resultTxt1.grid(row=row+4,
+                columnspan = 2,
+                sticky = tk.W+tk.E,
                 padx=2)
             except:
                 self.resultTxt1 = ttk.Label(self.mainFrame, text="Please enter a valid input.", font=(font, 20))
                 self.resultTxt1.grid(row=row+4,
-                columnspan = 2, 
-                sticky = tk.W+tk.E, 
+                columnspan = 2,
+                sticky = tk.W+tk.E,
                 padx=2)
         else:
             self.resultTxt1 = ttk.Label(self.mainFrame, text="Please enter a valid input.", font=(font, 20))
             self.resultTxt1.grid(row=row+4,
-             columnspan = 2, 
-             sticky = tk.W+tk.E, 
+             columnspan = 2,
+             sticky = tk.W+tk.E,
              padx=2)
 
     def rese(self,col):
+        print(col)
         self.welcomeFrame.pack_forget()
         self.clearScreen()
         simsolver(self,col)
     ttk.Button(self.mainFrame, text="Solve", style='Accent.TButton', command=onPress,width=10).grid(row=row+3, column=0,pady=2, padx=2)
-    ttk.Button(self.mainFrame, text="Add Variable", style='Accent.TButton', command=(lambda: rese(self,min(column+1,25))),width=10).grid(row=row+2, column=0,pady=2, padx=2)
-    ttk.Button(self.mainFrame, text="Remove Variable", style='Accent.TButton', command=(lambda: rese(self,max(column-1,3))),width=10).grid(row=row+2, column=2, columnspan=2, pady=2, padx=2, sticky="nsew")
+    ttk.Button(self.mainFrame, text="Add Var", style='Accent.TButton', command=(lambda: rese(self,min(column+1,25))),width=10).grid(row=row+2, column=0,pady=2, padx=2)
+    if column>3:
+        ttk.Button(self.mainFrame, text="Remove Var", style='Accent.TButton', command=(lambda: rese(self,max(column-1,3))),width=10).grid(row=row+2, column=3,pady=2, padx=2)
 
 def triangle(self):
     self.welcomeFrame = ttk.Frame(self.notebook)
@@ -492,15 +509,15 @@ def triangle(self):
     for i in diagpos:
         self.resultTxt1 = ttk.Label(self.mainFrame, text="/", font=(font, 20))
         self.resultTxt1.grid(row=i[0],column=i[1],padx=2,pady=2, sticky = tk.W+tk.E)
-    lines=[[4,1],[4,3]]  
+    lines=[[4,1],[4,3]]
     for i in lines:
         self.resultTxt1 = ttk.Label(self.mainFrame, text="-", font=(font, 20))
-        self.resultTxt1.grid(row=i[0],column=i[1],padx=2,pady=2, sticky = tk.W+tk.E)    
-    
-    lines=[[1,4],[3,4]]    
+        self.resultTxt1.grid(row=i[0],column=i[1],padx=2,pady=2, sticky = tk.W+tk.E)
+
+    lines=[[1,4],[3,4]]
     for i in lines:
         self.resultTxt1 = ttk.Label(self.mainFrame, text="|", font=(font, 20))
-        self.resultTxt1.grid(row=i[0],column=i[1],padx=2,pady=2, sticky = tk.W+tk.E)  
+        self.resultTxt1.grid(row=i[0],column=i[1],padx=2,pady=2, sticky = tk.W+tk.E)
     def onPress():
         try:
             self.resultTxt1.packforget()
@@ -514,6 +531,7 @@ def triangle(self):
                 try:
                     ang.append(math.radians( calculator().sol( i.get())[0].num))
                 except Exception as e:
+                    print(e)
                     ang.append("?")
         sid=[]
         for i in sides:
@@ -523,8 +541,14 @@ def triangle(self):
                 try:
                     sid.append(calculator().sol( i.get())[0].num)
                 except Exception as e:
+                    print(e)
                     sid.append("?")
-        self.resultTxt1 = ttk.Label(self.mainFrame, text="Area: {}u²".format(areaCalculation.solve_triangle(*sid,*ang)), font=(font, 20))
-        self.resultTxt1.grid(row=6,column=0,padx=2,pady=2, sticky = tk.W+tk.E,columnspan=3)
+        answ = areaCalculation.solve_triangle(*sid,*ang)
+        if answ != "not possible":
+            self.resultTxt1 = ttk.Label(self.mainFrame, text="Area: {} u²".format(answ), font=(font, 20))
+            self.resultTxt1.grid(row=6,column=0,padx=2,pady=2, sticky = tk.W+tk.E,columnspan=5)
+        else:
+            self.resultTxt1 = ttk.Label(self.mainFrame, text="{}".format(answ.title()), font=(font, 20))
+            self.resultTxt1.grid(row=6,column=0,padx=2,pady=2, sticky = tk.W+tk.E,columnspan=5)
 
     ttk.Button(self.mainFrame, text="Solve", style='Accent.TButton', command=onPress,width=10).grid(row=5, column=0,pady=2, padx=2)
