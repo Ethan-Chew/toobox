@@ -34,7 +34,8 @@ functionalities = {
             "Parallelogram"     :   Parallelogram,
             "Trapezium"         :   Trapezium,
             "Simultaneous"      :   simsolver,
-            "Triangle"          :   triangle
+            "Triangle"          :   triangle,
+            "Equation of Circle":   SolveCircle,
         }
 treeview_data = [
             ("", 1, "Chemistry"),
