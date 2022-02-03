@@ -4,9 +4,9 @@ def solveQuad(eqn):
     # Return Values
     roots, completedSq, turningPoint, yIntercept = [], "", "", 0
 
-    def validation():
+    def validation(): # Validate User Input
         global a,b,c
-        try:
+        try: # Try to Parse Values of a, b and c
             a = eqn[0:eqn.find("x^2")]
             if "x+" in eqn:
                 b = eqn[eqn.find("x^2") + 3:eqn.find("x+")]
@@ -18,7 +18,7 @@ def solveQuad(eqn):
         except:
             return "Format Err"
 
-        try:
+        try: # Format Values if "+" is present (You dont write numbers as +1 + +2)
             a = str(a).replace("+", "")
             b = str(b).replace("+", "")
             c = str(c).replace("+", "")
@@ -37,11 +37,11 @@ def solveQuad(eqn):
         a,b,c = int(a),int(b),int(c)
 
     # Find x and y intercepts
-    discriminant = ((b**2)-(4*a*c))
+    discriminant = ((b**2)-(4*a*c)) # Discriminant Formula (b^2 - 4ac)
     if discriminant < 0:
         roots.append("No Real Solution")
     else:
-        discriminant = discriminant**0.5
+        discriminant = discriminant**0.5 # Square Root of Discriminant
         if discriminant < 0:
             roots.append("No Real Solution")
         elif discriminant == 0:
@@ -76,5 +76,3 @@ def solveQuad(eqn):
     turningPoint = "{}, {}".format(str(holdX), str(newC))
 
     return roots, completedSq, turningPoint, yIntercept
-if __name__ == "__main__":
-    print(solveQuad("x^2+2x+8"))

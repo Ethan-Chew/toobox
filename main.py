@@ -1,5 +1,3 @@
-### ⓖ ⒢ ℊ Granwyn's Part ℊ ⒢ ⓖ ###
-# and Ethan's Part :D #
 from pydoc_data.topics import topics
 from re import S
 import tkinter as tk
@@ -12,15 +10,16 @@ from tkinter import Menu
 import config
 from toolsUI import *
 from components.wrappedLabel import WrappingLabel
-import os
+import webbrowser
 
+# Path of the File
 ROOTDIR=os.path.abspath(os.curdir)
 recentlyused=os.path.join(ROOTDIR,".recentlyOpened.json")
 appIconIcon = os.path.join(ROOTDIR,'src','images','AppIcon.ico')
 appIconIcns = os.path.join(ROOTDIR,'src','images','AppIcon.icns')
 appIconPng = os.path.join(ROOTDIR,'src','images','AppIcon.png')
-# Important UI Details
-## 1. Default Font Size is *20*
+
+# Variables
 functionalities = {
             "Chemical Equation" :   ChemicalEquation,
             "Rectangle/Square"  :   Rectangle,
@@ -72,10 +71,14 @@ treeview_data = [
                     (38, 39, "Circle Properties"),
                     (38, 40, "Equation of Circle"),
         ]
-topics=[treeview_data[i-1][2] for i in [1,6,8,16,15,23,34,24,29]]
+topics=[treeview_data[i-1][2] for i in [1,6,8,16,15,23,34,24,29]] # Add Items into Treeview
 
 class App(ttk.Frame):
     def __init__(self, parent):
+        # aSecret :) hehehehe
+        if config.aSecret:
+            webbrowser.open_new("https://www.youtube.com/watch?v=dQw4w9WgXcQ")
+        # Initalize the app
         ttk.Frame.__init__(self)
         self.setup_menu()
         self.setup_widgets()
@@ -84,8 +87,6 @@ class App(ttk.Frame):
         # Set fullscreen
         self.fullScreenBindings()
         self.goHome()
-        # self.notify("Toobox", "Testing Notification", "Boop")
-
         
     def change_theme(self):
         if root.tk.call("ttk::style", "theme", "use") == "sun-valley-dark":
@@ -95,7 +96,7 @@ class App(ttk.Frame):
             # Set dark theme
             root.tk.call("set_theme", "dark")
 
-    def setup_menu(self):
+    def setup_menu(self): # MacOS Menu Bar Buttons
         menubar = Menu(root)
         # tools
         tools=Menu(menubar, tearoff=0)
@@ -105,7 +106,7 @@ class App(ttk.Frame):
         menubar.add_cascade(label="Tools", menu=tools)
         root.config(menu=menubar)
 
-        #recently opened
+        # Recently Opened
         romenu=Menu(menubar, tearoff=0)
         file = open(recentlyused)
         data = json.load(file)
@@ -234,9 +235,9 @@ class App(ttk.Frame):
         # self.favouritesFrame.pack(side="left", pady=18, anchor="w")
         # self.favouritesText = WrappingLabel(self.favouritesFrame, text="", font=("TkDefaultFont", 18, 'bold'))
         # self.favouritesText.pack(side="top", pady=3)
-        self.showHomeScreen(0)
+        self.showHomeScreen(0) # Show Home Screen
         
-    def clearScreen(self):
+    def clearScreen(self): # Clear Right Side of the Screen
         self.recentlyOpenedText.pack_forget()
         self.recentlyOpenedFrame.pack_forget()
         self.tooboxInfoFrame.pack_forget()
