@@ -466,7 +466,7 @@ def simsolver(self,column=3):
         simsolver(self,col)
     ttk.Button(self.mainFrame, text="Solve", style='Accent.TButton', command=onPress,width=10).grid(row=row+3, column=0,pady=2, padx=2)
     ttk.Button(self.mainFrame, text="Add Variable", style='Accent.TButton', command=(lambda: rese(self,min(column+1,25))),width=10).grid(row=row+2, column=0,pady=2, padx=2)
-    ttk.Button(self.mainFrame, text="Remove Variable", style='Accent.TButton', command=(lambda: rese(self,max(column-1,3))),width=10).grid(row=row+2, column=2,pady=2, padx=2,columnspan=2)
+    ttk.Button(self.mainFrame, text="Remove Variable", style='Accent.TButton', command=(lambda: rese(self,max(column-1,3))),width=10).grid(row=row+2, column=2, columnspan=2, pady=2, padx=2, sticky="nsew")
 
 def triangle(self):
     self.welcomeFrame = ttk.Frame(self.notebook)
@@ -524,7 +524,7 @@ def triangle(self):
                     sid.append(calculator().sol( i.get())[0].num)
                 except Exception as e:
                     sid.append("?")
-        self.resultTxt1 = ttk.Label(self.mainFrame, text="Area: {}u^2".format(areaCalculation.solve_triangle(*sid,*ang)), font=(font, 20))
+        self.resultTxt1 = ttk.Label(self.mainFrame, text="Area: {}u²".format(areaCalculation.solve_triangle(*sid,*ang)), font=(font, 20))
         self.resultTxt1.grid(row=6,column=0,padx=2,pady=2, sticky = tk.W+tk.E,columnspan=3)
 
     ttk.Button(self.mainFrame, text="Solve", style='Accent.TButton', command=onPress,width=10).grid(row=5, column=0,pady=2, padx=2)
