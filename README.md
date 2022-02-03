@@ -3,7 +3,7 @@ Toobox of different tools to help in your Academics
 
 ## Set-Up Process
 1. Go to the Directory where 'Toobox' is held (Using ```cd``` in the Terminal)
-2. Run the Command ```bash installdependencies.bash``` to automatically install all the dependencies needed for this project
+2. Run the Command ```bash setup.bash``` to automatically install all the dependencies needed for this project
 3. Once it has completed, you may open **main.py** and run the file with the IDE of your choice
 
 ## Current Tools
