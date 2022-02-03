@@ -102,7 +102,6 @@ class App(ttk.Frame):
         # tools
         tools=Menu(menubar, tearoff=0)
         for i in sorted(list(functionalities.keys())):
-            
             tools.add_command(label=i, command=lambda i=i: self.run_func(i))
         menubar.add_cascade(label="Tools", menu=tools)
         root.config(menu=menubar)
@@ -135,7 +134,6 @@ class App(ttk.Frame):
     def handleBackToHS(self, event):
         try:
             self.clearScreen()
-            self.welcomeFrame.pack_forget()
             self.showHomeScreen(self)
         except: pass
     
