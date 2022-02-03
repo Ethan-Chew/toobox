@@ -13,8 +13,6 @@ import config
 from toolsUI import *
 from components.wrappedLabel import WrappingLabel
 import os
-from sys import platform
-
 
 ROOTDIR=os.path.abspath(os.curdir)
 recentlyused=os.path.join(ROOTDIR,".recentlyOpened.json")
@@ -315,9 +313,13 @@ class App(ttk.Frame):
         self.recentlyOpenedText.pack(side="top", pady=3)
         self.holdROItemFrame = ttk.Frame(self.recentlyOpenedFrame)
         self.holdROItemFrame.pack(side="top")
-        for ropenedItem in data[:4]:
-            self.ropenedItemBtn = ttk.Button(self.holdROItemFrame, text=ropenedItem, width=30,command=(lambda : self.run_func(ropenedItem)))
-            self.ropenedItemBtn.pack(side="top", pady=2)
+        if len(data) == 0:
+            self.noROText = WrappingLabel(self.holdROItemFrame, text="You did not open any Calculators")
+            self.noROText.pack(side="top", pady=2)
+        else:
+            for ropenedItem in data[:4]:
+                self.ropenedItemBtn = ttk.Button(self.holdROItemFrame, text=ropenedItem, width=30,command=(lambda : self.run_func(ropenedItem)))
+                self.ropenedItemBtn.pack(side="top", pady=2)
             
     def _quit(self):
         root.quit()
@@ -350,14 +352,5 @@ if __name__ == "__main__":
     y_cordinate = root.winfo_screenheight()
     root.geometry("+{}+{}".format(x_cordinate, y_cordinate))
     root.state('zoomed')
-
-    if platform == 'darwin':
-        from pyobjc import Foundation, objc, CoreFoundation 
-        from Foundation import NSBundle
-        bundle = NSBundle.mainBundle()
-        if bundle:
-            info = bundle.localizedInfoDictionary() or bundle.infoDictionary()
-            if info and info['CFBundleName'] == 'Python':
-                info['CFBundleName'] = 'Toobox'
     
     root.mainloop()
