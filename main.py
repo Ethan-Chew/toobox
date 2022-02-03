@@ -301,10 +301,10 @@ class App(ttk.Frame):
         
     def showHomeScreen(self, event):
         self.welcomeFrame.pack(side="top", padx=25, pady=18, anchor="w")
-        self.helloUserLab = WrappingLabel(self.welcomeFrame ,text="Hello, {}".format(config.username), font=("TkDefaultFont",50,'bold'))
-        self.helloUserLab.pack(pady=2)
+        self.helloUserLab = WrappingLabel(self.welcomeFrame,text="Hello, {}".format(config.username), font=("TkDefaultFont",50,'bold'))
+        self.helloUserLab.pack(pady=2,fill="x")
         self.welcomeLab = WrappingLabel(self.welcomeFrame, text="Welcome to Toobox!",font=("TkDefaultFont", 15))
-        self.welcomeLab.pack(side="left")
+        self.welcomeLab.pack(side="left", fill="x")
         self.welcomeLab2 = WrappingLabel(self.welcomeFrame, text="Select a tool to get started!",font=("TkDefaultFont", 15))
         self.tooboxInfoFrame.pack(side="left", padx=25, pady=18, anchor="w")
         self.appDescText.pack(side="bottom")
@@ -315,11 +315,11 @@ class App(ttk.Frame):
         data = list(set(data['recentlyOpened']))
         self.recentlyOpenedFrame = ttk.Frame(self.notebook, width=self.widthOfTooboxInfo)
         self.recentlyOpenedFrame.pack(side="left", padx=20, pady=18, anchor="w")
-        self.recentlyOpenedText = WrappingLabel(self.recentlyOpenedFrame, text="Recently Opened ({})".format(str(len(data[:3]))),font=("TkDefaultFont",18, "bold"))
+        self.recentlyOpenedText = WrappingLabel(self.recentlyOpenedFrame, text="Recently Opened ({})".format(str(len(data[:4]))),font=("TkDefaultFont",18, "bold"))
         self.recentlyOpenedText.pack(side="top", pady=3)
         self.holdROItemFrame = ttk.Frame(self.recentlyOpenedFrame)
         self.holdROItemFrame.pack(side="top")
-        for ropenedItem in data[:3]:
+        for ropenedItem in data[:4]:
             self.ropenedItemBtn = ttk.Button(self.holdROItemFrame, text=ropenedItem, width=30,command=(lambda : self.run_func(ropenedItem)))
             self.ropenedItemBtn.pack(side="top", pady=2)
             
