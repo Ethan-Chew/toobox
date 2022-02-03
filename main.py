@@ -356,6 +356,7 @@ if __name__ == "__main__":
     root.state('zoomed')
 
     if platform == 'darwin':
+        from pyobjc import Foundation, objc, CoreFoundation 
         from Foundation import NSBundle
         bundle = NSBundle.mainBundle()
         if bundle:
