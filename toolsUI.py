@@ -146,6 +146,7 @@ def Rectangle(self):
         answer = "Ensure that both values, i.e. Breadth/Width and Length, or Length, are/is numerical"
         length = str(self.lengthEntry.get())
         breadth = str(self.breadthEntry.get())
+        print(re.search("^\d+\.{0,1}\d{0,1}$", length))
         if re.search("^\d+\.{0,1}\d{0,1}$", length) and re.search("^\d+\.{0,1}\d{0,1}$", breadth):
             if self.typebox.get() == "Rectangle":
                 answer = float(length)*float(breadth)
@@ -173,6 +174,8 @@ def Rectangle(self):
     self.sendData.grid(row=3, column=1, pady=10, padx=2, sticky="w")
 
     def changeTypebox(self):
+        print("heheh")
+        print(self.typebox.get())
         if self.typebox.get() == "Square":
             self.breadthTxt.forget()
             self.breadthEntry.forget()
@@ -201,9 +204,12 @@ def Circle(self):
         c = str(self.re.get())
         a = str(self.angle.get())
         if ((True if str(type(re.search("^\d+\.{0,1}\d{0,1}$", r))) != "<class 'NoneType'>" else False) ^ (True if str(type(re.search("^\d+\.{0,1}\d{0,1}$", c))) != "<class 'NoneType'>" else False)) or (type(re.search("^\d+\.{0,1}\d{0,1}$", r)) and type(re.search("^\d+\.{0,1}\d{0,1}$", a))):
+            print("yes")
             if re.search("^\d+\.{0,1}\d{0,1}$", r):
+                print("uwu")
                 answer = circle(r)
             elif re.search("^\d+\.{0,1}\d{0,1}$", c):
+                print("hmm")
                 answer = circle(float(c)/math.pi/float(2))
                 if self.typebox.get() == "Semicircle":
                     answer = float(answer)/float(2)
@@ -314,6 +320,7 @@ def calculate(self):
             if i!=" ":
                 final+=i
         try:
+            print(final)
             codeReturned = str(calculator().sol(final)[0].num) # Could return error/final value
         except:
             codeReturned="error"
@@ -385,6 +392,7 @@ def SolveQuad(self):
 table=[]
 def simsolver(self,column=3):
     
+    print(column)
     row=column-1
 
     self.welcomeFrame = ttk.Frame(self.notebook)
@@ -396,6 +404,7 @@ def simsolver(self,column=3):
     self.mainFrame.pack(side="top", padx=25, pady=18, anchor="w")
     
     def gen_table(row,column):
+        print(row,column)
         table=[]
         for i in range(row):
             table.append([])
@@ -431,17 +440,24 @@ def simsolver(self,column=3):
             ret.append([])
             for col in r:
                 try:
+                    print(calculator().sol(col.get())[0].num)
+                    print(calculator().sol(col.get())[0])
                     ret[-1].append(calculator().sol(col.get())[0].num)
                 except Exception as e:
+                    print(e)
+                    print(calculator().sol(col.get()))
                     can=False
+        print(ret)
         if can:
             try:
                 answer=np.array(solve_sim(*ret))
+                print(answer)
                 ans=""
                 j=0
                 for i in answer:
                     ans+=string.ascii_lowercase[j]+" = "+str(i[0][0])+"\n"
                     j+=1
+                print(ans)
                 self.resultTxt1 = ttk.Label(self.mainFrame, text="Roots:  \n{}".format(ans), font=(font, 20))
                 self.resultTxt1.grid(row=row+4, 
                 columnspan = 2, 
@@ -461,6 +477,7 @@ def simsolver(self,column=3):
              padx=2)
 
     def rese(self,col):
+        print(col)
         self.welcomeFrame.pack_forget()
         self.clearScreen()
         simsolver(self,col)
@@ -514,6 +531,7 @@ def triangle(self):
                 try:
                     ang.append(math.radians( calculator().sol( i.get())[0].num))
                 except Exception as e:
+                    print(e)
                     ang.append("?")
         sid=[]
         for i in sides:
@@ -523,8 +541,14 @@ def triangle(self):
                 try:
                     sid.append(calculator().sol( i.get())[0].num)
                 except Exception as e:
+                    print(e)
                     sid.append("?")
-        self.resultTxt1 = ttk.Label(self.mainFrame, text="Area: {}u²".format(areaCalculation.solve_triangle(*sid,*ang)), font=(font, 20))
-        self.resultTxt1.grid(row=6,column=0,padx=2,pady=2, sticky = tk.W+tk.E,columnspan=3)
+        answ = areaCalculation.solve_triangle(*sid,*ang)
+        if answ != "not possible":
+            self.resultTxt1 = ttk.Label(self.mainFrame, text="Area: {} u²".format(answ), font=(font, 20))
+            self.resultTxt1.grid(row=6,column=0,padx=2,pady=2, sticky = tk.W+tk.E,columnspan=5)
+        else:
+            self.resultTxt1 = ttk.Label(self.mainFrame, text="{}".format(answ.title()), font=(font, 20))
+            self.resultTxt1.grid(row=6,column=0,padx=2,pady=2, sticky = tk.W+tk.E,columnspan=5)
 
     ttk.Button(self.mainFrame, text="Solve", style='Accent.TButton', command=onPress,width=10).grid(row=5, column=0,pady=2, padx=2)

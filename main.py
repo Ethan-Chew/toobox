@@ -132,8 +132,6 @@ class App(ttk.Frame):
 
     def handleBackToHS(self, event):
         try:
-            self.mainFrame.pack_forget()
-            self.welcomeFrame.pack_forget()
             self.clearScreen()
             self.welcomeFrame.pack_forget()
             self.showHomeScreen(self)
@@ -189,6 +187,8 @@ class App(ttk.Frame):
         
         ## Treeview columns
         self.treeview.column("#0", anchor="w", minwidth=100)
+        ## Define treeview data
+        
 
         # Insert treeview data
         for item in treeview_data:
@@ -216,7 +216,11 @@ class App(ttk.Frame):
 
         ## Top Labels
         self.welcomeFrame = ttk.Frame(self.notebook)
-        self.welcomeFrame.pack(side="top", padx=25, pady=18, anchor="w")
+        # self.welcomeFrame.pack(side="top", padx=25, pady=18, anchor="w")
+        # self.helloUserLab = WrappingLabel(self.welcomeFrame ,text="Hello, {}".format(config.username), font=("TkDefaultFont",50,'bold'))
+        # self.helloUserLab.pack(pady=2)
+        # self.welcomeLab = WrappingLabel(self.welcomeFrame, text="Welcome to Toobox!",font=("TkDefaultFont", 15))
+        # self.welcomeLab.pack(side="left")
 
         ## Toobox Information
         self.widthOfTooboxInfo = 200
@@ -247,8 +251,8 @@ class App(ttk.Frame):
             self.welcomeFrame.place_forget()
         except:
             pass
-
     def run_func(self, current):
+        print(current)
         file = open(recentlyused)
         data = json.load(file)
         file.close()
@@ -289,9 +293,9 @@ class App(ttk.Frame):
             notUsable(self)
         self.setup_menu()
         root.update()
-
     def on_tree_select(self, event):
         self.run_func(self.treeview.item(self.treeview.focus())['text'] )
+        
         
     def showHomeScreen(self, event):
         self.welcomeFrame.pack(side="top", padx=25, pady=18, anchor="w")
@@ -309,17 +313,13 @@ class App(ttk.Frame):
         data = list(set(data['recentlyOpened']))
         self.recentlyOpenedFrame = ttk.Frame(self.notebook, width=self.widthOfTooboxInfo)
         self.recentlyOpenedFrame.pack(side="left", padx=20, pady=18, anchor="w")
-        self.recentlyOpenedText = WrappingLabel(self.recentlyOpenedFrame, text="Recently Opened ({})".format(str(len(data[:4]))),font=("TkDefaultFont",18, "bold"))
+        self.recentlyOpenedText = WrappingLabel(self.recentlyOpenedFrame, text="Recently Opened ({})".format(str(len(data[:3]))),font=("TkDefaultFont",18, "bold"))
         self.recentlyOpenedText.pack(side="top", pady=3)
         self.holdROItemFrame = ttk.Frame(self.recentlyOpenedFrame)
         self.holdROItemFrame.pack(side="top")
-        if len(data) == 0:
-            self.noROText = WrappingLabel(self.holdROItemFrame, text="You did not open any Calculators")
-            self.noROText.pack(side="top", pady=2)
-        else:
-            for ropenedItem in data[:4]:
-                self.ropenedItemBtn = ttk.Button(self.holdROItemFrame, text=ropenedItem, width=30,command=(lambda : self.run_func(ropenedItem)))
-                self.ropenedItemBtn.pack(side="top", pady=2)
+        for ropenedItem in data[:3]:
+            self.ropenedItemBtn = ttk.Button(self.holdROItemFrame, text=ropenedItem, width=30,command=(lambda : self.run_func(ropenedItem)))
+            self.ropenedItemBtn.pack(side="top", pady=2)
             
     def _quit(self):
         root.quit()
