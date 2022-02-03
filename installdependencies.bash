@@ -6,6 +6,7 @@ echo Else, Ctrl+C to quit
 sleep 3
 
 python3 -m pip install chemlib pillow matplotlib numpy
+python3 -m pip install pyobjc
 
 echo Installation Complete!
 echo Toobox will launch automatically in 2 Seconds
