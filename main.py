@@ -1,7 +1,7 @@
 ### ⓖ ⒢ ℊ Granwyn's Part ℊ ⒢ ⓖ ###
 # and Ethan's Part :D #
-from pydoc_data.topics import topics
-from re import S
+
+
 import tkinter as tk
 from tkinter import ttk
 import os
@@ -351,13 +351,13 @@ if __name__ == "__main__":
     root.geometry("+{}+{}".format(x_cordinate, y_cordinate))
     root.state('zoomed')
 
-    if platform == 'darwin':
-        from pyobjc import Foundation, objc, CoreFoundation 
-        from Foundation import NSBundle
-        bundle = NSBundle.mainBundle()
-        if bundle:
-            info = bundle.localizedInfoDictionary() or bundle.infoDictionary()
-            if info and info['CFBundleName'] == 'Python':
-                info['CFBundleName'] = 'Toobox'
+    # if platform == 'darwin':
+    #     from pyobjc import Foundation, objc, CoreFoundation 
+    #     from Foundation import NSBundle
+    #     bundle = NSBundle.mainBundle()
+    #     if bundle:
+    #         info = bundle.localizedInfoDictionary() or bundle.infoDictionary()
+    #         if info and info['CFBundleName'] == 'Python':
+    #             info['CFBundleName'] = 'Toobox'
     
     root.mainloop()

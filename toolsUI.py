@@ -1,11 +1,10 @@
-from glob import glob
+
 import string
-from tempfile import TemporaryFile
+
 import tkinter as tk
 from tkinter import ttk
 import re
 
-from pyparsing import col
 from tools import areaCalculation
 from tools.IonicEqn import ionicEqn
 from tools.calculator import calculator
@@ -465,8 +464,9 @@ def simsolver(self,column=3):
         self.clearScreen()
         simsolver(self,col)
     ttk.Button(self.mainFrame, text="Solve", style='Accent.TButton', command=onPress,width=10).grid(row=row+3, column=0,pady=2, padx=2)
-    ttk.Button(self.mainFrame, text="Add Variable", style='Accent.TButton', command=(lambda: rese(self,min(column+1,25))),width=10).grid(row=row+2, column=0,pady=2, padx=2)
-    ttk.Button(self.mainFrame, text="Remove Variable", style='Accent.TButton', command=(lambda: rese(self,max(column-1,3))),width=10).grid(row=row+2, column=2,pady=2, padx=2,columnspan=2)
+    ttk.Button(self.mainFrame, text="Add Var", style='Accent.TButton', command=(lambda: rese(self,min(column+1,25))),width=10).grid(row=row+2, column=0,pady=2, padx=2)
+    if column>3:
+        ttk.Button(self.mainFrame, text="Remove Var", style='Accent.TButton', command=(lambda: rese(self,max(column-1,3))),width=10).grid(row=row+2, column=3,pady=2, padx=2)
 
 def triangle(self):
     self.welcomeFrame = ttk.Frame(self.notebook)
