@@ -134,7 +134,7 @@ class App(ttk.Frame):
 
     ## Back to Home
     def goHome(self):
-        root.bind("h", self.handleBackToHS)
+        root.bind("z", self.handleBackToHS)
 
     def handleBackToHS(self, event):
         try:
