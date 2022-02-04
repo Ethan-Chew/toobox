@@ -25,7 +25,7 @@ Toobox includes various keybinds to help make your life easier
     - 'f', 'F11 (Function Key)' to go Full Screen
     - 'Escape' to exit Full Screen
 2. **Back to Home Page**
-    - 'z' to go back to the Home Screen
+    - '`' to go back to the Home Screen
 
 ## Dependencies and Themes
 1. Chemlib
