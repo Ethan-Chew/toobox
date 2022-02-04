@@ -575,7 +575,7 @@ def SolveCircle(self):
     self.thingFrame.pack(side="top", padx=25, pady=18, anchor="w")
     self.mainLabel = WrappingLabel(self.thingFrame, text="Chemical Equation Balancer", font=(font,50,'bold'))
     self.mainLabel.pack(side="top", pady=2, fill="x", expand="yes")
-    self.infoLabel = WrappingLabel(self.thingFrame, text="Please enter the Chemical Equation like in the following example: 'Compound(State) + Compound2(State) + ... -> Compound3(State) + Compound4(State) + ...'", font=(font, 15))
+    self.infoLabel = WrappingLabel(self.thingFrame, text="Please enter the Equation in the following Formats. General Form - (x + a)^2 + (y + b)^2 = r^2, Standard Form - x^2 + y^2 + ax + by + c = 0", font=(font, 15))
     self.infoLabel.pack(side="top", pady=2, fill="x", expand="yes")
 
     self.mainFrame = ttk.Frame(self.notebook)
@@ -589,7 +589,7 @@ def SolveCircle(self):
     self.inputField = ttk.Entry(self.mainFrame, width=50, font=(font, 12))
     self.inputField.insert(0, "Equation")
     self.inputField.grid(row=1, column=1)
-    self.sendData = ttk.Button(self.mainFrame, text="Balance", style='Accent.TButton', command=lambda: getInputs(self))
+    self.sendData = ttk.Button(self.mainFrame, text="Solve", style='Accent.TButton', command=lambda: getInputs(self))
     self.sendData.grid(row=2, column=0,pady=10, padx=2)
 
     def setFinalResult(self, result):
