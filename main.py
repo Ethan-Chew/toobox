@@ -128,7 +128,7 @@ class App(ttk.Frame):
     ## Full Screen Toggle
     def fullScreenBindings(self):
         root.attributes("-fullscreen", self.fullScreen)
-        root.bind("f", self.toggleFullScreen)
+        root.bind("|", self.toggleFullScreen)
         root.bind("<F11>", self.toggleFullScreen)
         root.bind("<Escape>", self.quitFullScreen)
 
