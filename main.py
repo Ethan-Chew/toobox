@@ -75,7 +75,8 @@ treeview_data = [
                     (38, 39, "Circle Properties"),
                     (38, 40, "Equation of Circle"),
         ]
-topics=[treeview_data[i-1][2] for i in [1,6,8,16,15,23,34,24,29]] # Add Items into Treeview
+# topics=[treeview_data[i-1][2] for i in [1,6,8,16,15,23,34,24,29]] # Add Items into Treeview
+topics = []
 
 class App(ttk.Frame):
     def __init__(self, parent):
@@ -92,6 +93,7 @@ class App(ttk.Frame):
         # Set fullscreen
         self.fullScreenBindings()
         self.goHome()
+        config.currentlySelected = "Home"
         
     def change_theme(self):
         if root.tk.call("ttk::style", "theme", "use") == "sun-valley-dark":
@@ -106,7 +108,6 @@ class App(ttk.Frame):
         # tools
         tools=Menu(menubar, tearoff=0)
         for i in sorted(list(functionalities.keys())):
-
             tools.add_command(label=i, command=lambda i=i: self.run_func(i))
         menubar.add_cascade(label="Tools", menu=tools)
         root.config(menu=menubar)
@@ -118,7 +119,11 @@ class App(ttk.Frame):
         file.close()
         data = list(set(data['recentlyOpened']))
         for i in data:
-            romenu.add_command(label=i, command=lambda i=i: self.run_func(i))
+            if i != "Home":
+                romenu.add_command(label=i, command=lambda i=i: self.run_func(i))
+            else:
+                romenu.add_command(label=i, command=self.handleBackToHS)
+
 
         menubar.add_cascade(label="Recently Opened", menu=romenu)
 
@@ -136,12 +141,13 @@ class App(ttk.Frame):
 
     def handleBackToHS(self, event):
         print("hhs",config.currentlySelected)
-        self.treeview.selection_clear()
+        # self.treeview.selection_clear()
+        # print(topics)
+        # print(config.currentlySelected)
+        # print(topics.index(config.currentlySelected))
+        # self.treeview.selection_remove(topics.index(config.currentlySelected))
+        self.treeview.selection_set()
         self.clearScreen()
-        print(self.treeview.get_children())
-        self.treeview.selection_remove(all
-            # topics.index(config.currentlySelected)
-            )
         self.showHomeScreen()
     
     def toggleFullScreen(self, event):
@@ -197,15 +203,13 @@ class App(ttk.Frame):
 
         # Insert treeview data
         for item in treeview_data:
-            if item[2] in functionalities:
+            if item[2] in functionalities or item[0] == "" or item[1] in {8, 15, 16, 23, 24, 29, 34, 38, 41}:
                 self.treeview.insert(
                     parent=item[0], index="end", iid=item[1], text=item[2]
                 )
-            if item[0] == "" or item[1] in {8, 15, 16, 23, 24, 29, 34, 38, 41}:
-                self.treeview.insert(
-                    parent=item[0], index="end", iid=item[1], text=item[2]
-                )
-                self.treeview.item(item[1], open=True)  # Open parents
+                topics.append(item[2])
+                if item[0] == "" or item[1] in {8, 15, 16, 23, 24, 29, 34, 38, 41}:
+                    self.treeview.item(item[1], open=True)  # Open parents
         # Select and scroll
         self.treeview.see(1)
 
@@ -225,25 +229,30 @@ class App(ttk.Frame):
     def clearScreen(self): # Clear Right Side of the Screen
         try:
             if config.currentlySelected == "Home":
-                self.recentlyOpenedFrame.pack_forget()
                 self.tooboxInfoFrame.pack_forget()
                 self.welcomeFrame.pack_forget()
+                self.recentlyOpenedFrame.pack_forget()
+                self.holdROItemFrame.pack_forget()
                 # self.welcomeFrame.place_forget()
             else:
-                self.mainFrame.pack_forget()
-                self.thingFrame.pack_forget()
+                self.elementsFrame.destroy()
+                self.thingFrame.destroy()
+                # self.elementsFrame.destroy()
+                # self.thingFrame.destroy()
                 # self.mainLabel.pack_forget()
                 # self.infoLabel.pack_forget()
         except: pass
+
     def run_func(self, current):
+        print("this ran")
         file = open(recentlyused)
         data = json.load(file)
         file.close()
         data = list(set(data['recentlyOpened']))
         bruh = {"recentlyOpened": []}
-        self.clearScreen()
 
         config.currentlySelected = current
+        print(config.currentlySelected)
 
         if (len(data) < 10):
             if config.currentlySelected not in data:
@@ -254,7 +263,6 @@ class App(ttk.Frame):
         bruh['recentlyOpened'] = data
         with open(recentlyused, 'w') as f:
             json.dump(bruh,f)
-
         self.holdROItemFrame.pack_forget()
         self.notebook.update()
         for ropenedItem in data:
@@ -267,18 +275,19 @@ class App(ttk.Frame):
             functionalities[config.currentlySelected](self)
         elif not config.currentlySelected in topics:
             self.clearScreen()
-            notUsable(self)
+            notUsable(self)   
         self.setup_menu()
         root.update()
 
     def on_tree_select(self, event):
+        self.clearScreen()
         self.run_func(self.treeview.item(self.treeview.focus())['text'])
 
     def updateUsername(self, event):
         self.updateUsernameUI = ttk.Frame()
 
     def showHomeScreen(self):
-        config.currentlySelected = "Home"
+        # self.treeview.selection_set()
         self.welcomeFrame = ttk.Frame(self.notebook)
         self.welcomeFrame.pack(side="top", padx=25, pady=18, anchor="w")
         self.helloUserLab = WrappingLabel(self.welcomeFrame,text="Hello, {}".format(config.username), font=("TkDefaultFont",50,'bold'))
