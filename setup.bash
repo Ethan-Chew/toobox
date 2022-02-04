@@ -4,7 +4,6 @@ echo Proceeding to Download in 3 Seconds
 echo Dependencies installing: chemlib, pillow, matplotlib
 echo Else, Ctrl+C to quit
 sleep 3
-
 python3 -m pip install chemlib pillow matplotlib numpy
 
 echo Installation Complete!
