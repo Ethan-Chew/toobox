@@ -1,5 +1,5 @@
 import math
-from posixpath import split
+
 class circle_equation():
     def mainCode(self, type, eqn):
         if type == "Standard Form":

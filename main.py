@@ -36,12 +36,12 @@ functionalities = {
             "Simultaneous"      :   simsolver,
             "Triangle"          :   triangle,
             "Equation of Circle":   SolveCircle,
-        }
+        } 
 treeview_data = [
             ("", 1, "Chemistry"),
                 (1, 2, "Periodic Table"),
                 (1, 3, "Salt Solubilities"),
-                (1, 4, "Chemical Equation"),
+               (1, 4, "Chemical Equation"),
                 (1, 5, "Ionic Equation"),
             ("", 6, "Mathematics"),
                 (6, 7, "Calculator"),
