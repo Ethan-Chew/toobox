@@ -34,8 +34,13 @@ functionalities = {
             "Parallelogram"     :   Parallelogram,
             "Trapezium"         :   Trapezium,
             "Simultaneous"      :   simsolver,
+<<<<<<< HEAD
             "Triangle"          :   triangle
             # ,"Circles"           :   snake,
+=======
+            "Triangle"          :   triangle,
+            "Equation of Circle":   SolveCircle,
+>>>>>>> 751cf6cc41c6bbadc0ca49706c0857cf627338eb
         }
 treeview_data = [
             ("", 1, "Chemistry"),
@@ -141,7 +146,7 @@ class App(ttk.Frame):
         except: pass
         finally:
             config.currentlySelected = "Home"
-            self.showHomeScreen(self)
+            self.showHomeScreen(0)
     
     def toggleFullScreen(self, event):
         self.fullScreen = not self.fullScreen
@@ -193,8 +198,6 @@ class App(ttk.Frame):
 
         ## Treeview columns
         self.treeview.column("#0", anchor="w", minwidth=100)
-        ## Define treeview data
-
 
         # Insert treeview data
         for item in treeview_data:
@@ -220,41 +223,18 @@ class App(ttk.Frame):
         ## Sizegrip
         self.sizegrip = ttk.Sizegrip(self)
 
-        ## Top Labels
-        self.welcomeFrame = ttk.Frame(self.notebook)
-        # self.welcomeFrame.pack(side="top", padx=25, pady=18, anchor="w")
-        # self.helloUserLab = WrappingLabel(self.welcomeFrame ,text="Hello, {}".format(config.username), font=("TkDefaultFont",50,'bold'))
-        # self.helloUserLab.pack(pady=2)
-        # self.welcomeLab = WrappingLabel(self.welcomeFrame, text="Welcome to Toobox!",font=("TkDefaultFont", 15))
-        # self.welcomeLab.pack(side="left")
-
-        ## Toobox Information
-        self.widthOfTooboxInfo = 200
-        self.tooboxInfoFrame = ttk.Frame(self.notebook, width=self.widthOfTooboxInfo)
-        self.tooboxInfoFrame.pack(side="left", padx=25, pady=18, anchor="w")
-        appIconImg = ImageTk.PhotoImage(Image.open(appIconPng).resize((self.widthOfTooboxInfo-40,self.widthOfTooboxInfo-40), Image.ANTIALIAS))
-        self.imgPanel = WrappingLabel(self.tooboxInfoFrame, image=appIconImg)
-        self.imgPanel.image = appIconImg
-        self.appDescText = WrappingLabel(self.tooboxInfoFrame, font=(17), wraplength=self.widthOfTooboxInfo, justify="left" ,text="Toobox is an app is a Toolbox of different tools to help in your Academics. Toobox provides various tools for a wide range of topics and subjects that will definately help you while revising and studying.")
-        self.appDescText.pack(side="bottom")
-        self.imgPanel.pack(side="bottom", fill="both", expand="yes", pady=32)
-
-        ## Favourites
-        # self.favouritesFrame = ttk.Frame(self.notebook, width=self.widthOfTooboxInfo)
-        # self.favouritesFrame.pack(side="left", pady=18, anchor="w")
-        # self.favouritesText = WrappingLabel(self.favouritesFrame, text="", font=("TkDefaultFont", 18, 'bold'))
-        # self.favouritesText.pack(side="top", pady=3)
-        self.showHomeScreen(0) # Show Home Screen
+        ## Show Home Screen
+        self.showHomeScreen(0)
         
     def clearScreen(self): # Clear Right Side of the Screen
         self.recentlyOpenedText.pack_forget()
         self.recentlyOpenedFrame.pack_forget()
         self.tooboxInfoFrame.pack_forget()
-        print(config.currentlySelected)
-        
         try:
             if config.currentlySelected == "Home":
                 self.welcomeFrame.pack_forget()
+                self.helloUserLab.pack_forget()
+                self.welcomeLab.pack_forget()
             else:
                 self.mainFrame.pack_forget()
                 self.thingFrame.pack_forget()
@@ -309,13 +289,20 @@ class App(ttk.Frame):
 
 
     def showHomeScreen(self, event):
+        self.welcomeFrame = ttk.Frame(self.notebook)
         self.welcomeFrame.pack(side="top", padx=25, pady=18, anchor="w")
         self.helloUserLab = WrappingLabel(self.welcomeFrame,text="Hello, {}".format(config.username), font=("TkDefaultFont",50,'bold'))
         self.helloUserLab.pack(pady=2,fill="x")
         self.welcomeLab = WrappingLabel(self.welcomeFrame, text="Welcome to Toobox!",font=("TkDefaultFont", 15))
         self.welcomeLab.pack(side="left", fill="x")
         self.welcomeLab2 = WrappingLabel(self.welcomeFrame, text="Select a tool to get started!",font=("TkDefaultFont", 15))
+        self.widthOfTooboxInfo = 200
+        self.tooboxInfoFrame = ttk.Frame(self.notebook, width=self.widthOfTooboxInfo)
         self.tooboxInfoFrame.pack(side="left", padx=25, pady=18, anchor="w")
+        appIconImg = ImageTk.PhotoImage(Image.open(appIconPng).resize((self.widthOfTooboxInfo-40,self.widthOfTooboxInfo-40), Image.ANTIALIAS))
+        self.imgPanel = WrappingLabel(self.tooboxInfoFrame, image=appIconImg)
+        self.imgPanel.image = appIconImg
+        self.appDescText = WrappingLabel(self.tooboxInfoFrame, font=(17), wraplength=self.widthOfTooboxInfo, justify="left" ,text="Toobox is an app is a Toolbox of different tools to help in your Academics. Toobox provides various tools for a wide range of topics and subjects that will definately help you while revising and studying.")
         self.appDescText.pack(side="bottom")
         self.imgPanel.pack(side="bottom", fill="both", expand="yes", pady=32)
         file = open(recentlyused)

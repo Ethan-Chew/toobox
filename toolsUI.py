@@ -1,4 +1,5 @@
 
+from select import select
 import string
 
 import tkinter as tk
@@ -8,6 +9,7 @@ import re
 from sympy import root
 from tools import snake
 from tools import areaCalculation
+from tools.circleEqn import circle_equation
 from tools.IonicEqn import ionicEqn
 from tools.calculator import calculator
 from tools.balancingChemEqn import balanceChemEqn
@@ -557,6 +559,7 @@ def triangle(self):
             self.resultTxt1.grid(row=6,column=0,padx=2,pady=2, sticky = tk.W+tk.E,columnspan=5)
 
     ttk.Button(self.mainFrame, text="Solve", style='Accent.TButton', command=onPress,width=10).grid(row=5, column=0,pady=2, padx=2)
+<<<<<<< HEAD
 def snak():
     global root
     snake.init()
@@ -571,3 +574,43 @@ def snak():
     while True:
         snake.update()
         
+=======
+
+def SolveCircle(self):
+    # Input Data
+    def getInputs(self):
+        equation = self.inputField.get()
+        selectedValue = self.typebox.get()
+        ceqn = circle_equation()
+        result = ceqn.mainCode(selectedValue, equation)
+        if result == "Unknown Error" or result == "Error":
+            setFinalResult(self, "An Unknown Error has Occured. Please check the format of the equation.")
+        else:
+            setFinalResult(self, result)
+
+    # User Interface
+    self.thingFrame = ttk.Frame(self.notebook)
+    self.thingFrame.pack(side="top", padx=25, pady=18, anchor="w")
+    self.mainLabel = WrappingLabel(self.thingFrame, text="Chemical Equation Balancer", font=(font,50,'bold'))
+    self.mainLabel.pack(side="top", pady=2, fill="x", expand="yes")
+    self.infoLabel = WrappingLabel(self.thingFrame, text="Please enter the Chemical Equation like in the following example: 'Compound(State) + Compound2(State) + ... -> Compound3(State) + Compound4(State) + ...'", font=(font, 15))
+    self.infoLabel.pack(side="top", pady=2, fill="x", expand="yes")
+
+    self.mainFrame = ttk.Frame(self.notebook)
+    self.mainFrame.pack(padx=25, pady=18, anchor="w")
+    self.typeTxt = WrappingLabel(self.mainFrame, text="Type:  ", font=(font, 20))
+    self.typeTxt.grid(row=0, column=0, padx=2)
+    self.typebox = ttk.Combobox(self.mainFrame, state="readonly", values=["General Form", "Standard Form"], width=50)
+    self.typebox.grid(row=0, column=1,padx=2)
+    self.inputTxt = WrappingLabel(self.mainFrame, text="Input:  ", font=(font, 20))
+    self.inputTxt.grid(row=1, column=0, padx=2)
+    self.inputField = ttk.Entry(self.mainFrame, width=50, font=(font, 12))
+    self.inputField.insert(0, "Equation")
+    self.inputField.grid(row=1, column=1)
+    self.sendData = ttk.Button(self.mainFrame, text="Balance", style='Accent.TButton', command=lambda: getInputs(self))
+    self.sendData.grid(row=2, column=0,pady=10, padx=2)
+
+    def setFinalResult(self, result):
+        self.resultTxt = ttk.Label(self.mainFrame, text="Result:  {}".format(result), font=(font, 20))
+        self.resultTxt.grid(row=3, columnspan = 2, sticky = tk.W+tk.E, padx=2)
+>>>>>>> 751cf6cc41c6bbadc0ca49706c0857cf627338eb
