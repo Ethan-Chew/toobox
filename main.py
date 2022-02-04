@@ -5,6 +5,7 @@ from tkinter import ttk
 import os
 from tkinter import font
 import json
+from turtle import clearscreen
 from PIL import ImageTk, Image
 from tkinter import Menu
 import config
@@ -145,8 +146,6 @@ class App(ttk.Frame):
         # print(config.currentlySelected)
         # print(topics.index(config.currentlySelected))
         # self.treeview.selection_remove(topics.index(config.currentlySelected))
-        self.run_func("Home")
-        self.treeview.selection_set()
         self.showHomeScreen()
     
     def toggleFullScreen(self, event):
@@ -285,6 +284,7 @@ class App(ttk.Frame):
         self.updateUsernameUI = ttk.Frame()
 
     def showHomeScreen(self):
+        self.clearScreen()
         # self.treeview.selection_set()
         self.welcomeFrame = ttk.Frame(self.notebook)
         self.welcomeFrame.pack(side="top", padx=25, pady=18, anchor="w")
