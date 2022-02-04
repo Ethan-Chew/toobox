@@ -183,12 +183,17 @@ class App(ttk.Frame):
         self.scrollbar = ttk.Scrollbar(self.pane_1)
         self.scrollbar.pack(side="right", fill="y")
 
+        # Config Treeview Style
+        style = ttk.Style()
+        style.configure('MainUI.Treeview',font=("TkDefaultFont",12))
+        style.configure('MainUI.Treeview.Heading',font=("TkDefaultFont",16, "bold"))
+
         # Treeview
         self.treeview = ttk.Treeview(
             self.pane_1,
             selectmode="browse",
             yscrollcommand=self.scrollbar.set,
-            style="tbstyles.Treeview"
+            style="MainUI.Treeview"
         )
 
         self.treeview.bind("<<TreeviewSelect>>", self.on_tree_select)
@@ -235,6 +240,7 @@ class App(ttk.Frame):
             self.welcomeFrame.pack_forget()
             self.recentlyOpenedFrame.pack_forget()
             self.holdROItemFrame.pack_forget()
+            self.thingFrame.place_forget()
         except:
             pass
         
@@ -270,7 +276,7 @@ class App(ttk.Frame):
         if config.currentlySelected != "Home":
             if config.currentlySelected in functionalities:
                 functionalities[config.currentlySelected](self)
-            elif not config.currentlySelected in topics:
+            else:
                 notUsable(self)
         else:
             self.showHomeScreen()
@@ -280,9 +286,6 @@ class App(ttk.Frame):
 
     def on_tree_select(self, event):
         self.run_func(self.treeview.item(self.treeview.focus())['text'])
-
-    def updateUsername(self, event):
-        self.updateUsernameUI = ttk.Frame()
 
     def showHomeScreen(self):
         self.clearScreen()
