@@ -122,8 +122,6 @@ class App(ttk.Frame):
 
         menubar.add_cascade(label="Recently Opened", menu=romenu)
 
-        root.mainloop
-
     # Keybines :D
     ## Full Screen Toggle
     def fullScreenBindings(self):
@@ -138,11 +136,12 @@ class App(ttk.Frame):
 
     def handleBackToHS(self, event):
         print("hhs",config.currentlySelected)
-        for e in self.treeview.selection():
-            self.treeview.selection_remove(e)
         self.treeview.selection_clear()
         self.clearScreen()
-        config.currentlySelected = "Home"
+        print(self.treeview.get_children())
+        self.treeview.selection_remove(all
+            # topics.index(config.currentlySelected)
+            )
         self.showHomeScreen()
     
     def toggleFullScreen(self, event):
@@ -242,7 +241,6 @@ class App(ttk.Frame):
         file.close()
         data = list(set(data['recentlyOpened']))
         bruh = {"recentlyOpened": []}
-        print("runf",config.currentlySelected)
         self.clearScreen()
 
         config.currentlySelected = current
@@ -274,13 +272,13 @@ class App(ttk.Frame):
         root.update()
 
     def on_tree_select(self, event):
-        self.run_func(self.treeview.item(self.treeview.focus())['text'] )
+        self.run_func(self.treeview.item(self.treeview.focus())['text'])
 
     def updateUsername(self, event):
         self.updateUsernameUI = ttk.Frame()
 
     def showHomeScreen(self):
-        print("reached here")
+        config.currentlySelected = "Home"
         self.welcomeFrame = ttk.Frame(self.notebook)
         self.welcomeFrame.pack(side="top", padx=25, pady=18, anchor="w")
         self.helloUserLab = WrappingLabel(self.welcomeFrame,text="Hello, {}".format(config.username), font=("TkDefaultFont",50,'bold'))
