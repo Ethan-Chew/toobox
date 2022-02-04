@@ -1,5 +1,6 @@
 # DO NOT EDIT #
-username = "User"
+from pathlib import Path
+username = str(Path.home()).replace("/Users/", "")
 currentlySelected = "Home"
 favourited = []
 aSecret = False # Change aSecret to True for a suprise :)

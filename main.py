@@ -279,9 +279,12 @@ class App(ttk.Frame):
             notUsable(self)
         self.setup_menu()
         root.update()
+
     def on_tree_select(self, event):
         self.run_func(self.treeview.item(self.treeview.focus())['text'] )
 
+    def updateUsername(self, event):
+        self.updateUsernameUI = ttk.Frame()
 
     def showHomeScreen(self, event):
         self.welcomeFrame = ttk.Frame(self.notebook)
