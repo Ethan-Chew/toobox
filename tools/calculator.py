@@ -96,7 +96,6 @@ class calculator:
 			if stri[i]=="(":
 				end=self.findend(stri,i)
 				if len(buf)>0 and type(buf[-1])!=str:
-					# print("if",parsed)
 					parsed.append(self.turn(buf))
 					
 					parsed.append("*")
@@ -107,7 +106,6 @@ class calculator:
 			elif stri[i] in self.tokens:
 				
 				if len(parsed)>0 and type(parsed[-1])==list:
-					# print("if",parsed)
 					#parsed.append("*")
 					pass
 				if len(buf)>0:
@@ -130,7 +128,6 @@ class calculator:
 
 		reparsed=[]
 		skip=0
-		# print(parsed)
 		for i in range(len(parsed)):
 			if skip!=0:
 				skip-=1
@@ -188,12 +185,10 @@ class calculator:
 			else:
 				reparsed.append(i)
 		parsed=reparsed
-		# print(parsed)
 		#reduce the paranthesis to the simplest form
 		for i in range(len(parsed)):
 			if type(parsed[i]) == list:
 				parsed[i]=self.solve(parsed[i])
-		# print(parsed)
 		#follow order of operation
 		final=[]
 		l=[]
@@ -205,7 +200,6 @@ class calculator:
 			else:
 				l.append(parsed[i])
 		parsed=list(l)
-		# print(parsed)
 		for j in self.tokens:
 			i=0
 			reparsed=[]
@@ -235,7 +229,6 @@ class calculator:
 	def div(self,prev,nex):
 		return [algebric(prev.num/nex.num)]
 	def add(self,prev,nex):
-		# print(prev,nex)
 		return [algebric(prev.num+nex.num)]
 	def pow(self,prev,nex):
 		return [algebric(prev.num**nex.num)]
@@ -254,14 +247,14 @@ if __name__=="__main__":
 
 	a=calculator()
 
-	print(a.sol("(5*298493)+1"))
-	print(a.sol("1"))
-	print(a.sol("(0.5*(1+2))"))
-	print(a.sol("(1)*(3+4)"))
-	print(a.sol("(1)(3+4)(5+6)"))
+	# print(a.sol("(5*298493)+1"))
+	# print(a.sol("1"))
+	# print(a.sol("(0.5*(1+2))"))
+	# print(a.sol("(1)*(3+4)"))
+	# print(a.sol("(1)(3+4)(5+6)"))
 	# print(a.sol("-1"))
-	print(a.sol("1-1"))
-	print(a.sol("9+10"))
+	# print(a.sol("1-1"))
+	# print(a.sol("9+10"))
 
 
 

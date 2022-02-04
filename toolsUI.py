@@ -318,15 +318,18 @@ def calculate(self):
     # Input Data
     def getInputs(self):
         inputVal = self.inputField.get()
-        final=""
-        for i in inputVal:
-            if i!=" ":
-                final+=i
-        try:
-            print(final)
-            codeReturned = str(calculator().sol(final)[0].num) # Could return error/final value
-        except:
-            codeReturned="error"
+        if re.search("^((\(|\))*(\d+\.{0,1}\d{0,1})+(\(|\))*(\+|\-|\*|\/)*(\(|\))*)+$", inputVal):
+            final=""
+            for i in inputVal:
+                if i!=" ":
+                    final+=i
+            try:
+                print(final)
+                codeReturned = str(calculator().sol(final)[0].num) # Could return error/final value
+            except:
+                codeReturned="error"
+        else:
+            codeReturned = "Invalid Input"
         setFinalResult(self, codeReturned)
 
     self.thingFrame = ttk.Frame(self.notebook)
@@ -487,7 +490,7 @@ def simsolver(self,column=3):
     ttk.Button(self.mainFrame, text="Solve", style='Accent.TButton', command=onPress,width=10).grid(row=row+3, column=0,pady=2, padx=2)
     ttk.Button(self.mainFrame, text="Add Var", style='Accent.TButton', command=(lambda: rese(self,min(column+1,25))),width=10).grid(row=row+2, column=0,pady=2, padx=2)
     if column>3:
-        ttk.Button(self.mainFrame, text="Remove Var", style='Accent.TButton', command=(lambda: rese(self,max(column-1,3))),width=10).grid(row=row+2, column=3,pady=2, padx=2)
+        ttk.Button(self.mainFrame, text="Remove Var", style='Accent.TButton', command=(lambda: rese(self,max(column-1,3))),width=10).grid(row=row+2, column=2,pady=2, padx=2)
 
 def triangle(self):
     self.thingFrame = ttk.Frame(self.notebook)
@@ -589,7 +592,7 @@ def SolveCircle(self):
     # User Interface
     self.thingFrame = ttk.Frame(self.notebook)
     self.thingFrame.pack(side="top", padx=25, pady=18, anchor="w")
-    self.mainLabel = WrappingLabel(self.thingFrame, text="Chemical Equation Balancer", font=(font,50,'bold'))
+    self.mainLabel = WrappingLabel(self.thingFrame, text="Equation of Circle", font=(font,50,'bold'))
     self.mainLabel.pack(side="top", pady=2, fill="x", expand="yes")
     self.infoLabel = WrappingLabel(self.thingFrame, text="Please enter the Equation in the following Formats. General Form - (x + a)^2 + (y + b)^2 = r^2, Standard Form - x^2 + y^2 + ax + by + c = 0", font=(font, 15))
     self.infoLabel.pack(side="top", pady=2, fill="x", expand="yes")
