@@ -225,20 +225,21 @@ class App(ttk.Frame):
         ## Show Home Screen
         self.showHomeScreen()
         
-    def clearScreen(self): # Clear Right Side of the Screen
-        if config.currentlySelected != "Home":
+    def clearScreen(self): 
+        # Clear Right Side of the Screen
+        try:
+            self.mainFrame.pack_forget()
+            self.thingFrame.pack_forget()
+        except:
+            pass
+        try:
             self.tooboxInfoFrame.pack_forget()
             self.welcomeFrame.pack_forget()
             self.recentlyOpenedFrame.pack_forget()
             self.holdROItemFrame.pack_forget()
-            # self.welcomeFrame.place_forget()
-        else:
-            self.mainFrame.pack_forget()
-            self.thingFrame.pack_forget()
-            # self.mainFrame.destroy()
-            # self.thingFrame.destroy()
-            # self.mainLabel.pack_forget()
-            # self.infoLabel.pack_forget()
+        except:
+            pass
+        
 
     def run_func(self, current):
         file = open(recentlyused)
