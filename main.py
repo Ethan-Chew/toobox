@@ -34,19 +34,14 @@ functionalities = {
             "Parallelogram"     :   Parallelogram,
             "Trapezium"         :   Trapezium,
             "Simultaneous"      :   simsolver,
-<<<<<<< HEAD
-            "Triangle"          :   triangle
-            # ,"Circles"           :   snake,
-=======
             "Triangle"          :   triangle,
             "Equation of Circle":   SolveCircle,
->>>>>>> 751cf6cc41c6bbadc0ca49706c0857cf627338eb
-        }
+        } 
 treeview_data = [
             ("", 1, "Chemistry"),
                 (1, 2, "Periodic Table"),
                 (1, 3, "Salt Solubilities"),
-                (1, 4, "Chemical Equation"),
+               (1, 4, "Chemical Equation"),
                 (1, 5, "Ionic Equation"),
             ("", 6, "Mathematics"),
                 (6, 7, "Calculator"),

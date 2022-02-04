@@ -1,7 +1,7 @@
 
 
 
-from operator import ne
+
 
 
 class algebric:

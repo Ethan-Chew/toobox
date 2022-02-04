@@ -559,7 +559,6 @@ def triangle(self):
             self.resultTxt1.grid(row=6,column=0,padx=2,pady=2, sticky = tk.W+tk.E,columnspan=5)
 
     ttk.Button(self.mainFrame, text="Solve", style='Accent.TButton', command=onPress,width=10).grid(row=5, column=0,pady=2, padx=2)
-<<<<<<< HEAD
 def snak():
     global root
     snake.init()
@@ -574,7 +573,6 @@ def snak():
     while True:
         snake.update()
         
-=======
 
 def SolveCircle(self):
     # Input Data
@@ -613,4 +611,3 @@ def SolveCircle(self):
     def setFinalResult(self, result):
         self.resultTxt = ttk.Label(self.mainFrame, text="Result:  {}".format(result), font=(font, 20))
         self.resultTxt.grid(row=3, columnspan = 2, sticky = tk.W+tk.E, padx=2)
->>>>>>> 751cf6cc41c6bbadc0ca49706c0857cf627338eb
