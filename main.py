@@ -145,10 +145,9 @@ class App(ttk.Frame):
         # print(config.currentlySelected)
         # print(topics.index(config.currentlySelected))
         # self.treeview.selection_remove(topics.index(config.currentlySelected))
-        self.clearScreen()
+        self.run_func("Home")
         self.treeview.selection_set()
         self.showHomeScreen()
-        config.currentlySelected = "Home"
     
     def toggleFullScreen(self, event):
         self.fullScreen = not self.fullScreen
@@ -227,7 +226,7 @@ class App(ttk.Frame):
         self.showHomeScreen()
         
     def clearScreen(self): # Clear Right Side of the Screen
-        if config.currentlySelected == "Home":
+        if config.currentlySelected != "Home":
             self.tooboxInfoFrame.pack_forget()
             self.welcomeFrame.pack_forget()
             self.recentlyOpenedFrame.pack_forget()
@@ -242,7 +241,6 @@ class App(ttk.Frame):
             # self.infoLabel.pack_forget()
 
     def run_func(self, current):
-        print("this ran")
         file = open(recentlyused)
         data = json.load(file)
         file.close()
@@ -250,7 +248,8 @@ class App(ttk.Frame):
         bruh = {"recentlyOpened": []}
 
         config.currentlySelected = current
-        print(config.currentlySelected)
+
+        self.clearScreen()
 
         if (len(data) < 10):
             if config.currentlySelected not in data:
@@ -272,11 +271,13 @@ class App(ttk.Frame):
                 functionalities[config.currentlySelected](self)
             elif not config.currentlySelected in topics:
                 notUsable(self)
+        else:
+            self.showHomeScreen()
+            self.notebook.update()
         self.setup_menu()
         root.update()
 
     def on_tree_select(self, event):
-        self.clearScreen()
         self.run_func(self.treeview.item(self.treeview.focus())['text'])
 
     def updateUsername(self, event):
