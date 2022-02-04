@@ -137,12 +137,13 @@ class App(ttk.Frame):
         root.bind("`", self.handleBackToHS)
 
     def handleBackToHS(self, event):
-        try:
-            self.clearScreen()
-        except: pass
-        finally:
-            config.currentlySelected = "Home"
-            self.showHomeScreen(0)
+        print("hhs",config.currentlySelected)
+        for e in self.treeview.selection():
+            self.treeview.selection_remove(e)
+        self.treeview.selection_clear()
+        self.clearScreen()
+        config.currentlySelected = "Home"
+        self.showHomeScreen()
     
     def toggleFullScreen(self, event):
         self.fullScreen = not self.fullScreen
@@ -220,23 +221,20 @@ class App(ttk.Frame):
         self.sizegrip = ttk.Sizegrip(self)
 
         ## Show Home Screen
-        self.showHomeScreen(0)
+        self.showHomeScreen()
         
     def clearScreen(self): # Clear Right Side of the Screen
-        self.recentlyOpenedText.pack_forget()
-        self.recentlyOpenedFrame.pack_forget()
-        self.tooboxInfoFrame.pack_forget()
         try:
             if config.currentlySelected == "Home":
+                self.recentlyOpenedFrame.pack_forget()
+                self.tooboxInfoFrame.pack_forget()
                 self.welcomeFrame.pack_forget()
-                self.helloUserLab.pack_forget()
-                self.welcomeLab.pack_forget()
+                # self.welcomeFrame.place_forget()
             else:
                 self.mainFrame.pack_forget()
                 self.thingFrame.pack_forget()
-                self.mainLabel.pack_forget()
-                self.infoLabel.pack_forget()
-                self.welcomeFrame.place_forget()
+                # self.mainLabel.pack_forget()
+                # self.infoLabel.pack_forget()
         except: pass
     def run_func(self, current):
         file = open(recentlyused)
@@ -244,6 +242,9 @@ class App(ttk.Frame):
         file.close()
         data = list(set(data['recentlyOpened']))
         bruh = {"recentlyOpened": []}
+        print("runf",config.currentlySelected)
+        self.clearScreen()
+
         config.currentlySelected = current
 
         if (len(data) < 10):
@@ -263,18 +264,10 @@ class App(ttk.Frame):
             self.ropenedItemBtn.pack(side="top", pady=2)
         self.notebook.update()
 
-        self.clearScreen()
-
         if config.currentlySelected in functionalities:
-            try: self.mainFrame.pack_forget()
-            except: print("error")
-            self.welcomeFrame.pack_forget()
             self.clearScreen()
             functionalities[config.currentlySelected](self)
         elif not config.currentlySelected in topics:
-            try: self.mainFrame.pack_forget()
-            except: print("error")
-            self.welcomeFrame.pack_forget()
             self.clearScreen()
             notUsable(self)
         self.setup_menu()
@@ -286,7 +279,8 @@ class App(ttk.Frame):
     def updateUsername(self, event):
         self.updateUsernameUI = ttk.Frame()
 
-    def showHomeScreen(self, event):
+    def showHomeScreen(self):
+        print("reached here")
         self.welcomeFrame = ttk.Frame(self.notebook)
         self.welcomeFrame.pack(side="top", padx=25, pady=18, anchor="w")
         self.helloUserLab = WrappingLabel(self.welcomeFrame,text="Hello, {}".format(config.username), font=("TkDefaultFont",50,'bold'))
