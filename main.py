@@ -140,15 +140,15 @@ class App(ttk.Frame):
         root.bind("`", self.handleBackToHS)
 
     def handleBackToHS(self, event):
-        print("hhs",config.currentlySelected)
         # self.treeview.selection_clear()
         # print(topics)
         # print(config.currentlySelected)
         # print(topics.index(config.currentlySelected))
         # self.treeview.selection_remove(topics.index(config.currentlySelected))
-        self.treeview.selection_set()
         self.clearScreen()
+        self.treeview.selection_set()
         self.showHomeScreen()
+        config.currentlySelected = "Home"
     
     def toggleFullScreen(self, event):
         self.fullScreen = not self.fullScreen
@@ -227,21 +227,19 @@ class App(ttk.Frame):
         self.showHomeScreen()
         
     def clearScreen(self): # Clear Right Side of the Screen
-        try:
-            if config.currentlySelected == "Home":
-                self.tooboxInfoFrame.pack_forget()
-                self.welcomeFrame.pack_forget()
-                self.recentlyOpenedFrame.pack_forget()
-                self.holdROItemFrame.pack_forget()
-                # self.welcomeFrame.place_forget()
-            else:
-                self.elementsFrame.destroy()
-                self.thingFrame.destroy()
-                # self.elementsFrame.destroy()
-                # self.thingFrame.destroy()
-                # self.mainLabel.pack_forget()
-                # self.infoLabel.pack_forget()
-        except: pass
+        if config.currentlySelected == "Home":
+            self.tooboxInfoFrame.pack_forget()
+            self.welcomeFrame.pack_forget()
+            self.recentlyOpenedFrame.pack_forget()
+            self.holdROItemFrame.pack_forget()
+            # self.welcomeFrame.place_forget()
+        else:
+            self.elementsFrame.pack_forget()
+            self.thingFrame.pack_forget()
+            # self.elementsFrame.destroy()
+            # self.thingFrame.destroy()
+            # self.mainLabel.pack_forget()
+            # self.infoLabel.pack_forget()
 
     def run_func(self, current):
         print("this ran")
@@ -269,13 +267,11 @@ class App(ttk.Frame):
             self.ropenedItemBtn = ttk.Button(self.holdROItemFrame, text=ropenedItem, width=30)
             self.ropenedItemBtn.pack(side="top", pady=2)
         self.notebook.update()
-
-        if config.currentlySelected in functionalities:
-            self.clearScreen()
-            functionalities[config.currentlySelected](self)
-        elif not config.currentlySelected in topics:
-            self.clearScreen()
-            notUsable(self)   
+        if config.currentlySelected != "Home":
+            if config.currentlySelected in functionalities:
+                functionalities[config.currentlySelected](self)
+            elif not config.currentlySelected in topics:
+                notUsable(self)
         self.setup_menu()
         root.update()
 
