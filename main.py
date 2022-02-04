@@ -81,6 +81,7 @@ topics = []
 
 class App(ttk.Frame):
     def __init__(self, parent):
+        self.screenlist = []
         # aSecret :) hehehehe
         if config.aSecret:
             f()
@@ -227,17 +228,23 @@ class App(ttk.Frame):
     def clearScreen(self): 
         # Clear Right Side of the Screen
         try:
-            self.mainFrame.pack_forget()
-            self.thingFrame.pack_forget()
+            for i in self.screenlist[::-1]:
+                i.pack_forget()
+                self.screenlist=self.screenlist[:-1]
         except:
             pass
-        try:
-            self.tooboxInfoFrame.pack_forget()
-            self.welcomeFrame.pack_forget()
-            self.recentlyOpenedFrame.pack_forget()
-            self.holdROItemFrame.pack_forget()
-        except:
-            pass
+        # try:
+        #     self.mainFrame.pack_forget()
+        #     self.thingFrame.pack_forget()
+        # except:
+        #     pass
+        # try:
+        #     self.tooboxInfoFrame.pack_forget()
+        #     self.welcomeFrame.pack_forget()
+        #     self.recentlyOpenedFrame.pack_forget()
+        #     self.holdROItemFrame.pack_forget()
+        # except:
+        #     pass
         
 
     def run_func(self, current):
@@ -282,11 +289,14 @@ class App(ttk.Frame):
 
     def updateUsername(self, event):
         self.updateUsernameUI = ttk.Frame()
-
+    def addframe(self,**args):
+        self.screenlist.append(ttk.Frame(self.notebook,**args))
+        return self.screenlist[-1]
     def showHomeScreen(self):
         self.clearScreen()
         # self.treeview.selection_set()
-        self.welcomeFrame = ttk.Frame(self.notebook)
+        
+        self.welcomeFrame = self.addframe()
         self.welcomeFrame.pack(side="top", padx=25, pady=18, anchor="w")
         self.helloUserLab = WrappingLabel(self.welcomeFrame,text="Hello, {}".format(config.username), font=("TkDefaultFont",50,'bold'))
         self.helloUserLab.pack(pady=2,fill="x")
@@ -294,7 +304,7 @@ class App(ttk.Frame):
         self.welcomeLab.pack(side="left", fill="x")
         self.welcomeLab2 = WrappingLabel(self.welcomeFrame, text="Select a tool to get started!",font=("TkDefaultFont", 15))
         self.widthOfTooboxInfo = 200
-        self.tooboxInfoFrame = ttk.Frame(self.notebook, width=self.widthOfTooboxInfo)
+        self.tooboxInfoFrame = self.addframe(width=self.widthOfTooboxInfo)
         self.tooboxInfoFrame.pack(side="left", padx=25, pady=18, anchor="w")
         appIconImg = ImageTk.PhotoImage(Image.open(appIconPng).resize((self.widthOfTooboxInfo-40,self.widthOfTooboxInfo-40), Image.ANTIALIAS))
         self.imgPanel = WrappingLabel(self.tooboxInfoFrame, image=appIconImg)
@@ -306,11 +316,12 @@ class App(ttk.Frame):
         data = json.load(file)
         file.close()
         data = list(set(data['recentlyOpened']))
-        self.recentlyOpenedFrame = ttk.Frame(self.notebook, width=self.widthOfTooboxInfo)
+        self.recentlyOpenedFrame = self.addframe(width=self.widthOfTooboxInfo)
         self.recentlyOpenedFrame.pack(side="left", padx=20, pady=18, anchor="w")
         self.recentlyOpenedText = WrappingLabel(self.recentlyOpenedFrame, text="Recently Opened ({})".format(str(len(data[:3]))),font=("TkDefaultFont",18, "bold"))
         self.recentlyOpenedText.pack(side="top", pady=3)
-        self.holdROItemFrame = ttk.Frame(self.recentlyOpenedFrame)
+        self.screenlist.append(ttk.Frame(self.recentlyOpenedFrame))
+        self.holdROItemFrame = self.screenlist[-1]
         self.holdROItemFrame.pack(side="top")
         for ropenedItem in data[:3]:
             self.ropenedItemBtn = ttk.Button(self.holdROItemFrame, text=ropenedItem, width=30,command=(lambda : self.run_func(ropenedItem)))
