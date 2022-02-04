@@ -239,7 +239,6 @@ class App(ttk.Frame):
                 self.welcomeFrame.place_forget()
         except: pass
     def run_func(self, current):
-        print(current)
         file = open(recentlyused)
         data = json.load(file)
         file.close()

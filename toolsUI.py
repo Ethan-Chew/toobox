@@ -589,7 +589,7 @@ def SolveCircle(self):
     # User Interface
     self.thingFrame = ttk.Frame(self.notebook)
     self.thingFrame.pack(side="top", padx=25, pady=18, anchor="w")
-    self.mainLabel = WrappingLabel(self.thingFrame, text="Chemical Equation Balancer", font=(font,50,'bold'))
+    self.mainLabel = WrappingLabel(self.thingFrame, text="Equation of Circle", font=(font,50,'bold'))
     self.mainLabel.pack(side="top", pady=2, fill="x", expand="yes")
     self.infoLabel = WrappingLabel(self.thingFrame, text="Please enter the Equation in the following Formats. General Form - (x + a)^2 + (y + b)^2 = r^2, Standard Form - x^2 + y^2 + ax + by + c = 0", font=(font, 15))
     self.infoLabel.pack(side="top", pady=2, fill="x", expand="yes")
