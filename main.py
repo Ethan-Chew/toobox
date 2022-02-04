@@ -234,9 +234,9 @@ class App(ttk.Frame):
             self.holdROItemFrame.pack_forget()
             # self.welcomeFrame.place_forget()
         else:
-            self.elementsFrame.pack_forget()
+            self.mainFrame.pack_forget()
             self.thingFrame.pack_forget()
-            # self.elementsFrame.destroy()
+            # self.mainFrame.destroy()
             # self.thingFrame.destroy()
             # self.mainLabel.pack_forget()
             # self.infoLabel.pack_forget()
