@@ -5,6 +5,8 @@ import tkinter as tk
 from tkinter import ttk
 import re
 
+from sympy import root
+from tools import snake
 from tools import areaCalculation
 from tools.IonicEqn import ionicEqn
 from tools.calculator import calculator
@@ -555,3 +557,17 @@ def triangle(self):
             self.resultTxt1.grid(row=6,column=0,padx=2,pady=2, sticky = tk.W+tk.E,columnspan=5)
 
     ttk.Button(self.mainFrame, text="Solve", style='Accent.TButton', command=onPress,width=10).grid(row=5, column=0,pady=2, padx=2)
+def snak():
+    global root
+    snake.init()
+    root.bind("a", lambda :snake.get_inp("a"))
+    
+    root.bind("d", lambda :snake.get_inp("d"))
+    
+    root.bind("s", lambda :snake.get_inp("s"))
+    
+    root.bind("w", lambda :snake.get_inp("w"))
+    
+    while True:
+        snake.update()
+        

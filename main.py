@@ -35,6 +35,7 @@ functionalities = {
             "Trapezium"         :   Trapezium,
             "Simultaneous"      :   simsolver,
             "Triangle"          :   triangle
+            # ,"Circles"           :   snake,
         }
 treeview_data = [
             ("", 1, "Chemistry"),
