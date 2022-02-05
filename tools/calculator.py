@@ -247,14 +247,14 @@ if __name__=="__main__":
 
 	a=calculator()
 
-	# print(a.sol("(5*298493)+1"))
-	# print(a.sol("1"))
-	# print(a.sol("(0.5*(1+2))"))
-	# print(a.sol("(1)*(3+4)"))
-	# print(a.sol("(1)(3+4)(5+6)"))
-	# print(a.sol("-1"))
-	# print(a.sol("1-1"))
-	# print(a.sol("9+10"))
+	print(a.sol("(5*298493)+1"))
+	print(a.sol("1"))
+	print(a.sol("(0.5*(1+2))"))
+	print(a.sol("(1)*(3+4)"))
+	print(a.sol("(1)(3+4)(5+6)"))
+	print(a.sol("-1"))
+	print(a.sol("1-1"))
+	print(a.sol("9+10"))
 
 
 

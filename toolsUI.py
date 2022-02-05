@@ -322,18 +322,18 @@ def calculate(self):
     # Input Data
     def getInputs(self):
         inputVal = self.inputField.get()
-        if re.search("^((\(|\))*(\d+\.{0,1}\d{0,1})+(\(|\))*(\+|\-|\*|\/)*(\(|\))*)+$", inputVal):
-            final=""
-            for i in inputVal:
-                if i!=" ":
-                    final+=i
-            try:
-                print(final)
-                codeReturned = str(calculator().sol(final)[0].num) # Could return error/final value
-            except:
-                codeReturned="error"
-        else:
-            codeReturned = "Invalid Input"
+        #if re.search("^((\(|\))*(\d+\.{0,1}\d{0,1})+(\(|\))*(\+|\-|\*|\/)*(\(|\))*)+$", inputVal):
+        final=""
+        for i in inputVal:
+            if i!=" ":
+                final+=i
+        try:
+            print(final)
+            codeReturned = str(calculator().sol(final)[0].num) # Could return error/final value
+        except:
+            codeReturned="error"
+        # else:
+        #     codeReturned = "Invalid Input"
         setFinalResult(self, codeReturned)
 
     self.thingFrame = self.addframe()
