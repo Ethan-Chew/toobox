@@ -1,5 +1,3 @@
-
-
 import string
 
 import tkinter as tk
@@ -60,15 +58,15 @@ def ChemicalEquation(self):
         self.resultTxt = ttk.Label(self.mainFrame, text="Result:  {}".format(result), font=(font, 20))
         self.resultTxt.grid(row=3, columnspan = 2, sticky = tk.W+tk.E, padx=2)
 
-def notUsable(self):
+def infoFrame(self, lblText):
     # Top Labels
     self.thingFrame = self.addframe()
     # self.mainLabel = WrappingLabel(self.thingFrame, text="Simultaneous Equations Solver", font=(font,50,'bold'))
     # self.thingFrame.pack(side="top", padx=25, pady=18, anchor="w")
     self.thingFrame.place(anchor="center", relx=0.5, rely=0.5)
-    self.wipText = WrappingLabel(self.thingFrame, text="This is a Work in Progress", font=(font, 30, 'bold'), justify="center")
+    self.wipText = WrappingLabel(self.thingFrame, text=lblText, font=(font, 30, 'bold'), justify="center")
     self.wipText.pack(side="top", pady=2)
-    self.wipTextA = WrappingLabel(self.thingFrame, text="Check back soon!", font=(font, 20), justify="center")
+    self.wipTextA = WrappingLabel(self.thingFrame, text="This is a header! Click on any 'Child' Element to access the calculator!", font=(font, 20), justify="center")
     self.wipTextA.pack(side="top", pady=2)
 
 def Parallelogram(self):
