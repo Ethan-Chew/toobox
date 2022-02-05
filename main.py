@@ -36,6 +36,7 @@ functionalities = {
             "Simultaneous"      :   simsolver,
             "Triangle"          :   triangle,
             "Equation of Circle":   SolveCircle,
+            "Periodic Table"    :   periodicTable,
         } 
 treeview_data = [
             ("", 1, "Chemistry"),
@@ -223,7 +224,7 @@ class App(ttk.Frame):
         ## Main Home Screen Frame
         self.homeScreen = ttk.Frame(self.paned, padding=5)
         self.paned.add(self.homeScreen, weight=10)
-        self.notebook = ttk.Notebook(self.homeScreen, padding=3)
+        self.notebook = tk.Canvas(self.homeScreen)
         self.notebook.pack(fill="both", expand=True)
 
         ## Sizegrip
@@ -239,16 +240,20 @@ class App(ttk.Frame):
             print(self.screenlist[::-1])
             for i in self.screenlist[::-1]:
                 i.pack_forget()
-                self.screenlist=self.screenlist[:-1]
-        except:
-            pass
-        try:
-            for i in self.screenlist[::-1]:
-                i.place_forget()
-                self.screenlist=self.screenlist[:-1]
+                self.screenlist.pop(-1)
+                # self.notebook.delete(i)
+            # self.scrolly.pack_forget()
         except:
             pass
         
+        finally:
+            try:
+                # self.newFrame.pack_forget()
+                self.thingFrame.pack_forget()
+                self.mainFrame.pack_forget()
+                self.scrolly.pack_forget()
+                self.scrollx.pack_forget()
+            except: pass
         # try:
         #     self.mainFrame.pack_forget()
         #     self.thingFrame.pack_forget()

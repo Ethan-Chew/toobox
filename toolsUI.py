@@ -6,7 +6,9 @@ import tkinter as tk
 from tkinter import ttk
 import re
 
+from chemlib import Element
 
+from sympy import root
 from tools import snake
 from tools import areaCalculation
 from tools.circleEqn import circle_equation
@@ -403,13 +405,21 @@ def simsolver(self,column=3):
     print(column)
     row=column-1
 
+    # self.newFrame.pack(side="top", padx=25, pady=18, anchor="nw")
     self.thingFrame = self.addframe()
     self.mainLabel = WrappingLabel(self.thingFrame, text="Simultaneous Equations Solver", font=(font,50,'bold'))
-    self.thingFrame.pack(side="top", padx=25, pady=18, anchor="w")
+    self.thingFrame.pack(side="top", padx=25, pady=18,anchor="w")
     self.mainLabel.pack(side="top", pady=2, fill="x", expand="yes")
     self.mainFrame = self.addframe()
-    self.mainFrame.pack(padx=25, pady=18, anchor="w")
-    self.mainFrame.pack(side="top", padx=25, pady=18, anchor="w")
+    self.mainFrame.pack(side="top",padx=25, pady=18,anchor="nw")
+    
+    # self.notebook.create_window((0, 0), window=self.newFrame, anchor="nw")
+    # self.scrollx = ttk.Scrollbar(self.homeScreen, orient="horizontal")
+    # self.scrollx.pack(side="bottom", fill="x")
+    # self.scrollx.config(command=self.notebook.xview)
+    # self.scrolly = ttk.Scrollbar(self.paned, orient="vertical")
+    # self.scrolly.pack(side="right", fill="y")
+    # self.scrolly.config(command=self.notebook.yview)
 
     def gen_table(row,column):
         print(row,column)
@@ -428,6 +438,8 @@ def simsolver(self,column=3):
                 self.alpha.grid(row=i, column=max(0,((j+1)*2)-1), sticky = tk.W+tk.E, padx=2)
                 temp.grid(row=i,column=j*2,padx=2,pady=2, sticky = tk.W+tk.E)
                 table[i].append(temp)
+        # self.scrollx.config(command=self.mainFrame.xview)
+        # self.scrolly.config(command=self.mainFrame.yview)
         return table
     # self.tree = ttk.Treeview(self.mainFrame, selectmode="extended")
     table=gen_table(row,column)
@@ -487,6 +499,9 @@ def simsolver(self,column=3):
     def rese(self,col):
         print(col)
         self.thingFrame.pack_forget()
+        self.mainFrame.pack_forget()
+        self.scrollx.pack_forget()
+        # self.newFrame.pack_forget()
         self.clearScreen()
         simsolver(self,col)
     ttk.Button(self.mainFrame, text="Solve", style='Accent.TButton', command=onPress,width=10).grid(row=row+3, column=0,pady=2, padx=2)
@@ -616,3 +631,35 @@ def SolveCircle(self):
     def setFinalResult(self, result):
         self.resultTxt = ttk.Label(self.mainFrame, text="Result:  {}".format(result), font=(font, 20))
         self.resultTxt.grid(row=3, columnspan = 2, sticky = tk.W+tk.E, padx=2)
+
+def periodicTable(self):
+    def getInputs(self):
+        self.resFrame.destroy()
+        self.resFrame = ttk.Frame(self.mainFrame)
+        e = self.inputField.get()
+        element = Element(e)
+        result = element.properties
+        rr = 0
+        for i in result.keys():
+            self.resultTxt = ttk.Label(self.resFrame, text="{}: {}".format(i, result[i]), font=(font, 20))
+            self.resultTxt.pack(anchor="nw", side="top", fill="x", pady=2, padx=2, expand="yes")
+            rr+=1
+        self.resFrame.grid(row=1, column=0, rowspan=10, columnspan=10,pady=10, padx=2)
+
+    # User Interface
+    self.thingFrame = self.addframe()
+    self.thingFrame.pack(side="top", padx=25, pady=18, anchor="w")
+    self.mainLabel = WrappingLabel(self.thingFrame, text="Periodic Table", font=(font,50,'bold'))
+    self.mainLabel.pack(side="top", pady=2, fill="x", expand="yes")
+    self.infoLabel = WrappingLabel(self.thingFrame, text="Please enter a valid symbol, e.g. H, not L", font=(font, 15))
+    self.infoLabel.pack(side="top", pady=2, fill="x", expand="yes")
+
+    self.mainFrame = self.addframe()
+    self.mainFrame.pack(padx=25, pady=18, anchor="w")
+    self.inputField = ttk.Entry(self.mainFrame, width=50, font=(font, 12))
+    self.inputField.insert(0, "H")
+    self.inputField.grid(row=0, column=0)
+    self.sendData = ttk.Button(self.mainFrame, text="Solve", style='Accent.TButton', command=lambda: getInputs(self))
+    self.sendData.grid(row=0, column=1,pady=10, padx=2)
+    self.resFrame = ttk.Frame(self.mainFrame)
+    self.resFrame.grid(row=1, column=0, rowspan=10, columnspan=10,pady=10, padx=2)
