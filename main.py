@@ -141,10 +141,14 @@ class App(ttk.Frame):
     def goHome(self):
         root.bind("`", self.handleBackToHS)
 
+    def removeSelectedTreeView(self):
+        config.currentlySelected = "Home"
+        if len(self.treeview.selection()) > 0:
+            self.treeview.selection_remove(self.treeview.selection()[0])
+
     def handleBackToHS(self, event):
-        # if len(self.treeview.selection()) > 0:
-        #     self.treeview.selection_remove(self.treeview.selection()[0])
-        self.showHomeScreen()
+        self.removeSelectedTreeView()
+        root.after(10, self.showHomeScreen())
 
     def toggleFullScreen(self, event):
         self.fullScreen = not self.fullScreen
@@ -192,7 +196,8 @@ class App(ttk.Frame):
             self.pane_1,
             selectmode="browse",
             yscrollcommand=self.scrollbar.set,
-            style="MainUI.Treeview"
+            style="MainUI.Treeview",
+            takefocus=False
         )
 
         self.treeview.bind("<<TreeviewSelect>>", self.on_tree_select)
@@ -229,40 +234,25 @@ class App(ttk.Frame):
         
     def clearScreen(self): 
         # Clear Right Side of the Screen
-
         try:
             for i in self.screenlist[::-1]:
-                i.pack_forget()
+                try:
+                    i.pack_forget()
+                    i.place_forget()
+                except: pass
                 self.screenlist.pop(-1)
-                # self.notebook.delete(i)
-            # self.scrolly.pack_forget()
         except:
             pass
         
         finally:
             try:
-                # self.newFrame.pack_forget()
                 self.thingFrame.pack_forget()
                 self.mainFrame.pack_forget()
                 self.scrolly.pack_forget()
                 self.scrollx.pack_forget()
             except: pass
-        # try:
-        #     self.mainFrame.pack_forget()
-        #     self.thingFrame.pack_forget()
-        # except:
-        #     pass
-        # try:
-        #     self.tooboxInfoFrame.pack_forget()
-        #     self.welcomeFrame.pack_forget()
-        #     self.recentlyOpenedFrame.pack_forget()
-        #     self.holdROItemFrame.pack_forget()
-        # except:
-        #     pass
         
-
     def run_func(self, current):
-        print(current)
         # if current in TOPICS:
         #     return
         
@@ -298,7 +288,7 @@ class App(ttk.Frame):
         if config.currentlySelected in functionalities and config.currentlySelected != "Home":
             functionalities[config.currentlySelected](self)
         else:
-            notUsable(self)
+            infoFrame(self, config.currentlySelected)
 
         self.setup_menu()
         root.update()
