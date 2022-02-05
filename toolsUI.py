@@ -646,7 +646,7 @@ def periodicTable(self):
         temp=ttk.Label(newf, text="Period"+", "+"Group", font=(font, 10))
         temp.grid(row=1, column=0, sticky = tk.N+tk.E, padx=2)
 
-        temp=ttk.Label(newf, text="Symbol", font=(font, 15))
+        temp=ttk.Label(newf, text="Symbol", font=(font, 15, 'bold'))
         temp.grid(row=2, column=0, sticky = tk.N+tk.E, padx=2)
 
         temp=ttk.Label(newf, text="Element", font=(font, 12))
@@ -657,6 +657,12 @@ def periodicTable(self):
 
         temp=ttk.Label(newf, text="Atomic Mass" , font=(font, 10))
         temp.grid(row=5, column=0, sticky = tk.N+tk.E, padx=2)
+
+        temp=ttk.Label(newf, text="Melting Point" , font=(font, 10))
+        temp.grid(row=6, column=0, sticky = tk.N+tk.E, padx=2)
+
+        temp=ttk.Label(newf, text="Boiling Point" , font=(font, 10))
+        temp.grid(row=7, column=0, sticky = tk.N+tk.E, padx=2)
 
         newf.grid(row=0, column=0, sticky = tk.N+tk.E, padx=2)
 
@@ -671,7 +677,7 @@ def periodicTable(self):
             temp=ttk.Label(newf, text=str(int(pt.ELEMENTDATA["Period"][i]))+", "+str(int(pt.ELEMENTDATA["Group"][i])), font=(font, 10))
             temp.grid(row=1, column=0, sticky = tk.N+tk.W, padx=2)
 
-            temp=ttk.Label(newf, text=str(pt.ELEMENTDATA["Symbol"][i]), font=(font, 15))
+            temp=ttk.Label(newf, text=str(pt.ELEMENTDATA["Symbol"][i]), font=(font, 15, 'bold'))
             temp.grid(row=2, column=0, sticky = tk.N+tk.W, padx=2)
 
             temp=ttk.Label(newf, text=str(pt.ELEMENTDATA["Element"][i]), font=(font, 12))
@@ -682,6 +688,12 @@ def periodicTable(self):
 
             temp=ttk.Label(newf, text=str(pt.ELEMENTDATA["AtomicMass"][i]) , font=(font, 10))
             temp.grid(row=5, column=0, sticky = tk.N+tk.W, padx=2)
+
+            temp=ttk.Label(newf, text=str(pt.ELEMENTDATA["MeltingPoint"][i]).title() , font=(font, 10))
+            temp.grid(row=6, column=0, sticky = tk.N+tk.W, padx=2)
+
+            temp=ttk.Label(newf, text=str(pt.ELEMENTDATA["BoilingPoint"][i]).title() , font=(font, 10))
+            temp.grid(row=7, column=0, sticky = tk.N+tk.W, padx=2)
 
             newf.grid(row=0, column=r, sticky = tk.N, padx=2)
             r+=1
