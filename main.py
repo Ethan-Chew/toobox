@@ -1,4 +1,4 @@
-from pydoc_data.topics import topics
+
 from re import S
 import tkinter as tk
 from tkinter import ttk

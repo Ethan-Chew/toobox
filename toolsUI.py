@@ -500,7 +500,7 @@ def simsolver(self,column=3):
         print(col)
         self.thingFrame.pack_forget()
         self.mainFrame.pack_forget()
-        self.scrollx.pack_forget()
+        #self.scrollx.pack_forget()
         # self.newFrame.pack_forget()
         self.clearScreen()
         simsolver(self,col)
