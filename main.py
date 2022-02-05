@@ -12,6 +12,7 @@ from toolsUI import *
 from components.wrappedLabel import WrappingLabel
 import os
 from sys import platform
+import numpy as np
 
 import webbrowser
 
@@ -126,7 +127,6 @@ class App(ttk.Frame):
             else:
                 romenu.add_command(label=i, command=self.handleBackToHS)
 
-
         menubar.add_cascade(label="Recently Opened", menu=romenu)
 
     # Keybines :D
@@ -142,16 +142,10 @@ class App(ttk.Frame):
         root.bind("`", self.handleBackToHS)
 
     def handleBackToHS(self, event):
-        # print(topics)
-        # print(config.currentlySelected)
-        # print(topics.index(config.currentlySelected))
-        print(topics)
-        for item in self.treeview.selection():
-            self.treeview.selection_remove(item)
-        # self.treeview.selection_remove(topics.index(config.currentlySelected))
+        # if len(self.treeview.selection()) > 0:
+        #     self.treeview.selection_remove(self.treeview.selection()[0])
         self.showHomeScreen()
-        # self.treeview.selection_set()
-    
+
     def toggleFullScreen(self, event):
         self.fullScreen = not self.fullScreen
         root.attributes("-fullscreen", self.fullScreen)
@@ -224,7 +218,7 @@ class App(ttk.Frame):
         ## Main Home Screen Frame
         self.homeScreen = ttk.Frame(self.paned, padding=5)
         self.paned.add(self.homeScreen, weight=10)
-        self.notebook = tk.Canvas(self.homeScreen)
+        self.notebook = tk.Canvas(self.homeScreen, highlightthickness=0)
         self.notebook.pack(fill="both", expand=True)
 
         ## Sizegrip
@@ -237,7 +231,6 @@ class App(ttk.Frame):
         # Clear Right Side of the Screen
 
         try:
-            print(self.screenlist[::-1])
             for i in self.screenlist[::-1]:
                 i.pack_forget()
                 self.screenlist.pop(-1)
@@ -270,10 +263,8 @@ class App(ttk.Frame):
 
     def run_func(self, current):
         print(current)
-
-        if current in TOPICS:
-            print("yes")
-            return
+        # if current in TOPICS:
+        #     return
         
         file = open(recentlyused)
         data = json.load(file)
@@ -297,28 +288,29 @@ class App(ttk.Frame):
         with open(recentlyused, 'w') as f:
             json.dump(bruh,f)
         self.holdROItemFrame.pack_forget()
-        self.notebook.update()
+
         for ropenedItem in data:
             self.ropenedItemBtn = ttk.Button(self.holdROItemFrame, text=ropenedItem, width=30)
             self.ropenedItemBtn.pack(side="top", pady=2)
+
         self.notebook.update()
-        if config.currentlySelected in functionalities:
+
+        if config.currentlySelected in functionalities and config.currentlySelected != "Home":
             functionalities[config.currentlySelected](self)
-            # else:
-            #     # notUsable(self)
+        else:
+            notUsable(self)
+
         self.setup_menu()
         root.update()
 
     def on_tree_select(self, event):
         self.run_func(self.treeview.item(self.treeview.focus())['text'])
 
-    def updateUsername(self, event):
-        self.updateUsernameUI = ttk.Frame()
     def addframe(self,**args):
         self.screenlist.append(ttk.Frame(self.notebook,**args))
         return self.screenlist[-1]
+
     def showHomeScreen(self):
-        print(config.currentlySelected)
         config.currentlySelected = "Home"
         self.clearScreen()
         self.welcomeFrame = self.addframe()
@@ -351,7 +343,6 @@ class App(ttk.Frame):
         for i in range(len(data)):
             self.ropenedItemBtn = ttk.Button(self.holdROItemFrame, text=data[i], width=30,command=(lambda : self.run_func(data[i])))
             self.ropenedItemBtn.pack(side="top", pady=2)
-        config.currentlySelected = "Home"
 
     def _quit(self):
         root.quit()
@@ -373,7 +364,6 @@ if __name__ == "__main__":
     # Set App Icon
     # root.iconbitmap(appIconIcns)
     img = tk.Image("photo", file=appIconPng)
-    # root.iconphoto(True, img) # you may also want to try this.
     root.tk.call('wm','iconphoto', root._w, img)
 
     app = App(root)
@@ -384,14 +374,5 @@ if __name__ == "__main__":
     y_cordinate = root.winfo_screenheight()
     root.geometry("+{}+{}".format(x_cordinate, y_cordinate))
     root.state('zoomed')
-
-    # if platform == 'darwin':
-    #     from pyobjc import Foundation, objc, CoreFoundation
-    #     from Foundation import NSBundle
-    #     bundle = NSBundle.mainBundle()
-    #     if bundle:
-    #         info = bundle.localizedInfoDictionary() or bundle.infoDictionary()
-    #         if info and info['CFBundleName'] == 'Python':
-    #             info['CFBundleName'] = 'Toobox'
 
     root.mainloop()
