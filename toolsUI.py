@@ -641,24 +641,24 @@ def periodicTable(self):
             
             
         temp=ttk.Label(newf, text="Atomic Number", font=(font, 10))
-        temp.grid(row=0, column=0, sticky = tk.N, padx=2)
+        temp.grid(row=0, column=0, sticky = tk.N+tk.E, padx=2)
 
-        temp=ttk.Label(newf, text="Period"+","+"Group", font=(font, 10))
-        temp.grid(row=1, column=0, sticky = tk.N, padx=2)
+        temp=ttk.Label(newf, text="Period"+", "+"Group", font=(font, 10))
+        temp.grid(row=1, column=0, sticky = tk.N+tk.E, padx=2)
 
         temp=ttk.Label(newf, text="Symbol", font=(font, 15))
-        temp.grid(row=2, column=0, sticky = tk.N, padx=2)
+        temp.grid(row=2, column=0, sticky = tk.N+tk.E, padx=2)
 
         temp=ttk.Label(newf, text="Element", font=(font, 12))
-        temp.grid(row=3, column=0, sticky = tk.N, padx=2)
+        temp.grid(row=3, column=0, sticky = tk.N+tk.E, padx=2)
 
         temp=ttk.Label(newf, text=", ".join(["Protons","Neutrons","Electrons"]), font=(font, 10))
-        temp.grid(row=4, column=0, sticky = tk.N, padx=2)
+        temp.grid(row=4, column=0, sticky = tk.N+tk.E, padx=2)
 
         temp=ttk.Label(newf, text="Atomic Mass" , font=(font, 10))
-        temp.grid(row=5, column=0, sticky = tk.N, padx=2)
+        temp.grid(row=5, column=0, sticky = tk.N+tk.E, padx=2)
 
-        newf.grid(row=0, column=0, sticky = tk.N, padx=2)
+        newf.grid(row=0, column=0, sticky = tk.N+tk.E, padx=2)
 
         r=1
         for i in l:
@@ -666,27 +666,28 @@ def periodicTable(self):
             
             
             temp=ttk.Label(newf, text=int(pt.ELEMENTDATA["AtomicNumber"][i]), font=(font, 10))
-            temp.grid(row=0, column=0, sticky = tk.N, padx=2)
+            temp.grid(row=0, column=0, sticky = tk.N+tk.W, padx=2)
 
-            temp=ttk.Label(newf, text=str(pt.ELEMENTDATA["Period"][i])+","+str(pt.ELEMENTDATA["Group"][i]), font=(font, 10))
-            temp.grid(row=1, column=0, sticky = tk.N, padx=2)
+            temp=ttk.Label(newf, text=str(int(pt.ELEMENTDATA["Period"][i]))+", "+str(int(pt.ELEMENTDATA["Group"][i])), font=(font, 10))
+            temp.grid(row=1, column=0, sticky = tk.N+tk.W, padx=2)
 
             temp=ttk.Label(newf, text=str(pt.ELEMENTDATA["Symbol"][i]), font=(font, 15))
-            temp.grid(row=2, column=0, sticky = tk.N, padx=2)
+            temp.grid(row=2, column=0, sticky = tk.N+tk.W, padx=2)
 
             temp=ttk.Label(newf, text=str(pt.ELEMENTDATA["Element"][i]), font=(font, 12))
-            temp.grid(row=3, column=0, sticky = tk.N, padx=2)
+            temp.grid(row=3, column=0, sticky = tk.N+tk.W, padx=2)
 
-            temp=ttk.Label(newf, text=", ".join([str(pt.ELEMENTDATA[j][i]) for j in ["Protons","Neutrons","Electrons"]]), font=(font, 10))
-            temp.grid(row=4, column=0, sticky = tk.N, padx=2)
+            temp=ttk.Label(newf, text=", ".join([str(int(pt.ELEMENTDATA[j][i])) for j in ["Protons","Neutrons","Electrons"]]), font=(font, 10))
+            temp.grid(row=4, column=0, sticky = tk.N+tk.W, padx=2)
 
             temp=ttk.Label(newf, text=str(pt.ELEMENTDATA["AtomicMass"][i]) , font=(font, 10))
-            temp.grid(row=5, column=0, sticky = tk.N, padx=2)
+            temp.grid(row=5, column=0, sticky = tk.N+tk.W, padx=2)
 
             newf.grid(row=0, column=r, sticky = tk.N, padx=2)
             r+=1
                 
-        self.resFrame.grid(row=1, column=len(l)+1, rowspan=10, columnspan=10,pady=10, padx=2)
+        # self.resFrame.grid(row=1, column=len(l)+1, rowspan=10, columnspan=10,pady=10, padx=2)
+        self.resFrame.grid(row=1, column=0, rowspan=len(l)+1, columnspan=10,pady=10, padx=2)
 
     # User Interface
     self.thingFrame = self.addframe()
@@ -701,7 +702,7 @@ def periodicTable(self):
     self.inputField = ttk.Entry(self.mainFrame, width=50, font=(font, 12))
     self.inputField.insert(0, "H")
     self.inputField.grid(row=0, column=0)
-    self.sendData = ttk.Button(self.mainFrame, text="Solve", style='Accent.TButton', command=lambda: getInputs(self))
-    self.sendData.grid(row=0, column=1,pady=10, padx=2)
+    self.sendData = ttk.Button(self.mainFrame, text="Search", style='Accent.TButton', command=lambda: getInputs(self))
+    self.sendData.grid(row=0, column=1,pady=10, padx=2, sticky = tk.W)
     self.resFrame = ttk.Frame(self.mainFrame)
     self.resFrame.grid(row=1, column=0, rowspan=10, columnspan=10,pady=10, padx=2)
