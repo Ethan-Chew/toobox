@@ -1,12 +1,12 @@
 
-from select import select
+
 import string
 
 import tkinter as tk
 from tkinter import ttk
 import re
 
-from sympy import root
+
 from tools import snake
 from tools import areaCalculation
 from tools.circleEqn import circle_equation

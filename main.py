@@ -75,7 +75,7 @@ treeview_data = [
                     (38, 39, "Circle Properties"),
                     (38, 40, "Equation of Circle"),
         ]
-# topics=[treeview_data[i-1][2] for i in [1,6,8,16,15,23,34,24,29]] # Add Items into Treeview
+TOPICS=[treeview_data[i-1][2] for i in [1,6,8,16,15,23,34,24,29]] # Add Items into Treeview
 topics = []
 
 class App(ttk.Frame):
@@ -231,12 +231,20 @@ class App(ttk.Frame):
         
     def clearScreen(self): 
         # Clear Right Side of the Screen
+
         try:
             for i in self.screenlist[::-1]:
                 i.pack_forget()
                 self.screenlist=self.screenlist[:-1]
         except:
             pass
+        try:
+            for i in self.screenlist[::-1]:
+                i.place_forget()
+                self.screenlist=self.screenlist[:-1]
+        except:
+            pass
+        
         # try:
         #     self.mainFrame.pack_forget()
         #     self.thingFrame.pack_forget()
@@ -252,6 +260,12 @@ class App(ttk.Frame):
         
 
     def run_func(self, current):
+        print(current)
+
+        if current in TOPICS:
+            print("yes")
+            return
+        
         file = open(recentlyused)
         data = json.load(file)
         file.close()
