@@ -22,7 +22,7 @@ _If you are curious, visit config.py and change aSecret to True. (But, Curiousit
 ## Keybinds
 Toobox includes various keybinds to help make your life easier
 1. **Full Screen**
-    - 'Shift + \', 'F11 (Function Key)' to go Full Screen
+    - 'Shift + \\', 'F11 (Function Key)' to go Full Screen
     - 'Escape' to exit Full Screen
 2. **Back to Home Page**
     - '`' to go back to the Home Screen
