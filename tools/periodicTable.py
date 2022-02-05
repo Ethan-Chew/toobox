@@ -157,6 +157,8 @@ def get_elements(data):
 
     
 def search(st):
+    if st=="":
+        return []
     # cool stuff P## to search protons E## to search electrons N## to search neutrons
     global ELEMENTDATA
     data=ELEMENTDATA
