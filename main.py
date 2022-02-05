@@ -314,8 +314,10 @@ class App(ttk.Frame):
 
     def updateUsername(self, event):
         self.updateUsernameUI = ttk.Frame()
-    def addframe(self,**args):
-        self.screenlist.append(ttk.Frame(self.notebook,**args))
+    def addframe(self,frame="",**args):
+        if frame == "":
+            frame=self.notebook
+        self.screenlist.append(ttk.Frame(frame,**args))
         return self.screenlist[-1]
     def showHomeScreen(self):
         print(config.currentlySelected)

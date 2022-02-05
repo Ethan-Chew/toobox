@@ -20,6 +20,7 @@ from tools.saltSolubilities import saltSolubilities
 from tools.solveQuad import solveQuad
 from tools.areaCalculation import *
 from tools.sim_eqn import *
+import tools.periodicTable as pt
 import math
 font="TkDefaultFont"
 
@@ -630,21 +631,64 @@ def SolveCircle(self):
 
     def setFinalResult(self, result):
         self.resultTxt = ttk.Label(self.mainFrame, text="Result:  {}".format(result), font=(font, 20))
-        self.resultTxt.grid(row=3, columnspan = 2, sticky = tk.W+tk.E, padx=2)
+        self.resultTxt.grid(row=3, columnspan = 2, sticky = tk.W+tk.N, padx=2)
 
 def periodicTable(self):
     def getInputs(self):
         self.resFrame.destroy()
-        self.resFrame = ttk.Frame(self.mainFrame)
-        e = self.inputField.get()
-        element = Element(e)
-        result = element.properties
-        rr = 0
-        for i in result.keys():
-            self.resultTxt = ttk.Label(self.resFrame, text="{}: {}".format(i, result[i]), font=(font, 20))
-            self.resultTxt.pack(anchor="nw", side="top", fill="x", pady=2, padx=2, expand="yes")
-            rr+=1
-        self.resFrame.grid(row=1, column=0, rowspan=10, columnspan=10,pady=10, padx=2)
+        self.resFrame = self.addframe(self.mainFrame)
+        e = self.inputField.get().replace(" ", "")
+        l=pt.search(e)[:5]
+        newf=self.addframe(self.resFrame,borderwidth=1)
+            
+            
+        temp=ttk.Label(newf, text="Atomic Number", font=(font, 10))
+        temp.grid(row=0, column=0, sticky = tk.N, padx=2)
+
+        temp=ttk.Label(newf, text="Period"+","+"Group", font=(font, 10))
+        temp.grid(row=1, column=0, sticky = tk.N, padx=2)
+
+        temp=ttk.Label(newf, text="Symbol", font=(font, 15))
+        temp.grid(row=2, column=0, sticky = tk.N, padx=2)
+
+        temp=ttk.Label(newf, text="Element", font=(font, 12))
+        temp.grid(row=3, column=0, sticky = tk.N, padx=2)
+
+        temp=ttk.Label(newf, text=", ".join(["Protons","Neutrons","Electrons"]), font=(font, 10))
+        temp.grid(row=4, column=0, sticky = tk.N, padx=2)
+
+        temp=ttk.Label(newf, text="Atomic Mass" , font=(font, 10))
+        temp.grid(row=5, column=0, sticky = tk.N, padx=2)
+
+        newf.grid(row=0, column=0, sticky = tk.N, padx=2)
+
+        r=1
+        for i in l:
+            newf=self.addframe(self.resFrame,borderwidth=1)
+            
+            
+            temp=ttk.Label(newf, text=int(pt.ELEMENTDATA["AtomicNumber"][i]), font=(font, 10))
+            temp.grid(row=0, column=0, sticky = tk.N, padx=2)
+
+            temp=ttk.Label(newf, text=str(pt.ELEMENTDATA["Period"][i])+","+str(pt.ELEMENTDATA["Group"][i]), font=(font, 10))
+            temp.grid(row=1, column=0, sticky = tk.N, padx=2)
+
+            temp=ttk.Label(newf, text=str(pt.ELEMENTDATA["Symbol"][i]), font=(font, 15))
+            temp.grid(row=2, column=0, sticky = tk.N, padx=2)
+
+            temp=ttk.Label(newf, text=str(pt.ELEMENTDATA["Element"][i]), font=(font, 12))
+            temp.grid(row=3, column=0, sticky = tk.N, padx=2)
+
+            temp=ttk.Label(newf, text=", ".join([str(pt.ELEMENTDATA[j][i]) for j in ["Protons","Neutrons","Electrons"]]), font=(font, 10))
+            temp.grid(row=4, column=0, sticky = tk.N, padx=2)
+
+            temp=ttk.Label(newf, text=str(pt.ELEMENTDATA["AtomicMass"][i]) , font=(font, 10))
+            temp.grid(row=5, column=0, sticky = tk.N, padx=2)
+
+            newf.grid(row=0, column=r, sticky = tk.N, padx=2)
+            r+=1
+                
+        self.resFrame.grid(row=1, column=len(l)+1, rowspan=10, columnspan=10,pady=10, padx=2)
 
     # User Interface
     self.thingFrame = self.addframe()
