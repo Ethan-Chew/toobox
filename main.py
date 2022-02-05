@@ -141,12 +141,15 @@ class App(ttk.Frame):
         root.bind("`", self.handleBackToHS)
 
     def handleBackToHS(self, event):
-        # self.treeview.selection_clear()
         # print(topics)
         # print(config.currentlySelected)
         # print(topics.index(config.currentlySelected))
+        print(topics)
+        for item in self.treeview.selection():
+            self.treeview.selection_remove(item)
         # self.treeview.selection_remove(topics.index(config.currentlySelected))
         self.showHomeScreen()
+        # self.treeview.selection_set()
     
     def toggleFullScreen(self, event):
         self.fullScreen = not self.fullScreen
@@ -186,8 +189,8 @@ class App(ttk.Frame):
 
         # Config Treeview Style
         style = ttk.Style()
-        style.configure('MainUI.Treeview',font=("TkDefaultFont",12))
-        style.configure('MainUI.Treeview.Heading',font=("TkDefaultFont",16, "bold"))
+        # style.configure('MainUI.Treeview',font=("TkDefaultFont",12))
+        # style.configure('MainUI.Treeview.Heading',font=("TkDefaultFont",16, "bold"))
 
         # Treeview
         self.treeview = ttk.Treeview(
@@ -232,6 +235,7 @@ class App(ttk.Frame):
     def clearScreen(self): 
         # Clear Right Side of the Screen
         try:
+            print(self.screenlist[::-1])
             for i in self.screenlist[::-1]:
                 i.pack_forget()
                 self.screenlist=self.screenlist[:-1]
@@ -279,14 +283,10 @@ class App(ttk.Frame):
             self.ropenedItemBtn = ttk.Button(self.holdROItemFrame, text=ropenedItem, width=30)
             self.ropenedItemBtn.pack(side="top", pady=2)
         self.notebook.update()
-        if config.currentlySelected != "Home":
-            if config.currentlySelected in functionalities:
-                functionalities[config.currentlySelected](self)
-            else:
-                notUsable(self)
-        else:
-            self.showHomeScreen()
-            self.notebook.update()
+        if config.currentlySelected in functionalities:
+            functionalities[config.currentlySelected](self)
+            # else:
+            #     # notUsable(self)
         self.setup_menu()
         root.update()
 
@@ -299,9 +299,9 @@ class App(ttk.Frame):
         self.screenlist.append(ttk.Frame(self.notebook,**args))
         return self.screenlist[-1]
     def showHomeScreen(self):
+        print(config.currentlySelected)
+        config.currentlySelected = "Home"
         self.clearScreen()
-        # self.treeview.selection_set()
-        
         self.welcomeFrame = self.addframe()
         self.welcomeFrame.pack(side="top", padx=25, pady=18, anchor="w")
         self.helloUserLab = WrappingLabel(self.welcomeFrame,text="Hello, {}".format(config.username), font=("TkDefaultFont",50,'bold'))
@@ -332,6 +332,7 @@ class App(ttk.Frame):
         for i in range(len(data)):
             self.ropenedItemBtn = ttk.Button(self.holdROItemFrame, text=data[i], width=30,command=(lambda : self.run_func(data[i])))
             self.ropenedItemBtn.pack(side="top", pady=2)
+        config.currentlySelected = "Home"
 
     def _quit(self):
         root.quit()
