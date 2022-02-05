@@ -5,7 +5,6 @@ from tkinter import ttk
 import os
 from tkinter import font
 import json
-from turtle import clearscreen
 from PIL import ImageTk, Image
 from tkinter import Menu
 import config
@@ -185,12 +184,17 @@ class App(ttk.Frame):
         self.scrollbar = ttk.Scrollbar(self.pane_1)
         self.scrollbar.pack(side="right", fill="y")
 
+        # Config Treeview Style
+        style = ttk.Style()
+        style.configure('MainUI.Treeview',font=("TkDefaultFont",12))
+        style.configure('MainUI.Treeview.Heading',font=("TkDefaultFont",16, "bold"))
+
         # Treeview
         self.treeview = ttk.Treeview(
             self.pane_1,
             selectmode="browse",
             yscrollcommand=self.scrollbar.set,
-            style="tbstyles.Treeview"
+            style="MainUI.Treeview"
         )
 
         self.treeview.bind("<<TreeviewSelect>>", self.on_tree_select)
@@ -258,11 +262,13 @@ class App(ttk.Frame):
 
         self.clearScreen()
 
-        if (len(data) < 10):
+        # First in First out
+        if (len(data) < 3):
             if config.currentlySelected not in data:
-                data=[config.currentlySelected] + data
+                data.insert(0, config.currentlySelected)
         else:
-            data = [config.currentlySelected] + data[:-1]
+            data.insert(0, config.currentlySelected)
+            data.pop(2)
 
         bruh['recentlyOpened'] = data
         with open(recentlyused, 'w') as f:
@@ -276,7 +282,7 @@ class App(ttk.Frame):
         if config.currentlySelected != "Home":
             if config.currentlySelected in functionalities:
                 functionalities[config.currentlySelected](self)
-            elif not config.currentlySelected in topics:
+            else:
                 notUsable(self)
         else:
             self.showHomeScreen()
@@ -306,7 +312,7 @@ class App(ttk.Frame):
         self.widthOfTooboxInfo = 200
         self.tooboxInfoFrame = self.addframe(width=self.widthOfTooboxInfo)
         self.tooboxInfoFrame.pack(side="left", padx=25, pady=18, anchor="w")
-        appIconImg = ImageTk.PhotoImage(Image.open(appIconPng).resize((self.widthOfTooboxInfo-40,self.widthOfTooboxInfo-40), Image.ANTIALIAS))
+        appIconImg = ImageTk.PhotoImage(Image.open(appIconPng).resize((self.widthOfTooboxInfo-20,self.widthOfTooboxInfo-20), Image.ANTIALIAS))
         self.imgPanel = WrappingLabel(self.tooboxInfoFrame, image=appIconImg)
         self.imgPanel.image = appIconImg
         self.appDescText = WrappingLabel(self.tooboxInfoFrame, font=(17), wraplength=self.widthOfTooboxInfo, justify="left" ,text="Toobox is an app is a Toolbox of different tools to help in your Academics. Toobox provides various tools for a wide range of topics and subjects that will definately help you while revising and studying.")
@@ -323,8 +329,8 @@ class App(ttk.Frame):
         self.screenlist.append(ttk.Frame(self.recentlyOpenedFrame))
         self.holdROItemFrame = self.screenlist[-1]
         self.holdROItemFrame.pack(side="top")
-        for ropenedItem in data[:3]:
-            self.ropenedItemBtn = ttk.Button(self.holdROItemFrame, text=ropenedItem, width=30,command=(lambda : self.run_func(ropenedItem)))
+        for i in range(len(data)):
+            self.ropenedItemBtn = ttk.Button(self.holdROItemFrame, text=data[i], width=30,command=(lambda : self.run_func(data[i])))
             self.ropenedItemBtn.pack(side="top", pady=2)
 
     def _quit(self):
