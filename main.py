@@ -22,7 +22,7 @@ recentlyused=os.path.join(ROOTDIR,".recentlyOpened.json")
 appIconIcon = os.path.join(ROOTDIR,'src','images','AppIcon.ico')
 appIconIcns = os.path.join(ROOTDIR,'src','images','AppIcon.icns')
 appIconPng = os.path.join(ROOTDIR,'src','images','AppIcon.png')
-
+_recentlength=10
 # Variables
 functionalities = {
             "Chemical Equation" :   ChemicalEquation,
@@ -267,12 +267,12 @@ class App(ttk.Frame):
         self.clearScreen()
 
         # First in First out
-        if (len(data) < 3):
+        if (len(data) <= _recentlength):
             if config.currentlySelected not in data:
                 data.insert(0, config.currentlySelected)
         else:
             data.insert(0, config.currentlySelected)
-            data.pop(2)
+            data.pop(_recentlength-1)
 
         bruh['recentlyOpened'] = data
         with open(recentlyused, 'w') as f:
@@ -334,7 +334,7 @@ class App(ttk.Frame):
         self.screenlist.append(ttk.Frame(self.recentlyOpenedFrame))
         self.holdROItemFrame = self.screenlist[-1]
         self.holdROItemFrame.pack(side="top")
-        for i in range(len(data)):
+        for i in range(len(data[:3])):
             self.ropenedItemBtn = ttk.Button(self.holdROItemFrame, text=data[i], width=30,command=(lambda : self.run_func(data[i])))
             self.ropenedItemBtn.pack(side="top", pady=2)
 
