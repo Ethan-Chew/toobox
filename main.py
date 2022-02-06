@@ -86,7 +86,7 @@ class App(ttk.Frame):
         # aSecret :) hehehehe
         if config.aSecret:
             f()
-            
+        self.check_recently_opened()
         # Initalize the app
         ttk.Frame.__init__(self)
         self.setup_menu()
@@ -97,7 +97,23 @@ class App(ttk.Frame):
         self.fullScreenBindings()
         self.goHome()
         config.currentlySelected = "Home"
-        
+    def check_recently_opened(self):
+        if os.path.exists(recentlyused):
+            file = open(recentlyused)
+            try:
+                data = json.load(file)
+                file.close()
+                if type(data["recentlyOpened"]) == list:
+                    return 
+            except:
+                file.close()
+                file = open(recentlyused, 'w')
+                json.dump({'recentlyOpened':[]}, file)
+                file.close()
+        else:
+            file = open(recentlyused, 'w')
+            json.dump({'recentlyOpened':[]}, file)
+            file.close()
     def change_theme(self):
         if root.tk.call("ttk::style", "theme", "use") == "sun-valley-dark":
             # Set light theme
