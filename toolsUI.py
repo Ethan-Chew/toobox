@@ -668,14 +668,23 @@ def periodicTable(self):
             temp=WrappingLabel(newf, text="Type" , font=(font, 10))
             temp.grid(row=13, column=0, sticky = tk.N+tk.E, padx=2)
 
-            temp=WrappingLabel(newf, text="Density" , font=(font, 10))
+            temp=WrappingLabel(newf, text="Radioactive" , font=(font, 10))
             temp.grid(row=14, column=0, sticky = tk.N+tk.E, padx=2)
 
-            temp=WrappingLabel(newf, text="Electronegativity" , font=(font, 10))
+            temp=WrappingLabel(newf, text="Natural" , font=(font, 10))
             temp.grid(row=15, column=0, sticky = tk.N+tk.E, padx=2)
 
-            temp=WrappingLabel(newf, text="First Ionisation Energy" , font=(font, 10))
+            temp=WrappingLabel(newf, text="Density" , font=(font, 10))
             temp.grid(row=16, column=0, sticky = tk.N+tk.E, padx=2)
+
+            temp=WrappingLabel(newf, text="Electronegativity" , font=(font, 10))
+            temp.grid(row=17, column=0, sticky = tk.N+tk.E, padx=2)
+
+            temp=WrappingLabel(newf, text="First Ionisation Energy" , font=(font, 10))
+            temp.grid(row=18, column=0, sticky = tk.N+tk.E, padx=2)
+
+            temp=WrappingLabel(newf, text="Specific Heat Capacity / J⋅kg⁻¹⋅K⁻¹" , font=(font, 10))
+            temp.grid(row=19, column=0, sticky = tk.N+tk.E, padx=2)
 
             newf.grid(row=0, column=0, sticky = tk.N+tk.E, padx=2)
 
@@ -730,15 +739,24 @@ def periodicTable(self):
                 temp=WrappingLabel(newf, text=str(pt.ELEMENTDATA["Type"][i]).title(), font=(font, 10))
                 temp.grid(row=13, column=0, sticky = tk.N+tk.W, padx=2)
 
-                temp=WrappingLabel(newf, text=str(pt.ELEMENTDATA["Density"][i]).title(), font=(font, 10))
+                temp=WrappingLabel(newf, text="Yes" if pt.ELEMENTDATA["Radioactive"][i] else "No", font=(font, 10))
                 temp.grid(row=14, column=0, sticky = tk.N+tk.W, padx=2)
+
+                temp=WrappingLabel(newf, text="Yes" if pt.ELEMENTDATA["Natural"][i] else "No", font=(font, 10))
+                temp.grid(row=15, column=0, sticky = tk.N+tk.W, padx=2)
+
+                temp=WrappingLabel(newf, text=str(pt.ELEMENTDATA["Density"][i]).title(), font=(font, 10))
+                temp.grid(row=16, column=0, sticky = tk.N+tk.W, padx=2)
 
                 e = str(pt.ELEMENTDATA["Electronegativity"][i]).title()
                 temp=WrappingLabel(newf, text=e if e.replace('.','',1).isdigit() else "-", font=(font, 10))
-                temp.grid(row=15, column=0, sticky = tk.N+tk.W, padx=2)
+                temp.grid(row=17, column=0, sticky = tk.N+tk.W, padx=2)
 
                 temp=WrappingLabel(newf, text=str(pt.ELEMENTDATA["FirstIonization"][i]).title(), font=(font, 10))
-                temp.grid(row=16, column=0, sticky = tk.N+tk.W, padx=2)
+                temp.grid(row=18, column=0, sticky = tk.N+tk.W, padx=2)
+
+                temp=WrappingLabel(newf, text=str(pt.ELEMENTDATA["SpecificHeat"][i]).title(), font=(font, 10))
+                temp.grid(row=19, column=0, sticky = tk.N+tk.W, padx=2)
 
                 newf.grid(row=0, column=r, sticky = tk.N, padx=2)
                 r+=1
