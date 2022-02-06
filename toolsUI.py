@@ -655,14 +655,20 @@ def periodicTable(self):
         temp=ttk.Label(newf, text=", ".join(["Protons","Neutrons","Electrons"]), font=(font, 10))
         temp.grid(row=4, column=0, sticky = tk.N+tk.E, padx=2)
 
-        temp=ttk.Label(newf, text="Atomic Mass" , font=(font, 10))
+        temp=ttk.Label(newf, text="Isotopes" , font=(font, 10))
         temp.grid(row=5, column=0, sticky = tk.N+tk.E, padx=2)
 
-        temp=ttk.Label(newf, text="Melting Point" , font=(font, 10))
+        temp=ttk.Label(newf, text="Atomic Mass" , font=(font, 10))
         temp.grid(row=6, column=0, sticky = tk.N+tk.E, padx=2)
 
-        temp=ttk.Label(newf, text="Boiling Point" , font=(font, 10))
+        temp=ttk.Label(newf, text=" ".join(["[{}]".format("Phase"), ", ".join(["Melting Point", "Boiling Point"])]), font=(font, 10))
         temp.grid(row=7, column=0, sticky = tk.N+tk.E, padx=2)
+
+        temp=ttk.Label(newf, text="Type" , font=(font, 10))
+        temp.grid(row=8, column=0, sticky = tk.N+tk.E, padx=2)
+
+        temp=ttk.Label(newf, text="Density" , font=(font, 10))
+        temp.grid(row=9, column=0, sticky = tk.N+tk.E, padx=2)
 
         newf.grid(row=0, column=0, sticky = tk.N+tk.E, padx=2)
 
@@ -686,14 +692,21 @@ def periodicTable(self):
             temp=ttk.Label(newf, text=", ".join([str(int(pt.ELEMENTDATA[j][i])) for j in ["Protons","Neutrons","Electrons"]]), font=(font, 10))
             temp.grid(row=4, column=0, sticky = tk.N+tk.W, padx=2)
 
-            temp=ttk.Label(newf, text=str(pt.ELEMENTDATA["AtomicMass"][i]) , font=(font, 10))
+            iso = str(pt.ELEMENTDATA["Isotopes"][i])
+            temp=ttk.Label(newf, text=str(int(float(iso))) if iso.replace('.','',1).isdigit() else "-", font=(font, 10))
             temp.grid(row=5, column=0, sticky = tk.N+tk.W, padx=2)
 
-            temp=ttk.Label(newf, text=str(pt.ELEMENTDATA["MeltingPoint"][i]).title() , font=(font, 10))
+            temp=ttk.Label(newf, text=str(pt.ELEMENTDATA["AtomicMass"][i]) , font=(font, 10))
             temp.grid(row=6, column=0, sticky = tk.N+tk.W, padx=2)
 
-            temp=ttk.Label(newf, text=str(pt.ELEMENTDATA["BoilingPoint"][i]).title() , font=(font, 10))
+            temp=ttk.Label(newf, text=" ".join(["[{}]".format(str(pt.ELEMENTDATA["Phase"][i]).title()), ", ".join([str(pt.ELEMENTDATA["MeltingPoint"][i]).title(), str(pt.ELEMENTDATA["BoilingPoint"][i]).title()])]), font=(font, 10))
             temp.grid(row=7, column=0, sticky = tk.N+tk.W, padx=2)
+
+            temp=ttk.Label(newf, text=str(pt.ELEMENTDATA["Type"][i]).title(), font=(font, 10))
+            temp.grid(row=8, column=0, sticky = tk.N+tk.W, padx=2)
+
+            temp=ttk.Label(newf, text=str(pt.ELEMENTDATA["Density"][i]).title(), font=(font, 10))
+            temp.grid(row=9, column=0, sticky = tk.N+tk.W, padx=2)
 
             newf.grid(row=0, column=r, sticky = tk.N, padx=2)
             r+=1
