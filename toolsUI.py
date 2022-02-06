@@ -507,6 +507,8 @@ def simsolver(self,column=3):
     ttk.Button(self.mainFrame, text="Add Var", style='Accent.TButton', command=(lambda: rese(self,min(column+1,25))),width=10).grid(row=row+2, column=0,pady=2, padx=2)
     if column>3:
         ttk.Button(self.mainFrame, text="Remove Var", style='Accent.TButton', command=(lambda: rese(self,max(column-1,3))),width=10).grid(row=row+2, column=2,pady=2, padx=2)
+    else:
+        ttk.Button(self.mainFrame, text="Remove Var", style='Accent.TButton', command=(lambda: rese(self,max(column-1,3))),width=10,state=tk.DISABLED).grid(row=row+2, column=2,pady=2, padx=2)
 
 def triangle(self):
     self.thingFrame = self.addframe()

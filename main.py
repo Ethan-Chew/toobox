@@ -1,4 +1,4 @@
-
+import time
 from re import S
 import tkinter as tk
 from tkinter import ttk
@@ -335,7 +335,11 @@ class App(ttk.Frame):
         self.holdROItemFrame = self.screenlist[-1]
         self.holdROItemFrame.pack(side="top")
         for i in range(len(data[:3])):
-            self.ropenedItemBtn = ttk.Button(self.holdROItemFrame, text=data[i], width=30,command=(lambda : self.run_func(data[i])))
+
+            temp=str(data[i])
+            def test(x=temp):
+                return self.run_func(str(x))
+            self.ropenedItemBtn = ttk.Button(self.holdROItemFrame, text=temp, width=30,command=test)
             self.ropenedItemBtn.pack(side="top", pady=2)
 
     def _quit(self):
