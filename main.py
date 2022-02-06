@@ -147,8 +147,8 @@ class App(ttk.Frame):
             self.treeview.selection_remove(self.treeview.selection()[0])
 
     def handleBackToHS(self, event):
-        self.removeSelectedTreeView()
-        root.after(10, self.showHomeScreen())
+        # self.removeSelectedTreeView()
+        self.showHomeScreen()
 
     def toggleFullScreen(self, event):
         self.fullScreen = not self.fullScreen
@@ -335,7 +335,6 @@ class App(ttk.Frame):
         self.holdROItemFrame = self.screenlist[-1]
         self.holdROItemFrame.pack(side="top")
         for i in range(len(data[:3])):
-
             temp=str(data[i])
             def test(x=temp):
                 return self.run_func(str(x))

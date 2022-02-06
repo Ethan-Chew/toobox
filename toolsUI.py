@@ -55,7 +55,7 @@ def ChemicalEquation(self):
     self.sendData.grid(row=1, column=0,pady=10, padx=2)
 
     def setFinalResult(self, result):
-        self.resultTxt = ttk.Label(self.mainFrame, text="Result:  {}".format(result), font=(font, 20))
+        self.resultTxt = WrappingLabel(self.mainFrame, text="Result:  {}".format(result), font=(font, 20))
         self.resultTxt.grid(row=3, columnspan = 2, sticky = tk.W+tk.E, padx=2)
 
 def infoFrame(self, lblText):
@@ -101,7 +101,7 @@ def Parallelogram(self):
     self.sendData.grid(row=2, column=1, pady=10, padx=2, sticky="w")
 
     def setFinalResult(self, result):
-        self.resultTxt = ttk.Label(self.mainFrame, text="Result:  {}".format(result), font=(font, 20))
+        self.resultTxt = WrappingLabel(self.mainFrame, text="Result:  {}".format(result), font=(font, 20))
         self.resultTxt.grid(row=3,column=1,padx=2,columnspan=4, sticky="w")
 
 def Trapezium(self):
@@ -140,7 +140,7 @@ def Trapezium(self):
     self.sendData.grid(row=3, column=1, pady=10, padx=2, sticky="w")
 
     def setFinalResult(self, result):
-        self.resultTxt = ttk.Label(self.mainFrame, text="Result:  {}".format(result), font=(font, 20))
+        self.resultTxt = WrappingLabel(self.mainFrame, text="Result:  {}".format(result), font=(font, 20))
         self.resultTxt.grid(row=4,column=1,padx=2,columnspan=4, sticky="w")
 
 def Rectangle(self):
@@ -152,7 +152,6 @@ def Rectangle(self):
         answer = "Ensure that both values, i.e. Breadth/Width and Length, or Length, are/is numerical"
         length = str(self.lengthEntry.get())
         breadth = str(self.breadthEntry.get())
-        print(re.search("^\d+\.{0,1}\d{0,1}$", length))
         if re.search("^\d+\.{0,1}\d{0,1}$", length) and re.search("^\d+\.{0,1}\d{0,1}$", breadth):
             if self.typebox.get() == "Rectangle":
                 answer = float(length)*float(breadth)
@@ -180,8 +179,6 @@ def Rectangle(self):
     self.sendData.grid(row=3, column=1, pady=10, padx=2, sticky="w")
 
     def changeTypebox(self):
-        print("heheh")
-        print(self.typebox.get())
         if self.typebox.get() == "Square":
             self.breadthTxt.forget()
             self.breadthEntry.forget()
@@ -196,7 +193,7 @@ def Rectangle(self):
     self.typebox.current(0)
     self.typebox.grid(row=0, column=1, padx=2, sticky="w")
     def setFinalResult(self, result):
-        self.resultTxt = ttk.Label(self.mainFrame, text="Result:  {}".format(result), font=(font, 20))
+        self.resultTxt = WrappingLabel(self.mainFrame, text="Result:  {}".format(result), font=(font, 20))
         self.resultTxt.grid(row=4,column=1,padx=2,columnspan=4, sticky="w")
 
 def Circle(self):
@@ -210,12 +207,9 @@ def Circle(self):
         c = str(self.re.get())
         a = str(self.angle.get())
         if ((True if str(type(re.search("^\d+\.{0,1}\d{0,1}$", r))) != "<class 'NoneType'>" else False) ^ (True if str(type(re.search("^\d+\.{0,1}\d{0,1}$", c))) != "<class 'NoneType'>" else False)) or (type(re.search("^\d+\.{0,1}\d{0,1}$", r)) and type(re.search("^\d+\.{0,1}\d{0,1}$", a))):
-            print("yes")
             if re.search("^\d+\.{0,1}\d{0,1}$", r):
-                print("uwu")
                 answer = circle(r)
             elif re.search("^\d+\.{0,1}\d{0,1}$", c):
-                print("hmm")
                 answer = circle(float(c)/math.pi/float(2))
                 if self.typebox.get() == "Semicircle":
                     answer = float(answer)/float(2)
@@ -253,7 +247,7 @@ def Circle(self):
     self.sendData.grid(row=4, column=1, pady=10, padx=2, sticky="w")
 
     def setFinalResult(self, result):
-        self.resultTxt = ttk.Label(self.mainFrame, text="Result:  {}".format(result), font=(font, 20))
+        self.resultTxt = WrappingLabel(self.mainFrame, text="Result:  {}".format(result), font=(font, 20))
         self.resultTxt.grid(row=5,column=1,padx=2,columnspan=4, sticky="w")
 
 
@@ -282,7 +276,7 @@ def IonicEqn(self):
     self.sendData.grid(row=1, column=0,pady=10, padx=2)
 
     def setFinalResult(self, result):
-        self.resultTxt = ttk.Label(self.mainFrame, text="Result:  {}".format(result), font=(font, 20))
+        self.resultTxt = WrappingLabel(self.mainFrame, text="Result:  {}".format(result), font=(font, 20))
         self.resultTxt.grid(row=3, columnspan = 2, sticky = tk.W+tk.E, padx=2)
 
 def SaltSolubility(self):
@@ -314,7 +308,7 @@ def SaltSolubility(self):
     self.sendData.grid(row=1, column=0,pady=10, padx=2)
 
     def setFinalResult(self, result):
-        self.resultTxt = ttk.Label(self.mainFrame, text="Result:  {}".format(result), font=(font, 20))
+        self.resultTxt = WrappingLabel(self.mainFrame, text="Result:  {}".format(result), font=(font, 20))
         self.resultTxt.grid(row=3, columnspan = 2, sticky = tk.W+tk.E, padx=2)
 
 def calculate(self):
@@ -327,7 +321,6 @@ def calculate(self):
             if i!=" ":
                 final+=i
         try:
-            print(final)
             codeReturned = str(calculator().sol(final)[0].num) # Could return error/final value
         except:
             codeReturned="error"
@@ -357,7 +350,7 @@ def calculate(self):
             self.resultTxt.packforget()
         except:
             pass
-        self.resultTxt = ttk.Label(self.mainFrame, text="Result:  {}".format(result), font=(font, 20))
+        self.resultTxt = WrappingLabel(self.mainFrame, text="Result:  {}".format(result), font=(font, 20))
         self.resultTxt.grid(row=3, columnspan = 2, sticky = tk.W+tk.E, padx=2)
 
 def SolveQuad(self):
@@ -387,21 +380,19 @@ def SolveQuad(self):
     def setFinalResult(self, result):
 
         if len(result[0]) == 1:
-            self.resultTxt1 = ttk.Label(self.mainFrame, text="Roots:  {}".format(result[0][0]), font=(font, 20))
+            self.resultTxt1 = WrappingLabel(self.mainFrame, text="Roots:  {}".format(result[0][0]), font=(font, 20))
             self.resultTxt1.grid(row=3, columnspan = 2, sticky = tk.W+tk.E, padx=2)
         else:
-            self.resultTxt1 = ttk.Label(self.mainFrame, text="Roots:  {}, {}".format(result[0][0], result[0][1]), font=(font, 20))
+            self.resultTxt1 = WrappingLabel(self.mainFrame, text="Roots:  {}, {}".format(result[0][0], result[0][1]), font=(font, 20))
             self.resultTxt1.grid(row=3, columnspan = 2, sticky = tk.W+tk.E, padx=2)
-        self.resultTxt2 = ttk.Label(self.mainFrame, text="Completed the Square:  {}".format(result[1]), font=(font, 20))
+        self.resultTxt2 = WrappingLabel(self.mainFrame, text="Completed the Square:  {}".format(result[1]), font=(font, 20))
         self.resultTxt2.grid(row=4, columnspan = 2, sticky = tk.W+tk.E, padx=2)
-        self.resultTxt3 = ttk.Label(self.mainFrame, text="Turning Points:  {}, {}".format(str(result[2].split(", ")[0]), result[2].split(", ")[1]), font=(font, 20))
+        self.resultTxt3 = WrappingLabel(self.mainFrame, text="Turning Points:  {}, {}".format(str(result[2].split(", ")[0]), result[2].split(", ")[1]), font=(font, 20))
         self.resultTxt3.grid(row=5, columnspan = 2, sticky = tk.W+tk.E, padx=2)
-        self.resultTxt4 = ttk.Label(self.mainFrame, text="Y Intercept:  {}".format(result[3]), font=(font, 20))
+        self.resultTxt4 = WrappingLabel(self.mainFrame, text="Y Intercept:  {}".format(result[3]), font=(font, 20))
         self.resultTxt4.grid(row=6, columnspan = 2, sticky = tk.W+tk.E, padx=2)
 table=[]
 def simsolver(self,column=3):
-
-    print(column)
     row=column-1
 
     # self.newFrame.pack(side="top", padx=25, pady=18, anchor="nw")
@@ -421,7 +412,6 @@ def simsolver(self,column=3):
     # self.scrolly.config(command=self.notebook.yview)
 
     def gen_table(row,column):
-        print(row,column)
         table=[]
         for i in range(row):
             table.append([])
@@ -433,7 +423,7 @@ def simsolver(self,column=3):
                     tempt=str(string.ascii_lowercase[j])+" = "
                 else:
                     tempt=""
-                self.alpha = ttk.Label(self.mainFrame, text=tempt, font=(font, 20))
+                self.alpha = WrappingLabel(self.mainFrame, text=tempt, font=(font, 20))
                 self.alpha.grid(row=i, column=max(0,((j+1)*2)-1), sticky = tk.W+tk.E, padx=2)
                 temp.grid(row=i,column=j*2,padx=2,pady=2, sticky = tk.W+tk.E)
                 table[i].append(temp)
@@ -459,37 +449,30 @@ def simsolver(self,column=3):
             ret.append([])
             for col in r:
                 try:
-                    print(calculator().sol(col.get())[0].num)
-                    print(calculator().sol(col.get())[0])
                     ret[-1].append(calculator().sol(col.get())[0].num)
                 except Exception as e:
-                    print(e)
-                    print(calculator().sol(col.get()))
                     can=False
-        print(ret)
         if can:
             try:
                 answer=np.array(solve_sim(*ret))
-                print(answer)
                 ans=""
                 j=0
                 for i in answer:
                     ans+=string.ascii_lowercase[j]+" = "+str(i[0][0])+"\n"
                     j+=1
-                print(ans)
-                self.resultTxt1 = ttk.Label(self.mainFrame, text="Roots:  \n{}".format(ans), font=(font, 20))
+                self.resultTxt1 = WrappingLabel(self.mainFrame, text="Roots:  \n{}".format(ans), font=(font, 20))
                 self.resultTxt1.grid(row=row+4,
                 columnspan = 2,
                 sticky = tk.W+tk.E,
                 padx=2)
             except:
-                self.resultTxt1 = ttk.Label(self.mainFrame, text="Please enter a valid input.", font=(font, 20))
+                self.resultTxt1 = WrappingLabel(self.mainFrame, text="Please enter a valid input.", font=(font, 20))
                 self.resultTxt1.grid(row=row+4,
                 columnspan = 2,
                 sticky = tk.W+tk.E,
                 padx=2)
         else:
-            self.resultTxt1 = ttk.Label(self.mainFrame, text="Please enter a valid input.", font=(font, 20))
+            self.resultTxt1 = WrappingLabel(self.mainFrame, text="Please enter a valid input.", font=(font, 20))
             self.resultTxt1.grid(row=row+4,
              columnspan = 2,
              sticky = tk.W+tk.E,
@@ -535,16 +518,16 @@ def triangle(self):
         sides.append(temp)
     diagpos=[[3,1],[1,3]]
     for i in diagpos:
-        self.resultTxt1 = ttk.Label(self.mainFrame, text="/", font=(font, 20))
+        self.resultTxt1 = WrappingLabel(self.mainFrame, text="/", font=(font, 20))
         self.resultTxt1.grid(row=i[0],column=i[1],padx=2,pady=2, sticky = tk.W+tk.E)
     lines=[[4,1],[4,3]]
     for i in lines:
-        self.resultTxt1 = ttk.Label(self.mainFrame, text="-", font=(font, 20))
+        self.resultTxt1 = WrappingLabel(self.mainFrame, text="-", font=(font, 20))
         self.resultTxt1.grid(row=i[0],column=i[1],padx=2,pady=2, sticky = tk.W+tk.E)
 
     lines=[[1,4],[3,4]]
     for i in lines:
-        self.resultTxt1 = ttk.Label(self.mainFrame, text="|", font=(font, 20))
+        self.resultTxt1 = WrappingLabel(self.mainFrame, text="|", font=(font, 20))
         self.resultTxt1.grid(row=i[0],column=i[1],padx=2,pady=2, sticky = tk.W+tk.E)
     def onPress():
         try:
@@ -573,10 +556,10 @@ def triangle(self):
                     sid.append("?")
         answ = areaCalculation.solve_triangle(*sid,*ang)
         if answ != "not possible":
-            self.resultTxt1 = ttk.Label(self.mainFrame, text="Area: {} u²".format(answ), font=(font, 20))
+            self.resultTxt1 = WrappingLabel(self.mainFrame, text="Area: {} u²".format(answ), font=(font, 20))
             self.resultTxt1.grid(row=6,column=0,padx=2,pady=2, sticky = tk.W+tk.E,columnspan=5)
         else:
-            self.resultTxt1 = ttk.Label(self.mainFrame, text="{}".format(answ.title()), font=(font, 20))
+            self.resultTxt1 = WrappingLabel(self.mainFrame, text="{}".format(answ.title()), font=(font, 20))
             self.resultTxt1.grid(row=6,column=0,padx=2,pady=2, sticky = tk.W+tk.E,columnspan=5)
 
     ttk.Button(self.mainFrame, text="Solve", style='Accent.TButton', command=onPress,width=10).grid(row=5, column=0,pady=2, padx=2)
@@ -630,7 +613,7 @@ def SolveCircle(self):
     self.sendData.grid(row=2, column=0,pady=10, padx=2)
 
     def setFinalResult(self, result):
-        self.resultTxt = ttk.Label(self.mainFrame, text="Result:  {}".format(result), font=(font, 20))
+        self.resultTxt = WrappingLabel(self.mainFrame, text="Result:  {}".format(result), font=(font, 20))
         self.resultTxt.grid(row=3, columnspan = 2, sticky = tk.W+tk.N, padx=2)
 
 def periodicTable(self):
@@ -640,91 +623,94 @@ def periodicTable(self):
         e = self.inputField.get().replace(" ", "")
         l=pt.search(e)[:5]
         newf=self.addframe(self.resFrame,borderwidth=1)
-            
-            
-        temp=ttk.Label(newf, text="Atomic Number", font=(font, 10))
-        temp.grid(row=0, column=0, sticky = tk.N+tk.E, padx=2)
 
-        temp=ttk.Label(newf, text="Period"+", "+"Group", font=(font, 10))
-        temp.grid(row=1, column=0, sticky = tk.N+tk.E, padx=2)
 
-        temp=ttk.Label(newf, text="Symbol", font=(font, 15, 'bold'))
-        temp.grid(row=2, column=0, sticky = tk.N+tk.E, padx=2)
+        if len(l) > 0: 
+            temp=WrappingLabel(newf, text="Atomic Number", font=(font, 10))
+            temp.grid(row=0, column=0, sticky = tk.N+tk.E, padx=2)
 
-        temp=ttk.Label(newf, text="Element", font=(font, 12))
-        temp.grid(row=3, column=0, sticky = tk.N+tk.E, padx=2)
+            temp=WrappingLabel(newf, text="Period"+", "+"Group", font=(font, 10))
+            temp.grid(row=1, column=0, sticky = tk.N+tk.E, padx=2)
 
-        temp=ttk.Label(newf, text=", ".join(["Protons","Neutrons","Electrons"]), font=(font, 10))
-        temp.grid(row=4, column=0, sticky = tk.N+tk.E, padx=2)
+            temp=WrappingLabel(newf, text="Symbol", font=(font, 15, 'bold'))
+            temp.grid(row=2, column=0, sticky = tk.N+tk.E, padx=2)
 
-        temp=ttk.Label(newf, text="Isotopes" , font=(font, 10))
-        temp.grid(row=5, column=0, sticky = tk.N+tk.E, padx=2)
+            temp=WrappingLabel(newf, text="Element", font=(font, 12))
+            temp.grid(row=3, column=0, sticky = tk.N+tk.E, padx=2)
 
-        temp=ttk.Label(newf, text="Atomic Mass" , font=(font, 10))
-        temp.grid(row=6, column=0, sticky = tk.N+tk.E, padx=2)
+            temp=WrappingLabel(newf, text=", ".join(["Protons","Neutrons","Electrons"]), font=(font, 10))
+            temp.grid(row=4, column=0, sticky = tk.N+tk.E, padx=2)
 
-        temp=ttk.Label(newf, text=" ".join(["[{}]".format("Phase"), ", ".join(["Melting Point", "Boiling Point"])]), font=(font, 10))
-        temp.grid(row=7, column=0, sticky = tk.N+tk.E, padx=2)
+            temp=WrappingLabel(newf, text="Isotopes" , font=(font, 10))
+            temp.grid(row=5, column=0, sticky = tk.N+tk.E, padx=2)
 
-        temp=ttk.Label(newf, text="Type" , font=(font, 10))
-        temp.grid(row=8, column=0, sticky = tk.N+tk.E, padx=2)
+            temp=WrappingLabel(newf, text="Atomic Mass" , font=(font, 10))
+            temp.grid(row=6, column=0, sticky = tk.N+tk.E, padx=2)
 
-        temp=ttk.Label(newf, text="Density" , font=(font, 10))
-        temp.grid(row=9, column=0, sticky = tk.N+tk.E, padx=2)
+            temp=WrappingLabel(newf, text=" ".join(["[{}]".format("Phase"), ", ".join(["Melting Point", "Boiling Point"])]), font=(font, 10))
+            temp.grid(row=7, column=0, sticky = tk.N+tk.E, padx=2)
 
-        temp=ttk.Label(newf, text="Electronegativity" , font=(font, 10))
-        temp.grid(row=10, column=0, sticky = tk.N+tk.E, padx=2)
+            temp=WrappingLabel(newf, text="Type" , font=(font, 10))
+            temp.grid(row=8, column=0, sticky = tk.N+tk.E, padx=2)
 
-        temp=ttk.Label(newf, text="First Ionisation Energy" , font=(font, 10))
-        temp.grid(row=11, column=0, sticky = tk.N+tk.E, padx=2)
+            temp=WrappingLabel(newf, text="Density" , font=(font, 10))
+            temp.grid(row=9, column=0, sticky = tk.N+tk.E, padx=2)
 
-        newf.grid(row=0, column=0, sticky = tk.N+tk.E, padx=2)
+            temp=WrappingLabel(newf, text="Electronegativity" , font=(font, 10))
+            temp.grid(row=10, column=0, sticky = tk.N+tk.E, padx=2)
 
-        r=1
-        for i in l:
-            newf=self.addframe(self.resFrame,borderwidth=1)
-            
-            
-            temp=ttk.Label(newf, text=int(pt.ELEMENTDATA["AtomicNumber"][i]), font=(font, 10))
-            temp.grid(row=0, column=0, sticky = tk.N+tk.W, padx=2)
+            temp=WrappingLabel(newf, text="First Ionisation Energy" , font=(font, 10))
+            temp.grid(row=11, column=0, sticky = tk.N+tk.E, padx=2)
 
-            temp=ttk.Label(newf, text=str(int(pt.ELEMENTDATA["Period"][i]))+", "+str(int(pt.ELEMENTDATA["Group"][i])), font=(font, 10))
-            temp.grid(row=1, column=0, sticky = tk.N+tk.W, padx=2)
+            newf.grid(row=0, column=0, sticky = tk.N+tk.E, padx=2)
 
-            temp=ttk.Label(newf, text=str(pt.ELEMENTDATA["Symbol"][i]), font=(font, 15, 'bold'))
-            temp.grid(row=2, column=0, sticky = tk.N+tk.W, padx=2)
+            r=1
+            for i in l:
+                newf=self.addframe(self.resFrame,borderwidth=1)
+                
+                temp=WrappingLabel(newf, text=int(pt.ELEMENTDATA["AtomicNumber"][i]), font=(font, 10))
+                temp.grid(row=0, column=0, sticky = tk.N+tk.W, padx=2)
 
-            temp=ttk.Label(newf, text=str(pt.ELEMENTDATA["Element"][i]), font=(font, 12))
-            temp.grid(row=3, column=0, sticky = tk.N+tk.W, padx=2)
+                temp=WrappingLabel(newf, text=str(int(pt.ELEMENTDATA["Period"][i]))+", "+str(int(pt.ELEMENTDATA["Group"][i])), font=(font, 10))
+                temp.grid(row=1, column=0, sticky = tk.N+tk.W, padx=2)
 
-            temp=ttk.Label(newf, text=", ".join([str(int(pt.ELEMENTDATA[j][i])) for j in ["Protons","Neutrons","Electrons"]]), font=(font, 10))
-            temp.grid(row=4, column=0, sticky = tk.N+tk.W, padx=2)
+                temp=WrappingLabel(newf, text=str(pt.ELEMENTDATA["Symbol"][i]), font=(font, 15, 'bold'))
+                temp.grid(row=2, column=0, sticky = tk.N+tk.W, padx=2)
 
-            iso = str(pt.ELEMENTDATA["Isotopes"][i])
-            temp=ttk.Label(newf, text=str(int(float(iso))) if iso.replace('.','',1).isdigit() else "-", font=(font, 10))
-            temp.grid(row=5, column=0, sticky = tk.N+tk.W, padx=2)
+                temp=WrappingLabel(newf, text=str(pt.ELEMENTDATA["Element"][i]), font=(font, 12, 'bold'))
+                temp.grid(row=3, column=0, sticky = tk.N+tk.W, padx=2)
 
-            temp=ttk.Label(newf, text=str(pt.ELEMENTDATA["AtomicMass"][i]) , font=(font, 10))
-            temp.grid(row=6, column=0, sticky = tk.N+tk.W, padx=2)
+                temp=WrappingLabel(newf, text=", ".join([str(int(pt.ELEMENTDATA[j][i])) for j in ["Protons","Neutrons","Electrons"]]), font=(font, 10))
+                temp.grid(row=4, column=0, sticky = tk.N+tk.W, padx=2)
 
-            temp=ttk.Label(newf, text=" ".join(["[{}]".format(str(pt.ELEMENTDATA["Phase"][i]).title()), ", ".join([str(pt.ELEMENTDATA["MeltingPoint"][i]).title(), str(pt.ELEMENTDATA["BoilingPoint"][i]).title()])]), font=(font, 10))
-            temp.grid(row=7, column=0, sticky = tk.N+tk.W, padx=2)
+                iso = str(pt.ELEMENTDATA["Isotopes"][i])
+                temp=WrappingLabel(newf, text=str(int(float(iso))) if iso.replace('.','',1).isdigit() else "-", font=(font, 10))
+                temp.grid(row=5, column=0, sticky = tk.N+tk.W, padx=2)
 
-            temp=ttk.Label(newf, text=str(pt.ELEMENTDATA["Type"][i]).title(), font=(font, 10))
-            temp.grid(row=8, column=0, sticky = tk.N+tk.W, padx=2)
+                temp=WrappingLabel(newf, text=str(pt.ELEMENTDATA["AtomicMass"][i]) , font=(font, 10))
+                temp.grid(row=6, column=0, sticky = tk.N+tk.W, padx=2)
 
-            temp=ttk.Label(newf, text=str(pt.ELEMENTDATA["Density"][i]).title(), font=(font, 10))
-            temp.grid(row=9, column=0, sticky = tk.N+tk.W, padx=2)
+                temp=WrappingLabel(newf, text=" ".join(["[{}]".format(str(pt.ELEMENTDATA["Phase"][i]).title()), ", ".join([str(pt.ELEMENTDATA["MeltingPoint"][i]).title(), str(pt.ELEMENTDATA["BoilingPoint"][i]).title()])]), font=(font, 10))
+                temp.grid(row=7, column=0, sticky = tk.N+tk.W, padx=2)
 
-            e = str(pt.ELEMENTDATA["Electronegativity"][i]).title()
-            temp=ttk.Label(newf, text=e if e.replace('.','',1).isdigit() else "-", font=(font, 10))
-            temp.grid(row=10, column=0, sticky = tk.N+tk.W, padx=2)
+                temp=WrappingLabel(newf, text=str(pt.ELEMENTDATA["Type"][i]).title(), font=(font, 10))
+                temp.grid(row=8, column=0, sticky = tk.N+tk.W, padx=2)
 
-            temp=ttk.Label(newf, text=str(pt.ELEMENTDATA["FirstIonization"][i]).title(), font=(font, 10))
-            temp.grid(row=11, column=0, sticky = tk.N+tk.W, padx=2)
+                temp=WrappingLabel(newf, text=str(pt.ELEMENTDATA["Density"][i]).title(), font=(font, 10))
+                temp.grid(row=9, column=0, sticky = tk.N+tk.W, padx=2)
 
-            newf.grid(row=0, column=r, sticky = tk.N, padx=2)
-            r+=1
+                e = str(pt.ELEMENTDATA["Electronegativity"][i]).title()
+                temp=WrappingLabel(newf, text=e if e.replace('.','',1).isdigit() else "-", font=(font, 10))
+                temp.grid(row=10, column=0, sticky = tk.N+tk.W, padx=2)
+
+                temp=WrappingLabel(newf, text=str(pt.ELEMENTDATA["FirstIonization"][i]).title(), font=(font, 10))
+                temp.grid(row=11, column=0, sticky = tk.N+tk.W, padx=2)
+
+                newf.grid(row=0, column=r, sticky = tk.N, padx=2)
+                r+=1
+        else:
+            text = WrappingLabel(newf, text="Invalid Element Input. Please use an actual letter found in the Periodic Table.", font=(font, 12))
+            text.grid(row=0, column=0, padx=2,pady=2, sticky = tk.W+tk.E, columnspan=5)
                 
         # self.resFrame.grid(row=1, column=len(l)+1, rowspan=10, columnspan=10,pady=10, padx=2)
         self.resFrame.grid(row=1, column=0, rowspan=len(l)+1, columnspan=10,pady=10, padx=2)

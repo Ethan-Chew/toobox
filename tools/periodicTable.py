@@ -167,7 +167,6 @@ def parse(name):
 def get_elements(data):
     parsed={}
     thingsiwant=['AtomicNumber', 'Element', 'Symbol', 'AtomicMass', 'Neutrons', 'Protons', 'Electrons', 'Period', 'Group', 'Phase', 'Radioactive', 'Natural', 'Metal', 'Nonmetal', 'Metalloid', 'Type', 'AtomicRadius', 'Electronegativity', 'FirstIonization', 'Density', 'MeltingPoint', 'BoilingPoint', 'Isotopes', 'Discoverer', 'Year', 'SpecificHeat', 'Shells', 'Valence', 'Config', 'MassNumber']
-    print(thingsiwant)
     for i in range(len(data[0])):
         if data[0][i] in thingsiwant:
             parsed[data[0][i]]=[]
@@ -185,8 +184,6 @@ def search(st):
     # cool stuff P## to search protons E## to search electrons N## to search neutrons
     global ELEMENTDATA
     data=ELEMENTDATA
-    print(ELEMENTDATA)
-    print(len(st))
     if len(st)>1 and st[0]=="P" and is_float(st[1:]):
         st=st[1:]
         possible=[]
@@ -226,7 +223,6 @@ def search(st):
         #return chemlib.PeriodicTable.getElementByElectronicConfiguration((st.replace(" ","")).split(","))
     elif len(st)<3:
         # assume checking for symbol
-        print("symbol")
         possible=[]
         l=data["Symbol"]
         #best match
@@ -253,16 +249,16 @@ def search(st):
         return possible
 
 
-if __name__=="__main__":
+# if __name__=="__main__":
 
-    data=parse(stolendatafromchemlib)
-    data=get_elements(data)
-    print(data.keys())
-    for i in data.keys():
-        print("\'{}\':{},".format(i, data[i]))
-    # print(search("C"))
-    # print(search("P12"))
-    # print(search("N12"))
-    # print(search("E12"))
-    # print(search("carb"))
-    # print(search("solid"))
+#     data=parse(stolendatafromchemlib)
+#     data=get_elements(data)
+#     print(data.keys())
+#     for i in data.keys():
+#         print("\'{}\':{},".format(i, data[i]))
+#     # print(search("C"))
+#     # print(search("P12"))
+#     # print(search("N12"))
+#     # print(search("E12"))
+#     # print(search("carb"))
+#     # print(search("solid"))
