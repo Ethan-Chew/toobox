@@ -249,13 +249,12 @@ def search(st):
         return possible
 
 
-if __name__=="__main__":
-
-    data=parse(stolendatafromchemlib)
-    data=get_elements(data)
+# if __name__=="__main__":
+#     data=parse(stolendatafromchemlib)
+#     data=get_elements(data)
 #     print(data.keys())
-    for i in data.keys():
-        print("\'{}\':{},".format(i, data[i]))
+#     for i in data.keys():
+#         print("\'{}\':{},".format(i, data[i]))
 #     # print(search("C"))
 #     # print(search("P12"))
 #     # print(search("N12"))
