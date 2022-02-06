@@ -163,8 +163,8 @@ class App(ttk.Frame):
             self.treeview.selection_remove(self.treeview.selection()[0])
 
     def handleBackToHS(self, event):
-        # self.removeSelectedTreeView()
-        self.showHomeScreen()
+        self.removeSelectedTreeView()
+        root.after(10, self.showHomeScreen())
 
     def toggleFullScreen(self, event):
         self.fullScreen = not self.fullScreen
@@ -310,7 +310,9 @@ class App(ttk.Frame):
         root.update()
 
     def on_tree_select(self, event):
-        self.run_func(self.treeview.item(self.treeview.focus())['text'])
+        try: 
+            self.run_func(self.treeview.item(self.treeview.selection()[0])['text'])
+        except: pass
 
     def updateUsername(self, event):
         self.updateUsernameUI = ttk.Frame()
