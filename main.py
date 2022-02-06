@@ -97,6 +97,7 @@ class App(ttk.Frame):
         self.fullScreenBindings()
         self.goHome()
         config.currentlySelected = "Home"
+
     def check_recently_opened(self):
         if os.path.exists(recentlyused):
             file = open(recentlyused)
@@ -114,6 +115,7 @@ class App(ttk.Frame):
             file = open(recentlyused, 'w')
             json.dump({'recentlyOpened':[]}, file)
             file.close()
+
     def change_theme(self):
         if root.tk.call("ttk::style", "theme", "use") == "sun-valley-dark":
             # Set light theme
@@ -164,7 +166,7 @@ class App(ttk.Frame):
 
     def handleBackToHS(self, event):
         self.removeSelectedTreeView()
-        root.after(10, self.showHomeScreen())
+        self.showHomeScreen()
 
     def toggleFullScreen(self, event):
         self.fullScreen = not self.fullScreen
@@ -304,7 +306,8 @@ class App(ttk.Frame):
         if config.currentlySelected in functionalities and config.currentlySelected != "Home":
             functionalities[config.currentlySelected](self)
         else:
-            infoFrame(self, config.currentlySelected)
+            if config.currentlySelected != "Home":
+                infoFrame(self, config.currentlySelected)
 
         self.setup_menu()
         root.update()

@@ -270,7 +270,7 @@ def IonicEqn(self):
     self.inputTxt = WrappingLabel(self.mainFrame, text="Input:  ", font=(font, 20))
     self.inputTxt.grid(row=0, column=0, padx=2)
     self.inputField = ttk.Entry(self.mainFrame, width=50, font=(font, 12))
-    self.inputField.insert(0, "HCl(aq) + Na(s) -> NaCl(aq) + H2(g)")
+    self.inputField.insert(0, "2HCl(aq) + 2Na(s) -> 2NaCl(aq) + H2(g)")
     self.inputField.grid(row=0, column=1)
     self.sendData = ttk.Button(self.mainFrame, text="Generate", style='Accent.TButton', command=lambda: getInputs(self))
     self.sendData.grid(row=1, column=0,pady=10, padx=2)
