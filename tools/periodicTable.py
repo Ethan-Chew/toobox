@@ -187,7 +187,7 @@ def search(st):
     data=ELEMENTDATA
     print(ELEMENTDATA)
     print(len(st))
-    if len(st)>5 and st[0]=="P" and is_float(st[1:]):
+    if len(st)>1 and st[0]=="P" and is_float(st[1:]):
         st=st[1:]
         possible=[]
         l=data["Protons"]
@@ -215,15 +215,6 @@ def search(st):
         #assume is checking for mass number
         possible=[]
         l=data["AtomicNumber"]
-        for i in range(len(l)):
-            if float(st) == l[i]:
-                possible.append(i)
-        return possible
-
-    elif [i for i in ['solid', 'liquid', 'gas', 'artificial'] if(i in st.lower())]:
-        st=st[1:]
-        possible=[]
-        l=data["Phase"]
         for i in range(len(l)):
             if float(st) == l[i]:
                 possible.append(i)
