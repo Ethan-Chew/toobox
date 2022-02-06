@@ -6,10 +6,7 @@ def solve_sim(*args):
 
     '''
     answermatrix=np.matrix([[i[-1]] for i in args],dtype=float)
-    print([i[:-1] for i in args])
     therestinvered=np.linalg.inv(np.matrix([i[:-1] for i in args],dtype=float))
-    print(answermatrix)
-    print(therestinvered)
     try:
         return (lambda x: [i[0] for i in x])(np.dot(therestinvered,answermatrix) )
     except:
@@ -17,12 +14,3 @@ def solve_sim(*args):
 
 if __name__ == "__main__":
     print(solve_sim([1,2,4],[3,-5,1]))
-    # what is life?
-    # what is love?
-    # what is happiness?
-    # what is love?
-    # what is happiness?
-    # what is life?
-    # what is love?
-    # what is happiness?
-

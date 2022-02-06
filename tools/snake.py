@@ -58,8 +58,6 @@ if __name__=="__main__":
         i=input()
         get_inp(i)
         can=update()
-        print(snake)
-        print("-"*SIZE[0])
         for i in range(SIZE[0],0,-1):
             line=""
             for j in range(SIZE[1],0,-1):
@@ -71,6 +69,5 @@ if __name__=="__main__":
                     line+="$"
                 else:
                     line+=" "
-            print(line)            
 
 

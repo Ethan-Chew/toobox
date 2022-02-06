@@ -175,7 +175,6 @@ class calculator:
 			parsed=parsed[0]
 		return parsed
 	def mul(self,prev,nex):
-		print(prev,nex)
 		if type(prev)!=list:
 			prev=[prev]
 		if type(nex)!=list:
@@ -210,7 +209,6 @@ class calculator:
 			return [self.minimul(prev[0],nex[0])]
 
 	def minimul(self,prev,nex):
-		print(prev,nex)
 		number=prev.num*nex.num
 		algebra={}
 		for i in prev.al:
@@ -264,10 +262,7 @@ class calculator:
 
 
 if __name__=="__main__":
-
-
 	a=calculator()
-
 	print(a.parse("1+b(a+b)"))
 
 

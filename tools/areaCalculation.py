@@ -97,9 +97,7 @@ if __name__=="__main__":
                 ans=solve_triangle(*temp)
                 if type(ans)==float:
                     if ans>=4.1:
-                        print(temp)
                         exit()
-                    print(ans)
                 else:
                     pass
                     
