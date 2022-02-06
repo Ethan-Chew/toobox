@@ -119,9 +119,11 @@ class App(ttk.Frame):
     def change_theme(self):
         if root.tk.call("ttk::style", "theme", "use") == "sun-valley-dark":
             # Set light theme
+            config.defaultTheme = "light"
             root.tk.call("set_theme", "light")
         else:
             # Set dark theme
+            config.defaultTheme = "dark"
             root.tk.call("set_theme", "dark")
 
     def setup_menu(self): # MacOS Menu Bar Buttons
@@ -377,7 +379,7 @@ if __name__ == "__main__":
 
     # Simply set the theme
     root.tk.call("source", "sun-valley.tcl")
-    root.tk.call("set_theme", "dark")
+    root.tk.call("set_theme", config.defaultTheme)
 
     # Set App Icon
     # root.iconbitmap(appIconIcns)
