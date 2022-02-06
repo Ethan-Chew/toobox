@@ -158,6 +158,7 @@ class App(ttk.Frame):
         root.bind("|", self.toggleFullScreen)
         root.bind("<F11>", self.toggleFullScreen)
         root.bind("<Escape>", self.quitFullScreen)
+        root.bind("<Command-,>", (lambda e: self.run_func("Settings")))
 
     ## Back to Home
     def goHome(self):
