@@ -23,6 +23,22 @@ appIconIcon = os.path.join(ROOTDIR,'src','images','AppIcon.ico')
 appIconIcns = os.path.join(ROOTDIR,'src','images','AppIcon.icns')
 appIconPng = os.path.join(ROOTDIR,'src','images','AppIcon.png')
 _recentlength=10
+FONT='TkDefaultFont'
+
+def reload():
+    
+    global fontMultiplier
+    try:
+        file = open(fontMul)
+        fontMultiplier = json.load(file)
+        file.close()
+        fontMultiplier = float(fontMultiplier["fontMultiplier"])
+    except:
+        fontMultiplier = 1
+        file = open(fontMul, "w")
+        json.dump({"fontMultiplier":fontMultiplier}, file)
+        file.close()
+reload()
 # Variables
 functionalities = {
             "Settings"          :   Settings,
@@ -76,8 +92,8 @@ treeview_data = [
                 (6, 33, "Percentage"),
                 (6, 38, "Circles"),
                     (38, 39, "Circle Properties"),
-                    (38, 40, "Equation of Circle"),
-            ("", 41, "Settings"),
+                    (38, 40, "Equation of Circle")
+                    # ,("", 41, "Settings"),
         ]
 TOPICS=[treeview_data[i-1][2] for i in [1,6,8,16,15,23,34,24,29]] # Add Items into Treeview
 topics = []
@@ -130,6 +146,10 @@ class App(ttk.Frame):
 
     def setup_menu(self): # MacOS Menu Bar Buttons
         menubar = Menu(root)
+        # file
+        file=Menu(menubar, tearoff=0)
+        file.add_command(label="Settings", command=(lambda *args:self.run_func("Settings")))
+        menubar.add_cascade(label="File", menu=file)
         # tools
         tools=Menu(menubar, tearoff=0)
         for i in sorted(list(functionalities.keys())):
@@ -150,6 +170,7 @@ class App(ttk.Frame):
                 romenu.add_command(label=i, command=self.handleBackToHS)
 
         menubar.add_cascade(label="Recently Opened", menu=romenu)
+
 
     # Keybines :D
     ## Full Screen Toggle
@@ -194,7 +215,7 @@ class App(ttk.Frame):
         self.newpane = ttk.PanedWindow(self.pane_1, orient="horizontal")
 
         ## Treeview Label
-        self.treeViewTopLab = WrappingLabel(self.newpane, text="Tools", font=('TkDefaultFont',23, 'bold'))
+        self.treeViewTopLab = WrappingLabel(self.newpane, text="Tools", font=(FONT, int(fontMultiplier*23), 'bold'))
         self.treeViewTopLab.pack(side="left",padx=5, anchor="w", fill="y")
 
         # Treeview Swi
@@ -211,8 +232,8 @@ class App(ttk.Frame):
 
         # Config Treeview Style
         style = ttk.Style()
-        # style.configure('MainUI.Treeview',font=("TkDefaultFont",12))
-        # style.configure('MainUI.Treeview.Heading',font=("TkDefaultFont",16, "bold"))
+        # style.configure('MainUI.Treeview',font=(FONT,12))
+        # style.configure('MainUI.Treeview.Heading',font=(FONT,16, "bold"))
 
         # Treeview
         self.treeview = ttk.Treeview(
@@ -276,6 +297,7 @@ class App(ttk.Frame):
             except: pass
         
     def run_func(self, current):
+        reload()
         # if current in TOPICS:
         #     return
         
@@ -335,11 +357,11 @@ class App(ttk.Frame):
         self.clearScreen()
         self.welcomeFrame = self.addframe()
         self.welcomeFrame.pack(side="top", padx=25, pady=18, anchor="w")
-        self.helloUserLab = WrappingLabel(self.welcomeFrame,text="Hello, {}".format(config.username), font=("TkDefaultFont",50,'bold'))
+        self.helloUserLab = WrappingLabel(self.welcomeFrame,text="Hello, {}".format(config.username), font=(FONT, int(fontMultiplier*50),'bold'))
         self.helloUserLab.pack(pady=2,fill="x")
-        self.welcomeLab = WrappingLabel(self.welcomeFrame, text="Welcome to Toobox!",font=("TkDefaultFont", 15))
+        self.welcomeLab = WrappingLabel(self.welcomeFrame, text="Welcome to Toobox!",font=(FONT, int(fontMultiplier*15)))
         self.welcomeLab.pack(side="left", fill="x")
-        self.welcomeLab2 = WrappingLabel(self.welcomeFrame, text="Select a tool to get started!",font=("TkDefaultFont", 15))
+        self.welcomeLab2 = WrappingLabel(self.welcomeFrame, text="Select a tool to get started!",font=(FONT, int(fontMultiplier*15)))
         self.widthOfTooboxInfo = 200
         self.tooboxInfoFrame = self.addframe(width=self.widthOfTooboxInfo)
         self.tooboxInfoFrame.pack(side="left", padx=25, pady=18, anchor="w")
@@ -355,7 +377,7 @@ class App(ttk.Frame):
         data = list(set(data['recentlyOpened']))
         self.recentlyOpenedFrame = self.addframe(width=self.widthOfTooboxInfo)
         self.recentlyOpenedFrame.pack(side="left", padx=20, pady=18, anchor="w")
-        self.recentlyOpenedText = WrappingLabel(self.recentlyOpenedFrame, text="Recently Opened ({})".format(str(len(data[:3]))),font=("TkDefaultFont",18, "bold"))
+        self.recentlyOpenedText = WrappingLabel(self.recentlyOpenedFrame, text="Recently Opened ({})".format(str(len(data[:3]))),font=(FONT, int(fontMultiplier*18), "bold"))
         self.recentlyOpenedText.pack(side="top", pady=3)
         self.screenlist.append(ttk.Frame(self.recentlyOpenedFrame))
         self.holdROItemFrame = self.screenlist[-1]

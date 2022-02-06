@@ -791,6 +791,7 @@ def periodicTable(self):
     self.thingFrame.pack(side="top", padx=25, pady=18, anchor="w")
     self.mainLabel = WrappingLabel(self.thingFrame, text="Periodic Table", font=(font,int(fontMultiplier*50),'bold'))
     self.mainLabel.pack(side="top", pady=2, fill="x", expand="yes")
+
     self.infoLabel = WrappingLabel(self.thingFrame, text="Please enter a valid symbol, e.g. H, not L", font=(font,int(fontMultiplier*15)))
     self.infoLabel.pack(side="top", pady=2, fill="x", expand="yes")
 
@@ -846,3 +847,5 @@ def Settings(self):
     self.fontMulSlider.grid(row=1, pady=2, columnspan = 5, sticky = tk.W+tk.E)
     self.fontMulTxt = WrappingLabel(self.mainFrame, text="Multiplier: {}".format(getCurrValue()), font=(font,int(fontMultiplier*12)))
     self.fontMulTxt.grid(row=2, columnspan=2, sticky= tk.W+tk.E)
+    self.mainLabel = WrappingLabel(self.mainFrame, text="Please restart for best results", font=(font,int(fontMultiplier*10)))
+    self.mainLabel.grid(row=3, columnspan=2, sticky= tk.W+tk.E)
