@@ -672,6 +672,12 @@ def periodicTable(self):
         temp=ttk.Label(newf, text="Density" , font=(font, 10))
         temp.grid(row=9, column=0, sticky = tk.N+tk.E, padx=2)
 
+        temp=ttk.Label(newf, text="Electronegativity" , font=(font, 10))
+        temp.grid(row=10, column=0, sticky = tk.N+tk.E, padx=2)
+
+        temp=ttk.Label(newf, text="First Ionisation Energy" , font=(font, 10))
+        temp.grid(row=11, column=0, sticky = tk.N+tk.E, padx=2)
+
         newf.grid(row=0, column=0, sticky = tk.N+tk.E, padx=2)
 
         r=1
@@ -709,6 +715,13 @@ def periodicTable(self):
 
             temp=ttk.Label(newf, text=str(pt.ELEMENTDATA["Density"][i]).title(), font=(font, 10))
             temp.grid(row=9, column=0, sticky = tk.N+tk.W, padx=2)
+
+            e = str(pt.ELEMENTDATA["Electronegativity"][i]).title()
+            temp=ttk.Label(newf, text=e if e.replace('.','',1).isdigit() else "-", font=(font, 10))
+            temp.grid(row=10, column=0, sticky = tk.N+tk.W, padx=2)
+
+            temp=ttk.Label(newf, text=str(pt.ELEMENTDATA["FirstIonization"][i]).title(), font=(font, 10))
+            temp.grid(row=11, column=0, sticky = tk.N+tk.W, padx=2)
 
             newf.grid(row=0, column=r, sticky = tk.N, padx=2)
             r+=1
