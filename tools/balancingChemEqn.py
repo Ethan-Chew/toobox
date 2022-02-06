@@ -28,7 +28,9 @@ def balanceChemEqn(equation):
             if occurancesVal == "Unknown Cmpt":
                 return "Unknown Cmpt"
             elif occurancesVal == "PR Err":
-                return "Error while getting Product/Reactant Occurances"
+                return "PR Err"
+            elif occurancesVal == "Ex Element":
+                return "Ex Element"
         except:
             return "Validated"
         
@@ -38,6 +40,10 @@ def balanceChemEqn(equation):
         return "Formatting Error, Please follow stated Format."
     elif validationOutcome == "Unknown Cmpt":
         return "Unknown Compound found in Equation."
+    elif validationOutcome == "PR Err":
+        return "Error while getting Product/Reactant Occurances."
+    elif validationOutcome == "Ex Element":
+        return "Extra Unknown Element Detected."
     
     reactantsCompounds, productsCompounds = equation.split(" -> ")
     reactantsCompounds = reactantsCompounds.split(" + ")
@@ -65,11 +71,11 @@ def balanceChemEqn(equation):
                 try:
                     occurences = Compound(splittedCompound[0]).occurences
                 except:
-                    return "Unknown Cmpt"
+                    return "Unknown Cmpt", ""
                 occurences.update((x, y*oldMul) for x, y in occurences.items())
                 reactantsOccurances = reactantsOccurances | occurences
         except:
-            return "PR Err"
+            return "PR Err", ""
 
         ## Loop through right side components
         for i in range(len(productsCompounds)):
@@ -87,13 +93,22 @@ def balanceChemEqn(equation):
             try:
                 occurences = Compound(splittedCompound[0]).occurences
             except:
-                return "Unknown Cmpt"
+                return "Unknown Cmpt", ""
             occurences.update((x, y*oldMul) for x, y in occurences.items())
             productsOccurances = productsOccurances | occurences
-    
+
+        if len(productsOccurances) != len(reactantsOccurances):
+            return "Ex Element", ""
+
         return reactantsOccurances, productsOccurances
 
     reactantsOccurances, productsOccurances = getOccurances()
+    if reactantsOccurances == "Unknown Cmpt":
+        return "Unknown Compound found in Equation."
+    elif reactantsOccurances == "PR Err":
+        return "Error while getting Product/Reactant Occurances."
+    elif reactantsOccurances == "Ex Element":
+        return "Extra Unknown Element Detected."
 
     try:
         ## Loop indefinately until both sides are balanced
