@@ -391,7 +391,7 @@ def SolveQuad(self):
         self.resultTxt3.grid(row=5, columnspan = 2, sticky = tk.W+tk.E, padx=2)
         self.resultTxt4 = WrappingLabel(self.mainFrame, text="Y Intercept:  {}".format(result[3]), font=(font, 20))
         self.resultTxt4.grid(row=6, columnspan = 2, sticky = tk.W+tk.E, padx=2)
-table=[]
+
 def simsolver(self,column=3):
     row=column-1
 
