@@ -7,6 +7,7 @@ import re
 from chemlib import Element
 
 from sympy import root
+from components.SettingsSlider import SettingsSlider
 from tools import snake
 from tools import areaCalculation
 from tools.circleEqn import circle_equation
@@ -20,7 +21,16 @@ from tools.areaCalculation import *
 from tools.sim_eqn import *
 import tools.periodicTable as pt
 import math
+import config
+import json
+import os
+
 font="TkDefaultFont"
+fontMul=os.path.join(os.path.abspath(os.curdir),".fontMultiplier.json")
+file = open(fontMul)
+fontMultiplier = json.load(file)
+file.close()
+fontMultiplier = float(fontMultiplier["fontMultiplier"])
 
 def is_float(value):
     try:
@@ -479,7 +489,6 @@ def simsolver(self,column=3):
              padx=2)
 
     def rese(self,col):
-        print(col)
         self.thingFrame.pack_forget()
         self.mainFrame.pack_forget()
         #self.scrollx.pack_forget()
@@ -542,7 +551,6 @@ def triangle(self):
                 try:
                     ang.append(math.radians( calculator().sol( i.get())[0].num))
                 except Exception as e:
-                    print(e)
                     ang.append("?")
         sid=[]
         for i in sides:
@@ -552,7 +560,6 @@ def triangle(self):
                 try:
                     sid.append(calculator().sol( i.get())[0].num)
                 except Exception as e:
-                    print(e)
                     sid.append("?")
         answ = areaCalculation.solve_triangle(*sid,*ang)
         if answ != "not possible":
@@ -697,11 +704,6 @@ def periodicTable(self):
                 
                 temp=WrappingLabel(newf, text=int(pt.ELEMENTDATA["AtomicNumber"][i]), font=(font, 10))
                 temp.grid(row=0, column=0, sticky = tk.N+tk.W, padx=2)
-                # print(pt.ELEMENTDATA["MassNumber"][i])
-                # print(len(pt.ELEMENTDATA["MassNumber"]))
-                # print(i)
-                for h in pt.ELEMENTDATA["MassNumber"]:
-                    print(h)
                 temp=WrappingLabel(newf, text=str(int(pt.ELEMENTDATA["MassNumber"][i])), font=(font, 10))
                 temp.grid(row=1, column=0, sticky = tk.N+tk.W, padx=2)
 
@@ -790,3 +792,44 @@ def periodicTable(self):
     self.sendData.grid(row=0, column=1,pady=10, padx=2, sticky = tk.W)
     self.resFrame = ttk.Frame(self.mainFrame)
     self.resFrame.grid(row=1, column=0, rowspan=10, columnspan=10,pady=10, padx=2)
+
+def Settings(self):
+    # Input Data
+    def getInputs(self):
+        compound = self.inputField.get()
+        codeReturned = saltSolubilities(compound) # Could return error/final value
+        if codeReturned:
+            codeReturned = "Soluble in Water"
+        else:
+            codeReturned = "Insoluble in Water"
+
+    self.thingFrame = self.addframe()
+    self.thingFrame.pack(side="top", padx=25, pady=18, anchor="w")
+    self.mainLabel = WrappingLabel(self.thingFrame, text="Settings", font=(font,50,'bold'))
+    self.mainLabel.pack(side="top", pady=2, fill="x", expand="yes")
+    self.infoLabel = WrappingLabel(self.thingFrame, text="Adjust Settings of the App here", font=(font, 15))
+    self.infoLabel.pack(side="top", pady=2, fill="x", expand="yes")
+
+    self.mainFrame = self.addframe()
+    self.mainFrame.pack(padx=25, pady=18, anchor="w")
+
+    # Font Multiplier
+    currentVal = tk.DoubleVar()
+    def getCurrValue():
+        tempVal = '{: .2f}'.format(currentVal.get()/20)
+        tempJSON = {"fontMultiplier": float(tempVal)}
+        with open(fontMul, 'w') as f:
+            json.dump(tempJSON,f)
+        return tempVal
+
+    def sliderChanged(event):
+        try: self.fontMulTxt.configure(text="Multiplier: {}".format(getCurrValue()))
+        except: pass
+
+    self.fontMulHeader = WrappingLabel(self.mainFrame, text="Font Multiplier", font=(font, 20, 'bold'))
+    self.fontMulHeader.grid(row=0, columnspan=2, sticky = tk.W+tk.E, pady=5)
+    self.fontMulSlider = ttk.Scale(self.mainFrame, from_=0, to=160, length=400, command=sliderChanged, variable=currentVal)
+    self.fontMulSlider.set(fontMultiplier*20)
+    self.fontMulSlider.grid(row=1, pady=2, columnspan = 5, sticky = tk.W+tk.E)
+    self.fontMulTxt = WrappingLabel(self.mainFrame, text="Multiplier: {}".format(getCurrValue()), font=(font, 12))
+    self.fontMulTxt.grid(row=2, columnspan=2, sticky= tk.W+tk.E)

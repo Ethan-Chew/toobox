@@ -25,6 +25,7 @@ appIconPng = os.path.join(ROOTDIR,'src','images','AppIcon.png')
 _recentlength=10
 # Variables
 functionalities = {
+            "Settings"          :   Settings,
             "Chemical Equation" :   ChemicalEquation,
             "Rectangle/Square"  :   Rectangle,
             "Ionic Equation"    :   IonicEqn,
@@ -76,6 +77,7 @@ treeview_data = [
                 (6, 38, "Circles"),
                     (38, 39, "Circle Properties"),
                     (38, 40, "Equation of Circle"),
+            ("", 41, "Settings"),
         ]
 TOPICS=[treeview_data[i-1][2] for i in [1,6,8,16,15,23,34,24,29]] # Add Items into Treeview
 topics = []
