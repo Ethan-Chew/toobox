@@ -686,6 +686,9 @@ def periodicTable(self):
             temp=WrappingLabel(newf, text="Specific Heat Capacity / J⋅kg⁻¹⋅K⁻¹" , font=(font, 10))
             temp.grid(row=19, column=0, sticky = tk.N+tk.E, padx=2)
 
+            temp=WrappingLabel(newf, text="Discovered" , font=(font, 10))
+            temp.grid(row=20, column=0, sticky = tk.N+tk.E, padx=2)
+
             newf.grid(row=0, column=0, sticky = tk.N+tk.E, padx=2)
 
             r=1
@@ -757,6 +760,9 @@ def periodicTable(self):
 
                 temp=WrappingLabel(newf, text=str(pt.ELEMENTDATA["SpecificHeat"][i]).title(), font=(font, 10))
                 temp.grid(row=19, column=0, sticky = tk.N+tk.W, padx=2)
+
+                temp=WrappingLabel(newf, text=", ".join([str(pt.ELEMENTDATA["Discoverer"][i]).title(), str(pt.ELEMENTDATA["Year"][i]).title()]), font=(font, 10))
+                temp.grid(row=20, column=0, sticky = tk.N+tk.W, padx=2)
 
                 newf.grid(row=0, column=r, sticky = tk.N, padx=2)
                 r+=1
