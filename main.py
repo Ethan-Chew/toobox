@@ -1,5 +1,5 @@
 import time
-from re import S
+
 import tkinter as tk
 from tkinter import ttk
 import os
@@ -114,12 +114,11 @@ class App(ttk.Frame):
         if os.path.exists(jsonData):
             file = open(jsonData)
             try:
-                data = json.load(jsonData)
+                data = json.load(file)
                 file.close()
                 if type(data["recentlyOpened"]) == list:
-                    return
-                
-            except Exception:
+                    return 
+            except Exception as e:
                 file.close()
                 file = open(jsonData, 'w')
                 json.dump({'fontMultiplier': float(1),'recentlyOpened': []}, file)
