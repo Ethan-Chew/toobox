@@ -1,0 +1,52 @@
+Date : 2022-02-07 08:24:20
+Directory : /Users/jer123se12/Documents/GitHub/toobox
+Total : 23 files,  2456 codes, 171 comments, 360 blanks, all 2987 lines
+
+Languages
++--------------+------------+------------+------------+------------+------------+
+| language     | files      | code       | comment    | blank      | total      |
++--------------+------------+------------+------------+------------+------------+
+| Python       |         20 |      2,415 |        171 |        350 |      2,936 |
+| Markdown     |          1 |         30 |          0 |          7 |         37 |
+| Shell Script |          1 |         10 |          0 |          3 |         13 |
+| JSON         |          1 |          1 |          0 |          0 |          1 |
++--------------+------------+------------+------------+------------+------------+
+
+Directories
++-----------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                              | files      | code       | comment    | blank      | total      |
++-----------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                 |         23 |      2,456 |        171 |        360 |      2,987 |
+| components                                                                        |          2 |         12 |          0 |          2 |         14 |
+| tools                                                                             |         15 |      1,367 |         95 |        176 |      1,638 |
++-----------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++-----------------------------------------------------------------------------------+--------------+------------+------------+------------+------------+
+| filename                                                                          | language     | code       | comment    | blank      | total      |
++-----------------------------------------------------------------------------------+--------------+------------+------------+------------+------------+
+| /Users/jer123se12/Documents/GitHub/toobox/.fontMultiplier.json                    | JSON         |          1 |          0 |          0 |          1 |
+| /Users/jer123se12/Documents/GitHub/toobox/README.md                               | Markdown     |         30 |          0 |          7 |         37 |
+| /Users/jer123se12/Documents/GitHub/toobox/components/SettingsSlider.py            | Python       |          6 |          0 |          1 |          7 |
+| /Users/jer123se12/Documents/GitHub/toobox/components/wrappedLabel.py              | Python       |          6 |          0 |          1 |          7 |
+| /Users/jer123se12/Documents/GitHub/toobox/config.py                               | Python       |          8 |          1 |          1 |         10 |
+| /Users/jer123se12/Documents/GitHub/toobox/main.py                                 | Python       |        330 |         40 |         53 |        423 |
+| /Users/jer123se12/Documents/GitHub/toobox/setup.bash                              | Shell Script |         10 |          0 |          3 |         13 |
+| /Users/jer123se12/Documents/GitHub/toobox/tools/Algebra_calculator.py             | Python       |        226 |         11 |         34 |        271 |
+| /Users/jer123se12/Documents/GitHub/toobox/tools/IonicEqn.py                       | Python       |        117 |          8 |         12 |        137 |
+| /Users/jer123se12/Documents/GitHub/toobox/tools/__init__.py                       | Python       |          0 |          0 |          1 |          1 |
+| /Users/jer123se12/Documents/GitHub/toobox/tools/areaCalculation.py                | Python       |         82 |          9 |         13 |        104 |
+| /Users/jer123se12/Documents/GitHub/toobox/tools/balancingChemEqn.py               | Python       |        162 |         15 |         14 |        191 |
+| /Users/jer123se12/Documents/GitHub/toobox/tools/calculator.py                     | Python       |        191 |         11 |         57 |        259 |
+| /Users/jer123se12/Documents/GitHub/toobox/tools/circleEqn.py                      | Python       |         52 |          2 |          6 |         60 |
+| /Users/jer123se12/Documents/GitHub/toobox/tools/drawPeriodicTable.py              | Python       |          0 |          0 |          1 |          1 |
+| /Users/jer123se12/Documents/GitHub/toobox/tools/inequlity solver(not complete).py | Python       |         88 |          3 |          8 |         99 |
+| /Users/jer123se12/Documents/GitHub/toobox/tools/matrixSolver.py                   | Python       |         47 |          2 |          2 |         51 |
+| /Users/jer123se12/Documents/GitHub/toobox/tools/periodicTable.py                  | Python       |        232 |         25 |          6 |        263 |
+| /Users/jer123se12/Documents/GitHub/toobox/tools/saltSolubilities.py               | Python       |         26 |          5 |          2 |         33 |
+| /Users/jer123se12/Documents/GitHub/toobox/tools/sim_eqn.py                        | Python       |         14 |          0 |          2 |         16 |
+| /Users/jer123se12/Documents/GitHub/toobox/tools/snake.py                          | Python       |         63 |          0 |         11 |         74 |
+| /Users/jer123se12/Documents/GitHub/toobox/tools/solveQuad.py                      | Python       |         67 |          4 |          7 |         78 |
+| /Users/jer123se12/Documents/GitHub/toobox/toolsUI.py                              | Python       |        698 |         35 |        118 |        851 |
+| Total                                                                             |              |      2,456 |        171 |        360 |      2,987 |
++-----------------------------------------------------------------------------------+--------------+------------+------------+------------+------------+

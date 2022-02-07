@@ -1,0 +1,25 @@
+"filename", "language", "Markdown", "Shell Script", "Python", "JSON", "comment", "blank", "total"
+"/Users/jer123se12/Documents/GitHub/toobox/.fontMultiplier.json", "JSON", 0, 0, 0, 1, 0, 0, 1
+"/Users/jer123se12/Documents/GitHub/toobox/README.md", "Markdown", 30, 0, 0, 0, 0, 7, 37
+"/Users/jer123se12/Documents/GitHub/toobox/components/SettingsSlider.py", "Python", 0, 0, 6, 0, 0, 1, 7
+"/Users/jer123se12/Documents/GitHub/toobox/components/wrappedLabel.py", "Python", 0, 0, 6, 0, 0, 1, 7
+"/Users/jer123se12/Documents/GitHub/toobox/config.py", "Python", 0, 0, 8, 0, 1, 1, 10
+"/Users/jer123se12/Documents/GitHub/toobox/main.py", "Python", 0, 0, 330, 0, 40, 53, 423
+"/Users/jer123se12/Documents/GitHub/toobox/setup.bash", "Shell Script", 0, 10, 0, 0, 0, 3, 13
+"/Users/jer123se12/Documents/GitHub/toobox/tools/Algebra_calculator.py", "Python", 0, 0, 226, 0, 11, 34, 271
+"/Users/jer123se12/Documents/GitHub/toobox/tools/IonicEqn.py", "Python", 0, 0, 117, 0, 8, 12, 137
+"/Users/jer123se12/Documents/GitHub/toobox/tools/__init__.py", "Python", 0, 0, 0, 0, 0, 1, 1
+"/Users/jer123se12/Documents/GitHub/toobox/tools/areaCalculation.py", "Python", 0, 0, 82, 0, 9, 13, 104
+"/Users/jer123se12/Documents/GitHub/toobox/tools/balancingChemEqn.py", "Python", 0, 0, 162, 0, 15, 14, 191
+"/Users/jer123se12/Documents/GitHub/toobox/tools/calculator.py", "Python", 0, 0, 191, 0, 11, 57, 259
+"/Users/jer123se12/Documents/GitHub/toobox/tools/circleEqn.py", "Python", 0, 0, 52, 0, 2, 6, 60
+"/Users/jer123se12/Documents/GitHub/toobox/tools/drawPeriodicTable.py", "Python", 0, 0, 0, 0, 0, 1, 1
+"/Users/jer123se12/Documents/GitHub/toobox/tools/inequlity solver(not complete).py", "Python", 0, 0, 88, 0, 3, 8, 99
+"/Users/jer123se12/Documents/GitHub/toobox/tools/matrixSolver.py", "Python", 0, 0, 47, 0, 2, 2, 51
+"/Users/jer123se12/Documents/GitHub/toobox/tools/periodicTable.py", "Python", 0, 0, 232, 0, 25, 6, 263
+"/Users/jer123se12/Documents/GitHub/toobox/tools/saltSolubilities.py", "Python", 0, 0, 26, 0, 5, 2, 33
+"/Users/jer123se12/Documents/GitHub/toobox/tools/sim_eqn.py", "Python", 0, 0, 14, 0, 0, 2, 16
+"/Users/jer123se12/Documents/GitHub/toobox/tools/snake.py", "Python", 0, 0, 63, 0, 0, 11, 74
+"/Users/jer123se12/Documents/GitHub/toobox/tools/solveQuad.py", "Python", 0, 0, 67, 0, 4, 7, 78
+"/Users/jer123se12/Documents/GitHub/toobox/toolsUI.py", "Python", 0, 0, 698, 0, 35, 118, 851
+"Total", "-", 30, 10, 2415, 1, 171, 360, 2987
