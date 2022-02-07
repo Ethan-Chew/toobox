@@ -26,6 +26,8 @@ ROOTDIR=os.path.abspath(os.curdir)
 jsonData=os.path.join(ROOTDIR,".data.json")
 trianglePng = os.path.join(ROOTDIR,'src','images','triangle.png')
 
+fontMultiplier = 1.00
+
 def reload():
     global fontMultiplier
     file = open(jsonData)
@@ -825,14 +827,26 @@ def periodicTable(self):
     self.resFrame.grid(row=1, column=0, rowspan=10, columnspan=10,pady=10, padx=2)
 
 def Settings(self):
-    # Input Data
-    def getInputs(self):
-        compound = self.inputField.get()
-        codeReturned = saltSolubilities(compound) # Could return error/final value
-        if codeReturned:
-            codeReturned = "Soluble in Water"
-        else:
-            codeReturned = "Insoluble in Water"
+    # Font Multiplier
+    currentVal = tk.DoubleVar()
+    
+    def getCurrValue():
+        tempVal = '{: .2f}'.format(currentVal.get()/30)
+        file = open(jsonData)
+        extractedData = json.load(file)
+        tempJSON = {"fontMultiplier": float(tempVal), "recentlyOpened": extractedData['recentlyOpened']}
+        json.dump(tempJSON, file)
+        file.close()
+        reload()
+        print(type(tempVal), tempVal)
+        return tempVal
+
+    def sliderChanged(event):
+        try: 
+            self.fontMulTxt.configure(text="Multiplier: {}".format(getCurrValue()))
+            self.thingFrame.update()
+        except Exception as err: 
+            print(err)
 
     self.thingFrame = self.addframe()
     self.thingFrame.pack(side="top", padx=25, pady=18, anchor="w")
@@ -843,25 +857,6 @@ def Settings(self):
 
     self.mainFrame = self.addframe()
     self.mainFrame.pack(padx=25, pady=18, anchor="w")
-    prevval=fontMultiplier
-    # Font Multiplier
-    currentVal = tk.DoubleVar()
-    def getCurrValue():
-        # tempVal = '{: .2f}'.format(0.5+currentVal.get()/30)
-        # file = open(jsonData)
-        # extractedData = json.load(file)
-        # tempJSON = {"fontMultiplier": float(tempVal), "recentlyOpened": extractedData['recentlyOpened']}
-        # json.dump(tempJSON, file)
-        # file.close()
-        # reload()
-        # return tempVal
-        return 1.00
-
-    def sliderChanged(event):
-        try: 
-            self.fontMulTxt.configure(text="Multiplier: {}".format(getCurrValue()))
-            self.thingFrame.update()
-        except: pass
 
     self.fontMulHeader = WrappingLabel(self.mainFrame, text="Font Multiplier", font=(font,int(fontMultiplier*20), 'bold'))
     self.fontMulHeader.grid(row=0, columnspan=2, sticky = tk.W+tk.E, pady=5)
@@ -870,6 +865,5 @@ def Settings(self):
     self.fontMulSlider.grid(row=1, pady=2, columnspan = 5, sticky = tk.W+tk.E)
     self.fontMulTxt = WrappingLabel(self.mainFrame, text="Multiplier: {}".format(getCurrValue()), font=(font,int(fontMultiplier*12)))
     self.fontMulTxt.grid(row=2, columnspan=2, sticky= tk.W+tk.E)
-    self.infoLabel = WrappingLabel(self.mainFrame, text="Please restart for best results", font=(font,int(fontMultiplier*10)))
-    self.infoLabel.config(text="Disabled for the Time Being.", font=(font,int(fontMultiplier*10), 'bold'))
-    self.infoLabel.grid(row=3, columnspan=2, sticky= tk.W+tk.E)
+    self.mainLabel = WrappingLabel(self.mainFrame, text="Please restart for best results", font=(font,int(fontMultiplier*10)))
+    self.mainLabel.grid(row=3, columnspan=2, sticky= tk.W+tk.E)

@@ -345,8 +345,6 @@ class App(ttk.Frame):
             self.run_func(self.treeview.item(self.treeview.selection()[0])['text'])
         except: pass
 
-    def updateUsername(self, event):
-        self.updateUsernameUI = ttk.Frame()
     def addframe(self,frame="",**args):
         if frame == "":
             frame=self.notebook
