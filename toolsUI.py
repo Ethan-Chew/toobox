@@ -4,10 +4,7 @@ import tkinter as tk
 from tkinter import ttk
 import re
 
-from chemlib import Element
-
 from sympy import root
-from components.SettingsSlider import SettingsSlider
 from tools import snake
 from tools import areaCalculation
 from tools.circleEqn import circle_equation
@@ -21,7 +18,6 @@ from tools.areaCalculation import *
 from tools.sim_eqn import *
 import tools.periodicTable as pt
 import math
-import config
 import json
 import os
 
@@ -29,7 +25,6 @@ font="TkDefaultFont"
 fontMul=os.path.join(os.path.abspath(os.curdir),".fontMultiplier.json")
 
 def reload():
-    
     global fontMultiplier
     try:
         file = open(fontMul)
@@ -41,14 +36,9 @@ def reload():
         file = open(fontMul, "w")
         json.dump({"fontMultiplier":fontMultiplier}, file)
         file.close()
+
 reload()
-print(fontMultiplier)
-def is_float(value):
-    try:
-        float(value)
-        return True
-    except:
-        return False
+
 def ChemicalEquation(self):
     # Input Data
     def getInputs(self):
@@ -828,16 +818,18 @@ def Settings(self):
     # Font Multiplier
     currentVal = tk.DoubleVar()
     def getCurrValue():
-        
-        tempVal = '{: .2f}'.format(0.5+currentVal.get()/30)
-        tempJSON = {"fontMultiplier": float(tempVal)}
-        with open(fontMul, 'w') as f:
-            json.dump(tempJSON,f)
-        reload()
-        return tempVal
+        # tempVal = '{: .2f}'.format(0.5+currentVal.get()/30)
+        # tempJSON = {"fontMultiplier": float(tempVal)}
+        # with open(fontMul, 'w') as f:
+        #     json.dump(tempJSON,f)
+        # reload()
+        # return tempVal
+        return 1.00
 
     def sliderChanged(event):
-        try: self.fontMulTxt.configure(text="Multiplier: {}".format(getCurrValue()))
+        try: 
+            self.fontMulTxt.configure(text="Multiplier: {}".format(getCurrValue()))
+            self.thingFrame.update()
         except: pass
 
     self.fontMulHeader = WrappingLabel(self.mainFrame, text="Font Multiplier", font=(font,int(fontMultiplier*20), 'bold'))
@@ -847,5 +839,6 @@ def Settings(self):
     self.fontMulSlider.grid(row=1, pady=2, columnspan = 5, sticky = tk.W+tk.E)
     self.fontMulTxt = WrappingLabel(self.mainFrame, text="Multiplier: {}".format(getCurrValue()), font=(font,int(fontMultiplier*12)))
     self.fontMulTxt.grid(row=2, columnspan=2, sticky= tk.W+tk.E)
-    self.mainLabel = WrappingLabel(self.mainFrame, text="Please restart for best results", font=(font,int(fontMultiplier*10)))
-    self.mainLabel.grid(row=3, columnspan=2, sticky= tk.W+tk.E)
+    self.infoLabel = WrappingLabel(self.mainFrame, text="Please restart for best results", font=(font,int(fontMultiplier*10)))
+    self.infoLabel.config(text="Disabled for the Time Being.", font=(font,int(fontMultiplier*10), 'bold'))
+    self.infoLabel.grid(row=3, columnspan=2, sticky= tk.W+tk.E)

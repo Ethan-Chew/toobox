@@ -19,6 +19,7 @@ import webbrowser
 # Path of the File
 ROOTDIR=os.path.abspath(os.curdir)
 recentlyused=os.path.join(ROOTDIR,".recentlyOpened.json")
+fontMul=os.path.join(ROOTDIR,".fontMultiplier.json")
 appIconIcon = os.path.join(ROOTDIR,'src','images','AppIcon.ico')
 appIconIcns = os.path.join(ROOTDIR,'src','images','AppIcon.icns')
 appIconPng = os.path.join(ROOTDIR,'src','images','AppIcon.png')
@@ -26,7 +27,6 @@ _recentlength=10
 FONT='TkDefaultFont'
 
 def reload():
-    
     global fontMultiplier
     try:
         file = open(fontMul)
@@ -38,6 +38,7 @@ def reload():
         file = open(fontMul, "w")
         json.dump({"fontMultiplier":fontMultiplier}, file)
         file.close()
+
 reload()
 # Variables
 functionalities = {
@@ -92,8 +93,8 @@ treeview_data = [
                 (6, 33, "Percentage"),
                 (6, 38, "Circles"),
                     (38, 39, "Circle Properties"),
-                    (38, 40, "Equation of Circle")
-                    # ,("", 41, "Settings"),
+                    (38, 40, "Equation of Circle"),
+            ("", 41, "Settings"),
         ]
 TOPICS=[treeview_data[i-1][2] for i in [1,6,8,16,15,23,34,24,29]] # Add Items into Treeview
 topics = []
@@ -184,6 +185,15 @@ class App(ttk.Frame):
     ## Back to Home
     def goHome(self):
         root.bind("`", self.handleBackToHS)
+
+    ## Reset Settings
+    def resetSettingsSC(self):
+        root.bind("@", self.resetSettings)
+
+    def resetSettings(self, event):
+        with open(fontMul, 'w') as f:
+            json.dump({"fontMultiplier": float(1)},f)
+        reload()
 
     def removeSelectedTreeView(self):
         config.currentlySelected = "Home"
