@@ -27,16 +27,10 @@ FONT='TkDefaultFont'
 
 def reload():
     global fontMultiplier
-    try:
-        file = open(jsonData)
-        extractedData = json.load(file)
-        file.close()
-        fontMultiplier = float(extractedData["fontMultiplier"])
-    except: 
-        fontMultiplier = 1
-        file = open(jsonData, "w")
-        json.dump({"fontMultiplier": fontMultiplier, "recentlyOpened": []}, file)
-        file.close()
+    file = open(jsonData)
+    extractedData = json.load(file)
+    file.close()
+    fontMultiplier = float(extractedData["fontMultiplier"])
 
 reload()
 # Variables
@@ -123,15 +117,16 @@ class App(ttk.Frame):
                 data = json.load(jsonData)
                 file.close()
                 if type(data["recentlyOpened"]) == list:
-                    return 
-            except:
+                    return
+                
+            except Exception:
                 file.close()
                 file = open(jsonData, 'w')
-                json.dump({'fontMultiplier': float(1),'recentlyOpened':[]}, file)
+                json.dump({'fontMultiplier': float(1),'recentlyOpened': []}, file)
                 file.close()
         else:
             file = open(jsonData, 'w')
-            json.dump({'fontMultiplier': float(1),'recentlyOpened':[]}, file)
+            json.dump({'fontMultiplier': float(1),'recentlyOpened': []}, file)
             file.close()
 
     def change_theme(self):
@@ -313,7 +308,6 @@ class App(ttk.Frame):
         file = open(jsonData)
         data = json.load(file)
         file.close()
-        temp = {"fontMultiplier": data['fontMultiplier'],"recentlyOpened": []}
 
         config.currentlySelected = current
 
@@ -327,10 +321,8 @@ class App(ttk.Frame):
             data['recentlyOpened'].insert(0, config.currentlySelected)
             data['recentlyOpened'].pop(_recentlength-1)
 
-        temp['recentlyOpened'] = data['recentlyOpened']
-        print()
         with open(jsonData, 'w') as f:
-            json.dump(temp,f)
+            json.dump(data,f)
         self.holdROItemFrame.pack_forget()
 
         for ropenedItem in data:

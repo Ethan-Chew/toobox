@@ -22,20 +22,16 @@ import json
 import os
 
 font="TkDefaultFont"
-jsonData=os.path.join(os.path.abspath(os.curdir),".data.json")
+ROOTDIR=os.path.abspath(os.curdir)
+jsonData=os.path.join(ROOTDIR,".data.json")
+trianglePng = os.path.join(ROOTDIR,'src','images','triangle.png')
 
 def reload():
     global fontMultiplier
-    try:
-        file = open(jsonData)
-        fontMultiplier = json.load(file)
-        file.close()
-        fontMultiplier = float(fontMultiplier["fontMultiplier"])
-    except:
-        fontMultiplier = 1
-        file = open(jsonData, "w")
-        json.dump({"fontMultiplier": fontMultiplier, "recentlyOpened": []}, file)
-        file.close()
+    file = open(jsonData)
+    extractedData = json.load(file)
+    file.close()
+    fontMultiplier = float(extractedData["fontMultiplier"])
 
 reload()
 
@@ -509,23 +505,29 @@ def triangle(self):
     self.thingFrame.pack(side="top", padx=25, pady=18, anchor="w")
     
     self.mainLabel.pack(side="top", pady=2, fill="x", expand="yes")
-    self.infoLabel = WrappingLabel(self.thingFrame, text="Please enter enough angles, or sides to solve for area", font=(font,int(fontMultiplier*15)))
+    self.infoLabel = WrappingLabel(self.thingFrame, text="Please enter enough angles (A, B and C), or sides (a, b and c) to solve for area", font=(font,int(fontMultiplier*15)))
     self.infoLabel.pack(side="top", pady=2, fill="x", expand="yes")
     self.mainFrame = self.addframe()
     self.mainFrame.pack(padx=25, pady=18, anchor="w")
     self.mainFrame.pack(side="top", padx=25, pady=18, anchor="w")
     anpos=[[4,0],[0,4],[4,4]]
     angles=[]
+    entryText = ["B", "A", "C", "b", "a", "c"]
+    x = 0
     for i in anpos:
         temp=ttk.Entry(self.mainFrame, width=10, font=(font,int(fontMultiplier*12)))
+        temp.insert(0, entryText[x])
         temp.grid(row=i[0],column=i[1],padx=2,pady=2, sticky = tk.W+tk.E)
         angles.append(temp)
+        x += 1
     sidpos=[[2,4],[4,2],[2,2]]
     sides=[]
     for i in sidpos:
         temp=ttk.Entry(self.mainFrame, width=10, font=(font,int(fontMultiplier*12)))
+        temp.insert(0, entryText[x])
         temp.grid(row=i[0],column=i[1],padx=2,pady=2, sticky = tk.W+tk.E)
         sides.append(temp)
+        x += 1
     diagpos=[[3,1],[1,3]]
     for i in diagpos:
         self.resultTxt1 = WrappingLabel(self.mainFrame, text="/", font=(font,int(fontMultiplier*20)))
