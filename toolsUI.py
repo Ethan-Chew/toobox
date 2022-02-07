@@ -62,6 +62,8 @@ def ChemicalEquation(self):
     self.sendData.grid(row=1, column=0,pady=10, padx=2)
 
     def setFinalResult(self, result):
+        try: self.resultTxt.grid_forget()
+        except: pass
         self.resultTxt = WrappingLabel(self.mainFrame, text="Result:  {}".format(result), font=(font,int(fontMultiplier*20)))
         self.resultTxt.grid(row=3, columnspan = 2, sticky = tk.W+tk.E, padx=2)
 
@@ -108,6 +110,8 @@ def Parallelogram(self):
     self.sendData.grid(row=2, column=1, pady=10, padx=2, sticky="w")
 
     def setFinalResult(self, result):
+        try: self.resultTxt.grid_forget()
+        except: pass
         self.resultTxt = WrappingLabel(self.mainFrame, text="Result:  {}".format(result), font=(font,int(fontMultiplier*20)))
         self.resultTxt.grid(row=3,column=1,padx=2,columnspan=4, sticky="w")
 
@@ -147,6 +151,8 @@ def Trapezium(self):
     self.sendData.grid(row=3, column=1, pady=10, padx=2, sticky="w")
 
     def setFinalResult(self, result):
+        try: self.resultTxt.grid_forget()
+        except: pass
         self.resultTxt = WrappingLabel(self.mainFrame, text="Result:  {}".format(result), font=(font,int(fontMultiplier*20)))
         self.resultTxt.grid(row=4,column=1,padx=2,columnspan=4, sticky="w")
 
@@ -199,7 +205,10 @@ def Rectangle(self):
     self.typebox = ttk.Combobox(self.mainFrame, state="readonly", values=self.types, postcommand=lambda:changeTypebox(self))
     self.typebox.current(0)
     self.typebox.grid(row=0, column=1, padx=2, sticky="w")
+    
     def setFinalResult(self, result):
+        try: self.resultTxt.grid_forget()
+        except: pass
         self.resultTxt = WrappingLabel(self.mainFrame, text="Result:  {}".format(result), font=(font,int(fontMultiplier*20)))
         self.resultTxt.grid(row=4,column=1,padx=2,columnspan=4, sticky="w")
 
@@ -254,6 +263,8 @@ def Circle(self):
     self.sendData.grid(row=4, column=1, pady=10, padx=2, sticky="w")
 
     def setFinalResult(self, result):
+        try: self.resultTxt.grid_forget()
+        except: pass
         self.resultTxt = WrappingLabel(self.mainFrame, text="Result:  {}".format(result), font=(font,int(fontMultiplier*20)))
         self.resultTxt.grid(row=5,column=1,padx=2,columnspan=4, sticky="w")
 
@@ -283,6 +294,8 @@ def IonicEqn(self):
     self.sendData.grid(row=1, column=0,pady=10, padx=2)
 
     def setFinalResult(self, result):
+        try: self.resultTxt.grid_forget()
+        except: pass
         self.resultTxt = WrappingLabel(self.mainFrame, text="Result:  {}".format(result), font=(font,int(fontMultiplier*20)))
         self.resultTxt.grid(row=3, columnspan = 2, sticky = tk.W+tk.E, padx=2)
 
@@ -315,6 +328,8 @@ def SaltSolubility(self):
     self.sendData.grid(row=1, column=0,pady=10, padx=2)
 
     def setFinalResult(self, result):
+        try: self.resultTxt.grid_forget()
+        except: pass
         self.resultTxt = WrappingLabel(self.mainFrame, text="Result:  {}".format(result), font=(font,int(fontMultiplier*20)))
         self.resultTxt.grid(row=3, columnspan = 2, sticky = tk.W+tk.E, padx=2)
 
@@ -385,19 +400,31 @@ def SolveQuad(self):
     self.sendData.grid(row=1, column=0,pady=10, padx=2)
 
     def setFinalResult(self, result):
-
-        if len(result[0]) == 1:
-            self.resultTxt1 = WrappingLabel(self.mainFrame, text="Roots:  {}".format(result[0][0]), font=(font,int(fontMultiplier*20)))
+        clearResults(self)
+        if type(result) == str:
+            self.resultTxt1 = WrappingLabel(self.mainFrame, text=result, font=(font,int(fontMultiplier*20)))
             self.resultTxt1.grid(row=3, columnspan = 2, sticky = tk.W+tk.E, padx=2)
         else:
-            self.resultTxt1 = WrappingLabel(self.mainFrame, text="Roots:  {}, {}".format(result[0][0], result[0][1]), font=(font,int(fontMultiplier*20)))
-            self.resultTxt1.grid(row=3, columnspan = 2, sticky = tk.W+tk.E, padx=2)
-        self.resultTxt2 = WrappingLabel(self.mainFrame, text="Completed the Square:  {}".format(result[1]), font=(font,int(fontMultiplier*20)))
-        self.resultTxt2.grid(row=4, columnspan = 2, sticky = tk.W+tk.E, padx=2)
-        self.resultTxt3 = WrappingLabel(self.mainFrame, text="Turning Points:  {}, {}".format(str(result[2].split(", ")[0]), result[2].split(", ")[1]), font=(font,int(fontMultiplier*20)))
-        self.resultTxt3.grid(row=5, columnspan = 2, sticky = tk.W+tk.E, padx=2)
-        self.resultTxt4 = WrappingLabel(self.mainFrame, text="Y Intercept:  {}".format(result[3]), font=(font,int(fontMultiplier*20)))
-        self.resultTxt4.grid(row=6, columnspan = 2, sticky = tk.W+tk.E, padx=2)
+            if len(result[0]) == 1:
+                self.resultTxt1 = WrappingLabel(self.mainFrame, text="Roots:  {}".format(result[0][0]), font=(font,int(fontMultiplier*20)))
+                self.resultTxt1.grid(row=3, columnspan = 2, sticky = tk.W+tk.E, padx=2)
+            else:
+                self.resultTxt1 = WrappingLabel(self.mainFrame, text="Roots:  {}, {}".format(result[0][0], result[0][1]), font=(font,int(fontMultiplier*20)))
+                self.resultTxt1.grid(row=3, columnspan = 2, sticky = tk.W+tk.E, padx=2)
+            self.resultTxt2 = WrappingLabel(self.mainFrame, text="Completed the Square:  {}".format(result[1]), font=(font,int(fontMultiplier*20)))
+            self.resultTxt2.grid(row=4, columnspan = 2, sticky = tk.W+tk.E, padx=2)
+            self.resultTxt3 = WrappingLabel(self.mainFrame, text="Turning Points:  {}, {}".format(str(result[2].split(", ")[0]), result[2].split(", ")[1]), font=(font,int(fontMultiplier*20)))
+            self.resultTxt3.grid(row=5, columnspan = 2, sticky = tk.W+tk.E, padx=2)
+            self.resultTxt4 = WrappingLabel(self.mainFrame, text="Y Intercept:  {}".format(result[3]), font=(font,int(fontMultiplier*20)))
+            self.resultTxt4.grid(row=6, columnspan = 2, sticky = tk.W+tk.E, padx=2)
+    
+    def clearResults(self):
+        try:
+            self.resultTxt1.grid_forget()
+            self.resultTxt2.grid_forget()
+            self.resultTxt3.grid_forget()
+            self.resultTxt4.grid_forget()
+        except: pass
 
 def simsolver(self,column=3):
     row=column-1
@@ -542,10 +569,8 @@ def triangle(self):
         self.resultTxt1 = WrappingLabel(self.mainFrame, text="|", font=(font,int(fontMultiplier*20)))
         self.resultTxt1.grid(row=i[0],column=i[1],padx=2,pady=2, sticky = tk.W+tk.E)
     def onPress():
-        try:
-            self.resultTxt1.packforget()
-        except:
-            pass
+        try: self.resultTxt1.grid_forget()
+        except: pass
         ang=[]
         for i in angles:
             if i.get()=="":
@@ -623,6 +648,8 @@ def SolveCircle(self):
     self.sendData.grid(row=2, column=0,pady=10, padx=2)
 
     def setFinalResult(self, result):
+        try: self.resultTxt.grid_forget()
+        except: pass
         self.resultTxt = WrappingLabel(self.mainFrame, text="Result:  {}".format(result), font=(font,int(fontMultiplier*20)))
         self.resultTxt.grid(row=3, columnspan = 2, sticky = tk.W+tk.N, padx=2)
 

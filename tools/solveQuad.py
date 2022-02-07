@@ -22,6 +22,7 @@ def solveQuad(eqn):
             a = str(a).replace("+", "")
             b = str(b).replace("+", "")
             c = str(c).replace("+", "")
+            a,b,c = int(a),int(b),int(c)
         except:
             return "Val Err"
 
