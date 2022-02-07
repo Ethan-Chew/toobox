@@ -18,8 +18,7 @@ import webbrowser
 
 # Path of the File
 ROOTDIR=os.path.abspath(os.curdir)
-recentlyused=os.path.join(ROOTDIR,".recentlyOpened.json")
-fontMul=os.path.join(ROOTDIR,".fontMultiplier.json")
+jsonData = os.path.join(ROOTDIR, '.data.json')
 appIconIcon = os.path.join(ROOTDIR,'src','images','AppIcon.ico')
 appIconIcns = os.path.join(ROOTDIR,'src','images','AppIcon.icns')
 appIconPng = os.path.join(ROOTDIR,'src','images','AppIcon.png')
@@ -29,14 +28,14 @@ FONT='TkDefaultFont'
 def reload():
     global fontMultiplier
     try:
-        file = open(fontMul)
-        fontMultiplier = json.load(file)
+        file = open(jsonData)
+        extractedData = json.load(file)
         file.close()
-        fontMultiplier = float(fontMultiplier["fontMultiplier"])
-    except:
+        fontMultiplier = float(extractedData["fontMultiplier"])
+    except: 
         fontMultiplier = 1
-        file = open(fontMul, "w")
-        json.dump({"fontMultiplier":fontMultiplier}, file)
+        file = open(jsonData, "w")
+        json.dump({"fontMultiplier": fontMultiplier, "recentlyOpened": []}, file)
         file.close()
 
 reload()
@@ -118,21 +117,21 @@ class App(ttk.Frame):
         config.currentlySelected = "Home"
 
     def check_recently_opened(self):
-        if os.path.exists(recentlyused):
-            file = open(recentlyused)
+        if os.path.exists(jsonData):
+            file = open(jsonData)
             try:
-                data = json.load(file)
+                data = json.load(jsonData)
                 file.close()
                 if type(data["recentlyOpened"]) == list:
                     return 
             except:
                 file.close()
-                file = open(recentlyused, 'w')
-                json.dump({'recentlyOpened':[]}, file)
+                file = open(jsonData, 'w')
+                json.dump({'fontMultiplier': float(1),'recentlyOpened':[]}, file)
                 file.close()
         else:
-            file = open(recentlyused, 'w')
-            json.dump({'recentlyOpened':[]}, file)
+            file = open(jsonData, 'w')
+            json.dump({'fontMultiplier': float(1),'recentlyOpened':[]}, file)
             file.close()
 
     def change_theme(self):
@@ -160,7 +159,7 @@ class App(ttk.Frame):
 
         # Recently Opened
         romenu=Menu(menubar, tearoff=0)
-        file = open(recentlyused)
+        file = open(jsonData)
         data = json.load(file)
         file.close()
         data = list(set(data['recentlyOpened']))
@@ -191,8 +190,8 @@ class App(ttk.Frame):
         root.bind("@", self.resetSettings)
 
     def resetSettings(self, event):
-        with open(fontMul, 'w') as f:
-            json.dump({"fontMultiplier": float(1)},f)
+        with open(jsonData, 'w') as f:
+            json.dump({"fontMultiplier": float(1), "recentlyOpened": []},f)
         reload()
 
     def removeSelectedTreeView(self):
@@ -311,27 +310,27 @@ class App(ttk.Frame):
         # if current in TOPICS:
         #     return
         
-        file = open(recentlyused)
+        file = open(jsonData)
         data = json.load(file)
         file.close()
-        data = list(set(data['recentlyOpened']))
-        bruh = {"recentlyOpened": []}
+        temp = {"fontMultiplier": data['fontMultiplier'],"recentlyOpened": []}
 
         config.currentlySelected = current
 
         self.clearScreen()
 
         # First in First out
-        if (len(data) <= _recentlength):
-            if config.currentlySelected not in data:
-                data.insert(0, config.currentlySelected)
+        if (len(data['recentlyOpened']) <= _recentlength):
+            if config.currentlySelected not in data['recentlyOpened']:
+                data['recentlyOpened'].insert(0, config.currentlySelected)
         else:
-            data.insert(0, config.currentlySelected)
-            data.pop(_recentlength-1)
+            data['recentlyOpened'].insert(0, config.currentlySelected)
+            data['recentlyOpened'].pop(_recentlength-1)
 
-        bruh['recentlyOpened'] = data
-        with open(recentlyused, 'w') as f:
-            json.dump(bruh,f)
+        temp['recentlyOpened'] = data['recentlyOpened']
+        print()
+        with open(jsonData, 'w') as f:
+            json.dump(temp,f)
         self.holdROItemFrame.pack_forget()
 
         for ropenedItem in data:
@@ -381,7 +380,7 @@ class App(ttk.Frame):
         self.appDescText = WrappingLabel(self.tooboxInfoFrame, font=(17), wraplength=self.widthOfTooboxInfo, justify="left" ,text="Toobox is an app is a Toolbox of different tools to help in your Academics. Toobox provides various tools for a wide range of topics and subjects that will definately help you while revising and studying.")
         self.appDescText.pack(side="bottom")
         self.imgPanel.pack(side="bottom", fill="both", expand="yes", pady=32)
-        file = open(recentlyused)
+        file = open(jsonData)
         data = json.load(file)
         file.close()
         data = list(set(data['recentlyOpened']))

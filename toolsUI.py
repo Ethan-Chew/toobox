@@ -22,19 +22,19 @@ import json
 import os
 
 font="TkDefaultFont"
-fontMul=os.path.join(os.path.abspath(os.curdir),".fontMultiplier.json")
+jsonData=os.path.join(os.path.abspath(os.curdir),".data.json")
 
 def reload():
     global fontMultiplier
     try:
-        file = open(fontMul)
+        file = open(jsonData)
         fontMultiplier = json.load(file)
         file.close()
         fontMultiplier = float(fontMultiplier["fontMultiplier"])
     except:
         fontMultiplier = 1
-        file = open(fontMul, "w")
-        json.dump({"fontMultiplier":fontMultiplier}, file)
+        file = open(jsonData, "w")
+        json.dump({"fontMultiplier": fontMultiplier, "recentlyOpened": []}, file)
         file.close()
 
 reload()
@@ -819,9 +819,11 @@ def Settings(self):
     currentVal = tk.DoubleVar()
     def getCurrValue():
         # tempVal = '{: .2f}'.format(0.5+currentVal.get()/30)
-        # tempJSON = {"fontMultiplier": float(tempVal)}
-        # with open(fontMul, 'w') as f:
-        #     json.dump(tempJSON,f)
+        # file = open(jsonData)
+        # extractedData = json.load(file)
+        # tempJSON = {"fontMultiplier": float(tempVal), "recentlyOpened": extractedData['recentlyOpened']}
+        # json.dump(tempJSON, file)
+        # file.close()
         # reload()
         # return tempVal
         return 1.00
