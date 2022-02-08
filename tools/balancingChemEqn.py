@@ -50,7 +50,7 @@ def balanceChemEqn(equation):
     productsCompounds = productsCompounds.split(" + ")
 
     # Function to get occurances
-    def getOccurances():
+    def getOccurances(): # ISSUE ISOLATED TO THIS FUNCTION
         reactantsOccurances = {}
         productsOccurances = {}
 
@@ -68,46 +68,87 @@ def balanceChemEqn(equation):
                 else:
                     oldMul = int(oldMul)
                 
-                if "aq" in reactantsCompounds[i]:
-                    splittedCompound = reactantsCompounds[i].split("(a")
-                elif "s" in reactantsCompounds[i]:
-                    splittedCompound = reactantsCompounds[i].split("(s")
-                elif "l" in reactantsCompounds[i]:
-                    splittedCompound = reactantsCompounds[i].split("(l")
-                elif "g" in reactantsCompounds[i]:
-                    splittedCompound = reactantsCompounds[i].split("(g")
-
+                try:
+                    if "aq" in reactantsCompounds[i]:
+                        try: splittedCompound = reactantsCompounds[i].split("(a")
+                        except: pass
+                    elif "s" in reactantsCompounds[i]:
+                        try: splittedCompound = reactantsCompounds[i].split("(s")
+                        except: pass
+                    elif "l" in reactantsCompounds[i]:
+                        try: splittedCompound = reactantsCompounds[i].split("(l")
+                        except: pass
+                    elif "g" in reactantsCompounds[i]:
+                        try: splittedCompound = reactantsCompounds[i].split("(g")
+                        except: pass
+                except Exception as err:
+                    print(err) 
+                    return "Unknown Cmpt", ""
+                        
                 # Find Occurances of Elements
                 try:
                     occurences = Compound(splittedCompound[0]).occurences
                 except:
                     return "Unknown Cmpt", ""                    
                 occurences.update((x, y*oldMul) for x, y in occurences.items())
-                reactantsOccurances = reactantsOccurances | occurences
-        except:
-            return "PR Err", ""
-
-        ## Loop through right side components
-        for i in range(len(productsCompounds)):
-            oldMul = ""
-            for alpha in range(len(productsCompounds[i])):
-                if productsCompounds[i][alpha].isdigit():
-                    oldMul += productsCompounds[i][alpha]
+                occEle, occOcc = list(occurences.keys()), list(occurences.values())
+                if len(reactantsOccurances) == 0:
+                    reactantsOccurances = occurences
                 else:
-                    break
-            if oldMul == 0 or oldMul == "":
-                oldMul = 1
-            else:
-                oldMul = int(oldMul)
-            
-            splittedCompound = productsCompounds[i].split("(")
-            print(splittedCompound)
-            try:
-                occurences = Compound(splittedCompound[0]).occurences
-            except:
-                return "Unknown Cmpt", ""
-            occurences.update((x, y*oldMul) for x, y in occurences.items())
-            productsOccurances = productsOccurances | occurences
+                    for i in range(len(occurences)):
+                        if occEle[i] not in reactantsOccurances:
+                            reactantsOccurances[occEle[i]] = int(occOcc[i])
+                        else:
+                            reactantsOccurances[occEle[i]] += int(occOcc[i])
+                    
+            ## Loop through right side components
+            for i in range(len(productsCompounds)):
+                oldMul = ""
+                for alpha in range(len(productsCompounds[i])):
+                    if productsCompounds[i][alpha].isdigit():
+                        oldMul += productsCompounds[i][alpha]
+                    else:
+                        break
+                if oldMul == 0 or oldMul == "":
+                    oldMul = 1
+                else:
+                    oldMul = int(oldMul)
+                
+                try:
+                    if "aq" in productsCompounds[i]:
+                        try: splittedCompound = productsCompounds[i].split("(a")
+                        except: pass
+                    elif "s" in productsCompounds[i]:
+                        try: splittedCompound = productsCompounds[i].split("(s")
+                        except: pass
+                    elif "l" in productsCompounds[i]:
+                        try: splittedCompound = productsCompounds[i].split("(l")
+                        except: pass
+                    elif "g" in productsCompounds[i]:
+                        try: splittedCompound = productsCompounds[i].split("(g")
+                        except: pass
+                except Exception as err:
+                    print(err)  
+                    return "Unknown Cmpt", ""
+                        
+                # Find Occurances of Elements
+                try:
+                    occurences = Compound(splittedCompound[0]).occurences
+                except:
+                    return "Unknown Cmpt", ""                    
+                occurences.update((x, y*oldMul) for x, y in occurences.items())
+                occEle, occOcc = list(occurences.keys()), list(occurences.values())
+                if len(productsOccurances) == 0:
+                    productsOccurances = occurences
+                else:
+                    for i in range(len(occurences)):
+                        if occEle[i] not in productsOccurances:
+                            productsOccurances[occEle[i]] = int(occOcc[i])
+                        else:
+                            productsOccurances[occEle[i]] += int(occOcc[i])
+        except Exception as err:
+            print(err)
+            return "PR Err", ""
 
         if len(productsOccurances) != len(reactantsOccurances):
             return "Ex Element", ""
@@ -201,5 +242,3 @@ def balanceChemEqn(equation):
         return finalJointReactants
     except:
         return "An Unknown Error has occured."
-# print(balanceChemEqn("NH4Cl(aq) + Ba(OH)2(aq) -> BaCl2(aq) + H2O(l) + NH3(g)"))
-# print(balanceChemEqn("HCl(aq) + Na(s) -> NaCl(aq) + H2(g)"))
