@@ -36,6 +36,8 @@ def reload():
     fontMultiplier = float(extractedData["fontMultiplier"])
 
 reload()
+newfv=int(fontMultiplier)
+print(fontMultiplier)
 
 def ChemicalEquation(self):
     # Input Data
@@ -831,14 +833,20 @@ def Settings(self):
     currentVal = tk.DoubleVar()
     
     def getCurrValue():
+        
         tempVal = '{: .2f}'.format(currentVal.get()/30)
-        file = open(jsonData)
-        extractedData = json.load(file)
-        tempJSON = {"fontMultiplier": float(tempVal), "recentlyOpened": extractedData['recentlyOpened']}
-        json.dump(tempJSON, file)
-        file.close()
-        reload()
-        print(type(tempVal), tempVal)
+        try:
+            global extractedData
+            extractedData = {}
+            file = open(jsonData, "r")
+            extractedData = json.load(file)
+            file.close()
+            file = open(jsonData, "w+")
+            tempJSON = {"fontMultiplier": float(tempVal), "recentlyOpened": extractedData['recentlyOpened']}
+            json.dump(tempJSON, file)
+            file.close()
+            reload()
+        except Exception as err: print(err)
         return tempVal
 
     def sliderChanged(event):
@@ -861,9 +869,10 @@ def Settings(self):
     self.fontMulHeader = WrappingLabel(self.mainFrame, text="Font Multiplier", font=(font,int(fontMultiplier*20), 'bold'))
     self.fontMulHeader.grid(row=0, columnspan=2, sticky = tk.W+tk.E, pady=5)
     self.fontMulSlider = ttk.Scale(self.mainFrame, from_=0, to=160, length=400, command=sliderChanged, variable=currentVal)
-    self.fontMulSlider.set(int(fontMultiplier*30)-0.5)
+    self.fontMulSlider.set(int(fontMultiplier*30))
     self.fontMulSlider.grid(row=1, pady=2, columnspan = 5, sticky = tk.W+tk.E)
-    self.fontMulTxt = WrappingLabel(self.mainFrame, text="Multiplier: {}".format(getCurrValue()), font=(font,int(fontMultiplier*12)))
+    self.fontMulTxt = WrappingLabel(self.mainFrame, text="Multiplier: ", font=(font,int(fontMultiplier*12)))
+    self.fontMulTxt.config(text="Multiplier: {}".format(getCurrValue()))
     self.fontMulTxt.grid(row=2, columnspan=2, sticky= tk.W+tk.E)
     self.mainLabel = WrappingLabel(self.mainFrame, text="Please restart for best results", font=(font,int(fontMultiplier*10)))
     self.mainLabel.grid(row=3, columnspan=2, sticky= tk.W+tk.E)
