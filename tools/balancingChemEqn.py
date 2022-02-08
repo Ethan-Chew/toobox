@@ -192,10 +192,9 @@ def balanceChemEqn(equation):
         return finalJointReactants
     except:
         return "An Unknown Error has occured."
-<<<<<<< HEAD
 if __name__=="__main__":
     print(balanceChemEqn("H2O2 + H2O2 -> H2O2 + H2O2"))
     print(balanceChemEqn("NH4Cl(aq) + Ba(OH)2(aq) -> BaCl2(aq) + H2O(l) + NH3(g)"))
-=======
-print(balanceChemEqn("NH4Cl(aq) + Ba(OH)2(aq) -> BaCl2(aq) + H2O(l) + NH3(g)"))
->>>>>>> 122ea158248f2dddd909e23851bf8aa8d60efb54
+
+    print(balanceChemEqn("NH4Cl(aq) + Ba(OH)2(aq) -> BaCl2(aq) + H2O(l) + NH3(g)"))
+

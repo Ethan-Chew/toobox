@@ -17,11 +17,13 @@ import numpy as np
 import webbrowser
 
 # Path of the File
-ROOTDIR=os.path.abspath(os.curdir)
+ROOTDIR, _ =os.path.split(os.path.abspath(os.path.realpath(__file__)))
+os. chdir(ROOTDIR)
 jsonData = os.path.join(ROOTDIR, '.data.json')
 appIconIcon = os.path.join(ROOTDIR,'src','images','AppIcon.ico')
 appIconIcns = os.path.join(ROOTDIR,'src','images','AppIcon.icns')
 appIconPng = os.path.join(ROOTDIR,'src','images','AppIcon.png')
+appThemePath =  os.path.join(ROOTDIR,"sun-valley.tcl")
 _recentlength=10
 FONT='TkDefaultFont'
 
@@ -403,7 +405,7 @@ if __name__ == "__main__":
     root.title("Toobox")
 
     # Simply set the theme
-    root.tk.call("source", "sun-valley.tcl")
+    root.tk.call("source", appThemePath)
     root.tk.call("set_theme", config.defaultTheme)
 
     # Set App Icon

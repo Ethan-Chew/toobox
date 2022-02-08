@@ -28,6 +28,7 @@ def solve_triangle(A,B,C,a,b,c):
         area=1/2*A*B*math.sin(c)
         return [A,B,C,a,b,c,area]
     elif ((A!="?")+(B!="?")+(C!="?")) == 2:
+        #lazy so reshuffle
         if A=="?":
             A=C
             d=c
@@ -109,7 +110,7 @@ if __name__=="__main__":
                         temp[l]="?"
                 ans=solve_triangle(*temp)
                 if type(ans)!=str:
-
+                    print(ans,therightans)
                     for i in range(len(ans)-1):
                         if abs(ans[i]-therightans[i] )>0.00001:
                             print(ans)
