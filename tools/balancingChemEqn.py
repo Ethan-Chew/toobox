@@ -68,6 +68,7 @@ def balanceChemEqn(equation):
                 else:
                     oldMul = int(oldMul)
                 splittedCompound = reactantsCompounds[i].split("(")
+                print(splittedCompound)
                 try:
                     occurences = Compound(splittedCompound[0]).occurences
                 except:
@@ -89,7 +90,9 @@ def balanceChemEqn(equation):
                 oldMul = 1
             else:
                 oldMul = int(oldMul)
+            
             splittedCompound = productsCompounds[i].split("(")
+            print(splittedCompound)
             try:
                 occurences = Compound(splittedCompound[0]).occurences
             except:
@@ -189,3 +192,6 @@ def balanceChemEqn(equation):
         return finalJointReactants
     except:
         return "An Unknown Error has occured."
+if __name__=="__main__":
+    print(balanceChemEqn("H2O2 + H2O2 -> H2O2 + H2O2"))
+    print(balanceChemEqn("NH4Cl(aq) + Ba(OH)2(aq) -> BaCl2(aq) + H2O(l) + NH3(g)"))

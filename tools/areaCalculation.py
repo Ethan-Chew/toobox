@@ -3,21 +3,30 @@ import math
 def triangle(base, height):
     return 1/2 * base * height
 
-def sine_rule_side(a,A,b): # Sine Rule (Sides)
+def sine_rule_side(a,A,b): # Sine Rule (Sides) want to find side B
     return math.sin(b)*(A/math.sin(a))
 
-def sine_rule_angle(a,A,B): # Sine Rule (Angles)
+def sine_rule_angle(a,A,B): # Sine Rule (Angles) want to find angle b
     return math.asin(B*(math.sin(a)/A))
+def cosine_rule_angle(C,A,B):
+     # Cosine Rule (Angles) find angle c
+    return math.acos(((A**2+B**2-C**2)/(2*A*B)))
+def cos_rule_side(c,A,B): # Cosine Rule (Sides) find side c
+    return math.sqrt(A**2+B**2-(math.cos(c)*2*A*B))
     
 def solve_triangle(A,B,C,a,b,c):
+    # capital letters are sides, lowercase are angles
     if ((A!="?")+(B!="?")+(C!="?")+(a!="?")+(b!="?")+(c!="?"))<3:
         return "Triangle not possible"
     # Everything in radians btw, cuz math uses radians
     # If the value is "?" then is unknown
     if ((A!="?")+(B!="?")+(C!="?")) == 3:
-        s=(A+B+C)/2
-        area=math.sqrt(s*(s-A)*(s-B)*(s-C))
-        return area
+        # know all sides
+        c=cosine_rule_angle(C,A,B)
+        b=sine_rule_angle(c,C,B)
+        a=sine_rule_angle(c,C,A)
+        area=1/2*A*B*math.sin(c)
+        return [A,B,C,a,b,c,area]
     elif ((A!="?")+(B!="?")+(C!="?")) == 2:
         if A=="?":
             A=C
@@ -32,11 +41,15 @@ def solve_triangle(A,B,C,a,b,c):
         # A, B is known, C is not known
         if c!="?":
             area=1/2*A*B*math.sin(c)
-            return area
+            C=cos_rule_side(c,A,B)
+            b=sine_rule_angle(c,C,B)
+            a=sine_rule_angle(c,C,A)
+            return [A,B,C,a,b,c,area]
         else:
             if b=="?":
                 b=sine_rule_angle(a,A,B)
                 c=(math.pi-a)-(b)
+
                 return solve_triangle(A,B,C,a,b,c)
             else:
                 c=(math.pi-b)-(math.asin(A*(math.sin(b)/B)))
@@ -69,7 +82,7 @@ def solve_triangle(A,B,C,a,b,c):
 
             #now we know all
             area=1/2*A*B*math.sin(c)
-            return area
+            return [A,B,C,a,b,c,area]
             
 
 def parallelogram(base, slantHeight):
@@ -95,8 +108,19 @@ if __name__=="__main__":
                     else:
                         temp[l]="?"
                 ans=solve_triangle(*temp)
-                if type(ans)==float:
-                    if ans>=4.1:
+                if type(ans)!=str:
+
+                    for i in range(len(ans)-1):
+                        if abs(ans[i]-therightans[i] )>0.00001:
+                            print(ans)
+                            print(therightans)
+                            print(i)
+                            print(ans[i])
+                            print(therightans[i])
+                            print(ans[i]-therightans[i])
+                            print("\n")
+                if type(ans[6])==float:
+                    if ans[6]>=4.1:
                         exit()
                 else:
                     pass
