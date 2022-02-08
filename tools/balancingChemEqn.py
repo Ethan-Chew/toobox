@@ -99,7 +99,9 @@ def balanceChemEqn(equation):
                 oldMul = 1
             else:
                 oldMul = int(oldMul)
+            
             splittedCompound = productsCompounds[i].split("(")
+            print(splittedCompound)
             try:
                 occurences = Compound(splittedCompound[0]).occurences
             except:

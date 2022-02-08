@@ -22,7 +22,7 @@ import json
 import os
 
 font="TkDefaultFont"
-ROOTDIR=os.path.abspath(os.curdir)
+ROOTDIR, _ =os.path.split(os.path.abspath(os.path.realpath(__file__)))
 jsonData=os.path.join(ROOTDIR,".data.json")
 trianglePng = os.path.join(ROOTDIR,'src','images','triangle.png')
 
@@ -595,7 +595,16 @@ def triangle(self):
                     sid.append("?")
         answ = areaCalculation.solve_triangle(*sid,*ang)
         if answ != "not possible":
-            self.resultTxt1 = WrappingLabel(self.mainFrame, text="Area: {} u²".format(answ), font=(font,int(fontMultiplier*20)))
+            # it is correct.
+            sida=answ[:3]
+            anga=answ[3:-1]
+            print(answ)
+            print(sida,anga)
+            for i in range(len(sides)):
+                sides[i].insert(0,str(sida[i]))
+            for i in range(len(angles)):
+                angles[i].insert(0,str(math.degrees((anga[i]))))
+            self.resultTxt1 = WrappingLabel(self.mainFrame, text="Area: {} u²".format(answ[6]), font=(font,int(fontMultiplier*20)))
             self.resultTxt1.grid(row=6,column=0,padx=2,pady=2, sticky = tk.W+tk.E,columnspan=5)
         else:
             self.resultTxt1 = WrappingLabel(self.mainFrame, text="{}".format(answ.title()), font=(font,int(fontMultiplier*20)))
