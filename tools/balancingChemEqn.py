@@ -67,11 +67,21 @@ def balanceChemEqn(equation):
                     oldMul = 1
                 else:
                     oldMul = int(oldMul)
-                splittedCompound = reactantsCompounds[i].split("(")
+                
+                if "aq" in reactantsCompounds[i]:
+                    splittedCompound = reactantsCompounds[i].split("(a")
+                elif "s" in reactantsCompounds[i]:
+                    splittedCompound = reactantsCompounds[i].split("(s")
+                elif "l" in reactantsCompounds[i]:
+                    splittedCompound = reactantsCompounds[i].split("(l")
+                elif "g" in reactantsCompounds[i]:
+                    splittedCompound = reactantsCompounds[i].split("(g")
+
+                # Find Occurances of Elements
                 try:
                     occurences = Compound(splittedCompound[0]).occurences
                 except:
-                    return "Unknown Cmpt", ""
+                    return "Unknown Cmpt", ""                    
                 occurences.update((x, y*oldMul) for x, y in occurences.items())
                 reactantsOccurances = reactantsOccurances | occurences
         except:
@@ -121,7 +131,7 @@ def balanceChemEqn(equation):
 
             if reactantsOccurances == productsOccurances:
                 return equation
-
+            
             for i in range(numOfElements):
                 for j in range(numOfElements):
                     if reactantsKeys[i] == productsKeys[j]:
@@ -133,7 +143,7 @@ def balanceChemEqn(equation):
                                 for e in range(len(productsCompounds)):
                                     if productsKeys[j] in productsCompounds[e]:
                                         # Element in Compound
-                                        addedMultiplier = int((reactantsVals[j] - productsVals[i])/productsVals[i]) # How much to increment the number of compounds by
+                                        addedMultiplier = int((reactantsVals[i] - productsVals[j])) # How much to increment the number of compounds by
                                         oldMul = ""
                                         compound = list(productsCompounds[e])
                                         if compound[0].isdigit(): # Multiplier is present
@@ -159,7 +169,7 @@ def balanceChemEqn(equation):
                                 for e in range(len(reactantsCompounds)):
                                     if reactantsKeys[i] in reactantsCompounds[e]:
                                         # Element in Compound
-                                        addedMultiplier = int((productsVals[j] - reactantsVals[i])/reactantsVals[i]) # How much to increment the number of compounds by
+                                        addedMultiplier = int((productsVals[j] - reactantsVals[i])) # How much to increment the number of compounds by
                                         oldMul = ""
                                         compound = list(reactantsCompounds[e])
                                         if compound[0].isdigit(): # Multiplier is present
@@ -189,4 +199,5 @@ def balanceChemEqn(equation):
         return finalJointReactants
     except:
         return "An Unknown Error has occured."
-print(balanceChemEqn("NH4Cl(aq) + Ba(OH)2(aq) -> BaCl2(aq) + H2O(l) + NH3(g)"))
+# print(balanceChemEqn("NH4Cl(aq) + Ba(OH)2(aq) -> BaCl2(aq) + H2O(l) + NH3(g)"))
+# print(balanceChemEqn("HCl(aq) + Na(s) -> NaCl(aq) + H2(g)"))
