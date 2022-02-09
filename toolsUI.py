@@ -168,12 +168,15 @@ def Rectangle(self):
         answer = "Ensure that all value(s) are/is numerical"
         length = str(self.lengthEntry.get())
         breadth = str(self.breadthEntry.get())
-        if self.typebox.get() == "Rectangle":
-            if re.search("^\d+\.{0,1}\d*$", length) and re.search("^\d+\.{0,1}\d*$", breadth):
-                answer = float(length)*float(breadth)
-        elif self.typebox.get() == "Square":
-            if re.search("^\d+\.{0,1}\d*$", length):
-                answer = float(length)**2
+        if re.search("^\d+\.{0,1}\d*$", length) and re.search("^\d+\.{0,1}\d*$", breadth):
+            answer = float(length)*float(breadth)
+
+#        if self.typebox.get() == "Rectangle":
+#            if re.search("^\d+\.{0,1}\d*$", length) and re.search("^\d+\.{0,1}\d*$", breadth):
+#                answer = float(length)*float(breadth)
+#        elif self.typebox.get() == "Square":
+#            if re.search("^\d+\.{0,1}\d*$", length):
+#                answer = float(length)**2
         setFinalResult(self, " ".join([answer, "u²"]))
     self.thingFrame = self.addframe()
     self.thingFrame.pack(side="top", padx=25, pady=18, anchor="w")
