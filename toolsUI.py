@@ -3,6 +3,8 @@ import string
 import tkinter as tk
 from tkinter import ttk
 import re
+import math
+from tkinter.filedialog import dialogstates
 
 from sympy import root
 from tools import snake
@@ -170,14 +172,13 @@ def Rectangle(self):
         breadth = str(self.breadthEntry.get())
         if re.search("^\d+\.{0,1}\d*$", length) and re.search("^\d+\.{0,1}\d*$", breadth):
             answer = float(length)*float(breadth)
-
-#        if self.typebox.get() == "Rectangle":
-#            if re.search("^\d+\.{0,1}\d*$", length) and re.search("^\d+\.{0,1}\d*$", breadth):
-#                answer = float(length)*float(breadth)
-#        elif self.typebox.get() == "Square":
-#            if re.search("^\d+\.{0,1}\d*$", length):
-#                answer = float(length)**2
-        setFinalResult(self, " ".join([answer, "u²"]))
+        if self.typebox.get() == "Rectangle":
+            if re.search("^\d+\.{0,1}\d*$", length) and re.search("^\d+\.{0,1}\d*$", breadth):
+                answer = float(length)*float(breadth)
+        elif self.typebox.get() == "Square":
+            if re.search("^\d+\.{0,1}\d*$", length):
+                answer = float(length)**2
+            setFinalResult(self, " ".join([answer, "u²"]))
     self.thingFrame = self.addframe()
     self.thingFrame.pack(side="top", padx=25, pady=18, anchor="w")
     self.mainLabel = WrappingLabel(self.thingFrame, text="Rectangle/Square Area Calculator", font=(font,int(fontMultiplier*50),'bold'))
@@ -197,28 +198,26 @@ def Rectangle(self):
     self.sendData = ttk.Button(self.mainFrame, text="Calculate", style='Accent.TButton', command=lambda:getInputs(self))
     self.sendData.grid(row=3, column=1, pady=10, padx=2, sticky="w")
 
-#    def changeTypebox(self):
-#        if self.typebox.get() == "Square":
-#            self.breadthTxt.forget()
-#            self.breadthEntry.forget()
-#        else:
-#            self.breadthTxt.grid(row=2, column=0, padx=2, sticky="e")
-#            self.breadthEntry.grid(row=2, column=1, sticky="w")
-#
-#    self.typetext = WrappingLabel(self.mainFrame, text="Type:  ", font=(font,int(fontMultiplier*20)))
-#    self.typetext.grid(row=0, column=0, padx=2, sticky="e")
-#    self.types = ["Rectangle", "Square"]
-#    self.typebox = ttk.Combobox(self.mainFrame, state="readonly", values=self.types, postcommand=lambda:changeTypebox(self))
-#    self.typebox.current(0)
-#    self.typebox.grid(row=0, column=1, padx=2, sticky="w")
+    def changeTypebox(self):
+        if self.typebox.get() == "Square":
+            self.breadthTxt.forget()
+            self.breadthEntry.forget()
+        else:
+            self.breadthTxt.grid(row=2, column=0, padx=2, sticky="e")
+            self.breadthEntry.grid(row=2, column=1, sticky="w")
 
-    
+    self.typetext = WrappingLabel(self.mainFrame, text="Type:  ", font=(font,int(fontMultiplier*20)))
+    self.typetext.grid(row=0, column=0, padx=2, sticky="e")
+    self.types = ["Rectangle", "Square"]
+    self.typebox = ttk.Combobox(self.mainFrame, state="readonly", values=self.types, postcommand=lambda:changeTypebox(self))
+    self.typebox.current(0)
+    self.typebox.grid(row=0, column=1, padx=2, sticky="w")
     def setFinalResult(self, result):
         try: self.resultTxt.grid_forget()
         except: pass
         self.resultTxt = WrappingLabel(self.mainFrame, text="Result:  {}".format(result), font=(font,int(fontMultiplier*20)))
         self.resultTxt.grid(row=4,column=1,padx=2,columnspan=4, sticky="w")
-
+        
 def Pyramid(self):
     def getInputs(self):
         try:
@@ -238,9 +237,29 @@ def Pyramid(self):
                 if re.search("^\d+\.{0,1}\d*$", length):
                     basearea = float(float(length)*float(length))
             elif self.typebox.get() == "Triangle-Based Pyramid":
-                pass
+                side1 = str(self.s1e.get())
+                side2 = str(self.s2e.get())
+                side3 = str(self.s3e.get())
+                base_base = str(self.basee.get())
+                base_height = str(self.heighte.get())
+                if ((re.search("^\d+\.{0,1}\d*$", side1) and re.search("^\d+\.{0,1}\d*$", side2) and re.search("^\d+\.{0,1}\d*$", side3)) ^ (re.search("^\d+\.{0,1}\d*$", base_base) and re.search("^\d+\.{0,1}\d*$", base_height))):
+                    if re.search("^\d+\.{0,1}\d*$", side1) and re.search("^\d+\.{0,1}\d*$", side2) and re.search("^\d+\.{0,1}\d*$", side3):
+                        semiperimeter = float(float(side1)+float(side2)+float(side3))/2
+                        basearea = float(semiperimeter*(semiperimeter-side1)*(semiperimeter-side2)*(semiperimeter-side3))**0.5
+                    elif re.search("^\d+\.{0,1}\d*$", base_base) and re.search("^\d+\.{0,1}\d*$", base_height):
+                        basearea = 0.5*float(base_base)*float(base_height)
             elif self.typebox.get() == "Cone":
-                pass
+                radius = str(self.rade.get())
+                diameter = str(self.diae.get())
+                circumference = str(self.diae.get())
+                if ((True if str(type(re.search("^\+\.{0,1}\d*$", radius))) != "<class 'NoneType'>" else False) ^ (True if str(type(re.search("^\+\.{0,1}\d*$", diameter))) != "<class 'NoneType'>" else False) ^ (True if str(type(re.search("^\+\.{0,1}\d*$", circumference))) != "<class 'NoneType'>" else False)):
+                    if re.search("^\d+\.{0,1}\d*$", radius):
+                        basearea = math.pi*float(radius)**2
+                    elif re.search("^\d+\.{0,1}\d*$", diameter):
+                        basearea = math.pi*float(float(diameter)/2.0)**2
+                    elif re.search("^\d+\.{0,1}\d*$", circumference):
+                        basearea = math.pi*float(float(float(circumference)/math.pi)/2.0)**2
+                # (True if str(type(re.search("^\+\.{0,1}\d*$", r))) != "<class 'NoneType'>" else False) ^ (True if str(type(re.search("^\d+\.{0,1}\d*$", c))
             if type(basearea) == float:
                 answer = (basearea * float(height))/3
         setFinalResult(self, " ".join([answer, "u²"]) if answer != "Ensure that all value(s) are/is numerical" else answer)
@@ -248,40 +267,50 @@ def Pyramid(self):
     self.thingFrame.pack(side="top", padx=25, pady=18, anchor="w")
     self.mainLabel = WrappingLabel(self.thingFrame, text="Pyramid Area Calculator", font=(font,int(fontMultiplier*50),'bold'))
     self.mainLabel.pack(side="top", pady=2, fill="x", expand="yes")
+    self.infoLabel = WrappingLabel(self.thingFrame, text="Accepts Base Width and Base Length", font=(font,int(fontMultiplier*15)))
+    self.infoLabel.pack(side="top", pady=2, fill="x", expand="yes")
 
     self.mainFrame = self.addframe()
     self.mainFrame.pack(padx=25, pady=18, anchor="w")
 
+    # Rectangle and Square Based
     self.bt = WrappingLabel(self.mainFrame, text="Base Width:  ", font=(font,int(fontMultiplier*20)))
-    # self.bt.grid(row=1, column=0, padx=2, sticky="e")
     self.be = ttk.Entry(self.mainFrame, width=20, font=(font,int(fontMultiplier*12)))
-    # self.be.grid(row=1, column=1, sticky="w")
     self.lt = WrappingLabel(self.mainFrame, text="Base Length:  ", font=(font,int(fontMultiplier*20)))
-    self.lt.grid(row=2, column=0, padx=2, sticky="e")
     self.le = ttk.Entry(self.mainFrame, width=20, font=(font,int(fontMultiplier*12)))
-    self.le.grid(row=2, column=1, sticky="w")
+    # Triangle Based
     self.s1t = WrappingLabel(self.mainFrame, text="Side 1:  ", font=(font,int(fontMultiplier*20)))
-    # self.s1t.grid(row=1, column=0, padx=2, sticky="e")
     self.s1e = ttk.Entry(self.mainFrame, width=20, font=(font,int(fontMultiplier*12)))
-    # self.s1e.grid(row=1, column=1, sticky="w")
     self.s2t = WrappingLabel(self.mainFrame, text="Side 2:  ", font=(font,int(fontMultiplier*20)))
-    # self.s2t.grid(row=2, column=0, padx=2, sticky="e")
     self.s2e = ttk.Entry(self.mainFrame, width=20, font=(font,int(fontMultiplier*12)))
-    # self.s2e.grid(row=2, column=1, sticky="w")
     self.s3t = WrappingLabel(self.mainFrame, text="Side 3:  ", font=(font,int(fontMultiplier*20)))
-    # self.s3t.grid(row=3, column=0, padx=2, sticky="e")
     self.s3e = ttk.Entry(self.mainFrame, width=20, font=(font,int(fontMultiplier*12)))
-    # self.s3e.grid(row=3, column=1, sticky="w")
-
+    self.baset = WrappingLabel(self.mainFrame, text="Base:  ", font=(font,int(fontMultiplier*20)))
+    self.basee = ttk.Entry(self.mainFrame, width=20, font=(font,int(fontMultiplier*12)))
+    self.heightt = WrappingLabel(self.mainFrame, text="Height:  ", font=(font,int(fontMultiplier*20)))
+    self.heighte = ttk.Entry(self.mainFrame, width=20, font=(font,int(fontMultiplier*12)))
+    # Cone
+    self.radt = WrappingLabel(self.mainFrame, text="Base Radius:  ", font=(font,int(fontMultiplier*20)))
+    self.rade = ttk.Entry(self.mainFrame, width=20, font=(font,int(fontMultiplier*12)))
+    self.diat = WrappingLabel(self.mainFrame, text="Base Diameter:  ", font=(font,int(fontMultiplier*20)))
+    self.diae = ttk.Entry(self.mainFrame, width=20, font=(font,int(fontMultiplier*12)))
+    self.cirt = WrappingLabel(self.mainFrame, text="Base Circumference:  ", font=(font,int(fontMultiplier*20)))
+    self.cire = ttk.Entry(self.mainFrame, width=20, font=(font,int(fontMultiplier*12)))
+    # Pyramid Height
     self.ht = WrappingLabel(self.mainFrame, text="Vertical Height:  ", font=(font,int(fontMultiplier*20)))
-    self.ht.grid(row=4, column=0, padx=2, sticky="e")
     self.he = ttk.Entry(self.mainFrame, width=20, font=(font,int(fontMultiplier*12)))
-    self.he.grid(row=4, column=1, sticky="w")
+    # Calculate Button
     self.sendData = ttk.Button(self.mainFrame, text="Calculate", style='Accent.TButton', command=lambda:getInputs(self))
-    self.sendData.grid(row=5, column=1, pady=10, padx=2, sticky="w")
+    self.sendData.grid(row=7, column=1, pady=10, padx=2, sticky="w")
 
     def changeTypebox(self):
-        if self.typebox.get() == "Rectangle-Based Pyramid":
+        self.infoLabel.pack_forget()
+        # self.mainFrame.pack_forget()
+        # self.mainFrame.destroy()
+        # self.mainFrame.pack(padx=25, pady=18, anchor="w")
+
+        if self.typebox.get() == "Rectangular-Based Pyramid":
+            self.infoLabel.config(text="Accepts Base Width and Base Length")
             self.bt.grid(row=1, column=0, padx=2, sticky="e")
             self.be.grid(row=1, column=1, sticky="w")
             self.lt.grid(row=2, column=0, padx=2, sticky="e")
@@ -292,7 +321,18 @@ def Pyramid(self):
             self.s2e.grid_forget()
             self.s3t.grid_forget()
             self.s3e.grid_forget()
+            self.baset.grid_forget()
+            self.basee.grid_forget()
+            self.heightt.grid_forget()
+            self.heighte.grid_forget()
+            self.radt.grid_forget()
+            self.rade.grid_forget()
+            self.diat.grid_forget()
+            self.diae.grid_forget()
+            self.cirt.grid_forget()
+            self.cire.grid_forget()
         elif self.typebox.get() == "Square-Based Pyramid":
+            self.infoLabel.config(text="Accepts Base Length")
             self.lt.grid(row=2, column=0, padx=2, sticky="e")
             self.le.grid(row=2, column=1, sticky="w")
             self.bt.grid_forget()
@@ -303,28 +343,61 @@ def Pyramid(self):
             self.s2e.grid_forget()
             self.s3t.grid_forget()
             self.s3e.grid_forget()
-        elif self.typebox.get() == "Square-Based Pyramid":
+            self.baset.grid_forget()
+            self.basee.grid_forget()
+            self.heightt.grid_forget()
+            self.heighte.grid_forget()
+            self.radt.grid_forget()
+            self.rade.grid_forget()
+            self.diat.grid_forget()
+            self.diae.grid_forget()
+            self.cirt.grid_forget()
+            self.cire.grid_forget()
+        elif self.typebox.get() == "Triangle-Based Pyramid":
+            self.infoLabel.config(text="Accepts (Side 1 + Side2 + Side3) OR (Base of Triangle on Base + Height of Triangle on Base")
             self.s1t.grid(row=1, column=0, padx=2, sticky="e")
             self.s1e.grid(row=1, column=1, sticky="w")
             self.s2t.grid(row=2, column=0, padx=2, sticky="e")
             self.s2e.grid(row=2, column=1, sticky="w")
             self.s3t.grid(row=3, column=0, padx=2, sticky="e")
             self.s3e.grid(row=3, column=1, sticky="w")
+            self.baset.grid(row=4, column=0, padx=2, sticky="e")
+            self.basee.grid(row=4, column=1, sticky="w")
+            self.heightt.grid(row=5, column=0, padx=2, sticky="e")
+            self.heighte.grid(row=5, column=1, sticky="w")
             self.bt.grid_forget()
             self.be.grid_forget()
             self.lt.grid_forget()
             self.le.grid_forget()
+            self.radt.grid_forget()
+            self.rade.grid_forget()
+            self.diat.grid_forget()
+            self.diae.grid_forget()
+            self.cirt.grid_forget()
+            self.cire.grid_forget()
         elif self.typebox.get() == "Cone":
-            self.s1t.grid(row=1, column=0, padx=2, sticky="e")
-            self.s1e.grid(row=1, column=1, sticky="w")
-            self.s2t.grid(row=2, column=0, padx=2, sticky="e")
-            self.s2e.grid(row=2, column=1, sticky="w")
-            self.s3t.grid(row=3, column=0, padx=2, sticky="e")
-            self.s3e.grid(row=3, column=1, sticky="w")
+            self.infoLabel.config(text="Accepts Base Circumference OR Base Radius OR Base Diameter")
+            self.radt.grid(row=1, column=0, padx=2, sticky="e")
+            self.rade.grid(row=1, column=1, sticky="w")
+            self.diat.grid(row=2, column=0, padx=2, sticky="e")
+            self.diae.grid(row=2, column=1, sticky="w")
+            self.cirt.grid(row=3, column=0, padx=2, sticky="e")
+            self.cire.grid(row=3, column=1, sticky="w")
             self.bt.grid_forget()
             self.be.grid_forget()
             self.lt.grid_forget()
             self.le.grid_forget()
+            self.s1t.grid_forget()
+            self.s1e.grid_forget()
+            self.s2t.grid_forget()
+            self.s2e.grid_forget()
+            self.s3t.grid_forget()
+            self.s3e.grid_forget()
+            self.baset.grid_forget()
+            self.basee.grid_forget()
+            self.heightt.grid_forget()
+            self.heighte.grid_forget()
+        self.infoLabel.pack(side="top", pady=2, fill="x", expand="yes")
         
     self.typetext = WrappingLabel(self.mainFrame, text="Type:  ", font=(font,int(fontMultiplier*20)))
     self.typetext.grid(row=0, column=0, padx=2, sticky="e")
@@ -332,12 +405,12 @@ def Pyramid(self):
     self.typebox = ttk.Combobox(self.mainFrame, state="readonly", values=self.types, postcommand=lambda:changeTypebox(self))
     self.typebox.current(0)
     self.typebox.grid(row=0, column=1, padx=2, sticky="w")
-    
+    changeTypebox(self)
     def setFinalResult(self, result):
         try: self.resultTxt.grid_forget()
         except: pass
         self.resultTxt = WrappingLabel(self.mainFrame, text="Result:  {}".format(result), font=(font,int(fontMultiplier*20)))
-        self.resultTxt.grid(row=4,column=1,padx=2,columnspan=4, sticky="w")
+        self.resultTxt.grid(row=8,column=1,padx=2,columnspan=4, sticky="w")
 
 def Circle(self):
     def getInputs(self):
