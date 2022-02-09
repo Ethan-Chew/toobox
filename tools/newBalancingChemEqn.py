@@ -148,5 +148,5 @@ def balanceChemEqn(equation):
                 for j in range(len(reactantsOccurances[i])):
                     reactantsOccurances[i][uniqueElements[j]] = reactantsOccurances[i][uniqueElements[j]]*round(elementOccReactant[i])
     print(productsOccurances, reactantsOccurances)
-
-print(balanceChemEqn("Ba(OH)2(aq) + NH4Cl(aq) -> BaCl2(s) + NH3(g) + H2O(l)"))
+if __name__=="__main__":
+    print(balanceChemEqn("Ba(OH)2(aq) + NH4Cl(aq) -> BaCl2(s) + NH3(g) + H2O(l)"))
