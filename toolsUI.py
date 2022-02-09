@@ -29,6 +29,7 @@ trianglePng = os.path.join(ROOTDIR,'src','images','triangle.png')
 fontMultiplier = 1.00
 
 def reload():
+    '''reloads font multiplier'''
     global fontMultiplier
     file = open(jsonData)
     extractedData = json.load(file)
@@ -72,6 +73,7 @@ def ChemicalEquation(self):
         self.resultTxt.grid(row=3, columnspan = 2, sticky = tk.W+tk.E, padx=2)
 
 def infoFrame(self, lblText):
+    # for headers
     # Top Labels
     self.thingFrame = self.addframe()
     # self.mainLabel = WrappingLabel(self.thingFrame, text="Simultaneous Equations Solver", font=(font,int(fontMultiplier*50),'bold'))
@@ -79,7 +81,7 @@ def infoFrame(self, lblText):
     self.thingFrame.place(anchor="center", relx=0.5, rely=0.5)
     self.wipText = WrappingLabel(self.thingFrame, text=lblText, font=(font,int(fontMultiplier*30), 'bold'), justify="center")
     self.wipText.pack(side="top", pady=2)
-    self.wipTextA = WrappingLabel(self.thingFrame, text="This is a header! Click on any 'Child' Element to access the calculator!", font=(font,int(fontMultiplier*20)), justify="center")
+    self.wipTextA = WrappingLabel(self.thingFrame, text="This is a header! Click on any 'Child' Element to access it!", font=(font,int(fontMultiplier*20)), justify="center")
     self.wipTextA.pack(side="top", pady=2)
 
 def Parallelogram(self):
@@ -91,6 +93,7 @@ def Parallelogram(self):
         answer = "Ensure that both values, i.e. Breadth/Width and Length, or Length, are/is numerical"
         base = str(self.bEntry.get())
         height = str(self.hEntry.get())
+	#check for correct format
         if re.search("^\d+\.{0,1}\d{0,1}$", base) and re.search("^\d+\.{0,1}\d{0,1}$", height):
             answer = parallelogram(base, height)
         setFinalResult(self, answer)
@@ -781,7 +784,7 @@ def periodicTable(self):
                 temp=WrappingLabel(newf, text=str(int(float(iso))) if iso.replace('.','',1).isdigit() else "-", font=(font,int(fontMultiplier*10)))
                 temp.grid(row=11, column=0, sticky = tk.N+tk.W, padx=2)
 
-                temp=WrappingLabel(newf, text=" ".join(["[{}]".format(str(pt.ELEMENTDATA["Phase"][i]).title()), ", ".join([str(pt.ELEMENTDATA["MeltingPoint"][i]).title(), str(pt.ELEMENTDATA["BoilingPoint"][i]).title()])]), font=(font,int(fontMultiplier*10)))
+                temp=WrappingLabel(newf, text=" ".join(["[{}]".format(str(pt.ELEMENTDATA["Phase"][i]).title()), ", ".join([str(pt.ELEMENTDATA["MeltingPoint"][i]).title()+"K", str(pt.ELEMENTDATA["BoilingPoint"][i]).title()+"K"])]), font=(font,int(fontMultiplier*10)))
                 temp.grid(row=12, column=0, sticky = tk.N+tk.W, padx=2)
 
                 temp=WrappingLabel(newf, text=str(pt.ELEMENTDATA["Type"][i]).title(), font=(font,int(fontMultiplier*10)))
