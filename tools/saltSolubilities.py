@@ -1,7 +1,11 @@
-from sympy import comp
-
+from chemlib import Compound
 
 def saltSolubilities(compound):
+    try:
+        validate = Compound(compound)
+    except:
+        return "Not a Valid Compound. Please check your input."
+    
     # Check for SPAN Salts
     if "Na" in compound or "K" in compound or "NH4" in compound or "NO3" in compound:
         return True

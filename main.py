@@ -97,7 +97,7 @@ topics = []
 
 class App(ttk.Frame):
     def __init__(self, parent):
-        self.notify("App Shortcuts", "Use Command + R to go to the Home Screen and use Command + F to enter Full Screen, Escape Key to exit Full Screen.", "Boop")
+        self.notify("App Shortcuts for Toobox", "Use Command + R to go to the Home Screen and use Command + F to enter Full Screen, Escape Key to exit Full Screen.", "Boop")
         self.screenlist = []
         # aSecret :) hehehehe
         if config.aSecret:
@@ -370,7 +370,7 @@ class App(ttk.Frame):
         appIconImg = ImageTk.PhotoImage(Image.open(appIconPng).resize((self.widthOfTooboxInfo-20,self.widthOfTooboxInfo-20), Image.ANTIALIAS))
         self.imgPanel = WrappingLabel(self.tooboxInfoFrame, image=appIconImg)
         self.imgPanel.image = appIconImg
-        self.appDescText = WrappingLabel(self.tooboxInfoFrame, font=(17), wraplength=self.widthOfTooboxInfo, justify="left" ,text="Toobox is an app is a Toolbox of different tools to help in your Academics. Toobox provides various tools for a wide range of topics and subjects that will definately help you while revising and studying.")
+        self.appDescText = WrappingLabel(self.tooboxInfoFrame, font=(fontMultiplier*17), wraplength=self.widthOfTooboxInfo, justify="left" ,text="Toobox is an app is a Toolbox of different tools to help in your Academics. Toobox provides various tools for a wide range of topics and subjects that will definately help you while revising and studying.")
         self.appDescText.pack(side="bottom")
         self.imgPanel.pack(side="bottom", fill="both", expand="yes", pady=32)
         file = open(jsonData)
@@ -388,7 +388,7 @@ class App(ttk.Frame):
             temp=str(data[i])
             def test(x=temp):
                 return self.run_func(str(x))
-            self.ropenedItemBtn = ttk.Button(self.holdROItemFrame, text=temp, width=30,command=test)
+            self.ropenedItemBtn = ttk.Button(self.holdROItemFrame, text=temp, width=30, command=test)
             self.ropenedItemBtn.pack(side="top", pady=2)
 
     def _quit(self):
