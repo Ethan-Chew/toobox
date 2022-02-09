@@ -1,7 +1,4 @@
 # Created by Ethan Chew
-from re import L
-from sys import base_exec_prefix
-from tkinter import ttk
 from chemlib import Element
 from chemlib import Compound
 # Example: HCl(aq) + Na(s) -> NaCl(aq) + H2(g)
@@ -50,7 +47,7 @@ def balanceChemEqn(equation):
     productsCompounds = productsCompounds.split(" + ")
 
     # Function to get occurances
-    def getOccurances(): # ISSUE ISOLATED TO THIS FUNCTION
+    def getOccurances():
         reactantsOccurances = {}
         productsOccurances = {}
 
@@ -242,3 +239,5 @@ def balanceChemEqn(equation):
         return finalJointReactants
     except:
         return "An Unknown Error has occured."
+
+print(balanceChemEqn("Ba(OH)2(aq) + NH4Cl(aq) -> BaCl2(s) + NH3(g) + H2O(l)"))
