@@ -194,7 +194,6 @@ def Rectangle(self):
     self.sendData = ttk.Button(self.mainFrame, text="Calculate", style='Accent.TButton', command=lambda:getInputs(self))
     self.sendData.grid(row=3, column=1, pady=10, padx=2, sticky="w")
 
-<<<<<<< HEAD
 #    def changeTypebox(self):
 #        if self.typebox.get() == "Square":
 #            self.breadthTxt.forget()
@@ -209,22 +208,7 @@ def Rectangle(self):
 #    self.typebox = ttk.Combobox(self.mainFrame, state="readonly", values=self.types, postcommand=lambda:changeTypebox(self))
 #    self.typebox.current(0)
 #    self.typebox.grid(row=0, column=1, padx=2, sticky="w")
-=======
-    def changeTypebox(self):
-        if self.typebox.get() == "Square":
-            self.breadthTxt.grid_forget()
-            self.breadthEntry.grid_forget()
-        else:
-            self.breadthTxt.grid(row=2, column=0, padx=2, sticky="e")
-            self.breadthEntry.grid(row=2, column=1, sticky="w")
 
-    self.typetext = WrappingLabel(self.mainFrame, text="Type:  ", font=(font,int(fontMultiplier*20)))
-    self.typetext.grid(row=0, column=0, padx=2, sticky="e")
-    self.types = ["Rectangle", "Square"]
-    self.typebox = ttk.Combobox(self.mainFrame, state="readonly", values=self.types, postcommand=lambda:changeTypebox(self))
-    self.typebox.current(0)
-    self.typebox.grid(row=0, column=1, padx=2, sticky="w")
->>>>>>> 1d012ccfabb368d0505240eea78bee7c06ee2d77
     
     def setFinalResult(self, result):
         try: self.resultTxt.grid_forget()
