@@ -115,9 +115,9 @@ def Parallelogram(self):
     self.bEntry = ttk.Entry(self.mainFrame, width=20, font=(font,int(fontMultiplier*12)))
     self.bEntry.grid(row=0, column=1, sticky="w")
     self.hTxt = WrappingLabel(self.mainFrame, text="Height:  ", font=(font,int(fontMultiplier*20)))
-    self.hTxt.grid(row=1, column=0, padx=2, sticky="e")
+    self.hTxt.grid(row=1, column=0, padx=2, sticky="e", pady=6)
     self.hEntry = ttk.Entry(self.mainFrame, width=20, font=(font,int(fontMultiplier*12)))
-    self.hEntry.grid(row=1, column=1, sticky="w")
+    self.hEntry.grid(row=1, column=1, sticky="w", pady=6)
     self.sendData = ttk.Button(self.mainFrame, text="Calculate", style='Accent.TButton', command=lambda:getInputs(self))
     self.sendData.grid(row=2, column=1, pady=10, padx=2, sticky="w")
 
@@ -152,20 +152,20 @@ def Rectangle(self):
     self.breadthTxt = WrappingLabel(self.mainFrame, text="Breadth/Width:  ", font=(font,int(fontMultiplier*20)))
     self.breadthTxt.grid(row=2, column=0, padx=2, sticky="e")
     self.breadthEntry = ttk.Entry(self.mainFrame, width=20, font=(font,int(fontMultiplier*12)))
-    self.breadthEntry.grid(row=2, column=1, sticky="w")
+    self.breadthEntry.grid(row=2, column=1, sticky="w", pady=6)
     self.lengthTxt = WrappingLabel(self.mainFrame, text="Length:  ", font=(font,int(fontMultiplier*20)))
     self.lengthTxt.grid(row=1, column=0, padx=2, sticky="e")
     self.lengthEntry = ttk.Entry(self.mainFrame, width=20, font=(font,int(fontMultiplier*12)))
-    self.lengthEntry.grid(row=1, column=1, sticky="w")
+    self.lengthEntry.grid(row=1, column=1, sticky="w", pady=6)
     self.sendData = ttk.Button(self.mainFrame, text="Calculate", style='Accent.TButton', command=lambda:getInputs(self))
-    self.sendData.grid(row=3, column=1, pady=10, padx=2, sticky="w")
+    self.sendData.grid(row=3, column=1, pady=4, padx=2, sticky="w")
 
     def changeTypebox(self):
         if self.typebox.get() == "Square":
             self.breadthTxt.grid_forget()
             self.breadthEntry.grid_forget()
         else:
-            self.breadthTxt.grid(row=2, column=0, padx=2, sticky="e")
+            self.breadthTxt.grid(row=2, column=0, padx=2, sticky="e", pady=6)
             self.breadthEntry.grid(row=2, column=1, sticky="w")
 
     self.typetext = WrappingLabel(self.mainFrame, text="Type:  ", font=(font,int(fontMultiplier*20)))
@@ -205,9 +205,9 @@ def Trapezium(self):
     self.tEntry = ttk.Entry(self.mainFrame, width=20, font=(font,int(fontMultiplier*12)))
     self.tEntry.grid(row=0, column=1, sticky="w")
     self.bTxt = WrappingLabel(self.mainFrame, text="Bottom:  ", font=(font,int(fontMultiplier*20)))
-    self.bTxt.grid(row=1, column=0, padx=2, sticky="e")
+    self.bTxt.grid(row=1, column=0, padx=2, sticky="e", pady=6)
     self.bEntry = ttk.Entry(self.mainFrame, width=20, font=(font,int(fontMultiplier*12)))
-    self.bEntry.grid(row=1, column=1, sticky="w")
+    self.bEntry.grid(row=1, column=1, sticky="w", pady=6)
     self.hTxt = WrappingLabel(self.mainFrame, text="Height:  ", font=(font,int(fontMultiplier*20)))
     self.hTxt.grid(row=2, column=0, padx=2, sticky="e")
     self.hEntry = ttk.Entry(self.mainFrame, width=20, font=(font,int(fontMultiplier*12)))
@@ -397,17 +397,17 @@ def Circle(self):
     self.mainFrame = self.addframe()
     self.mainFrame.pack(padx=25, pady=18, anchor="w")
     self.ct = WrappingLabel(self.mainFrame, text="Circumference:  ", font=(font,int(fontMultiplier*20)))
-    self.ct.grid(row=1, column=0, padx=2, sticky="e")
+    self.ct.grid(row=1, column=0, padx=2, sticky="e", pady=6)
     self.ce = ttk.Entry(self.mainFrame, width=20, font=(font,int(fontMultiplier*12)))
-    self.ce.grid(row=1, column=1, padx=2, sticky="w")
+    self.ce.grid(row=1, column=1, padx=2, sticky="w", pady=6)
     self.rt = WrappingLabel(self.mainFrame, text="Radius:  ", font=(font,int(fontMultiplier*20)))
     self.rt.grid(row=2, column=0, padx=2, sticky="e")
     self.re = ttk.Entry(self.mainFrame, width=20, font=(font,int(fontMultiplier*12)))
     self.re.grid(row=2, column=1, padx=2, sticky="w")
     self.at = WrappingLabel(self.mainFrame, text="Angle:  ", font=(font,int(fontMultiplier*20)))
-    self.at.grid(row=3, column=0, padx=2, sticky="e")
+    self.at.grid(row=3, column=0, padx=2, sticky="e", pady=6)
     self.angle = ttk.Entry(self.mainFrame, width=20, font=(font,int(fontMultiplier*12)))
-    self.angle.grid(row=3, column=1, padx=2, sticky="w")
+    self.angle.grid(row=3, column=1, padx=2, sticky="w", pady=6)
     self.typetext = WrappingLabel(self.mainFrame, text="Type:  ", font=(font,int(fontMultiplier*20)))
     self.typetext.grid(row=0, column=0, padx=2, sticky="e")
     self.types = ["Circle", "Semicircle", "Sector"]
@@ -1043,7 +1043,7 @@ def Settings(self):
             json.dump(tempJSON, file)
             file.close()
             reload()
-        except Exception as err: print(err)
+        except Exception as err: pass
         return tempVal
 
     def sliderChanged(event):
@@ -1051,7 +1051,7 @@ def Settings(self):
             self.fontMulTxt.configure(text="Multiplier: {}".format(getCurrValue()))
             self.thingFrame.update()
         except Exception as err: 
-            print(err)
+            pass
 
     self.thingFrame = self.addframe()
     self.thingFrame.pack(side="top", padx=25, pady=18, anchor="w")

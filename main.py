@@ -109,9 +109,10 @@ class App(ttk.Frame):
         self.setup_widgets()
         # Variable to track if fullscreen
         self.fullScreen = False
-        # Set fullscreen
+        # Set Bindings/Shortcuts
         self.fullScreenBindings()
         self.goHome()
+        self.resetSettingsSC()
         config.currentlySelected = "Home"
 
     def check_recently_opened(self):
