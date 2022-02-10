@@ -46,6 +46,8 @@ def reload():
             
 reload()
 newfv=int(fontMultiplier)
+def Prism(self):
+    pass
 
 def ChemicalEquation(self):
     # Input Data
@@ -172,9 +174,7 @@ def Rectangle(self):
     self.typetext.grid(row=0, column=0, padx=2, sticky="e")
     self.types = ["Rectangle", "Square"]
     self.typebox = ttk.Combobox(self.mainFrame, state="readonly", values=self.types)
-    def commandTypebox(event):
-        changeTypebox(self)
-    self.typebox.bind('<<ComboboxSelected>>', commandTypebox)
+    self.typebox.bind('<<ComboboxSelected>>', lambda *args: changeTypebox(self))
     self.typebox.current(0)
     self.typebox.grid(row=0, column=1, padx=2, sticky="w")
     
@@ -252,11 +252,10 @@ def Pyramid(self):
                 side3 = str(self.s3e.get())
                 base_base = str(self.basee.get())
                 base_height = str(self.heighte.get())
-                print(re.search("^\d+\.{0,1}\d*$", side1) and re.search("^\d+\.{0,1}\d*$", side2) and re.search("^\d+\.{0,1}\d*$", side3))
-                if ((re.search("^\d+\.{0,1}\d*$", side1) and re.search("^\d+\.{0,1}\d*$", side2) and re.search("^\d+\.{0,1}\d*$", side3)) ^ (re.search("^\d+\.{0,1}\d*$", base_base) and re.search("^\d+\.{0,1}\d*$", base_height))):
+                if (bool(re.search("^\d+\.{0,1}\d*$", side1) and re.search("^\d+\.{0,1}\d*$", side2) and re.search("^\d+\.{0,1}\d*$", side3)) ^ bool(re.search("^\d+\.{0,1}\d*$", base_base) and re.search("^\d+\.{0,1}\d*$", base_height))):
                     if re.search("^\d+\.{0,1}\d*$", side1) and re.search("^\d+\.{0,1}\d*$", side2) and re.search("^\d+\.{0,1}\d*$", side3):
-                        semiperimeter = float(float(side1)+float(side2)+float(side3))/2
-                        basearea = float(semiperimeter*(semiperimeter-side1)*(semiperimeter-side2)*(semiperimeter-side3))**0.5
+                        semiperimeter = float(float(side1)+float(side2)+float(side3))/2.0
+                        basearea = float(semiperimeter*float(semiperimeter-float(side1))*(semiperimeter-float(side2))*(semiperimeter-float(side3)))**0.5
                     elif re.search("^\d+\.{0,1}\d*$", base_base) and re.search("^\d+\.{0,1}\d*$", base_height):
                         basearea = 0.5*float(base_base)*float(base_height)
             elif self.typebox.get() == "Cone":
@@ -272,7 +271,7 @@ def Pyramid(self):
                         basearea = math.pi*float(float(float(circumference)/math.pi)/2.0)**2
                 # (True if str(type(re.search("^\+\.{0,1}\d*$", r))) != "<class 'NoneType'>" else False) ^ (True if str(type(re.search("^\d+\.{0,1}\d*$", c))
             if type(basearea) == float:
-                answer = (basearea * float(height))/3
+                answer = (basearea * float(height))/3.0
         setFinalResult(self, " ".join([str(answer), "u²"]) if answer != "Ensure that all value(s) are/is numerical and/or fit the correct formats stated" else answer)
     self.thingFrame = self.addframe()
     self.thingFrame.pack(side="top", padx=25, pady=18, anchor="w")
@@ -359,9 +358,7 @@ def Pyramid(self):
     self.typetext.grid(row=0, column=0, padx=2, sticky="e")
     self.types = ["Square-Based Pyramid", "Rectangular-Based Pyramid", "Triangle-Based Pyramid", "Cone"]
     self.typebox = ttk.Combobox(self.mainFrame, state="readonly", values=self.types)
-    def commandTypebox(event):
-        changeTypebox(self)
-    self.typebox.bind('<<ComboboxSelected>>', commandTypebox)
+    self.typebox.bind('<<ComboboxSelected>>', lambda *args: changeTypebox(self))
     self.typebox.current(0)
     self.typebox.grid(row=0, column=1, padx=2, sticky="w")
     self.ht.grid(row=6, column=0, padx=2, sticky="e")
