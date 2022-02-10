@@ -177,7 +177,7 @@ def Rectangle(self):
 #        elif self.typebox.get() == "Square":
 #            if re.search("^\d+\.{0,1}\d*$", length):
 #                answer = float(length)**2
-        setFinalResult(self, " ".join([answer, "u²"]))
+        setFinalResult(self, " ".join([str(answer), "u²"]))
     self.thingFrame = self.addframe()
     self.thingFrame.pack(side="top", padx=25, pady=18, anchor="w")
     self.mainLabel = WrappingLabel(self.thingFrame, text="Rectangle/Square Area Calculator", font=(font,int(fontMultiplier*50),'bold'))
