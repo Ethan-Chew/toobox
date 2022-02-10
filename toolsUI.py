@@ -32,6 +32,8 @@ fontMultiplier = 1.00
 
 def reload():
     '''reloads font multiplier'''
+    global fontMultiplier
+
     try:
         file = open(jsonData)
         extractedData = json.load(file)
@@ -41,7 +43,7 @@ def reload():
         with open(jsonData,"w") as f:
             tempJSON = {"fontMultiplier": float(1), "recentlyOpened": []}
             json.dump(tempJSON, f)
-
+            
 reload()
 newfv=int(fontMultiplier)
 
@@ -99,7 +101,7 @@ def Parallelogram(self):
         height = str(self.hEntry.get())
         if re.search("^\d+\.{0,1}\d*$", base) and re.search("^\d+\.{0,1}\d*$", height):
             answer = parallelogram(base, height)
-        setFinalResult(self, " ".join([str(answer), "u²"]) if answer != "Ensure that all value(s) are/is numerical" else answer)
+        setFinalResult(self, " ".join([str(answer), "u²"]))
     self.thingFrame =self.addframe()
     self.thingFrame.pack(side="top", padx=25, pady=18, anchor="w")
     self.mainLabel = WrappingLabel(self.thingFrame, text="Parallelogram Area Calculator", font=(font,int(fontMultiplier*50),'bold'))
@@ -138,7 +140,7 @@ def Rectangle(self):
         elif self.typebox.get() == "Square":
             if re.search("^\d+\.{0,1}\d*$", length):
                 answer = float(length)**2
-        setFinalResult(self, " ".join([str(answer), "u²"]) if answer != "Ensure that all value(s) are/is numerical" else answer)
+        setFinalResult(self, " ".join([str(answer), "u²"]))
     self.thingFrame = self.addframe()
     self.thingFrame.pack(side="top", padx=25, pady=18, anchor="w")
     self.mainLabel = WrappingLabel(self.thingFrame, text="Rectangle/Square Area Calculator", font=(font,int(fontMultiplier*50),'bold'))
@@ -190,7 +192,7 @@ def Trapezium(self):
         h = str(self.hEntry.get())
         if re.search("^\d+\.{0,1}\d*$", t) and re.search("^\d+\.{0,1}\d*$", b) and re.search("^\d+\.{0,1}\d*$", h):
             answer = trapezium(t, b, h)
-        setFinalResult(self, " ".join([str(answer), "u²"]) if answer != "Ensure that all value(s) are/is numerical" else answer)
+        setFinalResult(self, " ".join([str(answer), "u²"]))
     self.thingFrame = self.addframe()
     self.thingFrame.pack(side="top", padx=25, pady=18, anchor="w")
     self.mainLabel = WrappingLabel(self.thingFrame, text="Trapezium Area Calculator", font=(font,int(fontMultiplier*50),'bold'))
@@ -387,7 +389,7 @@ def Circle(self):
                 if re.search("^\d+\.{0,1}\d*$", a) and re.search("^\d+\.{0,1}\d*$", r):
                     if float(a) >= 0.0 and float(a) <= 360.0:
                         answer = sector(r, a)
-        setFinalResult(self, " ".join([str(answer), "u²"]) if answer != "Ensure that all value(s) are/is numerical" else answer)
+        setFinalResult(self, " ".join([str(answer), "u²"]))
     self.thingFrame = self.addframe()
     self.thingFrame.pack(side="top", padx=25, pady=18, anchor="w")
     self.mainLabel = WrappingLabel(self.thingFrame, text="Circle/Semicircle Area Calculator", font=(font,int(fontMultiplier*50),'bold'))
@@ -778,18 +780,27 @@ def snak():
     while True:
         snake.update()
 
-def SolveCircle(self):
+def SolveCircle(self,typ=0):
     # Input Data
     def getInputs(self):
-        equation = self.inputField.get()
-        selectedValue = self.typebox.get()
+        selectedValue = typ
         ceqn = circle_equation()
-        result = ceqn.mainCode(selectedValue, equation)
+        try:
+            if selectedValue==0:
+                result=ceqn.to_general_form(int(userinp[0].get()),int(userinp[1].get()),int(userinp[2].get()))
+            else:
+                result=ceqn.to_standard_form(int(userinp[0].get()),int(userinp[1].get()),int(userinp[2].get()))
+        except:
+            result="Error"
+        #result = ceqn.mainCode(selectedValue, equation)
         if result == "Unknown Error" or result == "Error":
             setFinalResult(self, "An Unknown Error has Occured. Please check the format of the equation.")
         else:
             setFinalResult(self, result)
-
+    def changebox(self):
+        self.clearScreen()
+        typ=0 if self.typebox.get()=="General Form" else 1
+        SolveCircle(self,typ)
     # User Interface
     self.thingFrame = self.addframe()
     self.thingFrame.pack(side="top", padx=25, pady=18, anchor="w")
@@ -803,12 +814,38 @@ def SolveCircle(self):
     self.typeTxt = WrappingLabel(self.mainFrame, text="Type:  ", font=(font,int(fontMultiplier*20)))
     self.typeTxt.grid(row=0, column=0, padx=2)
     self.typebox = ttk.Combobox(self.mainFrame, state="readonly", values=["General Form", "Standard Form"], width=50)
-    self.typebox.grid(row=0, column=1,padx=2)
+    self.typebox.bind("<<ComboboxSelected>>",lambda *args: changebox(self))
+    self.typebox.current(typ)
+    self.typebox.grid(row=0, column=1,padx=2,columnspan=4)
     self.inputTxt = WrappingLabel(self.mainFrame, text="Input:  ", font=(font,int(fontMultiplier*20)))
     self.inputTxt.grid(row=1, column=0, padx=2)
-    self.inputField = ttk.Entry(self.mainFrame, width=50, font=(font,int(fontMultiplier*12)))
-    self.inputField.insert(0, "Equation")
-    self.inputField.grid(row=1, column=1)
+    userinp=[]
+    if typ==0:
+        WrappingLabel(self.mainFrame, text="(x + ", font=(font,int(fontMultiplier*20))).grid(row=1,column=1)
+        userinp.append(ttk.Entry(self.mainFrame,font=(font,int(fontMultiplier*12))))
+        userinp[-1].grid(row=1,column=2)
+        WrappingLabel(self.mainFrame, text=")^2 + (y + ", font=(font,int(fontMultiplier*20))).grid(row=1,column=3)
+        userinp.append(ttk.Entry(self.mainFrame,font=(font,int(fontMultiplier*12))))
+
+        userinp[-1].grid(row=1,column=4)
+        WrappingLabel(self.mainFrame, text=")^2 = ", font=(font,int(fontMultiplier*20))).grid(row=1,column=5)
+        userinp.append(ttk.Entry(self.mainFrame,font=(font,int(fontMultiplier*12))))
+
+        userinp[-1].grid(row=1,column=6)
+    else:
+        WrappingLabel(self.mainFrame, text="x^2 + y^2 + ", font=(font,int(fontMultiplier*20))).grid(row=1,column=1)
+        userinp.append(ttk.Entry(self.mainFrame,font=(font,int(fontMultiplier*12))))
+        userinp[-1].grid(row=1,column=2)
+        WrappingLabel(self.mainFrame, text="x + ", font=(font,int(fontMultiplier*20))).grid(row=1,column=3)
+        userinp.append(ttk.Entry(self.mainFrame,font=(font,int(fontMultiplier*12))))
+
+        userinp[-1].grid(row=1,column=4)
+        WrappingLabel(self.mainFrame, text="y + ", font=(font,int(fontMultiplier*20))).grid(row=1,column=5)
+        userinp.append(ttk.Entry(self.mainFrame,font=(font,int(fontMultiplier*12))))
+
+        userinp[-1].grid(row=1,column=6)
+        WrappingLabel(self.mainFrame, text=" = 0", font=(font,int(fontMultiplier*20))).grid(row=1,column=7)
+
     self.sendData = ttk.Button(self.mainFrame, text="Solve", style='Accent.TButton', command=lambda: getInputs(self))
     self.sendData.grid(row=2, column=0,pady=10, padx=2)
 
@@ -816,7 +853,7 @@ def SolveCircle(self):
         try: self.resultTxt.grid_forget()
         except: pass
         self.resultTxt = WrappingLabel(self.mainFrame, text="Result:  {}".format(result), font=(font,int(fontMultiplier*20)))
-        self.resultTxt.grid(row=3, columnspan = 2, sticky = tk.W+tk.N, padx=2)
+        self.resultTxt.grid(row=3, columnspan = 7, sticky = tk.W+tk.N, padx=2)
 
 def periodicTable(self):
     def getInputs(self):
@@ -975,7 +1012,7 @@ def periodicTable(self):
     self.mainLabel = WrappingLabel(self.thingFrame, text="Periodic Table", font=(font,int(fontMultiplier*50),'bold'))
     self.mainLabel.pack(side="top", pady=2, fill="x", expand="yes")
 
-    self.infoLabel = WrappingLabel(self.thingFrame, text="Please enter a valid Symbol, Element Name, Symbol, Atomic Number, or Number of Electrons, Protons or Neutrons. To search for protons input \"Pn\" where n is the number of Protons. You can similarly search for neutrons and electorns with \"Nn\" and \"En\" respectively", font=(font,int(fontMultiplier*15)))
+    self.infoLabel = WrappingLabel(self.thingFrame, text="Please enter a valid Symbol, Element Name, Symbol, Atomic Number, or Number of Electrons, Protons or Neutrons. To search for protons input \"Pn\" where n is the number of Protons. You can similarly search for neutrons and electorns with \"Nn\" and \"En\" respectively. To search for mass number just tye the mass in", font=(font,int(fontMultiplier*15)))
     self.infoLabel.pack(side="top", pady=2, fill="x", expand="yes")
 
     self.mainFrame = self.addframe()
@@ -1039,6 +1076,7 @@ def Settings(self):
     self.anotherInfoLbl = WrappingLabel(self.mainFrame, text="The largest recommended Font Multiplier is 2x. Going higher may result in the User Interface being unusable.", font=(font,int(fontMultiplier*10)))
     self.anotherInfoLbl.grid(row=4, columnspan=5, sticky= tk.W+tk.E)
 
+
     self.shortCutHeader = WrappingLabel(self.mainFrame, text="Shortcuts", font=(font,int(fontMultiplier*20), 'bold'))
     self.shortCutHeader.grid(row=6, columnspan=2, sticky = tk.W+tk.E, pady=5)
     self.fsShortcut = WrappingLabel(self.mainFrame, text="1. Command + F -- Full Screen the App.", font=(font,int(fontMultiplier*14)))
@@ -1050,3 +1088,4 @@ def Settings(self):
     self.fsShortcut = WrappingLabel(self.mainFrame, text="4. Command + ` -- Reset back to Default Settings.", font=(font,int(fontMultiplier*14)))
     self.fsShortcut.grid(row=10, columnspan=2, sticky= tk.W+tk.E)
     
+
