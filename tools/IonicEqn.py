@@ -1,4 +1,4 @@
-# Created by Ethan Chew
+# Created by Ethan
 from math import prod
 from chemlib import Element
 from chemlib import Compound

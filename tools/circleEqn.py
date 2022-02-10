@@ -1,4 +1,4 @@
-#By ethan
+# Created by Ethan
 import math
 
 class circle_equation():
