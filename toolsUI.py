@@ -58,7 +58,7 @@ def ChemicalEquation(self):
     self.thingFrame.pack(side="top", padx=25, pady=18, anchor="w")
     self.mainLabel = WrappingLabel(self.thingFrame, text="Chemical Equation Balancer", font=(font,int(fontMultiplier*50),'bold'))
     self.mainLabel.pack(side="top", pady=2, fill="x", expand="yes")
-    self.infoLabel = WrappingLabel(self.thingFrame, text="Please enter a valid Symbol, Element Name, Symbol, Atomic Number, or Number of Electrons, Protons or Neutrons. To search for protons input \"Pn\" where n is the number of Protons. You can similarly search for neutrons and electorns with \"Nn\" and \"En\" respectively. To search for mass number just tye the mass in", font=(font,int(fontMultiplier*15)))
+    self.infoLabel = WrappingLabel(self.thingFrame, text="Please enter the Chemical Equation like in the following example: 'Compound(State) + Compound2(State) + ... -> Compound3(State) + Compound4(State) + ...'", font=(font,int(fontMultiplier*15)))
     self.infoLabel.pack(side="top", pady=2, fill="x", expand="yes")
     self.screenlist.append(self.addframe())
     self.mainFrame = self.screenlist[-1]
@@ -435,6 +435,8 @@ def IonicEqn(self):
     self.mainLabel.pack(side="top", pady=2, fill="x", expand="yes")
     self.infoLabel = WrappingLabel(self.thingFrame, text="Please enter the Chemical Equation like in the following example: 'Compound(State) + Compound2(State) + ... -> Compound3(State) + Compound4(State) + ...'", font=(font,int(fontMultiplier*15)))
     self.infoLabel.pack(side="top", pady=2, fill="x", expand="yes")
+    self.anotherInfoLabel = WrappingLabel(self.thingFrame, text="This solver is limited to the list of Polyatomic Ions. However, it has been tested to work for O Level Chemical Equations, with some A Level Chemical Equations working as well.", font=(font,int(fontMultiplier*12)))
+    self.anotherInfoLabel.pack(side="top", pady=2, fill="x", expand="yes")
 
     self.mainFrame = self.addframe()
     self.mainFrame.pack(padx=25, pady=18, anchor="w")
@@ -1036,3 +1038,15 @@ def Settings(self):
     self.infoLabel.grid(row=3, columnspan=2, sticky= tk.W+tk.E)
     self.anotherInfoLbl = WrappingLabel(self.mainFrame, text="The largest recommended Font Multiplier is 2x. Going higher may result in the User Interface being unusable.", font=(font,int(fontMultiplier*10)))
     self.anotherInfoLbl.grid(row=4, columnspan=5, sticky= tk.W+tk.E)
+
+    self.shortCutHeader = WrappingLabel(self.mainFrame, text="Shortcuts", font=(font,int(fontMultiplier*20), 'bold'))
+    self.shortCutHeader.grid(row=6, columnspan=2, sticky = tk.W+tk.E, pady=5)
+    self.fsShortcut = WrappingLabel(self.mainFrame, text="1. Command + F -- Full Screen the App.", font=(font,int(fontMultiplier*14)))
+    self.fsShortcut.grid(row=7, columnspan=2, sticky= tk.W+tk.E)
+    self.ufsShortcut = WrappingLabel(self.mainFrame, text="2. Escape -- Exit Full Screen.", font=(font,int(fontMultiplier*14)))
+    self.ufsShortcut.grid(row=8, columnspan=2, sticky= tk.W+tk.E)
+    self.hsShortcut = WrappingLabel(self.mainFrame, text="3. Command + R -- Go back to the Home Screen.", font=(font,int(fontMultiplier*14)))
+    self.hsShortcut.grid(row=9, columnspan=2, sticky= tk.W+tk.E)
+    self.fsShortcut = WrappingLabel(self.mainFrame, text="4. Command + ` -- Reset back to Default Settings.", font=(font,int(fontMultiplier*14)))
+    self.fsShortcut.grid(row=10, columnspan=2, sticky= tk.W+tk.E)
+    
