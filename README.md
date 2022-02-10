@@ -27,7 +27,7 @@ Toobox includes various keybinds to help make your life easier
 2. **Back to Home Page**
     - 'Command + R' to go back to the Home Screen
 3. **Reset Settings**
-    - 'Command + `' to reset Settings back to default
+    - 'Command + '\`' to reset Settings back to default
 
 ## Dependencies and Themes
 1. Chemlib
