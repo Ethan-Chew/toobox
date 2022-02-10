@@ -27,12 +27,12 @@ Toobox includes various keybinds to help make your life easier
 2. **Back to Home Page**
     - 'Command + R' to go back to the Home Screen
 3. **Reset Settings**
-    - 'Command + `' to reset Settings back to default
+    - 'Command + '\`' to reset Settings back to default
 
 ## Dependencies and Themes
-1. chemlib
+1. Chemlib
 2. numpy
-3. tkinter
+3. matplotlib
 4. sun-valley Theme for tkinker
 
 ###### Developed with ❤️ by [Granwyn Tan](https://granwyntan.github.io), [Ethan Chew](https://www.ethanchew.com), [Jerick Seng](https://jer123se12.github.io) our Computing+ Coursework

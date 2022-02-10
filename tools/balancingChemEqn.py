@@ -1,5 +1,4 @@
 # Created by Ethan Chew
-from ast import excepthandler
 import random
 from chemlib import Element
 from chemlib import Compound
@@ -55,6 +54,7 @@ def balanceChemEqn(equation):
             except: pass
         return parser(splittedCompound)
     def parser(compound):
+        
         elements={}
         i=0
         while i<len(compound):
@@ -114,25 +114,22 @@ def balanceChemEqn(equation):
                             elements[ele]+=mul*eles[ele]
                         else:
                             elements[ele]=mul*eles[ele]
+                    
+                    
+
+                
+
+
             i+=1
         return elements
     
-    try:
-        reactants=[]
-        for i in reactantsCompounds:
-            reactants.append(fullparser(i))
-        products=[]
-        for i in productsCompounds:
-            products.append(fullparser(i))
-    except:
-        return "An Unknown Error has occured. There might be an issue with the Elements inputted into the solver."
-    else:
-        reactants=[]
-        for i in reactantsCompounds:
-            reactants.append(fullparser(i))
-        products=[]
-        for i in productsCompounds:
-            products.append(fullparser(i))
+    
+    reactants=[]
+    for i in reactantsCompounds:
+        reactants.append(fullparser(i))
+    products=[]
+    for i in productsCompounds:
+        products.append(fullparser(i))
 
     def solvev2(reactants,products):
         listOfElements=[]
