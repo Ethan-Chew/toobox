@@ -216,6 +216,7 @@ def Trapezium(self):
         self.resultTxt.grid(row=4,column=1,padx=2,columnspan=4, sticky="w")
 
 def Pyramid(self):
+    comboboxText = ""
     def getInputs(self):
         try:
             self.resultTxt.grid_forget()
@@ -341,17 +342,20 @@ def Pyramid(self):
         self.infoLabel.config(text="Accepts Base Length")
         self.infoLabel.pack_forget()
         self.infoLabel.pack(side="top", pady=2, fill="x", expand="yes")
-    def command(self):
-        changeTypebox(self)
     self.typetext = WrappingLabel(self.mainFrame, text="Type:  ", font=(font,int(fontMultiplier*20)))
     self.typetext.grid(row=0, column=0, padx=2, sticky="e")
+    def commandTypebox(event):
+        changeTypebox(self)
+    self.typebox.bind('<<ComboboxSelected>>', commandTypebox)
     self.types = ["Square-Based Pyramid", "Rectangular-Based Pyramid", "Triangle-Based Pyramid", "Cone"]
-    self.typebox = ttk.Combobox(self.mainFrame, state="readonly", values=self.types, command=self.command)
+    self.typebox = ttk.Combobox(self.mainFrame, state="readonly", values=self.types)
+    def commandTypebox(event):
+        changeTypebox(self)
+    self.typebox.bind('<<ComboboxSelected>>', commandTypebox)
     self.typebox.current(0)
     self.typebox.grid(row=0, column=1, padx=2, sticky="w")
     self.ht.grid(row=6, column=0, padx=2, sticky="e")
     self.he.grid(row=6, column=1, sticky="w")
-    
     changeTypebox(self)
     def setFinalResult(self, result):
         try: self.resultTxt.grid_forget()
@@ -384,7 +388,6 @@ def Circle(self):
     self.thingFrame.pack(side="top", padx=25, pady=18, anchor="w")
     self.mainLabel = WrappingLabel(self.thingFrame, text="Circle/Semicircle Area Calculator", font=(font,int(fontMultiplier*50),'bold'))
     self.mainLabel.pack(side="top", pady=2, fill="x", expand="yes")
-
     self.mainFrame = self.addframe()
     self.mainFrame.pack(padx=25, pady=18, anchor="w")
     self.ct = WrappingLabel(self.mainFrame, text="Circumference:  ", font=(font,int(fontMultiplier*20)))
