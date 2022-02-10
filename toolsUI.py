@@ -815,11 +815,11 @@ def SolveCircle(self,typ=0):
     self.mainFrame = self.addframe()
     self.mainFrame.pack(padx=25, pady=18, anchor="w")
     self.typeTxt = WrappingLabel(self.mainFrame, text="Type:  ", font=(font,int(fontMultiplier*20)))
-    self.typeTxt.grid(row=0, column=0, padx=2)
+    self.typeTxt.grid(row=0, column=0, padx=2, pady=3)
     self.typebox = ttk.Combobox(self.mainFrame, state="readonly", values=["General Form", "Standard Form"], width=50)
     self.typebox.bind("<<ComboboxSelected>>",lambda *args: changebox(self))
     self.typebox.current(typ)
-    self.typebox.grid(row=0, column=1,padx=2,columnspan=4)
+    self.typebox.grid(row=0, column=1,padx=2,columnspan=4, pady=3)
     self.inputTxt = WrappingLabel(self.mainFrame, text="Input:  ", font=(font,int(fontMultiplier*20)))
     self.inputTxt.grid(row=1, column=0, padx=2)
     userinp=[]
