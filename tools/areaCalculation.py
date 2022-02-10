@@ -1,5 +1,5 @@
 import math
-
+# all ny granwyn except for triangle which is by Jerick
 def triangle(base, height):
     return 1/2 * base * height
 

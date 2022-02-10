@@ -29,7 +29,7 @@ jsonData=os.path.join(ROOTDIR,".data.json")
 trianglePng = os.path.join(ROOTDIR,'src','images','triangle.png')
 
 fontMultiplier = 1.00
-
+#Jerick
 def reload():
     '''reloads font multiplier'''
     global fontMultiplier
@@ -46,6 +46,7 @@ def reload():
             
 reload()
 newfv=int(fontMultiplier)
+#Ethan
 def Prism(self):
     pass
 
@@ -81,6 +82,7 @@ def ChemicalEquation(self):
         self.resultTxt = WrappingLabel(self.mainFrame, text="Result:  {}".format(result), font=(font,int(fontMultiplier*20)))
         self.resultTxt.grid(row=3, columnspan = 8, sticky = tk.W+tk.E, padx=2)
 
+#ethan
 def infoFrame(self, lblText):
     # for headers
     # Top Labels
@@ -92,7 +94,7 @@ def infoFrame(self, lblText):
     self.wipText.pack(side="top", pady=2)
     self.wipTextA = WrappingLabel(self.thingFrame, text="This is a header! Click on any 'Child' Element to access it!", font=(font,int(fontMultiplier*20)), justify="center")
     self.wipTextA.pack(side="top", pady=2)
-
+#granwyn
 def Parallelogram(self):
     def getInputs(self):
         try:
@@ -128,6 +130,7 @@ def Parallelogram(self):
         except: pass
         self.resultTxt = WrappingLabel(self.mainFrame, text="Result:  {}".format(result), font=(font,int(fontMultiplier*20)))
         self.resultTxt.grid(row=3,column=1,padx=2,columnspan=4, sticky="w")
+#granwyn
 def Rectangle(self):
     def getInputs(self):
         try:
@@ -183,7 +186,7 @@ def Rectangle(self):
         except: pass
         self.resultTxt = WrappingLabel(self.mainFrame, text="Result:  {}".format(result), font=(font,int(fontMultiplier*20)))
         self.resultTxt.grid(row=4,column=1,padx=2,columnspan=4, sticky="w")
-
+#granwyn
 def Trapezium(self):
     def getInputs(self):
         try:
@@ -223,7 +226,7 @@ def Trapezium(self):
         except: pass
         self.resultTxt = WrappingLabel(self.mainFrame, text="Result:  {}".format(result), font=(font,int(fontMultiplier*20)))
         self.resultTxt.grid(row=4,column=1,padx=2,columnspan=4, sticky="w")
-
+#granwyn
 def Pyramid(self):
     def getInputs(self):
         try:
@@ -369,7 +372,7 @@ def Pyramid(self):
         except: pass
         self.resultTxt = WrappingLabel(self.mainFrame, text="Result:  {}".format(result), font=(font,int(fontMultiplier*20)))
         self.resultTxt.grid(row=8,column=1,padx=2,columnspan=4, sticky="w")
-
+#granwyn
 def Circle(self):
     def getInputs(self):
         try:
@@ -424,7 +427,7 @@ def Circle(self):
         self.resultTxt = WrappingLabel(self.mainFrame, text="Result:  {}".format(result), font=(font,int(fontMultiplier*20)))
         self.resultTxt.grid(row=5,column=1,padx=2,columnspan=4, sticky="w")
 
-
+#Ethan
 def IonicEqn(self):
     # Input Data
     def getInputs(self):
@@ -456,7 +459,7 @@ def IonicEqn(self):
         except: pass
         self.resultTxt = WrappingLabel(self.mainFrame, text="Result:  {}".format(result), font=(font,int(fontMultiplier*20)))
         self.resultTxt.grid(row=3, columnspan = 5, sticky = tk.W+tk.E, padx=2)
-
+# Ethan
 def SaltSolubility(self):
     # Input Data
     def getInputs(self):
@@ -491,7 +494,7 @@ def SaltSolubility(self):
         except: pass
         self.resultTxt = WrappingLabel(self.mainFrame, text="Result:  {}".format(result), font=(font,int(fontMultiplier*20)))
         self.resultTxt.grid(row=3, columnspan = 4, sticky = tk.W+tk.E, padx=2)
-
+#Jerick
 def calculate(self):
     # Input Data
     def getInputs(self):
@@ -533,7 +536,7 @@ def calculate(self):
             pass
         self.resultTxt = WrappingLabel(self.mainFrame, text="Result:  {}".format(result), font=(font,int(fontMultiplier*20)))
         self.resultTxt.grid(row=3, columnspan = 2, sticky = tk.W+tk.E, padx=2)
-
+#Ethan/Jerick
 def SolveQuad(self):
     # Input Data
     def getInputs(self):
@@ -584,7 +587,7 @@ def SolveQuad(self):
             self.resultTxt3.grid_forget()
             self.resultTxt4.grid_forget()
         except: pass
-
+#Jerick
 def simsolver(self,column=3):
     row=column-1
 
@@ -684,7 +687,7 @@ def simsolver(self,column=3):
         ttk.Button(self.mainFrame, text="Remove Var", style='Accent.TButton', command=(lambda: rese(self,max(column-1,3))),width=10).grid(row=row+2, column=2,pady=2, padx=2)
     else:
         ttk.Button(self.mainFrame, text="Remove Var", style='Accent.TButton', command=(lambda: rese(self,max(column-1,3))),width=10,state=tk.DISABLED).grid(row=row+2, column=2,pady=2, padx=2)
-
+#Jerick
 def triangle(self):
     self.thingFrame = self.addframe()
     self.mainLabel = WrappingLabel(self.thingFrame, text="Triangle Area Solver", font=(font,int(fontMultiplier*50),'bold'))
@@ -768,7 +771,7 @@ def triangle(self):
             self.resultTxt1.grid(row=6,column=0,padx=2,pady=2, sticky = tk.W+tk.E,columnspan=5)
 
     ttk.Button(self.mainFrame, text="Solve", style='Accent.TButton', command=onPress,width=10).grid(row=5, column=0,pady=2, padx=2)
-
+#Ignore this there is nothing here to see
 def snak():
     global root
     snake.init()
@@ -782,7 +785,7 @@ def snak():
     
     while True:
         snake.update()
-
+#Jerick/Ethan
 def SolveCircle(self,typ=0):
     # Input Data
     def getInputs(self):
@@ -857,7 +860,7 @@ def SolveCircle(self,typ=0):
         except: pass
         self.resultTxt = WrappingLabel(self.mainFrame, text="Result:  {}".format(result), font=(font,int(fontMultiplier*20)))
         self.resultTxt.grid(row=3, columnspan = 7, sticky = tk.W+tk.N, padx=2)
-
+#Jerick/Granwyn
 def periodicTable(self):
     def getInputs(self):
         self.resFrame.destroy()
@@ -1027,7 +1030,7 @@ def periodicTable(self):
     self.sendData.grid(row=0, column=1,pady=10, padx=2, sticky = tk.W)
     self.resFrame = ttk.Frame(self.mainFrame)
     self.resFrame.grid(row=1, column=0, rowspan=10, columnspan=10,pady=10, padx=2)
-
+# ethan
 def Settings(self):
     # Font Multiplier
     currentVal = tk.DoubleVar()

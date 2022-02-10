@@ -1,3 +1,4 @@
+#by Jerick
 import numpy as np
 def solve_sim(*args):
     ''''
