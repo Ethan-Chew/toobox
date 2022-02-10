@@ -33,17 +33,11 @@ fontMultiplier = 1.00
 def reload():
     '''reloads font multiplier'''
     global fontMultiplier
-    try:
-        file = open(jsonData)
-        extractedData = json.load(file)
-        file.close()
-        fontMultiplier = float(extractedData["fontMultiplier"])
-    except:
-        with open(jsonData,"w") as f:
-            tempJSON = {"fontMultiplier": float(1), "recentlyOpened": []}
-            json.dump(tempJSON, f)
-            
- 
+    file = open(jsonData)
+    extractedData = json.load(file)
+    file.close()
+    fontMultiplier = float(extractedData["fontMultiplier"])
+
 reload()
 newfv=int(fontMultiplier)
 
@@ -101,7 +95,7 @@ def Parallelogram(self):
         height = str(self.hEntry.get())
         if re.search("^\d+\.{0,1}\d*$", base) and re.search("^\d+\.{0,1}\d*$", height):
             answer = parallelogram(base, height)
-        setFinalResult(self, " ".join([str(answer), "u²"]))
+        setFinalResult(self, " ".join([str(answer), "u²"]) if answer != "Ensure that all value(s) are/is numerical" else answer)
     self.thingFrame =self.addframe()
     self.thingFrame.pack(side="top", padx=25, pady=18, anchor="w")
     self.mainLabel = WrappingLabel(self.thingFrame, text="Parallelogram Area Calculator", font=(font,int(fontMultiplier*50),'bold'))
@@ -140,7 +134,7 @@ def Rectangle(self):
         elif self.typebox.get() == "Square":
             if re.search("^\d+\.{0,1}\d*$", length):
                 answer = float(length)**2
-        setFinalResult(self, " ".join([str(answer), "u²"]))
+        setFinalResult(self, " ".join([str(answer), "u²"]) if answer != "Ensure that all value(s) are/is numerical" else answer)
     self.thingFrame = self.addframe()
     self.thingFrame.pack(side="top", padx=25, pady=18, anchor="w")
     self.mainLabel = WrappingLabel(self.thingFrame, text="Rectangle/Square Area Calculator", font=(font,int(fontMultiplier*50),'bold'))
@@ -192,7 +186,7 @@ def Trapezium(self):
         h = str(self.hEntry.get())
         if re.search("^\d+\.{0,1}\d*$", t) and re.search("^\d+\.{0,1}\d*$", b) and re.search("^\d+\.{0,1}\d*$", h):
             answer = trapezium(t, b, h)
-        setFinalResult(self, " ".join([str(answer), "u²"]))
+        setFinalResult(self, " ".join([str(answer), "u²"]) if answer != "Ensure that all value(s) are/is numerical" else answer)
     self.thingFrame = self.addframe()
     self.thingFrame.pack(side="top", padx=25, pady=18, anchor="w")
     self.mainLabel = WrappingLabel(self.thingFrame, text="Trapezium Area Calculator", font=(font,int(fontMultiplier*50),'bold'))
@@ -389,7 +383,7 @@ def Circle(self):
                 if re.search("^\d+\.{0,1}\d*$", a) and re.search("^\d+\.{0,1}\d*$", r):
                     if float(a) >= 0.0 and float(a) <= 360.0:
                         answer = sector(r, a)
-        setFinalResult(self, " ".join([str(answer), "u²"]))
+        setFinalResult(self, " ".join([str(answer), "u²"]) if answer != "Ensure that all value(s) are/is numerical" else answer)
     self.thingFrame = self.addframe()
     self.thingFrame.pack(side="top", padx=25, pady=18, anchor="w")
     self.mainLabel = WrappingLabel(self.thingFrame, text="Circle/Semicircle Area Calculator", font=(font,int(fontMultiplier*50),'bold'))
@@ -975,7 +969,7 @@ def periodicTable(self):
     self.mainLabel = WrappingLabel(self.thingFrame, text="Periodic Table", font=(font,int(fontMultiplier*50),'bold'))
     self.mainLabel.pack(side="top", pady=2, fill="x", expand="yes")
 
-    self.infoLabel = WrappingLabel(self.thingFrame, text="Please enter a valid Symbol, Element Name, Symbol, Atomic Number, or Number of Electrons, Protons or Neutrons. To search for protons input \"Pn\" where n is the number of Protons. You can similarly search for neutrons and electorns with \"Nn\" and \"En\" respectively. To search for mass number just tye the mass in", font=(font,int(fontMultiplier*15)))
+    self.infoLabel = WrappingLabel(self.thingFrame, text="Please enter a valid Symbol, Element Name, Symbol, Atomic Number, or Number of Electrons, Protons or Neutrons. To search for protons input \"Pn\" where n is the number of Protons. You can similarly search for neutrons and electorns with \"Nn\" and \"En\" respectively", font=(font,int(fontMultiplier*15)))
     self.infoLabel.pack(side="top", pady=2, fill="x", expand="yes")
 
     self.mainFrame = self.addframe()
