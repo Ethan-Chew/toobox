@@ -49,7 +49,7 @@ def balanceChemEqn(equation):
     productsCompounds = productsCompounds.split(" + ")
     originalReactants, originalProducts = reactantsCompounds, productsCompounds
     
-    def newerparser(compound):
+    def fullparser(compound):
         if "aq" in compound:
             try: splittedCompound = compound.split("(aq)")[0]
             except: pass
@@ -63,23 +63,23 @@ def balanceChemEqn(equation):
             try: splittedCompound = compound.split("(g)")[0]
             except: pass
         print(splittedCompound)
-        return new_parser(splittedCompound)
-    def new_parser(compound):
+        return parser(splittedCompound)
+    def parser(compound):
         
         elements={}
         i=0
-        while i<=len(compound):
+        while i<len(compound):
+            print(i)
             print(compound[i])
             # print(compound[i])
             if compound[i].isalpha() and compound[i].upper() == compound[i] :
                 #start of an element
                 ele=compound[i]
                 # print(compound[i],compound[i+1].upper(), compound[i+1])
-                if compound[i+1].isalpha() and compound[i+1].upper() != compound[i+1]:
+                if i+1<len(compound) and compound[i+1].isalpha() and compound[i+1].upper() != compound[i+1]:
                     ele+=compound[i+1]
                     i+=1
                 # print(ele)
-                print(compound[i+1])
                 for j in range(i+1,len(compound)):
                     if compound[j].isnumeric():
                         pass
@@ -87,11 +87,12 @@ def balanceChemEqn(equation):
                         break
                 # print(j,i)
                 if ele in elements:
-                    elements[ele]+=int(compound[i+1:j]) if j!= i+1 else 1
+                    elements[ele]+=int(compound[i+1:j]) if j> i+1 else 1
                 else:
-                    elements[ele]=int(compound[i+1:j]) if j!= i+1 else 1
-                i=int(j) if j!=i+1 else i
-            if compound[i]=="(":
+                    elements[ele]=int(compound[i+1:j]) if j> i+1 else 1
+                
+                i=int(j) if j>i+1 else int(i)
+            elif compound[i]=="(":
                 # print(compound[i:])
                 j=int(i)+1
                 count=1
@@ -129,12 +130,11 @@ def balanceChemEqn(equation):
 
 
             i+=1
-            return elements
-    print(new_parser("OH"))
-    exit()
+        return elements
+    
     for i in reactantsCompounds:
-        print(newerparser(i))
-        exit()
+        print(fullparser(i))
+    exit()
 
     # Function to get occurances
     def getOccurances():

@@ -172,7 +172,6 @@ def Rectangle(self):
         breadth = str(self.breadthEntry.get())
         if re.search("^\d+\.{0,1}\d*$", length) and re.search("^\d+\.{0,1}\d*$", breadth):
             answer = float(length)*float(breadth)
-<<<<<<< HEAD
 
 #        if self.typebox.get() == "Rectangle":
 #            if re.search("^\d+\.{0,1}\d*$", length) and re.search("^\d+\.{0,1}\d*$", breadth):
@@ -181,15 +180,6 @@ def Rectangle(self):
 #            if re.search("^\d+\.{0,1}\d*$", length):
 #                answer = float(length)**2
         setFinalResult(self, " ".join([str(answer), "u²"]))
-=======
-        if self.typebox.get() == "Rectangle":
-            if re.search("^\d+\.{0,1}\d*$", length) and re.search("^\d+\.{0,1}\d*$", breadth):
-                answer = float(length)*float(breadth)
-        elif self.typebox.get() == "Square":
-            if re.search("^\d+\.{0,1}\d*$", length):
-                answer = float(length)**2
-            setFinalResult(self, " ".join([answer, "u²"]))
->>>>>>> 6179c002f2ff56222b51166a31c55b18763b91dc
     self.thingFrame = self.addframe()
     self.thingFrame.pack(side="top", padx=25, pady=18, anchor="w")
     self.mainLabel = WrappingLabel(self.thingFrame, text="Rectangle/Square Area Calculator", font=(font,int(fontMultiplier*50),'bold'))
