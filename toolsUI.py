@@ -40,7 +40,6 @@ def reload():
 
 reload()
 newfv=int(fontMultiplier)
-print(fontMultiplier)
 
 def ChemicalEquation(self):
     # Input Data

@@ -3,12 +3,14 @@ from chemlib import Element
 from chemlib import Compound
 import tkinter as tk
 from tkinter import Canvas, PhotoImage, ttk
+import re
 # Example: 2HCl(aq) + 2Na(s) -> 2NaCl(aq) + H2(g)
 
 def ionicEqn(equation):
     # Variables
     leftSideElements, rightSideElements = {}, {}
     rightSideEqn, leftSideEqn = [], []
+    diatomicIonicAnions = ["NH4+", "H3O+", "CH3COO-", "C2H3O2-", "CO32-", "HCO3-", "OH-", "NO3-", "PO43-", "SO42-", "HSO4-"]
 
     # Main
     ## Data Validation
@@ -28,7 +30,7 @@ def ionicEqn(equation):
     elif validationOutcome == "No aq":
         return "The Equation does not have an Aqueous Substance. Please check the Equation entered again."
 
-    splittedEqn = equation.split("->")
+    splittedEqn = equation.split(" -> ")
     leftSideEqn = splittedEqn[0].split(" ")
     rightSideEqn = splittedEqn[1].split(" ")
 
@@ -43,7 +45,10 @@ def ionicEqn(equation):
         elif elementValenceElec == 4:
             elementCharge = "4+"
         else:
-            elementCharge = "{}-".format(elementValenceElec - 4)
+            if elementValenceElec - 4 != 1:
+                elementCharge = "{}-".format(elementValenceElec - 4)
+            else:
+                elementCharge = "-"
         newElement = ""
         if multiplier.isnumeric():
             newElement = "{}{}{}".format(multiplier,element,elementCharge)
@@ -72,7 +77,24 @@ def ionicEqn(equation):
                             leftSideElements["aq ({})".format(counter)] = '{}{}'.format(numOfAtoms, newElement)
                             
                 else:
-                    itemKey = "{} ({})".format(splittedItem[1].replace(")", ""),len(leftSideElements) + 1)
+                    item = splittedItem[1]
+                    mul = 0
+                    if len(re.findall('[0-9]+', item)) > 0:
+                        mul = re.findall(r'[0-9]+', item)
+                        for num in mul:
+                            item = item.replace(str(num), "")
+                            item = item.replace(")", "")
+                        mul = int(mul[len(mul)-1])
+                    if item.replace(")", "") != "aq":
+                        if item.replace(")", "") in diatomicIonicAnions:
+                            valIndex = 0
+                            for item in diatomicIonicAnions:
+                                if item.replace(")", "") in item:
+                                    valIndex = diatomicIonicAnions.index(item)
+                                    break
+                            leftSideElements["aq ({})".replace(len(leftSideElements) + 1)]
+                            leftSideElements[itemKey] = diatomicIonicAnions[valIndex]
+                    itemKey = "{} ({})".format(item.replace(")", ""),len(leftSideElements) + 1)¿
                     leftSideElements[itemKey] = splittedItem[0]
 
         for item in rightSideEqn:
@@ -93,7 +115,23 @@ def ionicEqn(equation):
                             counter += 1
                             rightSideElements["aq ({})".format(counter)] = '{}{}'.format(numOfAtoms, newElement)
                 else:
-                    itemKey = "{} ({})".format(splittedItem[1].replace(")", ""),len(leftSideElements) + 1)
+                    item = splittedItem[1]
+                    mul = 0
+                    if len(re.findall('[0-9]+', item)) > 0:
+                        mul = re.findall(r'[0-9]+', item)
+                        for num in mul:
+                            item.replace(str(num), "")
+                        mul = mul[len(mul)-1]
+                    if item.replace(")", "") != "aq":
+                        if item.replace(")", "") in diatomicIonicAnions:
+                            valIndex = 0
+                            for item in diatomicIonicAnions:
+                                if item.replace(")", "") in item:
+                                    valIndex = diatomicIonicAnions.index(item)
+                                    break
+                            rightSideElements["aq ({})".replace(len(rightSideElements) + 1)]
+                            rightSideElements[itemKey] = diatomicIonicAnions[valIndex]
+                    itemKey = "{} ({})".format(item.replace(")", ""),len(rightSideElements) + 1)
                     rightSideElements[itemKey] = splittedItem[0]
 
         ## Remove Spectator Ions
@@ -135,3 +173,4 @@ def ionicEqn(equation):
             return finalIonic
     except:
         return "Unknown Error. Please try again."
+print(ionicEqn("Ba(OH)2(aq) + 2NH4Cl(aq) -> BaCl2(s) + 2H2O(l) + 2NH3(g)"))
