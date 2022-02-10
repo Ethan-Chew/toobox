@@ -1,11 +1,9 @@
 import math
-# all ny granwyn except for triangle which is by Jerick
+# all by granwyn except for solve_triangle which is by Jerick
 def triangle(base, height):
     return 1/2 * base * height
-
 def sine_rule_side(a,A,b): # Sine Rule (Sides) want to find side B
     return math.sin(b)*(A/math.sin(a))
-
 def sine_rule_angle(a,A,B): # Sine Rule (Angles) want to find angle b
     return math.asin(B*(math.sin(a)/A))
 def cosine_rule_angle(C,A,B):
@@ -94,6 +92,9 @@ def trapezium(topBase, bottomBase, height):
 
 def circle(radius):
     return float(math.pi * float(float(radius)**2))
+
+def sphere(radius):
+    return (float(4) * float(math.pi) * float(radius)**2)
 
 def sector(radius, angle):
     return (math.pi * float(float(radius) ** 2)*(float(angle)/(2*180)))

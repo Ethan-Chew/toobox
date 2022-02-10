@@ -54,7 +54,8 @@ functionalities = {
             "Equation of Circle":   SolveCircle,
             "Periodic Table"    :   periodicTable,
             "Pyramid"           :   Pyramid,
-            "Prism"             :   Prism
+            "Prism"             :   Prism,
+            "Sphere"            :   Sphere
         } 
 treeview_data = [
             ("", 1, "Chemistry"),

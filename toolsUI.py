@@ -225,6 +225,10 @@ def infoFrame(self, lblText): # Created by Ethan
     self.wipText.pack(side="top", pady=2)
     self.wipTextA = WrappingLabel(self.thingFrame, text="This is a header! Click on any 'Child' Element to access it!", font=(font,int(fontMultiplier*20)), justify="center")
     self.wipTextA.pack(side="top", pady=2)
+
+# granwyn
+def Sphere(self):
+    pass
     
 #granwyn
 def Parallelogram(self):
