@@ -1,3 +1,4 @@
+# Everyone did everything here
 import tkinter as tk
 from tkinter import ttk
 import os
@@ -112,7 +113,6 @@ class App(ttk.Frame):
         self.goHome()
         self.resetSettingsSC()
         config.currentlySelected = "Home"
-
     def check_recently_opened(self):
         if os.path.exists(jsonData):
             file = open(jsonData)
@@ -130,7 +130,7 @@ class App(ttk.Frame):
             file = open(jsonData, 'w')
             json.dump({'fontMultiplier': float(1),'recentlyOpened': []}, file)
             file.close()
-
+    
     # Theme switching
     def change_theme(self):
         if root.tk.call("ttk::style", "theme", "use") == "sun-valley-dark":

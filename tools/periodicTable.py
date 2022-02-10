@@ -1,3 +1,4 @@
+#mainly by Jerick, some by granwyn
 from chemlib import PeriodicTable
 import chemlib
 stolendatafromchemlib = ''',AtomicNumber,Element,Symbol,AtomicMass,Neutrons,Protons,Electrons,Period,Group,Phase,Radioactive,Natural,Metal,Nonmetal,Metalloid,Type,AtomicRadius,Electronegativity,FirstIonization,Density,MeltingPoint,BoilingPoint,Isotopes,Discoverer,Year,SpecificHeat,Shells,Valence,Config,MassNumber

@@ -1,4 +1,4 @@
-# Created by Ethan Chew
+# Created by Ethan Chew, and Jerick
 import random
 from chemlib import Element
 from chemlib import Compound
