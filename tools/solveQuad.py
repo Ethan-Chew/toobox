@@ -73,7 +73,7 @@ def solveQuad(eqn):
         splittedC = list(str(newC))
         splittedC.insert(0, "+")
         newC = "".join(splittedC)
-    completedSq = "(x{})^2{}".format(newX, str(newC))
-    turningPoint = "{}, {}".format(str(holdX), str(newC))
+    completedSq = "(x{})²{}".format(newX, str(newC))
+    turningPoint = "{}, {}".format(str(holdX).replace("+", ""), str(newC).replace("+", ""))
 
     return roots, completedSq, turningPoint, yIntercept
