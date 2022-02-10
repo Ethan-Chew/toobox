@@ -6,7 +6,10 @@ def solve_sim(*args):
 
     '''
     answermatrix=np.matrix([[i[-1]] for i in args],dtype=float)
-    therestinvered=np.linalg.inv(np.matrix([i[:-1] for i in args],dtype=float))
+    try:
+        therestinvered=np.linalg.inv(np.matrix([i[:-1] for i in args],dtype=float))
+    except:
+        return "not possible"
     try:
         return (lambda x: [i[0] for i in x])(np.dot(therestinvered,answermatrix) )
     except:
