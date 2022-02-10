@@ -863,17 +863,15 @@ def simsolver(self,column=3):
         ttk.Button(self.mainFrame, text="Remove Var", style='Accent.TButton', command=(lambda: rese(self,max(column-1,3))),width=10,state=tk.DISABLED).grid(row=row+2, column=2,pady=2, padx=2, sticky = tk.W+tk.E)
 
 # Mostly by Jerick
-## Ethan helped a little
+## Ethan and Granwyn helped a little
 def triangle(self):
     self.thingFrame = self.addframe()
     self.mainLabel = WrappingLabel(self.thingFrame, text="Triangle Area Solver", font=(font,int(fontMultiplier*50),'bold'))
     self.thingFrame.pack(side="top", padx=25, pady=18, anchor="w")
     
     self.mainLabel.pack(side="top", pady=2, fill="x", expand="yes")
-    self.infoLabel = WrappingLabel(self.thingFrame, text="Please enter enough angles (A, B and C), or sides (a, b and c) to solve for area.", font=(font,int(fontMultiplier*15)))
-    self.infoLabel.pack(side="top", pady=2, fill="x", expand="yes", columnspan = 5, sticky = tk.W+tk.N)
-    self.secInfo = WrappingLabel(self.thingFrame, text="Ensure to remove all the Placeholder Letters before running the program. (It will be taken as '1' if it is not removed.)", font=(font,int(fontMultiplier*14)))
-    self.secInfo.pack(side="top", pady=2, fill="x", expand="yes", columnspan = 7, sticky = tk.W+tk.N)
+    self.infoLabel = WrappingLabel(self.thingFrame, text="Please enter enough angles (A, B and C), or sides (a, b and c) to solve for area", font=(font,int(fontMultiplier*15)))
+    self.infoLabel.pack(side="top", pady=2, fill="x", expand="yes")
     self.mainFrame = self.addframe()
     self.mainFrame.pack(padx=25, pady=18, anchor="w")
     self.mainFrame.pack(side="top", padx=25, pady=18, anchor="w")
@@ -950,6 +948,92 @@ def triangle(self):
 
     ttk.Button(self.mainFrame, text="Solve", style='Accent.TButton', command=onPress,width=10).grid(row=5, column=0,pady=2, padx=2)
 
+# def triangle(self):
+#     self.thingFrame = self.addframe()
+#     self.mainLabel = WrappingLabel(self.thingFrame, text="Triangle Area Solver", font=(font,int(fontMultiplier*50),'bold'))
+#     self.thingFrame.pack(side="top", padx=25, pady=18, anchor="w")
+    
+#     self.mainLabel.pack(side="top", pady=2, fill="x", expand="yes")
+#     self.infoLabel = WrappingLabel(self.thingFrame, text="Please enter enough angles (A, B and C), or sides (a, b and c) to solve for area.", font=(font,int(fontMultiplier*15)))
+#     self.infoLabel.pack(side="top", pady=2, fill="x", expand="yes", columnspan = 5, sticky = tk.W+tk.N)
+#     self.secInfo = WrappingLabel(self.thingFrame, text="Ensure to remove all the Placeholder Letters before running the program. (It will be taken as '1' if it is not removed.)", font=(font,int(fontMultiplier*14)))
+#     self.secInfo.pack(side="top", pady=2, fill="x", expand="yes", columnspan = 7, sticky = tk.W+tk.N)
+#     self.mainFrame = self.addframe()
+#     self.mainFrame.pack(padx=25, pady=18, anchor="w")
+#     self.mainFrame.pack(side="top", padx=25, pady=18, anchor="w")
+#     anpos=[[4,0],[0,4],[4,4]]
+#     angles=[]
+#     entryText = ["B", "A", "C", "b", "a", "c"]
+#     x = 0
+#     for i in anpos:
+#         temp=ttk.Entry(self.mainFrame, width=10, font=(font,int(fontMultiplier*12)))
+#         temp.insert(0, entryText[x])
+#         temp.grid(row=i[0],column=i[1],padx=2,pady=2, sticky = tk.W+tk.E)
+#         angles.append(temp)
+#         x += 1
+#     sidpos=[[2,4],[4,2],[2,2]]
+#     sides=[]
+#     for i in sidpos:
+#         temp=ttk.Entry(self.mainFrame, width=10, font=(font,int(fontMultiplier*12)))
+#         temp.insert(0, entryText[x])
+#         temp.grid(row=i[0],column=i[1],padx=2,pady=2, sticky = tk.W+tk.E)
+#         sides.append(temp)
+#         x += 1
+#     diagpos=[[3,1],[1,3]]
+#     for i in diagpos:
+#         self.resultTxt1 = WrappingLabel(self.mainFrame, text="/", font=(font,int(fontMultiplier*20)))
+#         self.resultTxt1.grid(row=i[0],column=i[1],padx=2,pady=2, sticky = tk.W+tk.E)
+#     lines=[[4,1],[4,3]]
+#     for i in lines:
+#         self.resultTxt1 = WrappingLabel(self.mainFrame, text="-", font=(font,int(fontMultiplier*20)))
+#         self.resultTxt1.grid(row=i[0],column=i[1],padx=2,pady=2, sticky = tk.W+tk.E)
+
+#     lines=[[1,4],[3,4]]
+#     for i in lines:
+#         self.resultTxt1 = WrappingLabel(self.mainFrame, text="|", font=(font,int(fontMultiplier*20)))
+#         self.resultTxt1.grid(row=i[0],column=i[1],padx=2,pady=2, sticky = tk.W+tk.E)
+#     def onPress():
+#         try: self.resultTxt1.grid_forget()
+#         except: pass
+#         ang=[]
+#         for i in angles:
+#             if i.get()=="":
+#                 ang.append("?")
+#             else:
+#                 try:
+#                     ang.append(math.radians( calculator().sol( i.get())[0].num))
+#                 except Exception as e:
+#                     ang.append("?")
+#         sid=[]
+#         for i in sides:
+#             if i.get()=="":
+#                 sid.append("?")
+#             else:
+#                 try:
+#                     sid.append(calculator().sol( i.get())[0].num)
+#                 except Exception as e:
+#                     sid.append("?")
+#         answ = areaCalculation.solve_triangle(*sid,*ang)
+#         if answ != "not possible":
+#             # it is correct.
+#             sida=answ[:3]
+#             anga=answ[3:-1]
+#             print(answ)
+#             print(sida,anga)
+#             for i in range(len(sides)):
+#                 sides[i].delete(0, tk.END)
+#                 sides[i].insert(0,str(sida[i]))
+#             for i in range(len(angles)):
+#                 angles[i].delete(0, tk.END)
+#                 angles[i].insert(0,str(math.degrees((anga[i]))))
+#             self.resultTxt1 = WrappingLabel(self.mainFrame, text="Area: {} u²".format(answ[6]), font=(font,int(fontMultiplier*20)))
+#             self.resultTxt1.grid(row=6,column=0,padx=2,pady=2, sticky = tk.W+tk.E,columnspan=5)
+#         else:
+#             self.resultTxt1 = WrappingLabel(self.mainFrame, text="{}".format(answ.title()), font=(font,int(fontMultiplier*20)))
+#             self.resultTxt1.grid(row=6,column=0,padx=2,pady=2, sticky = tk.W+tk.E,columnspan=5)
+
+#     ttk.Button(self.mainFrame, text="Solve", style='Accent.TButton', command=onPress,width=10).grid(row=5, column=0,pady=2, padx=2)
+
 #Ignore this there is nothing here to see
 def snak():
     global root
@@ -1010,16 +1094,16 @@ def SolveCircle(self,typ=0):
         WrappingLabel(self.mainFrame, text="(x + ", font=(font,int(fontMultiplier*20))).grid(row=1,column=1)
         userinp.append(ttk.Entry(self.mainFrame,font=(font,int(fontMultiplier*12))))
         userinp[-1].grid(row=1,column=2)
-        WrappingLabel(self.mainFrame, text=")^2 + (y + ", font=(font,int(fontMultiplier*20))).grid(row=1,column=3)
+        WrappingLabel(self.mainFrame, text=")² + (y + ", font=(font,int(fontMultiplier*20))).grid(row=1,column=3)
         userinp.append(ttk.Entry(self.mainFrame,font=(font,int(fontMultiplier*12))))
 
         userinp[-1].grid(row=1,column=4)
-        WrappingLabel(self.mainFrame, text=")^2 = ", font=(font,int(fontMultiplier*20))).grid(row=1,column=5)
+        WrappingLabel(self.mainFrame, text=")² = ", font=(font,int(fontMultiplier*20))).grid(row=1,column=5)
         userinp.append(ttk.Entry(self.mainFrame,font=(font,int(fontMultiplier*12))))
 
         userinp[-1].grid(row=1,column=6)
     else:
-        WrappingLabel(self.mainFrame, text="x^2 + y^2 + ", font=(font,int(fontMultiplier*20))).grid(row=1,column=1)
+        WrappingLabel(self.mainFrame, text="x² + y² + ", font=(font,int(fontMultiplier*20))).grid(row=1,column=1)
         userinp.append(ttk.Entry(self.mainFrame,font=(font,int(fontMultiplier*12))))
         userinp[-1].grid(row=1,column=2)
         WrappingLabel(self.mainFrame, text="x + ", font=(font,int(fontMultiplier*20))).grid(row=1,column=3)
