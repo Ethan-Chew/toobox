@@ -23,17 +23,6 @@ def balanceChemEqn(equation):
         except:
             return "Format Err"
         
-        try:
-            occurancesVal = getOccurances()
-            if occurancesVal == "Unknown Cmpt":
-                return "Unknown Cmpt"
-            elif occurancesVal == "PR Err":
-                return "PR Err"
-            elif occurancesVal == "Ex Element":
-                return "Ex Element"
-        except:
-            return "Validated"
-        
     # Main
     validationOutcome = validateInput()
     if validationOutcome == "Format Err":
@@ -63,24 +52,18 @@ def balanceChemEqn(equation):
         elif "g" in compound:
             try: splittedCompound = compound.split("(g)")[0]
             except: pass
-        print(splittedCompound)
         return parser(splittedCompound)
     def parser(compound):
         
         elements={}
         i=0
         while i<len(compound):
-            # print(i)
-            # print(compound[i])
-            # print(compound[i])
             if compound[i].isalpha() and compound[i].upper() == compound[i] :
                 #start of an element
                 ele=compound[i]
-                # print(compound[i],compound[i+1].upper(), compound[i+1])
                 if i+1<len(compound) and compound[i+1].isalpha() and compound[i+1].upper() != compound[i+1]:
                     ele+=compound[i+1]
                     i+=1
-                # print(ele)
                 if i+1<len(compound) and compound[i+1].isnumeric():
                     for j in range(i+1,len(compound)):
                         if compound[j].isnumeric():
@@ -89,11 +72,8 @@ def balanceChemEqn(equation):
                             break
                     mul=int(compound[i+1:j]) if j>i+1 else int(compound[j])
                     i=int(j)-1
-                    print(j)
                 else:
                     mul=1
-                # print(j)
-                # print(j,i)
                 if ele in elements:
                     elements[ele]+=mul
                 else:
@@ -101,12 +81,9 @@ def balanceChemEqn(equation):
                 
                 
             elif compound[i]=="(":
-                # print(compound[i:])
                 j=int(i)+1
                 count=1
-                # print(j)
                 while j<len(compound):
-                    # print(compound[j],count)
                     if compound[j]=="(":
                         count+=1
                     if compound[j]==")":
@@ -119,8 +96,6 @@ def balanceChemEqn(equation):
                 else:
                     
                     eles=parser(compound[i+1:j])
-                    # print(eles)
-                    # print(compound[j+1:])
                     if j+1<len(compound) and compound[j+1].isnumeric():
                         
                         for k in range(j+1,len(compound)):
@@ -128,7 +103,6 @@ def balanceChemEqn(equation):
                                 pass
                             else:
                                 break
-                        # print(compound[k-1])
                         mul=int(compound[j+1:k]) if k>j+1 else int(compound[k])
                         i=int(k)-1
                         
@@ -153,56 +127,10 @@ def balanceChemEqn(equation):
     reactants=[]
     for i in reactantsCompounds:
         reactants.append(fullparser(i))
-        print(reactants)
     products=[]
     for i in productsCompounds:
         products.append(fullparser(i))
-        print(products)
-    # print(reactants,products)
-    
-    '''def solve(reactants,products,limit=10):
-        counter=[1 for i in range(len(reactants)+len(products))]
-        def test(counter,reactants,products):
-            newr={}
-            for i in range(len(reactants)):
 
-                for j in reactants[i]:
-                    if j in newr:
-                        newr[j]+=reactants[i][j]*counter[i]
-                    else:
-                        newr[j]=reactants[i][j]*counter[i]
-
-            newp={}
-            for i in range(len(products)):
-
-                for j in products[i]:
-                    if j in newp:
-
-                        newp[j]+=products[i][j]*counter[len(reactants)+i]
-                    else:
-                        newp[j]=products[i][j]*counter[len(reactants)+i]
-            # print(newr,newp)
-            for i in newr:
-                if newr[i]!=newp[i]:
-                    return False
-            
-            return True
-        while True:
-            if test(counter,reactants,products):
-                print(counter)
-                break
-            counter[0]+=1
-            if counter[0]>limit:
-                counter[0]=1
-                counter[1]+=1
-                for i in range(len(counter)-2):
-                    if counter[i+1]>limit:
-                        counter[i+1]=1
-                        counter[i+2]+=1
-                if counter[-1]>limit:
-                    raise Exception("No Solution")
-                    break
-        return counter'''
     def solvev2(reactants,products):
         listOfElements=[]
         for reactant in reactants:
@@ -210,17 +138,14 @@ def balanceChemEqn(equation):
                 if ele not in listOfElements:
                     listOfElements.append(ele)
         matrix=sympy.zeros(len(reactants)+len(products),len(listOfElements))
-        print(matrix)
         for i in range(len(reactants)):
             for ele in reactants[i]:
                 matrix[i,listOfElements.index(ele)]=reactants[i][ele]
         for i in range(len(products)):
             for ele in products[i]:
                 matrix[len(reactants)+i,listOfElements.index(ele)]=-products[i][ele]
-        # print(matrix)
         matrix=sympy.transpose(matrix)
         ns=matrix.nullspace()[0]
-        # print(ns)
         multiple=sympy.lcm([i.q for i in ns])
         final=ns*multiple
         
@@ -237,7 +162,9 @@ def balanceChemEqn(equation):
         finaleqn+=[(str(c[len(reactantsCompounds)+i])if c[len(reactantsCompounds)+i]!=1 else "")+productsCompounds[i]]
     finaleqn=finaleqn[0]+" + ".join(finaleqn[1:])
     return finaleqn
-#--- here is the old code ---
+
+
+#--- Old Code ---
 '''
     # Function to get occurances
     def getOccurances():
