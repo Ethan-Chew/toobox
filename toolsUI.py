@@ -32,11 +32,15 @@ fontMultiplier = 1.00
 
 def reload():
     '''reloads font multiplier'''
-    global fontMultiplier
-    file = open(jsonData)
-    extractedData = json.load(file)
-    file.close()
-    fontMultiplier = float(extractedData["fontMultiplier"])
+    try:
+        file = open(jsonData)
+        extractedData = json.load(file)
+        file.close()
+        fontMultiplier = float(extractedData["fontMultiplier"])
+    except:
+        with open(jsonData,"w") as f:
+            tempJSON = {"fontMultiplier": float(1), "recentlyOpened": []}
+            json.dump(tempJSON, f)
 
 reload()
 newfv=int(fontMultiplier)
@@ -54,7 +58,7 @@ def ChemicalEquation(self):
     self.thingFrame.pack(side="top", padx=25, pady=18, anchor="w")
     self.mainLabel = WrappingLabel(self.thingFrame, text="Chemical Equation Balancer", font=(font,int(fontMultiplier*50),'bold'))
     self.mainLabel.pack(side="top", pady=2, fill="x", expand="yes")
-    self.infoLabel = WrappingLabel(self.thingFrame, text="Please enter the Chemical Equation like in the following example: 'Compound(State) + Compound2(State) + ... -> Compound3(State) + Compound4(State) + ...'", font=(font,int(fontMultiplier*15)))
+    self.infoLabel = WrappingLabel(self.thingFrame, text="Please enter a valid Symbol, Element Name, Symbol, Atomic Number, or Number of Electrons, Protons or Neutrons. To search for protons input \"Pn\" where n is the number of Protons. You can similarly search for neutrons and electorns with \"Nn\" and \"En\" respectively. To search for mass number just tye the mass in", font=(font,int(fontMultiplier*15)))
     self.infoLabel.pack(side="top", pady=2, fill="x", expand="yes")
     self.screenlist.append(self.addframe())
     self.mainFrame = self.screenlist[-1]
