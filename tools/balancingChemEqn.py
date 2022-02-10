@@ -23,16 +23,7 @@ def balanceChemEqn(equation):
         except:
             return "Format Err"
         
-        try:
-            occurancesVal = getOccurances()
-            if occurancesVal == "Unknown Cmpt":
-                return "Unknown Cmpt"
-            elif occurancesVal == "PR Err":
-                return "PR Err"
-            elif occurancesVal == "Ex Element":
-                return "Ex Element"
-        except:
-            return "Validated"
+        
         
     # Main
     validationOutcome = validateInput()
@@ -52,19 +43,19 @@ def balanceChemEqn(equation):
     
     def fullparser(compound):
         if "aq" in compound:
-            try: splittedCompound = compound.split("(aq)")[0]
+            try: compound = compound.split("(aq)")[0]
             except: pass
         elif "s" in compound:
-            try: splittedCompound = compound.split("(s)")[0]
+            try: compound = compound.split("(s)")[0]
             except: pass
         elif "l" in compound:
-            try: splittedCompound = compound.split("(l)")[0]
+            try: compound = compound.split("(l)")[0]
             except: pass
         elif "g" in compound:
-            try: splittedCompound = compound.split("(g)")[0]
+            try: compound = compound.split("(g)")[0]
             except: pass
-        print(splittedCompound)
-        return parser(splittedCompound)
+        # print(compound)
+        return parser(compound)
     def parser(compound):
         
         elements={}
@@ -153,11 +144,11 @@ def balanceChemEqn(equation):
     reactants=[]
     for i in reactantsCompounds:
         reactants.append(fullparser(i))
-        print(reactants)
+        # print(reactants)
     products=[]
     for i in productsCompounds:
         products.append(fullparser(i))
-        print(products)
+        # print(products)
     # print(reactants,products)
     
     '''def solve(reactants,products,limit=10):
@@ -210,7 +201,7 @@ def balanceChemEqn(equation):
                 if ele not in listOfElements:
                     listOfElements.append(ele)
         matrix=sympy.zeros(len(reactants)+len(products),len(listOfElements))
-        print(matrix)
+        # print(matrix)
         for i in range(len(reactants)):
             for ele in reactants[i]:
                 matrix[i,listOfElements.index(ele)]=reactants[i][ele]
@@ -450,3 +441,4 @@ def balanceChemEqn(equation):
 if __name__=="__main__":
     print(balanceChemEqn("Ba(OH)2(aq) + NH4Cl(aq) -> BaCl2(s) + NH3(g) + H2O(l)"))
     print(balanceChemEqn("H2O2(l) -> H2O(l) + O2(g)"))
+    print(balanceChemEqn("KNO2 + KNO3 + Cr2O3 -> K2CrO4 + NO"))

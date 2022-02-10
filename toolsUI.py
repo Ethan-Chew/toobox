@@ -173,12 +173,12 @@ def Rectangle(self):
         if re.search("^\d+\.{0,1}\d*$", length) and re.search("^\d+\.{0,1}\d*$", breadth):
             answer = float(length)*float(breadth)
 
-#        if self.typebox.get() == "Rectangle":
-#            if re.search("^\d+\.{0,1}\d*$", length) and re.search("^\d+\.{0,1}\d*$", breadth):
-#                answer = float(length)*float(breadth)
-#        elif self.typebox.get() == "Square":
-#            if re.search("^\d+\.{0,1}\d*$", length):
-#                answer = float(length)**2
+    #    if self.typebox.get() == "Rectangle":
+    #        if re.search("^\d+\.{0,1}\d*$", length) and re.search("^\d+\.{0,1}\d*$", breadth):
+    #            answer = float(length)*float(breadth)
+    #    elif self.typebox.get() == "Square":
+    #        if re.search("^\d+\.{0,1}\d*$", length):
+    #            answer = float(length)**2
         setFinalResult(self, " ".join([str(answer), "u²"]))
     self.thingFrame = self.addframe()
     self.thingFrame.pack(side="top", padx=25, pady=18, anchor="w")
@@ -201,8 +201,9 @@ def Rectangle(self):
 
     def changeTypebox(self):
         if self.typebox.get() == "Square":
-            self.breadthTxt.forget()
-            self.breadthEntry.forget()
+            print("Square")
+            self.breadthTxt.packforget()
+            self.breadthEntry.packforget()
         else:
             self.breadthTxt.grid(row=2, column=0, padx=2, sticky="e")
             self.breadthEntry.grid(row=2, column=1, sticky="w")
@@ -1020,7 +1021,7 @@ def periodicTable(self):
     self.mainLabel = WrappingLabel(self.thingFrame, text="Periodic Table", font=(font,int(fontMultiplier*50),'bold'))
     self.mainLabel.pack(side="top", pady=2, fill="x", expand="yes")
 
-    self.infoLabel = WrappingLabel(self.thingFrame, text="Please enter a valid Symbol, Element Name, Symbol, Atomic Number, or Number of Electrons, Protons or Neutrons", font=(font,int(fontMultiplier*15)))
+    self.infoLabel = WrappingLabel(self.thingFrame, text="Please enter a valid Symbol, Element Name, Symbol, Atomic Number, or Number of Electrons, Protons or Neutrons. To search for protons input \"Pn\" where n is the number of Protons. You can similarly search for neutrons and electorns with \"Nn\" and \"En\" respectively", font=(font,int(fontMultiplier*15)))
     self.infoLabel.pack(side="top", pady=2, fill="x", expand="yes")
 
     self.mainFrame = self.addframe()
