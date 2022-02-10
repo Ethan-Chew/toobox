@@ -75,7 +75,7 @@ def ChemicalEquation(self):
         try: self.resultTxt.grid_forget()
         except: pass
         self.resultTxt = WrappingLabel(self.mainFrame, text="Result:  {}".format(result), font=(font,int(fontMultiplier*20)))
-        self.resultTxt.grid(row=3, columnspan = 5, sticky = tk.W+tk.E, padx=2)
+        self.resultTxt.grid(row=3, columnspan = 8, sticky = tk.W+tk.E, padx=2)
 
 def infoFrame(self, lblText):
     # for headers

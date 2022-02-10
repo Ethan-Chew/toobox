@@ -30,9 +30,9 @@ Toobox includes various keybinds to help make your life easier
     - 'Command + `' to reset Settings back to default
 
 ## Dependencies and Themes
-1. Chemlib
+1. chemlib
 2. numpy
-3. matplotlib
+3. tkinter
 4. sun-valley Theme for tkinker
 
 ###### Developed with ❤️ by [Granwyn Tan](https://granwyntan.github.io), [Ethan Chew](https://www.ethanchew.com), [Jerick Seng](https://jer123se12.github.io) our Computing+ Coursework
