@@ -160,49 +160,49 @@ def balanceChemEqn(equation):
         print(products)
     # print(reactants,products)
     
-    # def solve(reactants,products,limit=10):
-    #     counter=[1 for i in range(len(reactants)+len(products))]
-    #     def test(counter,reactants,products):
-    #         newr={}
-    #         for i in range(len(reactants)):
+    '''def solve(reactants,products,limit=10):
+        counter=[1 for i in range(len(reactants)+len(products))]
+        def test(counter,reactants,products):
+            newr={}
+            for i in range(len(reactants)):
 
-    #             for j in reactants[i]:
-    #                 if j in newr:
-    #                     newr[j]+=reactants[i][j]*counter[i]
-    #                 else:
-    #                     newr[j]=reactants[i][j]*counter[i]
+                for j in reactants[i]:
+                    if j in newr:
+                        newr[j]+=reactants[i][j]*counter[i]
+                    else:
+                        newr[j]=reactants[i][j]*counter[i]
 
-    #         newp={}
-    #         for i in range(len(products)):
+            newp={}
+            for i in range(len(products)):
 
-    #             for j in products[i]:
-    #                 if j in newp:
+                for j in products[i]:
+                    if j in newp:
 
-    #                     newp[j]+=products[i][j]*counter[len(reactants)+i]
-    #                 else:
-    #                     newp[j]=products[i][j]*counter[len(reactants)+i]
-    #         # print(newr,newp)
-    #         for i in newr:
-    #             if newr[i]!=newp[i]:
-    #                 return False
+                        newp[j]+=products[i][j]*counter[len(reactants)+i]
+                    else:
+                        newp[j]=products[i][j]*counter[len(reactants)+i]
+            # print(newr,newp)
+            for i in newr:
+                if newr[i]!=newp[i]:
+                    return False
             
-    #         return True
-    #     while True:
-    #         if test(counter,reactants,products):
-    #             print(counter)
-    #             break
-    #         counter[0]+=1
-    #         if counter[0]>limit:
-    #             counter[0]=1
-    #             counter[1]+=1
-    #             for i in range(len(counter)-2):
-    #                 if counter[i+1]>limit:
-    #                     counter[i+1]=1
-    #                     counter[i+2]+=1
-    #             if counter[-1]>limit:
-    #                 raise Exception("No Solution")
-    #                 break
-    #     return counter
+            return True
+        while True:
+            if test(counter,reactants,products):
+                print(counter)
+                break
+            counter[0]+=1
+            if counter[0]>limit:
+                counter[0]=1
+                counter[1]+=1
+                for i in range(len(counter)-2):
+                    if counter[i+1]>limit:
+                        counter[i+1]=1
+                        counter[i+2]+=1
+                if counter[-1]>limit:
+                    raise Exception("No Solution")
+                    break
+        return counter'''
     def solvev2(reactants,products):
         listOfElements=[]
         for reactant in reactants:
