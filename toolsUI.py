@@ -344,6 +344,9 @@ def Pyramid(self):
         self.infoLabel.pack(side="top", pady=2, fill="x", expand="yes")
     self.typetext = WrappingLabel(self.mainFrame, text="Type:  ", font=(font,int(fontMultiplier*20)))
     self.typetext.grid(row=0, column=0, padx=2, sticky="e")
+    def commandTypebox(event):
+        changeTypebox(self)
+    self.typebox.bind('<<ComboboxSelected>>', commandTypebox)
     self.types = ["Square-Based Pyramid", "Rectangular-Based Pyramid", "Triangle-Based Pyramid", "Cone"]
     self.typebox = ttk.Combobox(self.mainFrame, state="readonly", values=self.types)
     def commandTypebox(event):
