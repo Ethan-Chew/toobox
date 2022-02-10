@@ -11,8 +11,8 @@ def ionicEqn(equation):
     # Variables
     productEqn, reactantEqn = [], []
     ionicProduct, ionicReactant = [], []
-    specAnions = ["NH4+", "H3O+", "CH3COO-", "C2H3O2-", "CO32-", "HCO3-", "OH-", "NO3-", "PO43-", "SO42-", "HSO4-"]
-    specAnionsNC = ["NH4", "H3O", "CH3COO", "C2H3O2", "CO", "HCO3", "OH", "NO3", "PO4", "SO4", "HSO4"]
+    specAnions = ["NH4+", "H3O+", "CH3COO-", "C2H3O2-", "CO32-", "HCO3-", "OH-", "NO3-", "PO43-", "SO42-", "HSO4-", "MnO4-", "Cr2O72-", "SO32-"]
+    specAnionsNC = ["NH4", "H3O", "CH3COO", "C2H3O2", "CO", "HCO3", "OH", "NO3", "PO4", "SO4", "HSO4", "MnO4", "Cr2O7", "SO3"]
 
     # Main
     ## Data Validation
