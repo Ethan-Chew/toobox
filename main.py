@@ -1,4 +1,8 @@
 # Everyone did everything here
+## JSON, Main UI, Keybinds, 'Backend' mostly by Ethan
+## Refractoring, 'Backend' by Jerick
+## Everything else + Starting Point by Granwyn
+
 import tkinter as tk
 from tkinter import ttk
 import os

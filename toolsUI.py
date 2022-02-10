@@ -50,7 +50,8 @@ newfv=int(fontMultiplier)
 def Prism(self):
     pass
 
-def ChemicalEquation(self): # Created by Ethan
+# Created by Ethan
+def ChemicalEquation(self):
     # Input Data
     def getInputs(self):
         chemEqn = self.inputField.get()
@@ -692,15 +693,18 @@ def simsolver(self,column=3):
     else:
         ttk.Button(self.mainFrame, text="Remove Var", style='Accent.TButton', command=(lambda: rese(self,max(column-1,3))),width=10,state=tk.DISABLED).grid(row=row+2, column=2,pady=2, padx=2)
 
-#Jerick
+# Mostly by Jerick
+## Ethan helped a little
 def triangle(self):
     self.thingFrame = self.addframe()
     self.mainLabel = WrappingLabel(self.thingFrame, text="Triangle Area Solver", font=(font,int(fontMultiplier*50),'bold'))
     self.thingFrame.pack(side="top", padx=25, pady=18, anchor="w")
     
     self.mainLabel.pack(side="top", pady=2, fill="x", expand="yes")
-    self.infoLabel = WrappingLabel(self.thingFrame, text="Please enter enough angles (A, B and C), or sides (a, b and c) to solve for area", font=(font,int(fontMultiplier*15)))
-    self.infoLabel.pack(side="top", pady=2, fill="x", expand="yes")
+    self.infoLabel = WrappingLabel(self.thingFrame, text="Please enter enough angles (A, B and C), or sides (a, b and c) to solve for area.", font=(font,int(fontMultiplier*15)))
+    self.infoLabel.pack(side="top", pady=2, fill="x", expand="yes", columnspan = 5, sticky = tk.W+tk.N)
+    self.secInfo = WrappingLabel(self.thingFrame, text="Ensure to remove all the Placeholder Letters before running the program. (It will be taken as '1' if it is not removed.)", font=(font,int(fontMultiplier*14)))
+    self.secInfo.pack(side="top", pady=2, fill="x", expand="yes", columnspan = 7, sticky = tk.W+tk.N)
     self.mainFrame = self.addframe()
     self.mainFrame.pack(padx=25, pady=18, anchor="w")
     self.mainFrame.pack(side="top", padx=25, pady=18, anchor="w")
@@ -868,7 +872,7 @@ def SolveCircle(self,typ=0):
         self.resultTxt = WrappingLabel(self.mainFrame, text="Result:  {}".format(result), font=(font,int(fontMultiplier*20)))
         self.resultTxt.grid(row=3, columnspan = 7, sticky = tk.W+tk.N, padx=2)
         
-#Jerick/Granwyn
+#Jerick/Granwyn/Ethan
 def periodicTable(self):
     def getInputs(self):
         self.resFrame.destroy()
@@ -1014,10 +1018,9 @@ def periodicTable(self):
                 newf.grid(row=0, column=r, sticky = tk.N, padx=2)
                 r+=1
         else:
-            text = WrappingLabel(newf, text="Invalid Element Input. Please use an actual letter found in the Periodic Table.", font=(font,int(fontMultiplier*12)))
-            text.grid(row=0, column=0, padx=2,pady=2, sticky = tk.W+tk.E, columnspan=5)
+            text = WrappingLabel(self.mainFrame, text="Invalid Input. Please use an actual letter and number found in the Periodic Table.", font=(font,int(fontMultiplier*14)))
+            text.grid(row=1, column=0, padx=2,pady=2, sticky = tk.W+tk.E, columnspan=5)
                 
-        # self.resFrame.grid(row=1, column=len(l)+1, rowspan=10, columnspan=10,pady=10, padx=2)
         self.resFrame.grid(row=1, column=0, rowspan=len(l)+1, columnspan=10,pady=10, padx=2)
 
     # User Interface
@@ -1026,7 +1029,7 @@ def periodicTable(self):
     self.mainLabel = WrappingLabel(self.thingFrame, text="Periodic Table", font=(font,int(fontMultiplier*50),'bold'))
     self.mainLabel.pack(side="top", pady=2, fill="x", expand="yes")
 
-    self.infoLabel = WrappingLabel(self.thingFrame, text="Please enter a valid Symbol, Element Name, Symbol, Atomic Number, or Number of Electrons, Protons or Neutrons. To search for protons input \"Pn\" where Pn is the number of Protons. You can similarly search for neutrons and electrons with \"Nn\" and \"En\" respectively. To search for mass number just tye the mass in", font=(font,int(fontMultiplier*15)))
+    self.infoLabel = WrappingLabel(self.thingFrame, text="Please enter a valid Symbol, Element Name, Symbol, Atomic Number, or Number of Electrons, Protons or Neutrons.", font=(font,int(fontMultiplier*15)))
     self.infoLabel.pack(side="top", pady=2, fill="x", expand="yes")
 
     self.mainFrame = self.addframe()
