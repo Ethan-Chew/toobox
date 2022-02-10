@@ -2,7 +2,7 @@
 import random
 from chemlib import Element
 from chemlib import Compound
-from sympy import comp
+import sympy
 # Example: HCl(aq) + Na(s) -> NaCl(aq) + H2(g)
 def balanceChemEqn(equation):
     # Variables
@@ -160,7 +160,7 @@ def balanceChemEqn(equation):
         print(products)
     # print(reactants,products)
     
-    def solve(reactants,products,limit=10):
+    '''def solve(reactants,products,limit=10):
         counter=[1 for i in range(len(reactants)+len(products))]
         def test(counter,reactants,products):
             newr={}
@@ -202,9 +202,32 @@ def balanceChemEqn(equation):
                 if counter[-1]>limit:
                     raise Exception("No Solution")
                     break
-        return counter
-
-    c=solve(reactants,products)
+        return counter'''
+    def solvev2(reactants,products):
+        listOfElements=[]
+        for reactant in reactants:
+            for ele in reactant:
+                if ele not in listOfElements:
+                    listOfElements.append(ele)
+        matrix=sympy.zeros(len(reactants)+len(products),len(listOfElements))
+        print(matrix)
+        for i in range(len(reactants)):
+            for ele in reactants[i]:
+                matrix[i,listOfElements.index(ele)]=reactants[i][ele]
+        for i in range(len(products)):
+            for ele in products[i]:
+                matrix[len(reactants)+i,listOfElements.index(ele)]=-products[i][ele]
+        # print(matrix)
+        matrix=sympy.transpose(matrix)
+        ns=matrix.nullspace()[0]
+        # print(ns)
+        multiple=sympy.lcm([i.q for i in ns])
+        final=ns*multiple
+        
+        return [ final[l,:][0,0] for l in range(len(reactants)+len(products)) ]
+        
+        
+    c=solvev2(reactants,products)
     finaleqn=[]
     for i in range(len(reactantsCompounds)):
         
@@ -215,7 +238,7 @@ def balanceChemEqn(equation):
     finaleqn=finaleqn[0]+" + ".join(finaleqn[1:])
     return finaleqn
 #--- here is the old code ---
-
+'''
     # Function to get occurances
     def getOccurances():
         reactantsOccurances = {}
@@ -423,6 +446,7 @@ def balanceChemEqn(equation):
         return finalJointReactants
     except:
         return "An Unknown Error has occured."
+'''
 if __name__=="__main__":
     print(balanceChemEqn("Ba(OH)2(aq) + NH4Cl(aq) -> BaCl2(s) + NH3(g) + H2O(l)"))
     print(balanceChemEqn("H2O2(l) -> H2O(l) + O2(g)"))
