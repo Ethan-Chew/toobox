@@ -161,8 +161,6 @@ def Trapezium(self):
         except: pass
         self.resultTxt = WrappingLabel(self.mainFrame, text="Result:  {}".format(result), font=(font,int(fontMultiplier*20)))
         self.resultTxt.grid(row=4,column=1,padx=2,columnspan=4, sticky="w")
-
-def Rectangle(self):
     def getInputs(self):
         try:
             self.resultTxt.grid_forget()
@@ -200,6 +198,8 @@ def Rectangle(self):
     self.sendData.grid(row=3, column=1, pady=10, padx=2, sticky="w")
 
     def changeTypebox(self):
+        print("mwahahaha")
+        print(self.typebox.get())
         if self.typebox.get() == "Square":
             print("Square")
             self.breadthTxt.packforget()
@@ -219,7 +219,62 @@ def Rectangle(self):
         except: pass
         self.resultTxt = WrappingLabel(self.mainFrame, text="Result:  {}".format(result), font=(font,int(fontMultiplier*20)))
         self.resultTxt.grid(row=4,column=1,padx=2,columnspan=4, sticky="w")
-        
+
+def Rectangle(self):
+    def getInputs(self):
+        try:
+            self.resultTxt.grid_forget()
+        except: pass
+        answer = "Ensure that all value(s) are/is numerical"
+        length = str(self.lengthEntry.get())
+        breadth = str(self.breadthEntry.get())
+        if self.typebox.get() == "Rectangle":
+            if re.search("^\d+\.{0,1}\d*$", length) and re.search("^\d+\.{0,1}\d*$", breadth):
+                answer = float(length)*float(breadth)
+        elif self.typebox.get() == "Square":
+            if re.search("^\d+\.{0,1}\d*$", length):
+                answer = float(length)**2
+        setFinalResult(self, " ".join([answer, "u²"]))
+    self.thingFrame = self.addframe()
+    self.thingFrame.pack(side="top", padx=25, pady=18, anchor="w")
+    self.mainLabel = WrappingLabel(self.thingFrame, text="Rectangle/Square Area Calculator", font=(font,int(fontMultiplier*50),'bold'))
+    self.mainLabel.pack(side="top", pady=2, fill="x", expand="yes")
+
+    self.mainFrame = self.addframe()
+    self.mainFrame.pack(padx=25, pady=18, anchor="w")
+
+    self.breadthTxt = WrappingLabel(self.mainFrame, text="Breadth/Width:  ", font=(font,int(fontMultiplier*20)))
+    self.breadthTxt.grid(row=2, column=0, padx=2, sticky="e")
+    self.breadthEntry = ttk.Entry(self.mainFrame, width=20, font=(font,int(fontMultiplier*12)))
+    self.breadthEntry.grid(row=2, column=1, sticky="w")
+    self.lengthTxt = WrappingLabel(self.mainFrame, text="Length:  ", font=(font,int(fontMultiplier*20)))
+    self.lengthTxt.grid(row=1, column=0, padx=2, sticky="e")
+    self.lengthEntry = ttk.Entry(self.mainFrame, width=20, font=(font,int(fontMultiplier*12)))
+    self.lengthEntry.grid(row=1, column=1, sticky="w")
+    self.sendData = ttk.Button(self.mainFrame, text="Calculate", style='Accent.TButton', command=lambda:getInputs(self))
+    self.sendData.grid(row=3, column=1, pady=10, padx=2, sticky="w")
+
+    def changeTypebox(self):
+        if self.typebox.get() == "Square":
+            self.breadthTxt.grid_forget()
+            self.breadthEntry.grid_forget()
+        else:
+            self.breadthTxt.grid(row=2, column=0, padx=2, sticky="e")
+            self.breadthEntry.grid(row=2, column=1, sticky="w")
+
+    self.typetext = WrappingLabel(self.mainFrame, text="Type:  ", font=(font,int(fontMultiplier*20)))
+    self.typetext.grid(row=0, column=0, padx=2, sticky="e")
+    self.types = ["Rectangle", "Square"]
+    self.typebox = ttk.Combobox(self.mainFrame, state="readonly", values=self.types, postcommand=lambda:changeTypebox(self))
+    self.typebox.current(0)
+    self.typebox.grid(row=0, column=1, padx=2, sticky="w")
+    
+    def setFinalResult(self, result):
+        try: self.resultTxt.grid_forget()
+        except: pass
+        self.resultTxt = WrappingLabel(self.mainFrame, text="Result:  {}".format(result), font=(font,int(fontMultiplier*20)))
+        self.resultTxt.grid(row=4,column=1,padx=2,columnspan=4, sticky="w")
+
 def Pyramid(self):
     def getInputs(self):
         try:
@@ -304,57 +359,58 @@ def Pyramid(self):
     # Calculate Button
     self.sendData = ttk.Button(self.mainFrame, text="Calculate", style='Accent.TButton', command=lambda:getInputs(self))
     self.sendData.grid(row=7, column=1, pady=10, padx=2, sticky="w")
+    self.stuffToDelete = []
 
     def changeTypebox(self):
-        self.infoLabel.pack_forget()
-        # self.mainFrame.pack_forget()
-        # self.mainFrame.destroy()
-        # self.mainFrame.pack(padx=25, pady=18, anchor="w")
-
+        for i in self.stuffToDelete:
+            i.grid_forget()
         if self.typebox.get() == "Rectangular-Based Pyramid":
             self.infoLabel.config(text="Accepts Base Width and Base Length")
             self.bt.grid(row=1, column=0, padx=2, sticky="e")
             self.be.grid(row=1, column=1, sticky="w")
             self.lt.grid(row=2, column=0, padx=2, sticky="e")
             self.le.grid(row=2, column=1, sticky="w")
-            self.s1t.grid_forget()
-            self.s1e.grid_forget()
-            self.s2t.grid_forget()
-            self.s2e.grid_forget()
-            self.s3t.grid_forget()
-            self.s3e.grid_forget()
-            self.baset.grid_forget()
-            self.basee.grid_forget()
-            self.heightt.grid_forget()
-            self.heighte.grid_forget()
-            self.radt.grid_forget()
-            self.rade.grid_forget()
-            self.diat.grid_forget()
-            self.diae.grid_forget()
-            self.cirt.grid_forget()
-            self.cire.grid_forget()
+            self.stuffToDelete.append(self.bt)
+            self.stuffToDelete.append(self.be)
+            self.stuffToDelete.append(self.lt)
+            self.stuffToDelete.append(self.le)
+            # self.s1t.grid_forget()
+            # self.s1e.grid_forget()
+            # self.s2t.grid_forget()
+            # self.s2e.grid_forget()
+            # self.s3t.grid_forget()
+            # self.s3e.grid_forget()
+            # self.baset.grid_forget()
+            # self.basee.grid_forget()
+            # self.heightt.grid_forget()
+            # self.heighte.grid_forget()
+            # self.radt.grid_forget()
+            # self.rade.grid_forget()
+            # self.diat.grid_forget()
+            # self.diae.grid_forget()
+            # self.cirt.grid_forget()
+            # self.cire.grid_forget()
         elif self.typebox.get() == "Square-Based Pyramid":
-            self.infoLabel.config(text="Accepts Base Length")
             self.lt.grid(row=2, column=0, padx=2, sticky="e")
             self.le.grid(row=2, column=1, sticky="w")
-            self.bt.grid_forget()
-            self.be.grid_forget()
-            self.s1t.grid_forget()
-            self.s1e.grid_forget()
-            self.s2t.grid_forget()
-            self.s2e.grid_forget()
-            self.s3t.grid_forget()
-            self.s3e.grid_forget()
-            self.baset.grid_forget()
-            self.basee.grid_forget()
-            self.heightt.grid_forget()
-            self.heighte.grid_forget()
-            self.radt.grid_forget()
-            self.rade.grid_forget()
-            self.diat.grid_forget()
-            self.diae.grid_forget()
-            self.cirt.grid_forget()
-            self.cire.grid_forget()
+            # self.bt.grid_forget()
+            # self.be.grid_forget()
+            # self.s1t.grid_forget()
+            # self.s1e.grid_forget()
+            # self.s2t.grid_forget()
+            # self.s2e.grid_forget()
+            # self.s3t.grid_forget()
+            # self.s3e.grid_forget()
+            # self.baset.grid_forget()
+            # self.basee.grid_forget()
+            # self.heightt.grid_forget()
+            # self.heighte.grid_forget()
+            # self.radt.grid_forget()
+            # self.rade.grid_forget()
+            # self.diat.grid_forget()
+            # self.diae.grid_forget()
+            # self.cirt.grid_forget()
+            # self.cire.grid_forget()
         elif self.typebox.get() == "Triangle-Based Pyramid":
             self.infoLabel.config(text="Accepts (Side 1 + Side2 + Side3) OR (Base of Triangle on Base + Height of Triangle on Base")
             self.s1t.grid(row=1, column=0, padx=2, sticky="e")
@@ -367,16 +423,26 @@ def Pyramid(self):
             self.basee.grid(row=4, column=1, sticky="w")
             self.heightt.grid(row=5, column=0, padx=2, sticky="e")
             self.heighte.grid(row=5, column=1, sticky="w")
-            self.bt.grid_forget()
-            self.be.grid_forget()
-            self.lt.grid_forget()
-            self.le.grid_forget()
-            self.radt.grid_forget()
-            self.rade.grid_forget()
-            self.diat.grid_forget()
-            self.diae.grid_forget()
-            self.cirt.grid_forget()
-            self.cire.grid_forget()
+            # self.bt.grid_forget()
+            # self.be.grid_forget()
+            # self.lt.grid_forget()
+            # self.le.grid_forget()
+            # self.radt.grid_forget()
+            # self.rade.grid_forget()
+            # self.diat.grid_forget()
+            # self.diae.grid_forget()
+            # self.cirt.grid_forget()
+            # self.cire.grid_forget()
+            self.stuffToDelete.append(self.s1t)
+            self.stuffToDelete.append(self.s1e)
+            self.stuffToDelete.append(self.s2t)
+            self.stuffToDelete.append(self.s2e)
+            self.stuffToDelete.append(self.s3t)
+            self.stuffToDelete.append(self.s3e)
+            self.stuffToDelete.append(self.baset)
+            self.stuffToDelete.append(self.basee)
+            self.stuffToDelete.append(self.heightt)
+            self.stuffToDelete.append(self.heighte)
         elif self.typebox.get() == "Cone":
             self.infoLabel.config(text="Accepts Base Circumference OR Base Radius OR Base Diameter")
             self.radt.grid(row=1, column=0, padx=2, sticky="e")
@@ -385,20 +451,28 @@ def Pyramid(self):
             self.diae.grid(row=2, column=1, sticky="w")
             self.cirt.grid(row=3, column=0, padx=2, sticky="e")
             self.cire.grid(row=3, column=1, sticky="w")
-            self.bt.grid_forget()
-            self.be.grid_forget()
-            self.lt.grid_forget()
-            self.le.grid_forget()
-            self.s1t.grid_forget()
-            self.s1e.grid_forget()
-            self.s2t.grid_forget()
-            self.s2e.grid_forget()
-            self.s3t.grid_forget()
-            self.s3e.grid_forget()
-            self.baset.grid_forget()
-            self.basee.grid_forget()
-            self.heightt.grid_forget()
-            self.heighte.grid_forget()
+            self.stuffToDelete.append(self.radt)
+            self.stuffToDelete.append(self.rade)
+            self.stuffToDelete.append(self.diat)
+            self.stuffToDelete.append(self.diae)
+            self.stuffToDelete.append(self.cirt)
+            self.stuffToDelete.append(self.cire)
+            # self.bt.grid_forget()
+            # self.be.grid_forget()
+            # self.lt.grid_forget()
+            # self.le.grid_forget()
+            # self.s1t.grid_forget()
+            # self.s1e.grid_forget()
+            # self.s2t.grid_forget()
+            # self.s2e.grid_forget()
+            # self.s3t.grid_forget()
+            # self.s3e.grid_forget()
+            # self.baset.grid_forget()
+            # self.basee.grid_forget()
+            # self.heightt.grid_forget()
+            # self.heighte.grid_forget()
+        self.infoLabel.config(text="Accepts Base Length")
+        self.infoLabel.pack_forget()
         self.infoLabel.pack(side="top", pady=2, fill="x", expand="yes")
         
     self.typetext = WrappingLabel(self.mainFrame, text="Type:  ", font=(font,int(fontMultiplier*20)))
