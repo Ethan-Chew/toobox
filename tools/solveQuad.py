@@ -27,7 +27,7 @@ def solveQuad(eqn):
             return "Val Err"
 
         return "{} {} {}".format(a, b, c)
-
+    
     validationOutcome = validation()
     if validationOutcome == "Format Err":
         return "Format Error, please follow stated format."
@@ -46,7 +46,7 @@ def solveQuad(eqn):
         if discriminant < 0:
             roots.append("No Real Solution")
         elif discriminant == 0:
-            x1=(-b+discriminant)/(2*a)
+            x1=(-b-discriminant)/(2*a)
             roots.append(x1)
         elif discriminant > 0:
             x1=(-b+discriminant)/(2*a)
@@ -55,25 +55,36 @@ def solveQuad(eqn):
     yIntercept = c
     
     # Use Completing the Square method
-    tempVal = (b/2)**2
-    newX = (-b+(b**2-(4*a*tempVal)))/(2*a)
-    holdX = newX
-    if (newX > 0):
-        splittedX = list(str(newX))
-        splittedX.insert(0, "-")
-        newX = "".join(splittedX)
+    x,y = 0, 0
+    if b**2 - 4*a*c > 0:
+        x = ((-b+((b**2-4*a*c)**0.5))/(2*a)+(-b-((b**2-4*a*c)**0.5))/(2*a))/2
+        y = float(a*x**2 + b*x + c)
+        turningPoint = "{}, {}".format(x, y)
+    if b**2 - 4*a*c < 0:
+        x = -(b/(2*a))
+        y = -(a*(b/(2*a))**2) + c
+        turningPoint = "{}, {}".format(x, y)
+    if b**2 - 4*a*c == 0:
+        x = (-b+((b**2-4*a*c)**0.5))/(2*a)
+        y = float(a*x**2 + b*x + c)
+        turningPoint = "{}, {}".format(x, y)
+    if y > 0:
+        temp = list(str(y))
+        temp.insert(0, "+")
+        y = ''.join(temp)
+    if x > 0:
+        temp = list(str(x))
+        temp.insert(0, "-")
+        x = ''.join(temp)
     else:
-        newX = abs(newX)
-        if (newX > 0):
-            splittedX = list(str(newX))
-            splittedX.insert(0, "+")
-            newX = "".join(splittedX)
-    newC = c-tempVal
-    if (newC > 0):
-        splittedC = list(str(newC))
-        splittedC.insert(0, "+")
-        newC = "".join(splittedC)
-    completedSq = "(x{})²{}".format(newX, str(newC))
-    turningPoint = "{}, {}".format(str(holdX).replace("+", ""), str(newC).replace("+", ""))
+        temp = list(str(x))
+        temp.pop(0)
+        temp.insert(0, "+")
+        x = ''.join(temp)
+    completedSq = "(x{})^2{}".format(x, y)
 
     return roots, completedSq, turningPoint, yIntercept
+
+if __name__=="__main__":
+    print(solveQuad("x^2+2x+8"))
+    print(solveQuad("5x^2+9x+8"))

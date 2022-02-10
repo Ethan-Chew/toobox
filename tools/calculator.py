@@ -1,9 +1,4 @@
-
-
-
-
-
-
+#fully made by Jerick
 class algebric:
 	def __init__(self,number,algebric={}):
 		if number==0 and (algebric):

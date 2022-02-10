@@ -32,6 +32,7 @@ fontMultiplier = 1.00
 
 numberOfDecimals = 3
 
+#Jerick
 def reload():
     '''reloads font multiplier'''
     global fontMultiplier
@@ -48,6 +49,8 @@ def reload():
             
 reload()
 newfv=int(fontMultiplier)
+
+# Granwyn
 def Prism(self):
     def getInputs(self):
         try:
@@ -181,6 +184,7 @@ def Prism(self):
         self.resultTxt = WrappingLabel(self.mainFrame, text="Result:  {}".format(result), font=(font,int(fontMultiplier*20)))
         self.resultTxt.grid(row=8,column=1,padx=2,columnspan=4, sticky="w")
 
+# Created by Ethan
 def ChemicalEquation(self):
     # Input Data
     def getInputs(self):
@@ -213,18 +217,16 @@ def ChemicalEquation(self):
         self.resultTxt = WrappingLabel(self.mainFrame, text="Result:  {}".format(result), font=(font,int(fontMultiplier*20)))
         self.resultTxt.grid(row=3, columnspan = 8, sticky = tk.W+tk.E, padx=2)
 
-def infoFrame(self, lblText):
-    # for headers
+def infoFrame(self, lblText): # Created by Ethan
     # Top Labels
     self.thingFrame = self.addframe()
-    # self.mainLabel = WrappingLabel(self.thingFrame, text="Simultaneous Equations Solver", font=(font,int(fontMultiplier*50),'bold'))
-    # self.thingFrame.pack(side="top", padx=25, pady=18, anchor="w")
     self.thingFrame.place(anchor="center", relx=0.5, rely=0.5)
     self.wipText = WrappingLabel(self.thingFrame, text=lblText, font=(font,int(fontMultiplier*30), 'bold'), justify="center")
     self.wipText.pack(side="top", pady=2)
     self.wipTextA = WrappingLabel(self.thingFrame, text="This is a header! Click on any 'Child' Element to access it!", font=(font,int(fontMultiplier*20)), justify="center")
     self.wipTextA.pack(side="top", pady=2)
-
+    
+#granwyn
 def Parallelogram(self):
     def getInputs(self):
         try:
@@ -261,6 +263,8 @@ def Parallelogram(self):
         except: pass
         self.resultTxt = WrappingLabel(self.mainFrame, text="Result:  {}".format(result), font=(font,int(fontMultiplier*20)))
         self.resultTxt.grid(row=3,column=1,padx=2,columnspan=4, sticky="w")
+        
+#granwyn
 def Rectangle(self):
     def getInputs(self):
         try:
@@ -317,7 +321,8 @@ def Rectangle(self):
         except: pass
         self.resultTxt = WrappingLabel(self.mainFrame, text="Result:  {}".format(result), font=(font,int(fontMultiplier*20)))
         self.resultTxt.grid(row=4,column=1,padx=2,columnspan=4, sticky="w")
-
+        
+#granwyn
 def Trapezium(self):
     def getInputs(self):
         try:
@@ -358,7 +363,8 @@ def Trapezium(self):
         except: pass
         self.resultTxt = WrappingLabel(self.mainFrame, text="Result:  {}".format(result), font=(font,int(fontMultiplier*20)))
         self.resultTxt.grid(row=4,column=1,padx=2,columnspan=4, sticky="w")
-
+        
+#granwyn
 def Pyramid(self):
     def getInputs(self):
         try:
@@ -504,7 +510,8 @@ def Pyramid(self):
         except: pass
         self.resultTxt = WrappingLabel(self.mainFrame, text="Result:  {}".format(result), font=(font,int(fontMultiplier*20)))
         self.resultTxt.grid(row=8,column=1,padx=2,columnspan=4, sticky="w")
-
+        
+#granwyn
 def Circle(self):
     def getInputs(self):
         try:
@@ -585,7 +592,7 @@ def Circle(self):
         self.resultTxt = WrappingLabel(self.mainFrame, text="Result:  {}".format(result), font=(font,int(fontMultiplier*20)))
         self.resultTxt.grid(row=5,column=1,padx=2,columnspan=4, sticky="w")
 
-
+# Created by Ethan
 def IonicEqn(self):
     # Input Data
     def getInputs(self):
@@ -617,7 +624,8 @@ def IonicEqn(self):
         except: pass
         self.resultTxt = WrappingLabel(self.mainFrame, text="Result:  {}".format(result), font=(font,int(fontMultiplier*20)))
         self.resultTxt.grid(row=3, columnspan = 5, sticky = tk.W+tk.E, padx=2)
-
+        
+# Created by Ethan
 def SaltSolubility(self):
     # Input Data
     def getInputs(self):
@@ -627,7 +635,6 @@ def SaltSolubility(self):
             codeReturned = "Soluble in Water"
         elif codeReturned == False:
             codeReturned = "Insoluble in Water"
-        exec("\x69\x66\x20\x63\x6F\x64\x65\x52\x65\x74\x75\x72\x6E\x65\x64\x20\x3D\x3D\x20\x22\x71\x77\x65\x72\x74\x79\x75\x69\x6F\x70\x30\x39\x38\x37\x36\x35\x34\x33\x32\x31\x68\x65\x6C\x6C\x6F\x77\x6F\x72\x6C\x64\x22\x3A\x20\x73\x65\x6C\x66\x2E\x5F\x71\x75\x69\x74\x28\x29")
         setFinalResult(self, codeReturned)
 
     self.thingFrame = self.addframe()
@@ -652,7 +659,8 @@ def SaltSolubility(self):
         except: pass
         self.resultTxt = WrappingLabel(self.mainFrame, text="Result:  {}".format(result), font=(font,int(fontMultiplier*20)))
         self.resultTxt.grid(row=3, columnspan = 4, sticky = tk.W+tk.E, padx=2)
-
+        
+#Jerick
 def calculate(self):
     # Input Data
     def getInputs(self):
@@ -695,6 +703,7 @@ def calculate(self):
         self.resultTxt = WrappingLabel(self.mainFrame, text="Result:  {}".format(result), font=(font,int(fontMultiplier*20)))
         self.resultTxt.grid(row=3, columnspan = 2, sticky = tk.W+tk.E, padx=2)
 
+# Created by Ethan
 def SolveQuad(self):
     # Input Data
     def getInputs(self):
@@ -748,7 +757,8 @@ def SolveQuad(self):
             self.resultTxt3.grid_forget()
             self.resultTxt4.grid_forget()
         except: pass
-
+        
+#Jerick
 def simsolver(self,column=3):
     row=column-1
 
@@ -852,14 +862,18 @@ def simsolver(self,column=3):
     else:
         ttk.Button(self.mainFrame, text="Remove Var", style='Accent.TButton', command=(lambda: rese(self,max(column-1,3))),width=10,state=tk.DISABLED).grid(row=row+2, column=2,pady=2, padx=2, sticky = tk.W+tk.E)
 
+# Mostly by Jerick
+## Ethan helped a little
 def triangle(self):
     self.thingFrame = self.addframe()
     self.mainLabel = WrappingLabel(self.thingFrame, text="Triangle Area Solver", font=(font,int(fontMultiplier*50),'bold'))
     self.thingFrame.pack(side="top", padx=25, pady=18, anchor="w")
     
     self.mainLabel.pack(side="top", pady=2, fill="x", expand="yes")
-    self.infoLabel = WrappingLabel(self.thingFrame, text="Please enter enough angles (A, B and C), or sides (a, b and c) to solve for area", font=(font,int(fontMultiplier*15)))
-    self.infoLabel.pack(side="top", pady=2, fill="x", expand="yes")
+    self.infoLabel = WrappingLabel(self.thingFrame, text="Please enter enough angles (A, B and C), or sides (a, b and c) to solve for area.", font=(font,int(fontMultiplier*15)))
+    self.infoLabel.pack(side="top", pady=2, fill="x", expand="yes", columnspan = 5, sticky = tk.W+tk.N)
+    self.secInfo = WrappingLabel(self.thingFrame, text="Ensure to remove all the Placeholder Letters before running the program. (It will be taken as '1' if it is not removed.)", font=(font,int(fontMultiplier*14)))
+    self.secInfo.pack(side="top", pady=2, fill="x", expand="yes", columnspan = 7, sticky = tk.W+tk.N)
     self.mainFrame = self.addframe()
     self.mainFrame.pack(padx=25, pady=18, anchor="w")
     self.mainFrame.pack(side="top", padx=25, pady=18, anchor="w")
@@ -936,6 +950,7 @@ def triangle(self):
 
     ttk.Button(self.mainFrame, text="Solve", style='Accent.TButton', command=onPress,width=10).grid(row=5, column=0,pady=2, padx=2)
 
+#Ignore this there is nothing here to see
 def snak():
     global root
     snake.init()
@@ -949,7 +964,8 @@ def snak():
     
     while True:
         snake.update()
-
+        
+#Jerick/Ethan
 def SolveCircle(self,typ=0):
     # Input Data
     def getInputs(self):
@@ -1024,7 +1040,8 @@ def SolveCircle(self,typ=0):
         except: pass
         self.resultTxt = WrappingLabel(self.mainFrame, text="Result:  {}".format(result), font=(font,int(fontMultiplier*20)))
         self.resultTxt.grid(row=3, columnspan = 7, sticky = tk.W+tk.N, padx=2)
-
+        
+#Jerick/Granwyn
 def periodicTable(self):
     def getInputs(self):
         self.resFrame.destroy()
@@ -1170,8 +1187,8 @@ def periodicTable(self):
                 newf.grid(row=0, column=r, sticky = tk.N, padx=2)
                 r+=1
         else:
-            text = WrappingLabel(newf, text="Invalid Element Input. Please use an actual letter found in the Periodic Table.", font=(font,int(fontMultiplier*12)))
-            text.grid(row=0, column=0, padx=2,pady=2, sticky = tk.W+tk.E, columnspan=5)
+            text = WrappingLabel(self.mainFrame, text="Invalid Input. Please use an actual letter and number found in the Periodic Table.", font=(font,int(fontMultiplier*14)))
+            text.grid(row=1, column=0, padx=2,pady=2, sticky = tk.W+tk.E, columnspan=5)
                 
         # self.resFrame.grid(row=1, column=len(l)+1, rowspan=10, columnspan=10, padx=2)
         self.resFrame.grid(row=1, column=0, rowspan=len(l)+1, columnspan=10, padx=2)
@@ -1182,7 +1199,7 @@ def periodicTable(self):
     self.mainLabel = WrappingLabel(self.thingFrame, text="Periodic Table", font=(font,int(fontMultiplier*50),'bold'))
     self.mainLabel.pack(side="top", pady=2, fill="x", expand="yes")
 
-    self.infoLabel = WrappingLabel(self.thingFrame, text="Please enter a valid Symbol, Element Name, Symbol, Atomic Number, or Number of Electrons, Protons or Neutrons. To search for protons input \"Pn\" where Pn is the number of Protons. You can similarly search for neutrons and electrons with \"Nn\" and \"En\" respectively. To search for mass number just tye the mass in", font=(font,int(fontMultiplier*15)))
+    self.infoLabel = WrappingLabel(self.thingFrame, text="Please enter a valid Symbol, Element Name, Symbol, Atomic Number, or Number of Electrons, Protons or Neutrons.", font=(font,int(fontMultiplier*15)))
     self.infoLabel.pack(side="top", pady=2, fill="x", expand="yes")
 
     self.mainFrame = self.addframe()
@@ -1194,13 +1211,11 @@ def periodicTable(self):
     self.sendData.grid(row=0, column=1, padx=2, sticky = tk.W)
     self.resFrame = ttk.Frame(self.mainFrame)
     self.resFrame.grid(row=1, column=0, rowspan=10, columnspan=10, padx=2)
-
+# Ethan
 def Settings(self):
     # Font Multiplier
     currentVal = tk.DoubleVar()
-    
     def getCurrValue():
-        
         tempVal = '{: .2f}'.format(currentVal.get()/30)
         try:
             global extractedData
@@ -1257,5 +1272,3 @@ def Settings(self):
     self.hsShortcut.grid(row=9, columnspan=2, sticky= tk.W+tk.E)
     self.fsShortcut = WrappingLabel(self.mainFrame, text="4. Command + ` -- Reset back to Default Settings.", font=(font,int(fontMultiplier*14)))
     self.fsShortcut.grid(row=10, columnspan=2, sticky= tk.W+tk.E)
-    
-
