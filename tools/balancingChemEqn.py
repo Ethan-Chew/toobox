@@ -2,6 +2,7 @@
 import random
 from chemlib import Element
 from chemlib import Compound
+from sympy import comp
 # Example: HCl(aq) + Na(s) -> NaCl(aq) + H2(g)
 def balanceChemEqn(equation):
     # Variables
@@ -69,8 +70,8 @@ def balanceChemEqn(equation):
         elements={}
         i=0
         while i<len(compound):
-            print(i)
-            print(compound[i])
+            # print(i)
+            # print(compound[i])
             # print(compound[i])
             if compound[i].isalpha() and compound[i].upper() == compound[i] :
                 #start of an element
@@ -80,18 +81,25 @@ def balanceChemEqn(equation):
                     ele+=compound[i+1]
                     i+=1
                 # print(ele)
-                for j in range(i+1,len(compound)):
-                    if compound[j].isnumeric():
-                        pass
-                    else:
-                        break
+                if i+1<len(compound) and compound[i+1].isnumeric():
+                    for j in range(i+1,len(compound)):
+                        if compound[j].isnumeric():
+                            pass
+                        else:
+                            break
+                    mul=int(compound[i+1:j]) if j>i+1 else int(compound[j])
+                    i=int(j)-1
+                    print(j)
+                else:
+                    mul=1
+                # print(j)
                 # print(j,i)
                 if ele in elements:
-                    elements[ele]+=int(compound[i+1:j]) if j> i+1 else 1
+                    elements[ele]+=mul
                 else:
-                    elements[ele]=int(compound[i+1:j]) if j> i+1 else 1
+                    elements[ele]=mul
                 
-                i=int(j) if j>i+1 else int(i)
+                
             elif compound[i]=="(":
                 # print(compound[i:])
                 j=int(i)+1
@@ -110,21 +118,30 @@ def balanceChemEqn(equation):
                     raise Exception("Unbalanced Parentheses")
                 else:
                     
-                    eles=new_parser(compound[i+1:j])
-                    print(eles)
-                    for k in range(j+1,len(compound)):
-                        if compound[k].isnumeric():
-                            pass
-                        else:
-                            break
-                    
-                    mul=int(compound[j+1:k]) if k!= j+1 else 1
+                    eles=parser(compound[i+1:j])
+                    # print(eles)
+                    # print(compound[j+1:])
+                    if j+1<len(compound) and compound[j+1].isnumeric():
+                        
+                        for k in range(j+1,len(compound)):
+                            if compound[k].isnumeric():
+                                pass
+                            else:
+                                break
+                        # print(compound[k-1])
+                        mul=int(compound[j+1:k]) if k>j+1 else int(compound[k])
+                        i=int(k)-1
+                        
+                    else:
+                        mul=1
+                        i=int(j)
                     for ele in eles:
                         if ele in elements:
                             elements[ele]+=mul*eles[ele]
                         else:
                             elements[ele]=mul*eles[ele]
-                    i=int(k)
+                    
+                    
 
                 
 
@@ -132,9 +149,72 @@ def balanceChemEqn(equation):
             i+=1
         return elements
     
+    
+    reactants=[]
     for i in reactantsCompounds:
-        print(fullparser(i))
-    exit()
+        reactants.append(fullparser(i))
+        print(reactants)
+    products=[]
+    for i in productsCompounds:
+        products.append(fullparser(i))
+        print(products)
+    # print(reactants,products)
+    
+    def solve(reactants,products,limit=10):
+        counter=[1 for i in range(len(reactants)+len(products))]
+        def test(counter,reactants,products):
+            newr={}
+            for i in range(len(reactants)):
+
+                for j in reactants[i]:
+                    if j in newr:
+                        newr[j]+=reactants[i][j]*counter[i]
+                    else:
+                        newr[j]=reactants[i][j]*counter[i]
+
+            newp={}
+            for i in range(len(products)):
+
+                for j in products[i]:
+                    if j in newp:
+
+                        newp[j]+=products[i][j]*counter[len(reactants)+i]
+                    else:
+                        newp[j]=products[i][j]*counter[len(reactants)+i]
+            # print(newr,newp)
+            for i in newr:
+                if newr[i]!=newp[i]:
+                    return False
+            
+            return True
+        while True:
+            if test(counter,reactants,products):
+                print(counter)
+                break
+            counter[0]+=1
+            if counter[0]>limit:
+                counter[0]=1
+                counter[1]+=1
+                for i in range(len(counter)-2):
+                    if counter[i+1]>limit:
+                        counter[i+1]=1
+                        counter[i+2]+=1
+                if counter[-1]>limit:
+                    raise Exception("No Solution")
+                    break
+        return counter
+
+    c=solve(reactants,products)
+    finaleqn=[]
+    for i in range(len(reactantsCompounds)):
+        
+        finaleqn+=[(str(c[i]) if c[i]!=1 else "")+reactantsCompounds[i] ]
+    finaleqn=[" + ".join(finaleqn)+" -> "]
+    for i in range(len(productsCompounds)):
+        finaleqn+=[(str(c[len(reactantsCompounds)+i])if c[len(reactantsCompounds)+i]!=1 else "")+productsCompounds[i]]
+    finaleqn=finaleqn[0]+" + ".join(finaleqn[1:])
+    return finaleqn
+#--- here is the old code ---
 
     # Function to get occurances
     def getOccurances():
@@ -345,3 +425,4 @@ def balanceChemEqn(equation):
         return "An Unknown Error has occured."
 if __name__=="__main__":
     print(balanceChemEqn("Ba(OH)2(aq) + NH4Cl(aq) -> BaCl2(s) + NH3(g) + H2O(l)"))
+    print(balanceChemEqn("H2O2(l) -> H2O(l) + O2(g)"))
