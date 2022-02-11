@@ -2,9 +2,10 @@
 Toobox of different tools to help in your Academics
 
 ## Set-Up Process
-1. Go to the Directory where 'Toobox' is held (Using ```cd``` in the Terminal)
-2. Run the Command ```bash setup.bash``` to automatically install all the dependencies needed for this project
-3. Once it has completed, you may open **main.py** and run the file with the IDE of your choice  
+1. Download the Latest Release of Toobox from the GitHub Releases Tab on the Right Hand Side (as a .zip file)
+2. Go to the Directory where 'Toobox' is held (Using ```cd``` in the Terminal)
+3. Run the Command ```bash setup.bash``` to automatically install all the dependencies needed for this project
+4. Once it has completed, you may open **main.py** and run the file with the IDE of your choice  
 
 _If you are curious, visit config.py and change aSecret to True. (But, Curiousity Kills the Cat)_
 
