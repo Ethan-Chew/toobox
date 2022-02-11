@@ -1436,7 +1436,7 @@ def Settings(self):
     self.fsShortcut.grid(row=7, columnspan=2, sticky= tk.W+tk.E)
     self.ufsShortcut = WrappingLabel(self.mainFrame, text="2. Escape -- Exit Full Screen.", font=(font,int(fontMultiplier*14)))
     self.ufsShortcut.grid(row=8, columnspan=2, sticky= tk.W+tk.E)
-    self.hsShortcut = WrappingLabel(self.mainFrame, text="3. Control + R -- Go back to the Home Screen.", font=(font,int(fontMultiplier*14)))
+    self.hsShortcut = WrappingLabel(self.mainFrame, text="3. Control + H -- Go back to the Home Screen.", font=(font,int(fontMultiplier*14)))
     self.hsShortcut.grid(row=9, columnspan=2, sticky= tk.W+tk.E)
     # self.fsShortcut = WrappingLabel(self.mainFrame, text="4. Command + ` -- Reset back to Default Settings.", font=(font,int(fontMultiplier*14)))
     # self.fsShortcut.grid(row=10, columnspan=2, sticky= tk.W+tk.E)
