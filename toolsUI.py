@@ -57,17 +57,16 @@ def Prism(self):
         answer = "Ensure that all value(s) are/is numerical and/or fit the correct formats stated"
         height = str(self.he.get())
         if re.search("^\d+\.{0,1}\d*$", height):
-            if self.typebox.get() == "Rectangular-Based Prism":
+            if self.typebox.get() == "Cuboid":
                 length = str(self.le.get())
                 breadth = str(self.be.get())
                 if re.search("^\d+\.{0,1}\d*$", length) and re.search("^\d+\.{0,1}\d*$", breadth):
-                    answer = float(float(length)*float(breadth))
-            elif self.typebox.get() == "Square-Based Prism":
+                    a = float(float(length)*float(breadth)*float(height))
+            elif self.typebox.get() == "Cube":
                 length = str(self.le.get())
                 if re.search("^\d+\.{0,1}\d*$", length):
-                    answer = float(float(length)*float(length))
-            elif self.typebox.get() == "Triangle-Based Prism":
-                print("hihi")
+                    answer = float(float(length)**3)
+            elif self.typebox.get() == "Triangular Prism":
                 side1 = str(self.s1e.get())
                 side2 = str(self.s2e.get())
                 side3 = str(self.s3e.get())
@@ -76,18 +75,18 @@ def Prism(self):
                 if (bool(re.search("^\d+\.{0,1}\d*$", side1) and re.search("^\d+\.{0,1}\d*$", side2) and re.search("^\d+\.{0,1}\d*$", side3)) ^ bool(re.search("^\d+\.{0,1}\d*$", base_base) and re.search("^\d+\.{0,1}\d*$", base_height))):
                     if re.search("^\d+\.{0,1}\d*$", side1) and re.search("^\d+\.{0,1}\d*$", side2) and re.search("^\d+\.{0,1}\d*$", side3):
                         semiperimeter = float(float(side1)+float(side2)+float(side3))/2.0
-                        answer = float(semiperimeter*float(semiperimeter-float(side1))*(semiperimeter-float(side2))*(semiperimeter-float(side3)))**0.5
+                        answer = float(height)*float(semiperimeter*float(semiperimeter-float(side1))*(semiperimeter-float(side2))*(semiperimeter-float(side3)))**0.5
                     elif re.search("^\d+\.{0,1}\d*$", base_base) and re.search("^\d+\.{0,1}\d*$", base_height):
-                        answer = 0.5*float(base_base)*float(base_height)
-            elif self.typebox.get() == "Cone":
+                        answer = float(0.5*float(base_base)*float(base_height))*float(height)
+            elif self.typebox.get() == "Cylinder":
                 radius = str(self.rade.get())
                 diameter = str(self.diae.get())
                 circumference = str(self.diae.get())
                 if ((True if str(type(re.search("^\+\.{0,1}\d*$", radius))) != "<class 'NoneType'>" else False) ^ (True if str(type(re.search("^\+\.{0,1}\d*$", diameter))) != "<class 'NoneType'>" else False) ^ (True if str(type(re.search("^\+\.{0,1}\d*$", circumference))) != "<class 'NoneType'>" else False)):
                     if re.search("^\d+\.{0,1}\d*$", radius):
-                        answer = math.pi*float(radius)**2
+                        answer = float(height)*float(math.pi*float(radius)**2)
                     elif re.search("^\d+\.{0,1}\d*$", diameter):
-                        answer = math.pi*float(float(diameter)/2.0)**2
+                        answer = float(height)*math.pi*float(float(diameter)/2.0)**2
         setFinalResult(self, " ".join([str(answer), "u²"]) if answer != "Ensure that all value(s) are/is numerical and/or fit the correct formats stated" else answer)
     self.thingFrame = self.addframe()
     self.thingFrame.pack(side="top", padx=25, pady=18, anchor="w")
@@ -100,28 +99,28 @@ def Prism(self):
     self.mainFrame.pack(padx=25, pady=18, anchor="w")
 
     # Rectangle and Square Cross-Section
-    self.bt = WrappingLabel(self.mainFrame, text="Base Width:  ", font=(font,int(fontMultiplier*20)))
+    self.bt = WrappingLabel(self.mainFrame, text="Cross-Sectional Width:  ", font=(font,int(fontMultiplier*20)))
     self.be = ttk.Entry(self.mainFrame, width=20, font=(font,int(fontMultiplier*12)))
-    self.lt = WrappingLabel(self.mainFrame, text="Base Length:  ", font=(font,int(fontMultiplier*20)))
+    self.lt = WrappingLabel(self.mainFrame, text="Cross-Sectional Length:  ", font=(font,int(fontMultiplier*20)))
     self.le = ttk.Entry(self.mainFrame, width=20, font=(font,int(fontMultiplier*12)))
     # Triangle Cross-Section
-    self.s1t = WrappingLabel(self.mainFrame, text="Side 1:  ", font=(font,int(fontMultiplier*20)))
+    self.s1t = WrappingLabel(self.mainFrame, text="Cross-Sectional Side 1:  ", font=(font,int(fontMultiplier*20)))
     self.s1e = ttk.Entry(self.mainFrame, width=20, font=(font,int(fontMultiplier*12)))
-    self.s2t = WrappingLabel(self.mainFrame, text="Side 2:  ", font=(font,int(fontMultiplier*20)))
+    self.s2t = WrappingLabel(self.mainFrame, text="Cross-Sectional Side 2:  ", font=(font,int(fontMultiplier*20)))
     self.s2e = ttk.Entry(self.mainFrame, width=20, font=(font,int(fontMultiplier*12)))
-    self.s3t = WrappingLabel(self.mainFrame, text="Side 3:  ", font=(font,int(fontMultiplier*20)))
+    self.s3t = WrappingLabel(self.mainFrame, text="Cross-Sectional Side 3:  ", font=(font,int(fontMultiplier*20)))
     self.s3e = ttk.Entry(self.mainFrame, width=20, font=(font,int(fontMultiplier*12)))
-    self.baset = WrappingLabel(self.mainFrame, text="Base:  ", font=(font,int(fontMultiplier*20)))
+    self.baset = WrappingLabel(self.mainFrame, text="Cross-Sectional Base:  ", font=(font,int(fontMultiplier*20)))
     self.basee = ttk.Entry(self.mainFrame, width=20, font=(font,int(fontMultiplier*12)))
-    self.heightt = WrappingLabel(self.mainFrame, text="Height:  ", font=(font,int(fontMultiplier*20)))
+    self.heightt = WrappingLabel(self.mainFrame, text="Cross-Sectional Height:  ", font=(font,int(fontMultiplier*20)))
     self.heighte = ttk.Entry(self.mainFrame, width=20, font=(font,int(fontMultiplier*12)))
     # Cylinder
-    self.radt = WrappingLabel(self.mainFrame, text="Base Radius:  ", font=(font,int(fontMultiplier*20)))
+    self.radt = WrappingLabel(self.mainFrame, text="Cross-Sectional Radius:  ", font=(font,int(fontMultiplier*20)))
     self.rade = ttk.Entry(self.mainFrame, width=20, font=(font,int(fontMultiplier*12)))
-    self.diat = WrappingLabel(self.mainFrame, text="Base Diameter:  ", font=(font,int(fontMultiplier*20)))
+    self.diat = WrappingLabel(self.mainFrame, text="Cross-Sectional Diameter:  ", font=(font,int(fontMultiplier*20)))
     self.diae = ttk.Entry(self.mainFrame, width=20, font=(font,int(fontMultiplier*12)))
     # Prism Height
-    self.ht = WrappingLabel(self.mainFrame, text="Vertical Height:  ", font=(font,int(fontMultiplier*20)))
+    self.ht = WrappingLabel(self.mainFrame, text="Height:  ", font=(font,int(fontMultiplier*20)))
     self.he = ttk.Entry(self.mainFrame, width=20, font=(font,int(fontMultiplier*12)))
     
     # Calculate Button
@@ -132,20 +131,22 @@ def Prism(self):
     def changeTypebox(self):
         for i in self.stuffToDelete:
             i.grid_forget()
-        if self.typebox.get() == "Rectangular Cross-Section Prism":
-            self.infoLabel.config(text="Accepts Numerical Width and Length, and Vertical Height")
+        if self.typebox.get() == "Cuboid":
+            self.infoLabel.config(text="Accepts Numerical Cross-Sectional Width and Cross-Sectional Length, and Height")
             self.bt.grid(row=1, column=0, padx=2, sticky="e")
             self.be.grid(row=1, column=1, sticky="w")
             self.lt.grid(row=2, column=0, padx=2, sticky="e")
             self.le.grid(row=2, column=1, sticky="w")
-            self.stuffToDelete.extend([self.bt, self.be, self.lt, self.le])
-        elif self.typebox.get() == "Square Cross-Section Prism":
+            self.ht.grid(row=6, column=0, padx=2, sticky="e")
+            self.he.grid(row=6, column=1, sticky="w")
+            self.stuffToDelete.extend([self.bt, self.be, self.lt, self.le, self.ht, self.he])
+        elif self.typebox.get() == "Cube":
             self.lt.grid(row=2, column=0, padx=2, sticky="e")
             self.le.grid(row=2, column=1, sticky="w")
             self.stuffToDelete.extend([self.lt, self.le])
-            self.infoLabel.config(text="Accepts Numerical Length and Vertical Height")
-        elif self.typebox.get() == "Triangle Cross-Section Prism":
-            self.infoLabel.config(text="Accepts Numerical ((Side 1 + Side2 + Side3) or (Base of Triangle on Base + Height of Triangle on Base)) and Vertical Height")
+            self.infoLabel.config(text="Accepts Numerical Cross-Sectional Length")
+        elif self.typebox.get() == "Triangular Prism":
+            self.infoLabel.config(text="Accepts Numerical ((Cross-Sectional Side 1 + Cross-Sectional Side 2 + Cross-Sectional Side 3) or (Cross-Sectional Base of Triangle + Cross-Sectional Height of Triangle)) and Height")
             self.s1t.grid(row=1, column=0, padx=2, sticky="e")
             self.s1e.grid(row=1, column=1, sticky="w")
             self.s2t.grid(row=2, column=0, padx=2, sticky="e")
@@ -156,25 +157,27 @@ def Prism(self):
             self.basee.grid(row=4, column=1, sticky="w")
             self.heightt.grid(row=5, column=0, padx=2, sticky="e")
             self.heighte.grid(row=5, column=1, sticky="w")
-            self.stuffToDelete.extend([self.s1t, self.s1e, self.s2t, self.s2e, self.s3t, self.s3e, self.baset, self.basee, self.heightt, self.heighte])
+            self.ht.grid(row=6, column=0, padx=2, sticky="e")
+            self.he.grid(row=6, column=1, sticky="w")
+            self.stuffToDelete.extend([self.s1t, self.s1e, self.s2t, self.s2e, self.s3t, self.s3e, self.baset, self.basee, self.heightt, self.heighte, self.ht, self.he])
         elif self.typebox.get() == "Cylinder":
-            self.infoLabel.config(text="Accepts Numerical Base Radius or Base Diameter")
+            self.infoLabel.config(text="Accepts Numerical Cross-Sectional Radius or Cross-Sectional Diameter")
             self.radt.grid(row=1, column=0, padx=2, sticky="e")
             self.rade.grid(row=1, column=1, sticky="w")
             self.diat.grid(row=2, column=0, padx=2, sticky="e")
             self.diae.grid(row=2, column=1, sticky="w")
-            self.stuffToDelete.extend([self.radt, self.rade, self.diat, self.diae, self.cirt, self.cire])
+            self.ht.grid(row=6, column=0, padx=2, sticky="e")
+            self.he.grid(row=6, column=1, sticky="w")
+            self.stuffToDelete.extend([self.radt, self.rade, self.diat, self.diae, self.cirt, self.cire, self.ht, self.he])
         self.infoLabel.pack_forget()
         self.infoLabel.pack(side="top", pady=2, fill="x", expand="yes")
     self.typetext = WrappingLabel(self.mainFrame, text="Type:  ", font=(font,int(fontMultiplier*20)))
     self.typetext.grid(row=0, column=0, padx=2, sticky="e")
-    self.types = ["Square Cross-Section Prism", "Rectangular Cross-Section Prism", "Triangle Cross-Section Prism", "Cylinder"]
+    self.types = ["Cube", "Cuboid", "Triangular Prism", "Cylinder"]
     self.typebox = ttk.Combobox(self.mainFrame, state="readonly", values=self.types)
     self.typebox.bind('<<ComboboxSelected>>', lambda *args: changeTypebox(self))
     self.typebox.current(0)
     self.typebox.grid(row=0, column=1, padx=2, sticky="w")
-    self.ht.grid(row=6, column=0, padx=2, sticky="e")
-    self.he.grid(row=6, column=1, sticky="w")
     changeTypebox(self)
     def setFinalResult(self, result):
         try: self.resultTxt.grid_forget()
@@ -469,11 +472,11 @@ def Pyramid(self):
     self.lt = WrappingLabel(self.mainFrame, text="Base Length:  ", font=(font,int(fontMultiplier*20)))
     self.le = ttk.Entry(self.mainFrame, width=20, font=(font,int(fontMultiplier*12)))
     # Triangle Based
-    self.s1t = WrappingLabel(self.mainFrame, text="Side 1:  ", font=(font,int(fontMultiplier*20)))
+    self.s1t = WrappingLabel(self.mainFrame, text="Base Side 1:  ", font=(font,int(fontMultiplier*20)))
     self.s1e = ttk.Entry(self.mainFrame, width=20, font=(font,int(fontMultiplier*12)))
-    self.s2t = WrappingLabel(self.mainFrame, text="Side 2:  ", font=(font,int(fontMultiplier*20)))
+    self.s2t = WrappingLabel(self.mainFrame, text="Base Side 2:  ", font=(font,int(fontMultiplier*20)))
     self.s2e = ttk.Entry(self.mainFrame, width=20, font=(font,int(fontMultiplier*12)))
-    self.s3t = WrappingLabel(self.mainFrame, text="Side 3:  ", font=(font,int(fontMultiplier*20)))
+    self.s3t = WrappingLabel(self.mainFrame, text="Base Side 3:  ", font=(font,int(fontMultiplier*20)))
     self.s3e = ttk.Entry(self.mainFrame, width=20, font=(font,int(fontMultiplier*12)))
     self.baset = WrappingLabel(self.mainFrame, text="Base:  ", font=(font,int(fontMultiplier*20)))
     self.basee = ttk.Entry(self.mainFrame, width=20, font=(font,int(fontMultiplier*12)))
@@ -509,9 +512,9 @@ def Pyramid(self):
             self.lt.grid(row=2, column=0, padx=2, sticky="e")
             self.le.grid(row=2, column=1, sticky="w")
             self.stuffToDelete.extend([self.lt, self.le])
-            self.infoLabel.config(text="Accepts Numerical Length and Vertical Height")
+            self.infoLabel.config(text="Accepts Numerical Base Length and Vertical Height")
         elif self.typebox.get() == "Triangle-Based Pyramid":
-            self.infoLabel.config(text="Accepts Numerical ((Side 1 + Side2 + Side3) or (Base of Triangle on Base + Height of Triangle on Base)) and Vertical Height")
+            self.infoLabel.config(text="Accepts Numerical ((Base Side 1 + Base Side 2 + Base Side 3) or (Base of Triangle on Base + Height of Triangle on Base)) and Vertical Height")
             self.s1t.grid(row=1, column=0, padx=2, sticky="e")
             self.s1e.grid(row=1, column=1, sticky="w")
             self.s2t.grid(row=2, column=0, padx=2, sticky="e")
