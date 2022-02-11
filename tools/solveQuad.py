@@ -1,5 +1,4 @@
 # Ethan
-# Some Granwyn
 def solveQuad(eqn):
     a, b, c = 0,0,0
     # Return Values
@@ -23,7 +22,7 @@ def solveQuad(eqn):
             a = str(a).replace("+", "")
             b = str(b).replace("+", "")
             c = str(c).replace("+", "")
-            a,b,c = int(a),int(b),int(c)
+            a,b,c = float(a),float(b),float(c)
         except:
             return "Val Err"
 
@@ -36,7 +35,7 @@ def solveQuad(eqn):
         return "a/b/c is not a number, please ensure that it is one."
     else:
         a, b, c = validationOutcome.split(" ")
-        a,b,c = int(a),int(b),int(c)
+        a,b,c = float(a),float(b),float(c)
 
     # Find x and y intercepts
     shape = "Concave Downwards ∩" if a < 0 else ("Concave Upwards U" if a > 0 else "Linear")
@@ -90,3 +89,4 @@ def solveQuad(eqn):
 if __name__=="__main__":
     print(solveQuad("x^2+2x+8"))
     print(solveQuad("5x^2+9x+8"))
+    # print(solveQuad("5x^2+9x+8.0"))
