@@ -1,5 +1,7 @@
 import math
 # all by granwyn except for solve_triangle which is by Jerick
+## Sphere Calculator done by Ethan
+
 def triangle(base, height):
     return 1/2 * base * height
 def sine_rule_side(a,A,b): # Sine Rule (Sides) want to find side B
@@ -93,11 +95,13 @@ def trapezium(topBase, bottomBase, height):
 def circle(radius):
     return float(math.pi * float(float(radius)**2))
 
-def sphere(radius):
-    return (float(4) * float(math.pi) * float(radius)**2)
-
 def sector(radius, angle):
     return (math.pi * float(float(radius) ** 2)*(float(angle)/(2*180)))
+
+def sphere(radius):
+    radius = int(radius)
+    return (4/3 * math.pi * (radius **3)), (4 * math.pi * (radius ** 2))
+
 if __name__=="__main__":
     therightans=[3,3,3,math.pi/3,math.pi/3,math.pi/3]
     for i in range(6):

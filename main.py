@@ -55,7 +55,7 @@ functionalities = {
             "Periodic Table"    :   periodicTable,
             "Pyramid"           :   Pyramid,
             "Prism"             :   Prism,
-            "Sphere"            :   Sphere
+            "Sphere"            :   Sphere,
         } 
 treeview_data = [
             ("", 1, "Chemistry"),
@@ -85,7 +85,7 @@ treeview_data = [
                         (24, 25, "Triangle-Based"),
                         (24, 26, "Square-Based"),
                         (24, 27, "Cone"),
-                    (23, 28, "Sphere/Hemisphere"),
+                    (23, 28, "Sphere"),
                     (23, 29, "Prism"),
                         (29, 30, "Triangular Prism"),
                         (29, 31, "Cylinder"),
@@ -394,12 +394,16 @@ class App(ttk.Frame):
         self.screenlist.append(ttk.Frame(self.recentlyOpenedFrame))
         self.holdROItemFrame = self.screenlist[-1]
         self.holdROItemFrame.pack(side="top")
-        for i in range(len(data[:3])): # Loop through all the 
-            temp=str(data[i])
-            def test(x=temp):
-                return self.run_func(str(x))
-            self.ropenedItemBtn = ttk.Button(self.holdROItemFrame, text=temp, width=30, command=test)
-            self.ropenedItemBtn.pack(side="top", pady=2)
+        if len(data) == 0:
+            self.noROText = WrappingLabel(self.recentlyOpenedFrame, text="You have not opened anything recently.".format(str(len(data[:3]))),font=(FONT, int(fontMultiplier*17)), wraplength=self.widthOfTooboxInfo)
+            self.noROText.pack(side="top", pady=3, anchor="w")
+        else:
+            for i in range(len(data[:3])): # Loop through all the Recently Opened Items
+                temp=str(data[i])
+                def test(x=temp):
+                    return self.run_func(str(x))
+                self.ropenedItemBtn = ttk.Button(self.holdROItemFrame, text=temp, width=30, command=test)
+                self.ropenedItemBtn.pack(side="top", pady=2)
         
         # Credits Section
         self.creditsFrame = self.addframe(width=self.widthOfTooboxInfo)

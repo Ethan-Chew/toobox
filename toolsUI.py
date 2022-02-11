@@ -217,7 +217,8 @@ def ChemicalEquation(self):
         self.resultTxt = WrappingLabel(self.mainFrame, text="Result:  {}".format(result), font=(font,int(fontMultiplier*20)))
         self.resultTxt.grid(row=3, columnspan = 8, sticky = tk.W+tk.E, padx=2)
 
-def infoFrame(self, lblText): # Created by Ethan
+# Created by Ethan
+def infoFrame(self, lblText):
     # Top Labels
     self.thingFrame = self.addframe()
     self.thingFrame.place(anchor="center", relx=0.5, rely=0.5)
@@ -226,10 +227,46 @@ def infoFrame(self, lblText): # Created by Ethan
     self.wipTextA = WrappingLabel(self.thingFrame, text="This is a header! Click on any 'Child' Element to access it!", font=(font,int(fontMultiplier*20)), justify="center")
     self.wipTextA.pack(side="top", pady=2)
 
-# granwyn
+# Ethan
 def Sphere(self):
-    pass
-    
+    def getInputs(self):
+        answer = "Ensure that the Radius is numerical"
+        radius = str(self.radiusEntry.get())
+        if re.search("^\d+\.{0,1}\d*$", radius): # Validate that Answer is an Integer
+            answer = sphere(radius)
+        setFinalResult(answer)
+
+    self.thingFrame = self.addframe()
+    self.thingFrame.pack(side="top", padx=25, pady=18, anchor="w")
+    self.mainLabel = WrappingLabel(self.thingFrame, text="Sphere Calculator", font=(font,int(fontMultiplier*50),'bold'))
+    self.mainLabel.pack(side="top", pady=2, fill="x", expand="yes")
+    self.infoLabel = WrappingLabel(self.thingFrame, text="Takes in the Radius of the Sphere as a number in UNITS (u).", font=(font,int(fontMultiplier*15)))
+    self.infoLabel.pack(side="top", pady=2, fill="x", expand="yes")
+    self.mainFrame = self.addframe()
+    self.mainFrame.pack(padx=25, pady=18, anchor="w")
+
+    self.radiusTxt = WrappingLabel(self.mainFrame, text="Radius:  ", font=(font,int(fontMultiplier*20)))
+    self.radiusTxt.grid(row=0, column=0, padx=2, sticky="e")
+    self.radiusEntry = ttk.Entry(self.mainFrame, width=20, font=(font,int(fontMultiplier*12)))
+    self.radiusEntry.grid(row=0, column=1, sticky="w")
+    self.sendData = ttk.Button(self.mainFrame, text="Calculate", style='Accent.TButton', command=lambda:getInputs(self))
+    self.sendData.grid(row=1, column=1, padx=2, sticky="w",pady=3)
+
+    def setFinalResult(answer):
+        try:
+            self.infoTxt.grid_forget()
+            self.volumeTxt.grid_forget()
+            self.surfAreaTxt.grid_forget()
+        except: pass
+        if type(answer) == str:
+            self.infoTxt = WrappingLabel(self.mainFrame, text=answer, font=(font,int(fontMultiplier*20)))
+            self.infoTxt.grid(row=2,column=1,padx=2,columnspan=4, sticky="w")
+        else:
+            self.volumeTxt = WrappingLabel(self.mainFrame, text="Volume:  {}{}".format(answer[0], "u³"), font=(font,int(fontMultiplier*20)))
+            self.volumeTxt.grid(row=2,column=1,padx=2,columnspan=4, sticky="w")
+            self.surfAreaTxt = WrappingLabel(self.mainFrame, text="Surface Area:  {}{}".format(answer[1], "u"), font=(font,int(fontMultiplier*20)))
+            self.surfAreaTxt.grid(row=4,column=1,padx=2,columnspan=4, sticky="w", pady=3)
+
 #granwyn
 def Parallelogram(self):
     def getInputs(self):
