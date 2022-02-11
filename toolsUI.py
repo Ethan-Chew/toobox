@@ -205,7 +205,10 @@ def ChemicalEquation(self):
     # Input Data
     def getInputs(self):
         chemEqn = self.inputField.get()
-        codeReturned = balanceChemEqn(chemEqn) # Could return error/final value
+        try:
+            codeReturned = balanceChemEqn(chemEqn) # Could return error/final value
+        except:
+            codeReturned = "Unknown Error"
         setFinalResult(self, codeReturned)
 
     # User Interface
