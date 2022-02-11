@@ -80,16 +80,16 @@ treeview_data = [
                     (16, 20, "Rhombus"),
                     (16, 21, "Trapezium"),
                     (16, 22, "Circle/Semicircle"),
-                (15, 23, "Volume"),
+                (15, 23, "Volume and Surface Area"),
                     (23, 24, "Pyramid"),
                         (24, 25, "Triangle-Based"),
                         (24, 26, "Square-Based"),
                         (24, 27, "Cone"),
-                    (23, 28, "Sphere"),
-                    (23, 29, "Prism"),
+                    (23, 28, "Prism"),
                         (29, 30, "Triangular Prism"),
                         (29, 31, "Cylinder"),
                         (29, 32, "Cuboid/Cube"),
+                    (23, 29, "Sphere"),
                 (6, 33, "Percentage"),
                 (6, 38, "Circles"),
                     (38, 39, "Circle Properties"),
@@ -116,7 +116,7 @@ class App(ttk.Frame):
         # Set Bindings/Shortcuts
         self.fullScreenBindings()
         self.goHome()
-        self.resetSettingsSC()
+        # self.resetSettingsSC()
         config.currentlySelected = "Home"
     def check_recently_opened(self):
         file = open(jsonData)
@@ -128,20 +128,25 @@ class App(ttk.Frame):
         except Exception as e:
             file.close()
             file = open(jsonData, 'w')
-            json.dump({'fontMultiplier': float(1),'recentlyOpened': []}, file)
+            json.dump({'fontMultiplier': float(1),'recentlyOpened': [], "default-theme": "dark"}, file)
             file.close()
 
     
     # Theme switching
     def change_theme(self):
+        file = open(jsonData, "r")
+        data = json.load(file)
+        file.close()
+        file = open(jsonData, "w+")
         if root.tk.call("ttk::style", "theme", "use") == "sun-valley-dark":
             # Set light theme
-            config.defaultTheme = "light"
-            root.tk.call("set_theme", "light")
+            data['default-theme'] = "light"
         else:
             # Set dark theme
-            config.defaultTheme = "dark"
-            root.tk.call("set_theme", "dark")
+            data['default-theme'] = "dark"
+        root.tk.call("set_theme", data['default-theme'])
+        json.dump(data, file)
+        file.close()
 
     # MacOS Menu Bar Buttons
     def setup_menu(self):
@@ -176,23 +181,18 @@ class App(ttk.Frame):
     ## Full Screen Toggle
     def fullScreenBindings(self):
         root.attributes("-fullscreen", self.fullScreen)
-        root.bind("<Command-f>", self.toggleFullScreen)
+        root.bind("<Control-f>", self.toggleFullScreen)
         root.bind("<F11>", self.toggleFullScreen)
         root.bind("<Escape>", self.quitFullScreen)
-        root.bind("<Command-,>", (lambda e: self.run_func("Settings")))
+        root.bind("<Control-,>", (lambda e: self.run_func("Settings")))
 
     ## Back to Home
     def goHome(self):
-        root.bind("<Command-r>", self.handleBackToHS)
+        root.bind("<Control-h>", self.handleBackToHS)
 
     ## Reset Settings
-    def resetSettingsSC(self):
-        root.bind("<Command-`>", self.resetSettings)
-
-    def resetSettings(self, event):
-        with open(jsonData, 'w') as f:
-            json.dump({"fontMultiplier": float(1), "recentlyOpened": []},f)
-        reload()
+    # def resetSettingsSC(self):
+    #     root.bind("<Control-`>", self.resetSettings)
 
     def removeSelectedTreeView(self):
         config.currentlySelected = "Home"
@@ -435,7 +435,10 @@ if __name__ == "__main__":
 
     # Simply set the theme
     root.tk.call("source", appThemePath)
-    root.tk.call("set_theme", config.defaultTheme)
+    file = open(jsonData, "r")
+    data = json.load(file)
+    file.close()
+    root.tk.call("set_theme", data['default-theme'])
 
     # Set App Icon
     # root.iconbitmap(appIconIcns)

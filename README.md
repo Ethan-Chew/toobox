@@ -23,12 +23,12 @@ _If you are curious, visit config.py and change aSecret to True. (But, Curiousit
 ## Keybinds
 Toobox includes various keybinds to help make your life easier
 1. **Full Screen**
-    - 'Command + F', 'F11 (Function Key)' to go Full Screen
+    - 'Control + F', 'F11 (Function Key)' to go Full Screen
     - 'Escape' to exit Full Screen
 2. **Back to Home Page**
-    - 'Command + R' to go back to the Home Screen
-3. **Reset Settings**
-    - 'Command + '\`' to reset Settings back to default
+    - 'Control + H' to go back to the Home Screen
+<!-- 3. **Reset Settings**
+    - 'Control + '\`' to reset Settings back to default -->
 
 ## Dependencies and Themes
 1. Chemlib

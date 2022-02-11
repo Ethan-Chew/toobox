@@ -6,5 +6,4 @@ import tkinter as tk
 username = os.path.basename(Path.home())
 currentlySelected = "Home"
 favourited = []
-defaultTheme = "dark"
 aSecret = False # Change aSecret to True for a suprise :)

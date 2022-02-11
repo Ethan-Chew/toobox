@@ -4,6 +4,8 @@ from tkinter import ttk
 import re
 import math
 
+import string
+
 from sympy import root
 from tools import snake
 from tools import areaCalculation
@@ -42,7 +44,7 @@ def reload():
         fontMultiplier = float(extractedData["fontMultiplier"])
     except:
         with open(jsonData,"w") as f:
-            tempJSON = {"fontMultiplier": float(1), "recentlyOpened": []}
+            tempJSON = {"fontMultiplier": float(1), "recentlyOpened": [], "default-theme": "dark"}
             json.dump(tempJSON, f)
             
 reload()
@@ -55,17 +57,21 @@ def Prism(self):
             self.resultTxt.grid_forget()
         except: pass
         answer = "Ensure that all value(s) are/is numerical and/or fit the correct formats stated"
+        volume = "-"
+        surfacearea = ""
         height = str(self.he.get())
-        if re.search("^\d+\.{0,1}\d*$", height):
+        if self.typebox.get() == "Cube":
+            length = str(self.le.get())
+            if re.search("^\d+\.{0,1}\d*$", length):
+                volume = float(float(length)**3)
+                surfacearea = 6.0*float(float(length)**2)
+        elif re.search("^\d+\.{0,1}\d*$", height):
             if self.typebox.get() == "Cuboid":
                 length = str(self.le.get())
                 breadth = str(self.be.get())
                 if re.search("^\d+\.{0,1}\d*$", length) and re.search("^\d+\.{0,1}\d*$", breadth):
-                    a = float(float(length)*float(breadth)*float(height))
-            elif self.typebox.get() == "Cube":
-                length = str(self.le.get())
-                if re.search("^\d+\.{0,1}\d*$", length):
-                    answer = float(float(length)**3)
+                    volume = float(float(length)*float(breadth)*float(height))
+                    surfacearea = 2.0*float(float(float(length)*float(breadth))+float(float(length)*float(height))+float(float(breadth)*float(height)))
             elif self.typebox.get() == "Triangular Prism":
                 side1 = str(self.s1e.get())
                 side2 = str(self.s2e.get())
@@ -75,22 +81,31 @@ def Prism(self):
                 if (bool(re.search("^\d+\.{0,1}\d*$", side1) and re.search("^\d+\.{0,1}\d*$", side2) and re.search("^\d+\.{0,1}\d*$", side3)) ^ bool(re.search("^\d+\.{0,1}\d*$", base_base) and re.search("^\d+\.{0,1}\d*$", base_height))):
                     if re.search("^\d+\.{0,1}\d*$", side1) and re.search("^\d+\.{0,1}\d*$", side2) and re.search("^\d+\.{0,1}\d*$", side3):
                         semiperimeter = float(float(side1)+float(side2)+float(side3))/2.0
-                        answer = float(height)*float(semiperimeter*float(semiperimeter-float(side1))*(semiperimeter-float(side2))*(semiperimeter-float(side3)))**0.5
+                        volume = float(height)*float(semiperimeter*float(semiperimeter-float(side1))*(semiperimeter-float(side2))*(semiperimeter-float(side3)))**0.5
+                        surfacearea = "-"
                     elif re.search("^\d+\.{0,1}\d*$", base_base) and re.search("^\d+\.{0,1}\d*$", base_height):
-                        answer = float(0.5*float(base_base)*float(base_height))*float(height)
+                        volume = float(0.5*float(base_base)*float(base_height))*float(height)
+                        surfacearea = "-"
             elif self.typebox.get() == "Cylinder":
                 radius = str(self.rade.get())
                 diameter = str(self.diae.get())
                 circumference = str(self.diae.get())
                 if ((True if str(type(re.search("^\+\.{0,1}\d*$", radius))) != "<class 'NoneType'>" else False) ^ (True if str(type(re.search("^\+\.{0,1}\d*$", diameter))) != "<class 'NoneType'>" else False) ^ (True if str(type(re.search("^\+\.{0,1}\d*$", circumference))) != "<class 'NoneType'>" else False)):
                     if re.search("^\d+\.{0,1}\d*$", radius):
-                        answer = float(height)*float(math.pi*float(radius)**2)
+                        volume = float(height)*float(math.pi*float(radius)*float(height))
+                        circumference = float(2.0*math.pi*float(radius))
+                        surfacearea = float(2.0*float(math.pi*float(radius)*float(height)))+float(circumference*float(height))
                     elif re.search("^\d+\.{0,1}\d*$", diameter):
-                        answer = float(height)*math.pi*float(float(diameter)/2.0)**2
-        setFinalResult(self, " ".join([str(answer), "u²"]) if answer != "Ensure that all value(s) are/is numerical and/or fit the correct formats stated" else answer)
+                        radius = float(diameter)/2.0
+                        circumference = float(2.0*math.pi*float(radius))
+                        volume = float(height)*math.pi*float(radius)*float(radius)
+                        surfacearea = float(2.0*math.pi*float(radius)*float(height))+float(circumference*float(height))
+        if volume != "" and surfacearea != "":
+            answer = "Volume: {} u³\nSurface Area: {} u²".format(volume, surfacearea)
+        setFinalResult(self, answer)
     self.thingFrame = self.addframe()
     self.thingFrame.pack(side="top", padx=25, pady=18, anchor="w")
-    self.mainLabel = WrappingLabel(self.thingFrame, text="Prism Volume Calculator", font=(font,int(fontMultiplier*50),'bold'))
+    self.mainLabel = WrappingLabel(self.thingFrame, text="Prism Calculator", font=(font,int(fontMultiplier*50),'bold'))
     self.mainLabel.pack(side="top", pady=2, fill="x", expand="yes")
     self.infoLabel = WrappingLabel(self.thingFrame, text="Accepts Numerical Width and Length, and Vertical Height", font=(font,int(fontMultiplier*15)))
     self.infoLabel.pack(side="top", pady=2, fill="x", expand="yes")
@@ -168,7 +183,7 @@ def Prism(self):
             self.diae.grid(row=2, column=1, sticky="w")
             self.ht.grid(row=6, column=0, padx=2, sticky="e")
             self.he.grid(row=6, column=1, sticky="w")
-            self.stuffToDelete.extend([self.radt, self.rade, self.diat, self.diae, self.cirt, self.cire, self.ht, self.he])
+            self.stuffToDelete.extend([self.radt, self.rade, self.diat, self.diae, self.ht, self.he])
         self.infoLabel.pack_forget()
         self.infoLabel.pack(side="top", pady=2, fill="x", expand="yes")
     self.typetext = WrappingLabel(self.mainFrame, text="Type:  ", font=(font,int(fontMultiplier*20)))
@@ -182,7 +197,7 @@ def Prism(self):
     def setFinalResult(self, result):
         try: self.resultTxt.grid_forget()
         except: pass
-        self.resultTxt = WrappingLabel(self.mainFrame, text="Result:  {}".format(result), font=(font,int(fontMultiplier*20)))
+        self.resultTxt = WrappingLabel(self.mainFrame, text="Result:\n{}".format(result), font=(font,int(fontMultiplier*20)))
         self.resultTxt.grid(row=8,column=1,padx=2,columnspan=4, sticky="w")
 
 # Created by Ethan
@@ -265,7 +280,7 @@ def Sphere(self):
         else:
             self.volumeTxt = WrappingLabel(self.mainFrame, text="Volume:  {}{}".format(answer[0], "u³"), font=(font,int(fontMultiplier*20)))
             self.volumeTxt.grid(row=2,column=1,padx=2,columnspan=4, sticky="w")
-            self.surfAreaTxt = WrappingLabel(self.mainFrame, text="Surface Area:  {}{}".format(answer[1], "u"), font=(font,int(fontMultiplier*20)))
+            self.surfAreaTxt = WrappingLabel(self.mainFrame, text="Surface Area:  {}{}".format(answer[1], "u²"), font=(font,int(fontMultiplier*20)))
             self.surfAreaTxt.grid(row=4,column=1,padx=2,columnspan=4, sticky="w", pady=3)
 
 #granwyn
@@ -458,7 +473,7 @@ def Pyramid(self):
         setFinalResult(self, " ".join([str(answer), "u²"]) if answer != "Ensure that all value(s) are/is numerical and/or fit the correct formats stated" else answer)
     self.thingFrame = self.addframe()
     self.thingFrame.pack(side="top", padx=25, pady=18, anchor="w")
-    self.mainLabel = WrappingLabel(self.thingFrame, text="Pyramid Volume Calculator", font=(font,int(fontMultiplier*50),'bold'))
+    self.mainLabel = WrappingLabel(self.thingFrame, text="Pyramid Calculator", font=(font,int(fontMultiplier*50),'bold'))
     self.mainLabel.pack(side="top", pady=2, fill="x", expand="yes")
     self.infoLabel = WrappingLabel(self.thingFrame, text="Accepts Numerical Base Width and Base Length, and Vertical Height", font=(font,int(fontMultiplier*15)))
     self.infoLabel.pack(side="top", pady=2, fill="x", expand="yes")
@@ -631,7 +646,7 @@ def Circle(self):
     def setFinalResult(self, result):
         try: self.resultTxt.grid_forget()
         except: pass
-        self.resultTxt = WrappingLabel(self.mainFrame, text="Result:  {}".format(result), font=(font,int(fontMultiplier*20)))
+        self.resultTxt = WrappingLabel(self.mainFrame, text="Result:\n{}".format(result), font=(font,int(fontMultiplier*20)))
         self.resultTxt.grid(row=5,column=1,padx=2,columnspan=4, sticky="w")
 
 # Created by Ethan
@@ -1173,8 +1188,12 @@ def SolveCircle(self,typ=0):
         self.resultTxt.grid(row=3, columnspan = 7, sticky = tk.W+tk.N, padx=2)
         
 #Jerick/Granwyn
+# A bit ethan
 def periodicTable(self):
     def getInputs(self):
+        try:
+            text.pack_forget()
+        except: pass
         self.resFrame.destroy()
         self.resFrame = self.addframe(self.mainFrame)
         e = self.inputField.get().replace(" ", "")
@@ -1342,7 +1361,7 @@ def periodicTable(self):
     self.sendData.grid(row=0, column=1, padx=2, sticky = tk.W)
     self.resFrame = ttk.Frame(self.mainFrame)
     self.resFrame.grid(row=1, column=0, rowspan=10, columnspan=10, padx=2)
-# Ethan
+# Ethan, Granwyn
 def Settings(self):
     # Font Multiplier
     currentVal = tk.DoubleVar()
@@ -1355,7 +1374,7 @@ def Settings(self):
             extractedData = json.load(file)
             file.close()
             file = open(jsonData, "w+")
-            tempJSON = {"fontMultiplier": float(tempVal), "recentlyOpened": extractedData['recentlyOpened']}
+            tempJSON = {"fontMultiplier": float(tempVal), "recentlyOpened": extractedData['recentlyOpened'], "default-theme": extractedData['default-theme']}
             json.dump(tempJSON, file)
             file.close()
             reload()
@@ -1392,14 +1411,20 @@ def Settings(self):
     self.anotherInfoLbl = WrappingLabel(self.mainFrame, text="The largest recommended Font Multiplier is 2x. Going higher may result in the User Interface being unusable.", font=(font,int(fontMultiplier*10)))
     self.anotherInfoLbl.grid(row=4, columnspan=5, sticky= tk.W+tk.E)
 
+    def resetSettings(self, *args):
+        with open(jsonData, 'w') as f:
+            json.dump({"fontMultiplier": float(1), "recentlyOpened": [], "default-theme":"dark"},f)
+        reload()
 
+    self.resetSettingsButton = ttk.Button(self.mainFrame, text="Reset Settings", style='Accent.TButton', command=lambda: resetSettings(self))
+    self.resetSettingsButton.grid(row=5, sticky = tk.W+tk.E, pady=5)
     self.shortCutHeader = WrappingLabel(self.mainFrame, text="Shortcuts", font=(font,int(fontMultiplier*20), 'bold'))
     self.shortCutHeader.grid(row=6, columnspan=2, sticky = tk.W+tk.E, pady=5)
-    self.fsShortcut = WrappingLabel(self.mainFrame, text="1. Command + F -- Full Screen the App.", font=(font,int(fontMultiplier*14)))
+    self.fsShortcut = WrappingLabel(self.mainFrame, text="1. Control + F -- Full Screen the App.", font=(font,int(fontMultiplier*14)))
     self.fsShortcut.grid(row=7, columnspan=2, sticky= tk.W+tk.E)
     self.ufsShortcut = WrappingLabel(self.mainFrame, text="2. Escape -- Exit Full Screen.", font=(font,int(fontMultiplier*14)))
     self.ufsShortcut.grid(row=8, columnspan=2, sticky= tk.W+tk.E)
-    self.hsShortcut = WrappingLabel(self.mainFrame, text="3. Command + R -- Go back to the Home Screen.", font=(font,int(fontMultiplier*14)))
+    self.hsShortcut = WrappingLabel(self.mainFrame, text="3. Control + R -- Go back to the Home Screen.", font=(font,int(fontMultiplier*14)))
     self.hsShortcut.grid(row=9, columnspan=2, sticky= tk.W+tk.E)
-    self.fsShortcut = WrappingLabel(self.mainFrame, text="4. Command + ` -- Reset back to Default Settings.", font=(font,int(fontMultiplier*14)))
-    self.fsShortcut.grid(row=10, columnspan=2, sticky= tk.W+tk.E)
+    # self.fsShortcut = WrappingLabel(self.mainFrame, text="4. Command + ` -- Reset back to Default Settings.", font=(font,int(fontMultiplier*14)))
+    # self.fsShortcut.grid(row=10, columnspan=2, sticky= tk.W+tk.E)
