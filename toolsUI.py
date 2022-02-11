@@ -802,13 +802,13 @@ def SolveQuad(self):
             self.resultTxt3 = WrappingLabel(self.mainFrame, text="Turning Points:  ({}, {})".format(str(result[2].split(", ")[0]), result[2].split(", ")[1]), font=(font,int(fontMultiplier*20)))
             self.resultTxt3.grid(row=5, columnspan = 2, sticky = tk.W+tk.E, padx=2)
             if len(result[0]) == 1:
-                self.resultTxt1 = WrappingLabel(self.mainFrame, text="X-intercept/Root:  {}".format(result[0][0]), font=(font,int(fontMultiplier*20)))
+                self.resultTxt1 = WrappingLabel(self.mainFrame, text="X-intercept/Root:  ({}, 0.0)".format(result[0][0]), font=(font,int(fontMultiplier*20)))
                 self.resultTxt1.grid(row=6, columnspan = 2, sticky = tk.W+tk.E, padx=2)
             else:
-                self.resultTxt1 = WrappingLabel(self.mainFrame, text="X-intercepts/Roots:  ({}, 0), {}".format(result[0][0], result[0][1]), font=(font,int(fontMultiplier*20)))
+                self.resultTxt1 = WrappingLabel(self.mainFrame, text="X-intercepts/Roots:  ({}, 0.0), ({} , 0.0)".format(result[0][0], result[0][1]), font=(font,int(fontMultiplier*20)))
                 self.resultTxt1.grid(row=6, columnspan = 2, sticky = tk.W+tk.E, padx=2)
             
-            self.resultTxt4 = WrappingLabel(self.mainFrame, text="Y-intercept:  {}".format(result[3]), font=(font,int(fontMultiplier*20)))
+            self.resultTxt4 = WrappingLabel(self.mainFrame, text="Y-intercept:  (0.0, {})".format(result[3]), font=(font,int(fontMultiplier*20)))
             self.resultTxt4.grid(row=7, columnspan = 2, sticky = tk.W+tk.E, padx=2)
     
     def clearResults(self):
