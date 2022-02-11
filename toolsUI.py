@@ -60,6 +60,8 @@ def Prism(self):
         volume = "-"
         surfacearea = ""
         height = str(self.he.get())
+        print(height, bool(re.search("^\d+\.{0,1}\d*$", height)))
+        print(self.typebox.get())
         if self.typebox.get() == "Cube":
             length = str(self.le.get())
             if re.search("^\d+\.{0,1}\d*$", length):
@@ -89,17 +91,19 @@ def Prism(self):
             elif self.typebox.get() == "Cylinder":
                 radius = str(self.rade.get())
                 diameter = str(self.diae.get())
-                circumference = str(self.diae.get())
-                if ((True if str(type(re.search("^\+\.{0,1}\d*$", radius))) != "<class 'NoneType'>" else False) ^ (True if str(type(re.search("^\+\.{0,1}\d*$", diameter))) != "<class 'NoneType'>" else False) ^ (True if str(type(re.search("^\+\.{0,1}\d*$", circumference))) != "<class 'NoneType'>" else False)):
+                print(radius, bool(re.search("^\d+\.{0,1}\d*$", radius)))
+                print(diameter, bool(re.search("^\d+\.{0,1}\d*$", diameter)))
+                print(bool(re.search("^\d+\.{0,1}\d*$", radius)) ^ bool(re.search("^\d+\.{0,1}\d*$", diameter)))
+                if bool(re.search("^\d+\.{0,1}\d*$", radius)) ^ bool(re.search("^\d+\.{0,1}\d*$", diameter)):
                     if re.search("^\d+\.{0,1}\d*$", radius):
-                        volume = float(height)*float(math.pi*float(radius)*float(height))
+                        volume = float(math.pi*float(radius)*float(radius))*float(height)
                         circumference = float(2.0*math.pi*float(radius))
-                        surfacearea = float(2.0*float(math.pi*float(radius)*float(height)))+float(circumference*float(height))
+                        surfacearea = float(2.0*float(math.pi*float(radius)*float(radius)))+float(circumference*float(height))
                     elif re.search("^\d+\.{0,1}\d*$", diameter):
                         radius = float(diameter)/2.0
                         circumference = float(2.0*math.pi*float(radius))
                         volume = float(height)*math.pi*float(radius)*float(radius)
-                        surfacearea = float(2.0*math.pi*float(radius)*float(height))+float(circumference*float(height))
+                        surfacearea = float(2.0*math.pi*float(radius)*float(radius))+float(circumference*float(height))
         if volume != "" and surfacearea != "":
             answer = "Volume: {} u³\nSurface Area: {} {}".format(volume, surfacearea, "u²" if surfacearea != "-" else "")
         setFinalResult(self, answer)
@@ -176,7 +180,7 @@ def Prism(self):
             self.he.grid(row=6, column=1, sticky="w")
             self.stuffToDelete.extend([self.s1t, self.s1e, self.s2t, self.s2e, self.s3t, self.s3e, self.baset, self.basee, self.heightt, self.heighte, self.ht, self.he])
         elif self.typebox.get() == "Cylinder":
-            self.infoLabel.config(text="Accepts Numerical Cross-Sectional Radius or Cross-Sectional Diameter")
+            self.infoLabel.config(text="Accepts Numerical Cross-Sectional Radius or Cross-Sectional Diameter, and Height")
             self.radt.grid(row=1, column=0, padx=2, sticky="e")
             self.rade.grid(row=1, column=1, sticky="w")
             self.diat.grid(row=2, column=0, padx=2, sticky="e")
@@ -464,14 +468,14 @@ def Pyramid(self):
                 radius = str(self.rade.get())
                 diameter = str(self.diae.get())
                 circumference = str(self.diae.get())
-                if ((True if str(type(re.search("^\+\.{0,1}\d*$", radius))) != "<class 'NoneType'>" else False) ^ (True if str(type(re.search("^\+\.{0,1}\d*$", diameter))) != "<class 'NoneType'>" else False) ^ (True if str(type(re.search("^\+\.{0,1}\d*$", circumference))) != "<class 'NoneType'>" else False)):
+                if ((True if str(type(re.search("^\d+\.{0,1}\d*$", radius))) != "<class 'NoneType'>" else False) ^ (True if str(type(re.search("^\d+\.{0,1}\d*$", diameter))) != "<class 'NoneType'>" else False) ^ (True if str(type(re.search("^\d+\.{0,1}\d*$", circumference))) != "<class 'NoneType'>" else False)):
                     if re.search("^\d+\.{0,1}\d*$", radius):
                         basearea = math.pi*float(radius)**2
                     elif re.search("^\d+\.{0,1}\d*$", diameter):
                         basearea = math.pi*float(float(diameter)/2.0)**2
                     elif re.search("^\d+\.{0,1}\d*$", circumference):
                         basearea = math.pi*float(float(float(circumference)/math.pi)/2.0)**2
-                # (True if str(type(re.search("^\+\.{0,1}\d*$", r))) != "<class 'NoneType'>" else False) ^ (True if str(type(re.search("^\d+\.{0,1}\d*$", c))
+                # (True if str(type(re.search("^\d+\.{0,1}\d*$", r))) != "<class 'NoneType'>" else False) ^ (True if str(type(re.search("^\d+\.{0,1}\d*$", c))
             if type(basearea) == float:
                 volume = (basearea * float(height))/3.0
         if volume != "":
