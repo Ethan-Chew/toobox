@@ -3,7 +3,14 @@ from chemlib import Compound
 
 def saltSolubilities(compound):
     try:
+        cmpd = compound
         validate = Compound(compound)
+        temp = validate.occurences
+        temp = list(temp.keys())
+        for val in temp:
+            cmpd = cmpd.replace(val, "")
+        if len(cmpd) > 0:
+            return "Not a Valid Compound. Please check your input."
     except:
         return "Not a Valid Compound. Please check your input."
     
@@ -30,7 +37,7 @@ def saltSolubilities(compound):
             return False
     # Check for Hydroxide and Oxide Salts
     elif "OH" in compound:
-        if compound == "NaOH" or compound == "KOH" or compound == "NH4OH" or compound == "Ca2OH":
+        if compound == "NaOH" or compound == "KOH" or compound == "NH4OH" or compound == "Ca2OH" or compound == "Na2O" or compound == "K2O" or compound == "(NH4)2O" or compound == "CaO":
             return True
         else:
             return False

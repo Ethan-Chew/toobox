@@ -101,7 +101,7 @@ topics = []
 
 class App(ttk.Frame):
     def __init__(self, parent):
-        self.notify("App Shortcuts for Toobox", "Use Command + R to go to the Home Screen and use Command + F to enter Full Screen, Escape Key to exit Full Screen.", "Boop")
+        self.notify("App Shortcuts for Toobox", "Use Control + H to go to the Home Screen and use Control + F to enter Full Screen, Escape Key to exit Full Screen.", "Boop")
         self.screenlist = []
         # aSecret :) hehehehe
         if config.aSecret:
