@@ -1,10 +1,8 @@
-import string
 
 import tkinter as tk
 from tkinter import ttk
 import re
 import math
-from tkinter.filedialog import dialogstates
 
 from sympy import root
 from tools import snake
@@ -919,6 +917,8 @@ def triangle(self):
                 ang.append("?")
             else:
                 try:
+                    if i.get().isalpha():
+                        raise Exception("lazy time")
                     ang.append(math.radians( calculator().sol( i.get())[0].num))
                 except Exception as e:
                     ang.append("?")
@@ -928,11 +928,14 @@ def triangle(self):
                 sid.append("?")
             else:
                 try:
+                    if i.get().isalpha():
+                        raise Exception("lazy time")
                     sid.append(calculator().sol( i.get())[0].num)
                 except Exception as e:
                     sid.append("?")
+        print(*sid,*ang)
         answ = areaCalculation.solve_triangle(*sid,*ang)
-        if answ != "not possible":
+        if type(answ) == list  :
             # it is correct.
             sida=answ[:3]
             anga=answ[3:-1]

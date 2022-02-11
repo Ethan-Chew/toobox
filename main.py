@@ -119,7 +119,7 @@ class App(ttk.Frame):
         self.resetSettingsSC()
         config.currentlySelected = "Home"
     def check_recently_opened(self):
-	file = open(jsonData)
+        file = open(jsonData)
         try:
             data = json.load(file)
             file.close()
