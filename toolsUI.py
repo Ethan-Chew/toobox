@@ -101,7 +101,7 @@ def Prism(self):
                         volume = float(height)*math.pi*float(radius)*float(radius)
                         surfacearea = float(2.0*math.pi*float(radius)*float(height))+float(circumference*float(height))
         if volume != "" and surfacearea != "":
-            answer = "Volume: {} u³\nSurface Area: {} u²".format(volume, surfacearea)
+            answer = "Volume: {} u³\nSurface Area: {} {}".format(volume, surfacearea, "u²" if surfacearea != "-" else "")
         setFinalResult(self, answer)
     self.thingFrame = self.addframe()
     self.thingFrame.pack(side="top", padx=25, pady=18, anchor="w")
@@ -430,6 +430,7 @@ def Pyramid(self):
         answer = "Ensure that all value(s) are/is numerical and/or fit the correct formats stated"
         height = str(self.he.get())
         basearea = ""
+        volume = ""
         if re.search("^\d+\.{0,1}\d*$", height):
             if self.typebox.get() == "Rectangular-Based Pyramid":
                 length = str(self.le.get())
@@ -469,8 +470,10 @@ def Pyramid(self):
                         basearea = math.pi*float(float(float(circumference)/math.pi)/2.0)**2
                 # (True if str(type(re.search("^\+\.{0,1}\d*$", r))) != "<class 'NoneType'>" else False) ^ (True if str(type(re.search("^\d+\.{0,1}\d*$", c))
             if type(basearea) == float:
-                answer = (basearea * float(height))/3.0
-        setFinalResult(self, " ".join([str(answer), "u²"]) if answer != "Ensure that all value(s) are/is numerical and/or fit the correct formats stated" else answer)
+                volume = (basearea * float(height))/3.0
+        if volume != "":
+            answer = "Volume: {} u³".format(volume)
+        setFinalResult(self, answer)
     self.thingFrame = self.addframe()
     self.thingFrame.pack(side="top", padx=25, pady=18, anchor="w")
     self.mainLabel = WrappingLabel(self.thingFrame, text="Pyramid Calculator", font=(font,int(fontMultiplier*50),'bold'))
@@ -565,7 +568,7 @@ def Pyramid(self):
     def setFinalResult(self, result):
         try: self.resultTxt.grid_forget()
         except: pass
-        self.resultTxt = WrappingLabel(self.mainFrame, text="Result:  {}".format(result), font=(font,int(fontMultiplier*20)))
+        self.resultTxt = WrappingLabel(self.mainFrame, text="Result:\n{}".format(result), font=(font,int(fontMultiplier*20)))
         self.resultTxt.grid(row=8,column=1,padx=2,columnspan=4, sticky="w")
         
 #granwyn
@@ -760,7 +763,8 @@ def calculate(self):
         self.resultTxt = WrappingLabel(self.mainFrame, text="Result:  {}".format(result), font=(font,int(fontMultiplier*20)))
         self.resultTxt.grid(row=3, columnspan = 2, sticky = tk.W+tk.E, padx=2)
 
-# Created by Ethan
+# Ethan
+# Some Granwyn
 def SolveQuad(self):
     # Input Data
     def getInputs(self):
@@ -791,7 +795,7 @@ def SolveQuad(self):
             self.resultTxt1 = WrappingLabel(self.mainFrame, text=result, font=(font,int(fontMultiplier*20)))
             self.resultTxt1.grid(row=3, columnspan = 2, sticky = tk.W+tk.E, padx=2)
         else:
-            self.resultTxt2 = WrappingLabel(self.mainFrame, text="Shape of Graph:  {}".format(result[1]), font=(font,int(fontMultiplier*20)))
+            self.resultTxt2 = WrappingLabel(self.mainFrame, text="Shape of Graph:  {}".format(result[4]), font=(font,int(fontMultiplier*20)))
             self.resultTxt2.grid(row=3, columnspan = 2, sticky = tk.W+tk.E, padx=2)
             self.resultTxt2 = WrappingLabel(self.mainFrame, text="Completed the Square:  {}".format(result[1]), font=(font,int(fontMultiplier*20)))
             self.resultTxt2.grid(row=4, columnspan = 2, sticky = tk.W+tk.E, padx=2)
@@ -801,7 +805,7 @@ def SolveQuad(self):
                 self.resultTxt1 = WrappingLabel(self.mainFrame, text="X-intercept/Root:  {}".format(result[0][0]), font=(font,int(fontMultiplier*20)))
                 self.resultTxt1.grid(row=6, columnspan = 2, sticky = tk.W+tk.E, padx=2)
             else:
-                self.resultTxt1 = WrappingLabel(self.mainFrame, text="X-intercepts/Roots:  {}, {}".format(result[0][0], result[0][1]), font=(font,int(fontMultiplier*20)))
+                self.resultTxt1 = WrappingLabel(self.mainFrame, text="X-intercepts/Roots:  ({}, 0), {}".format(result[0][0], result[0][1]), font=(font,int(fontMultiplier*20)))
                 self.resultTxt1.grid(row=6, columnspan = 2, sticky = tk.W+tk.E, padx=2)
             
             self.resultTxt4 = WrappingLabel(self.mainFrame, text="Y-intercept:  {}".format(result[3]), font=(font,int(fontMultiplier*20)))
@@ -816,6 +820,7 @@ def SolveQuad(self):
         except: pass
         
 #Jerick
+# Some Granwyn
 def simsolver(self,column=3):
     row=column-1
 

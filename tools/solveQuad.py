@@ -1,8 +1,9 @@
-# Created by Ethan Chew
+# Ethan
+# Some Granwyn
 def solveQuad(eqn):
     a, b, c = 0,0,0
     # Return Values
-    roots, completedSq, turningPoint, yIntercept = [], "", "", 0
+    shape, roots, completedSq, turningPoint, yIntercept = "", [], "", "", 0
 
     def validation(): # Validate User Input
         global a,b,c
@@ -38,6 +39,7 @@ def solveQuad(eqn):
         a,b,c = int(a),int(b),int(c)
 
     # Find x and y intercepts
+    shape = "Concave Downwards ∩" if a < 0 else ("Concave Upwards U" if a > 0 else "Linear")
     discriminant = ((b**2)-(4*a*c)) # Discriminant Formula (b^2 - 4ac)
     if discriminant < 0:
         roots.append("No Real Solution")
@@ -81,9 +83,9 @@ def solveQuad(eqn):
         temp.pop(0)
         temp.insert(0, "+")
         x = ''.join(temp)
-    completedSq = "(x{})^2{}".format(x, y)
+    completedSq = "(x{})²{}".format(x, y)
 
-    return roots, completedSq, turningPoint, yIntercept
+    return roots, completedSq, turningPoint, yIntercept, shape
 
 if __name__=="__main__":
     print(solveQuad("x^2+2x+8"))
