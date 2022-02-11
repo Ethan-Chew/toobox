@@ -114,22 +114,18 @@ class App(ttk.Frame):
         self.resetSettingsSC()
         config.currentlySelected = "Home"
     def check_recently_opened(self):
-        if os.path.exists(jsonData):
-            file = open(jsonData)
-            try:
-                data = json.load(file)
-                file.close()
-                if type(data["recentlyOpened"]) == list:
-                    return 
-            except Exception as e:
-                file.close()
-                file = open(jsonData, 'w')
-                json.dump({'fontMultiplier': float(1),'recentlyOpened': []}, file)
-                file.close()
-        else:
+	file = open(jsonData)
+        try:
+            data = json.load(file)
+            file.close()
+            if type(data["recentlyOpened"]) == list:
+                return 
+        except Exception as e:
+            file.close()
             file = open(jsonData, 'w')
             json.dump({'fontMultiplier': float(1),'recentlyOpened': []}, file)
             file.close()
+
     
     # Theme switching
     def change_theme(self):
