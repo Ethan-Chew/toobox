@@ -1204,7 +1204,8 @@ def SolveCircle(self,typ=0):
 def periodicTable(self):
     def getInputs(self):
         try:
-            text.pack_forget()
+            # text.pack_forget()
+            text.destroy()
         except: pass
         self.resFrame.destroy()
         self.resFrame = self.addframe(self.mainFrame)

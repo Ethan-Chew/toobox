@@ -121,7 +121,8 @@ class App(ttk.Frame):
         config.currentlySelected = "Home"
     def getInputs(self, event):
         try:
-            text.pack_forget()
+            # text.pack_forget()
+            text.destroy()
         except: pass
         self.resFrame.destroy()
         self.resFrame = self.addframe(self.mainFrame)
