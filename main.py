@@ -15,6 +15,7 @@ from toolsUI import *
 from components.wrappedLabel import WrappingLabel
 import os
 import webbrowser
+import tools.periodicTable as pt
 
 # Path of the different Filed
 ROOTDIR, _ =os.path.split(os.path.abspath(os.path.realpath(__file__)))
@@ -118,6 +119,159 @@ class App(ttk.Frame):
         self.goHome()
         # self.resetSettingsSC()
         config.currentlySelected = "Home"
+    def getInputs(self, event):
+        try:
+            text.pack_forget()
+        except: pass
+        self.resFrame.destroy()
+        self.resFrame = self.addframe(self.mainFrame)
+        e = self.inputField.get().replace(" ", "")
+        l=pt.search(e)[:6]
+        newf=self.addframe(self.resFrame,borderwidth=1)
+
+        if len(l) > 0: 
+            temp=WrappingLabel(newf, text="Atomic Number", font=(font,int(fontMultiplier*10)))
+            temp.grid(row=0, column=0, sticky = tk.N+tk.E, padx=2)
+
+            temp=WrappingLabel(newf, text="Mass Number", font=(font,int(fontMultiplier*10)))
+            temp.grid(row=1, column=0, sticky = tk.N+tk.E, padx=2)
+
+            temp=WrappingLabel(newf, text="Period"+", "+"Group", font=(font,int(fontMultiplier*10)))
+            temp.grid(row=2, column=0, sticky = tk.N+tk.E, padx=2)
+
+            temp=WrappingLabel(newf, text="Symbol", font=(font,int(fontMultiplier*15), 'bold'))
+            temp.grid(row=3, column=0, sticky = tk.N+tk.E, padx=2)
+
+            temp=WrappingLabel(newf, text="Element", font=(font,int(fontMultiplier*12), 'bold'))
+            temp.grid(row=4, column=0, sticky = tk.N+tk.E, padx=2)
+
+            temp=WrappingLabel(newf, text="Atomic Mass" , font=(font,int(fontMultiplier*10)))
+            temp.grid(row=5, column=0, sticky = tk.N+tk.E, padx=2)
+
+            temp=WrappingLabel(newf, text=", ".join(["Protons","Neutrons","Electrons"]), font=(font,int(fontMultiplier*10)))
+            temp.grid(row=6, column=0, sticky = tk.N+tk.E, padx=2)
+
+            temp=WrappingLabel(newf, text="Atomic Radius" , font=(font,int(fontMultiplier*10)))
+            temp.grid(row=7, column=0, sticky = tk.N+tk.E, padx=2)
+
+            temp=WrappingLabel(newf, text="Electron Shells" , font=(font,int(fontMultiplier*10)))
+            temp.grid(row=8, column=0, sticky = tk.N+tk.E, padx=2)
+
+            temp=WrappingLabel(newf, text="Valence Electrons" , font=(font,int(fontMultiplier*10)))
+            temp.grid(row=9, column=0, sticky = tk.N+tk.E, padx=2)
+
+            temp=WrappingLabel(newf, text="Electronic Configuration" , font=(font,int(fontMultiplier*10)))
+            temp.grid(row=10, column=0, sticky = tk.N+tk.E, padx=2)
+
+            temp=WrappingLabel(newf, text="Isotopes" , font=(font,int(fontMultiplier*10)))
+            temp.grid(row=11, column=0, sticky = tk.N+tk.E, padx=2)
+
+            temp=WrappingLabel(newf, text=" ".join(["[{}]".format("Phase"), ", ".join(["Melting Point", "Boiling Point"])]), font=(font,int(fontMultiplier*10)))
+            temp.grid(row=12, column=0, sticky = tk.N+tk.E, padx=2)
+
+            temp=WrappingLabel(newf, text="Type" , font=(font,int(fontMultiplier*10)))
+            temp.grid(row=13, column=0, sticky = tk.N+tk.E, padx=2)
+
+            temp=WrappingLabel(newf, text="Radioactive" , font=(font,int(fontMultiplier*10)))
+            temp.grid(row=14, column=0, sticky = tk.N+tk.E, padx=2)
+
+            temp=WrappingLabel(newf, text="Natural" , font=(font,int(fontMultiplier*10)))
+            temp.grid(row=15, column=0, sticky = tk.N+tk.E, padx=2)
+
+            temp=WrappingLabel(newf, text="Density" , font=(font,int(fontMultiplier*10)))
+            temp.grid(row=16, column=0, sticky = tk.N+tk.E, padx=2)
+
+            temp=WrappingLabel(newf, text="Electronegativity" , font=(font,int(fontMultiplier*10)))
+            temp.grid(row=17, column=0, sticky = tk.N+tk.E, padx=2)
+
+            temp=WrappingLabel(newf, text="First Ionisation Energy" , font=(font,int(fontMultiplier*10)))
+            temp.grid(row=18, column=0, sticky = tk.N+tk.E, padx=2)
+
+            temp=WrappingLabel(newf, text="Specific Heat Capacity / J⋅kg⁻¹⋅K⁻¹" , font=(font,int(fontMultiplier*10)))
+            temp.grid(row=19, column=0, sticky = tk.N+tk.E, padx=2)
+
+            temp=WrappingLabel(newf, text="Discovered" , font=(font,int(fontMultiplier*10)))
+            temp.grid(row=20, column=0, sticky = tk.N+tk.E, padx=2)
+
+            newf.grid(row=0, column=0, sticky = tk.N+tk.E, padx=2)
+
+            r=1
+            for i in l:
+                newf=self.addframe(self.resFrame,borderwidth=1)
+                
+                temp=WrappingLabel(newf, text=int(pt.ELEMENTDATA["AtomicNumber"][i]), font=(font,int(fontMultiplier*10)))
+                temp.grid(row=0, column=0, sticky = tk.N+tk.W, padx=2)
+                temp=WrappingLabel(newf, text=str(int(pt.ELEMENTDATA["MassNumber"][i])), font=(font,int(fontMultiplier*10)))
+                temp.grid(row=1, column=0, sticky = tk.N+tk.W, padx=2)
+
+                temp=WrappingLabel(newf, text=str(int(pt.ELEMENTDATA["Period"][i]))+", "+str(int(pt.ELEMENTDATA["Group"][i])), font=(font,int(fontMultiplier*10)))
+                temp.grid(row=2, column=0, sticky = tk.N+tk.W, padx=2)
+
+                temp=WrappingLabel(newf, text=str(pt.ELEMENTDATA["Symbol"][i]), font=(font,int(fontMultiplier*15), 'bold'))
+                temp.grid(row=3, column=0, sticky = tk.N+tk.W, padx=2)
+
+                temp=WrappingLabel(newf, text=str(pt.ELEMENTDATA["Element"][i]), font=(font,int(fontMultiplier*12), 'bold'))
+                temp.grid(row=4, column=0, sticky = tk.N+tk.W, padx=2)
+                
+                temp=WrappingLabel(newf, text=str(pt.ELEMENTDATA["AtomicMass"][i]) , font=(font,int(fontMultiplier*10)))
+                temp.grid(row=5, column=0, sticky = tk.N+tk.W, padx=2)
+
+                temp=WrappingLabel(newf, text=", ".join([str(int(pt.ELEMENTDATA[j][i])) for j in ["Protons","Neutrons","Electrons"]]), font=(font,int(fontMultiplier*10)))
+                temp.grid(row=6, column=0, sticky = tk.N+tk.W, padx=2)
+
+                temp=WrappingLabel(newf, text=str(pt.ELEMENTDATA["AtomicRadius"][i]).title(), font=(font,int(fontMultiplier*10)))
+                temp.grid(row=7, column=0, sticky = tk.N+tk.W, padx=2)
+
+                temp=WrappingLabel(newf, text=str(int(pt.ELEMENTDATA["Shells"][i])).title(), font=(font,int(fontMultiplier*10)))
+                temp.grid(row=8, column=0, sticky = tk.N+tk.W, padx=2)
+
+                temp=WrappingLabel(newf, text=str(int(pt.ELEMENTDATA["Valence"][i])).title(), font=(font,int(fontMultiplier*10)))
+                temp.grid(row=9, column=0, sticky = tk.N+tk.W, padx=2)
+
+                temp=WrappingLabel(newf, text=str(pt.ELEMENTDATA["Config"][i]), font=(font,int(fontMultiplier*10)))
+                temp.grid(row=10, column=0, sticky = tk.N+tk.W, padx=2)
+
+                iso = str(pt.ELEMENTDATA["Isotopes"][i])
+                temp=WrappingLabel(newf, text=str(int(float(iso))) if iso.replace('.','',1).isdigit() else "-", font=(font,int(fontMultiplier*10)))
+                temp.grid(row=11, column=0, sticky = tk.N+tk.W, padx=2)
+
+                temp=WrappingLabel(newf, text=" ".join(["[{}]".format(str(pt.ELEMENTDATA["Phase"][i]).title()), ", ".join([str(pt.ELEMENTDATA["MeltingPoint"][i]).title()+"K", str(pt.ELEMENTDATA["BoilingPoint"][i]).title()+"K"])]), font=(font,int(fontMultiplier*10)))
+                temp.grid(row=12, column=0, sticky = tk.N+tk.W, padx=2)
+
+                temp=WrappingLabel(newf, text=str(pt.ELEMENTDATA["Type"][i]).title(), font=(font,int(fontMultiplier*10)))
+                temp.grid(row=13, column=0, sticky = tk.N+tk.W, padx=2)
+
+                temp=WrappingLabel(newf, text="Yes" if pt.ELEMENTDATA["Radioactive"][i] else "No", font=(font,int(fontMultiplier*10)))
+                temp.grid(row=14, column=0, sticky = tk.N+tk.W, padx=2)
+
+                temp=WrappingLabel(newf, text="Yes" if pt.ELEMENTDATA["Natural"][i] else "No", font=(font,int(fontMultiplier*10)))
+                temp.grid(row=15, column=0, sticky = tk.N+tk.W, padx=2)
+
+                temp=WrappingLabel(newf, text=str(pt.ELEMENTDATA["Density"][i]).title(), font=(font,int(fontMultiplier*10)))
+                temp.grid(row=16, column=0, sticky = tk.N+tk.W, padx=2)
+
+                e = str(pt.ELEMENTDATA["Electronegativity"][i]).title()
+                temp=WrappingLabel(newf, text=e if e.replace('.','',1).isdigit() else "-", font=(font,int(fontMultiplier*10)))
+                temp.grid(row=17, column=0, sticky = tk.N+tk.W, padx=2)
+
+                temp=WrappingLabel(newf, text=str(pt.ELEMENTDATA["FirstIonization"][i]).title(), font=(font,int(fontMultiplier*10)))
+                temp.grid(row=18, column=0, sticky = tk.N+tk.W, padx=2)
+
+                temp=WrappingLabel(newf, text=str(pt.ELEMENTDATA["SpecificHeat"][i]).title(), font=(font,int(fontMultiplier*10)))
+                temp.grid(row=19, column=0, sticky = tk.N+tk.W, padx=2)
+
+                temp=WrappingLabel(newf, text=", ".join([str(pt.ELEMENTDATA["Discoverer"][i]).title(), str(pt.ELEMENTDATA["Year"][i]).title()]), font=(font,int(fontMultiplier*10)))
+                temp.grid(row=20, column=0, sticky = tk.N+tk.W, padx=2)
+
+                newf.grid(row=0, column=r, sticky = tk.N, padx=2)
+                r+=1
+        else:
+            text = WrappingLabel(self.mainFrame, text="Invalid Input. Please use an actual letter and number found in the Periodic Table.", font=(font,int(fontMultiplier*14)))
+            text.grid(row=1, column=0, padx=2,pady=2, sticky = tk.W+tk.E, columnspan=5)
+                
+        # self.resFrame.grid(row=1, column=len(l)+1, rowspan=10, columnspan=10, padx=2)
+        self.resFrame.grid(row=1, column=0, rowspan=len(l)+1, columnspan=10, padx=2)
+        
     def check_recently_opened(self):
         file = open(jsonData)
         try:
@@ -193,6 +347,13 @@ class App(ttk.Frame):
     ## Reset Settings
     # def resetSettingsSC(self):
     #     root.bind("<Control-`>", self.resetSettings)
+
+    def periodicTableScreen(self, yes):
+        if yes:
+            root.bind("<Return>", self.getInputs)
+        else:
+            root.bind("<Return>", (lambda e: self.periodicTableScreen(False)))
+            root.unbind_all('<Return>')
 
     def removeSelectedTreeView(self):
         config.currentlySelected = "Home"
@@ -344,6 +505,7 @@ class App(ttk.Frame):
     def on_tree_select(self, event):
         try: 
             self.run_func(self.treeview.item(self.treeview.selection()[0])['text'])
+            self.periodicTableScreen(self.treeview.item(self.treeview.selection()[0])['text'] == "Periodic Table")
         except: pass
 
     # Function to create a screen to our default parameters

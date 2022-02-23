@@ -1373,6 +1373,7 @@ def periodicTable(self):
     self.sendData.grid(row=0, column=1, padx=2, sticky = tk.W)
     self.resFrame = ttk.Frame(self.mainFrame)
     self.resFrame.grid(row=1, column=0, rowspan=10, columnspan=10, padx=2)
+
 # Ethan, Granwyn
 def Settings(self):
     # Font Multiplier
