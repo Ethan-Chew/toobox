@@ -1204,7 +1204,7 @@ def SolveCircle(self,typ=0):
 def periodicTable(self):
     def getInputs(self):
         try:
-            # text.pack_forget()
+            text.grid_forget()
             text.destroy()
         except: pass
         self.resFrame.destroy()
@@ -1350,7 +1350,7 @@ def periodicTable(self):
                 newf.grid(row=0, column=r, sticky = tk.N, padx=2)
                 r+=1
         else:
-            text = WrappingLabel(self.mainFrame, text="Invalid Input. Please use an actual letter and number found in the Periodic Table.", font=(font,int(fontMultiplier*14)))
+            text = WrappingLabel(self.mainFrame, text="Invalid Input. Please enter a valid Symbol, Element Name, Symbol, Atomic Number, or Number of Electrons, Protons or Neutrons.", font=(font,int(fontMultiplier*14)))
             text.grid(row=1, column=0, padx=2,pady=2, sticky = tk.W+tk.E, columnspan=5)
                 
         # self.resFrame.grid(row=1, column=len(l)+1, rowspan=10, columnspan=10, padx=2)

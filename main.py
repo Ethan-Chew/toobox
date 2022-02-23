@@ -121,7 +121,7 @@ class App(ttk.Frame):
         config.currentlySelected = "Home"
     def getInputs(self, event):
         try:
-            # text.pack_forget()
+            text.grid_forget()
             text.destroy()
         except: pass
         self.resFrame.destroy()
@@ -130,7 +130,7 @@ class App(ttk.Frame):
         l=pt.search(e)[:6]
         newf=self.addframe(self.resFrame,borderwidth=1)
 
-        if len(l) > 0: 
+        if len(l) > 0:
             temp=WrappingLabel(newf, text="Atomic Number", font=(font,int(fontMultiplier*10)))
             temp.grid(row=0, column=0, sticky = tk.N+tk.E, padx=2)
 
@@ -267,7 +267,7 @@ class App(ttk.Frame):
                 newf.grid(row=0, column=r, sticky = tk.N, padx=2)
                 r+=1
         else:
-            text = WrappingLabel(self.mainFrame, text="Invalid Input. Please use an actual letter and number found in the Periodic Table.", font=(font,int(fontMultiplier*14)))
+            text = WrappingLabel(self.mainFrame, text="Invalid Input. Please enter a valid Symbol, Element Name, Symbol, Atomic Number, or Number of Electrons, Protons or Neutrons.", font=(font,int(fontMultiplier*14)))
             text.grid(row=1, column=0, padx=2,pady=2, sticky = tk.W+tk.E, columnspan=5)
                 
         # self.resFrame.grid(row=1, column=len(l)+1, rowspan=10, columnspan=10, padx=2)
