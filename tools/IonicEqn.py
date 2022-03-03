@@ -25,7 +25,7 @@ def ionicEqn(equation):
             return "Format Err"
         if "aq" not in equation:
             return "No aq"
-
+        
     validationOutcome = validate()
     if validationOutcome == "Format Err":
         return "Invalid Equation Format, please follow the format stated."
@@ -35,6 +35,49 @@ def ionicEqn(equation):
         splittedEqn = equation.split(" -> ")
         reactantEqn = splittedEqn[0].split(" ")
         productEqn = splittedEqn[1].split(" ")
+
+        uniqueProdElements, uniqueReacElements = [], []
+
+        for product in productEqn:
+            prod = ""
+            if "(aq" in product:
+                prod = product.split("(aq")[0]
+            elif "(g" in product:
+                prod = product.split("(g")[0]
+            elif "(s" in product:
+                prod = product.split("(s")[0]
+            elif "(l" in product:
+                prod = product.split("(l")[0]
+            
+            if prod != "+" and prod != " " and prod != "":
+                prodOccurances = Compound(prod).occurences
+                prodOccurances = list(prodOccurances.keys())
+            for element in prodOccurances:
+                if element not in uniqueProdElements:
+                    uniqueProdElements.append(element)
+        for reactant in reactantEqn:
+            reac = ""
+            if "(aq" in product:
+                reac = product.split("(aq")[0]
+            elif "(g" in product:
+                reac = product.split("(g")[0]
+            elif "(s" in product:
+                reac = product.split("(s")[0]
+            elif "(l" in product:
+                reac = product.split("(l")[0]
+            
+            if prod != "+" and prod != " " and prod != "":
+                reacOccurances = Compound(reac).occurences
+                reacOccurances = list(reacOccurances.keys())
+            for element in reacOccurances:
+                if element not in uniqueReacElements:
+                    uniqueReacElements.append(element)
+        for i in uniqueProdElements:
+            if i not in uniqueReacElements:
+                return "Invalid Equation Format, there might be a unique element on one side of the equation."
+        for i in uniqueReacElements:
+            if i not in uniqueProdElements:
+                return "Invalid Equation Format, there might be a unique element on one side of the equation."
 
     ## Functions
     ### Find the Charge of an Element
@@ -161,3 +204,5 @@ def ionicEqn(equation):
         return ionicEquation
     except:
         return "Unknown Error. Please try again."
+
+print(ionicEqn("H2O2(aq) -> H2O(l) + K2(g)"))
