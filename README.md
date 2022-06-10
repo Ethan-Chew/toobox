@@ -1,6 +1,6 @@
 # Toobox
-
-Toobox of different tools to help in your Academics
+---
+Ever gotten stuck on a piece of homework, unsure if your answers to the questions were accurate? Fear not, for Toolbox is just the app to help you with just that. Toolbox is an all-in-one app that has a myriad of different tools for 2 major subjects, Chemistry and Mathematics, and best of all, Toobox does not need an active WiFi connection to function. The tools Toobox offers range from a Chemical Equation Balancer and an Ionic Equation Balancer to a calculator and a Simultaneous Equation Solver, and much much more; so you have everything you need to excel in your secondary school education.
 
 ## Set-Up Process
 
@@ -43,4 +43,18 @@ Toobox includes various keybinds to help make your life easier
 3. matplotlib
 4. sun-valley Theme for tkinker
 
+## App Showcase
+### Home Screen
+[Home Screen (Light)](src/appscreenshots/HomeScreenLight.png)
+[Home Screen (Dark)](src/appscreenshots/HomeScreenDark.png)
+### Tool Example 1 (Periodic Table)
+[Periodic Tablen (Light)](src/appscreenshots/PeriodicTableLight.png)
+[Periodic Table (Dark)](src/appscreenshots/PeriodicTableDark.png)
+
+### Tool Example 2 (Chemical Equation Balancer)
+[Chemical Equation Balancer (Light)](src/appscreenshots/BalancerLight.png)
+[Chemical Equation Balancer (Dark)](src/appscreenshots/BalancerDark.png)
+
+**Disclaimer: Toobox was built with MacOS, it HAS NOT been tested on other Operating Systems.**  
 ###### Developed with ❤️ by [Granwyn Tan](https://granwyntan.github.io), [Ethan Chew](https://www.ethanchew.com), [Jerick Seng](https://jer123se12.github.io) for our Computing+ Coursework
+###### To see more, click [here](https://sites.google.com/sst.edu.sg/cp-coursework-gallery/2022/toobox)
