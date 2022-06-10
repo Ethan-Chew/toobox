@@ -45,15 +45,15 @@ Toobox includes various keybinds to help make your life easier
 
 ## App Showcase
 ### Home Screen
-[Home Screen (Light)](src/appscreenshots/HomeScreenLight.png)
-[Home Screen (Dark)](src/appscreenshots/HomeScreenDark.png)
+[Home Screen (Light)](src/appscreenshots/HomeScreenLight.png?raw=true)
+[Home Screen (Dark)](src/appscreenshots/HomeScreenDark.png?raw=true)
 ### Tool Example 1 (Periodic Table)
-[Periodic Tablen (Light)](src/appscreenshots/PeriodicTableLight.png)
-[Periodic Table (Dark)](src/appscreenshots/PeriodicTableDark.png)
+[Periodic Tablen (Light)](src/appscreenshots/PeriodicTableLight.png?raw=true)
+[Periodic Table (Dark)](src/appscreenshots/PeriodicTableDark.png?raw=true)
 
 ### Tool Example 2 (Chemical Equation Balancer)
-[Chemical Equation Balancer (Light)](src/appscreenshots/BalancerLight.png)
-[Chemical Equation Balancer (Dark)](src/appscreenshots/BalancerDark.png)
+[Chemical Equation Balancer (Light)](src/appscreenshots/BalancerLight.png?raw=true)
+[Chemical Equation Balancer (Dark)](src/appscreenshots/BalancerDark.png?raw=true)
 
 **Disclaimer: Toobox was built with MacOS, it HAS NOT been tested on other Operating Systems.**  
 ###### Developed with ❤️ by [Granwyn Tan](https://granwyntan.github.io), [Ethan Chew](https://www.ethanchew.com), [Jerick Seng](https://jer123se12.github.io) for our Computing+ Coursework
