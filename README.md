@@ -48,6 +48,7 @@ Toobox includes various keybinds to help make your life easier
 ### Home Screen
 <img src="src/appscreenshots/HomeScreenLight.png" alt="Home Screen (Light">  
 <img src="src/appscreenshots/HomeScreenDark.png" alt="Home Screen (Dark)">
+
 ### Tool Example 1 (Periodic Table)
 <img src="src/appscreenshots/PeriodicTableLight.png" alt="Periodic Table (Light)">
 <img src="src/appscreenshots/PeriodicTableDark.png" alt="Periodic Table (Dark)">
