@@ -46,15 +46,15 @@ Toobox includes various keybinds to help make your life easier
 
 ## App Showcase
 ### Home Screen
-[Home Screen (Light)](src/appscreenshots/HomeScreenLight.png?raw=true)  
-[Home Screen (Dark)](src/appscreenshots/HomeScreenDark.png?raw=true)
+<img src="src/appscreenshots/HomeScreenLight.png" alt="Home Screen (Light">  
+<img src="src/appscreenshots/HomeScreenDark.png" alt="Home Screen (Dark)">
 ### Tool Example 1 (Periodic Table)
-[Periodic Tablen (Light)](src/appscreenshots/PeriodicTableLight.png?raw=true)  
-[Periodic Table (Dark)](src/appscreenshots/PeriodicTableDark.png?raw=true)
+<img src="src/appscreenshots/PeriodicTableLight.png" alt="Periodic Table (Light)">
+<img src="src/appscreenshots/PeriodicTableDark.png" alt="Periodic Table (Dark)">
 
 ### Tool Example 2 (Chemical Equation Balancer)
-[Chemical Equation Balancer (Light)](src/appscreenshots/BalancerLight.png?raw=true)  
-[Chemical Equation Balancer (Dark)](src/appscreenshots/BalancerDark.png?raw=true)
+<img src="src/appscreenshots/BalancerLight.png" alt="Chemical Equation Balancer (Light)">
+<img src="src/appscreenshots/BalancerDark.png" alt="Chemical Equation Balancer (Dark)">
 
 ###### Developed with ❤️ by [Granwyn Tan](https://granwyntan.github.io), [Ethan Chew](https://www.ethanchew.com), [Jerick Seng](https://jer123se12.github.io) for our Computing+ Coursework
 ###### To see more, click [here](https://sites.google.com/sst.edu.sg/cp-coursework-gallery/2022/toobox)
