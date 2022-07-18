@@ -1,7 +1,7 @@
 # Toobox
 Ever gotten stuck on a piece of homework, unsure if your answers to the questions were accurate? Fear not, for Toolbox is just the app to help you with just that. Toolbox is an all-in-one app that has a myriad of different tools for 2 major subjects, Chemistry and Mathematics, and best of all, Toobox does not need an active WiFi connection to function. The tools Toobox offers range from a Chemical Equation Balancer and an Ionic Equation Balancer to a calculator and a Simultaneous Equation Solver, and much much more; so you have everything you need to excel in your secondary school education.
 
-**Disclaimer: Toobox was built with MacOS, it HAS NOT been tested on other Operating Systems.**  
+**Disclaimer: Toobox was built with MacOS, it currently WILL NOT WORK on other Operating Systems.**  
 
 ## Set-Up Process
 
